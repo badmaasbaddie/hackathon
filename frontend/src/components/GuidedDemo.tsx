@@ -57,15 +57,15 @@ export const GuidedDemo: React.FC<GuidedDemoProps> = ({ language, currentUser, o
     {
       user: 'ramesh', who: t('मरीज़ - रमेश', 'Patient - Ramesh'),
       title: t('अस्पताल की तैयारी देखकर बुकिंग', 'Check hospital readiness, then book'),
-      show: t('नक्शे और कार्ड पर दिखता है कि पौड CHC में अल्ट्रासाउंड नहीं है और अम्लोडिपिन खत्म है - जाने से पहले। बुकिंग पर टोकन मिलता है और फोन पर SMS आता है (टैब 1)।',
-        'The map and cards show Paud CHC has no ultrasound and is out of Amlodipine - before he travels. Booking gives a token and an SMS arrives on his phone (tab 1).'),
+      show: t('नक्शे और कार्ड पर दिखता है कि पौड CHC में अल्ट्रासाउंड नहीं है और अम्लोडिपिन खत्म है - जाने से पहले। बुकिंग पर टोकन मिलता है और यह उनके स्वास्थ्य रिकॉर्ड में दिखता है।',
+        'The map and cards show Paud CHC has no ultrasound and is out of Amlodipine - before he travels. Booking gives a token that appears in his health record.'),
       actions: [{ action: 'book', reason: say('सीने में भारीपन - बीपी जांच', 'छातीत जडपणा - रक्तदाब तपासणी', 'Chest heaviness - BP review') }],
     },
     {
       user: 'dr_deshmukh', who: t('डॉक्टर - डॉ. देशमुख', 'Doctor - Dr. Deshmukh'),
       title: t('परामर्श, स्टॉक जांच के साथ', 'Consultation with a live stock check'),
-      show: t('डॉक्टर अपनी कतार और AI इनटेक सारांश देखते हैं। अम्लोडिपिन पर स्टॉक चेतावनी आती है, अल्ट्रासाउंड रेफ़रल बनता है, 7 दिन का फॉलो-अप और SMS रिमाइंडर तय होता है।',
-        'The doctor sees his own queue and the AI intake summary. Amlodipine gets a stock warning, ultrasound becomes a referral, and a 7-day follow-up with SMS reminder is scheduled.'),
+      show: t('डॉक्टर अपनी कतार और AI इनटेक सारांश देखते हैं। अम्लोडिपिन पर स्टॉक चेतावनी आती है, अल्ट्रासाउंड रेफ़रल बनता है, 7 दिन का फॉलो-अप और रिमाइंडर तय होता है।',
+        'The doctor sees his own queue and the AI intake summary. Amlodipine gets a stock warning, ultrasound becomes a referral, and a 7-day follow-up with a reminder is scheduled.'),
       actions: [{ action: 'consult' }],
     },
     {
@@ -78,8 +78,8 @@ export const GuidedDemo: React.FC<GuidedDemoProps> = ({ language, currentUser, o
     {
       user: 'asha_kavita', who: t('आशा - कविता ताई', 'ASHA - Kavita Tai'),
       title: t('छूटा फॉलो-अप → घर भ्रमण', 'Missed follow-up → home visit'),
-      show: t('सुनीता देवी का फॉलो-अप छूट गया था; सिस्टम ने अपने आप आशा को कार्य दिया। कविता ताई घर भ्रमण दर्ज करती हैं और मरीज़ को SMS जाता है।',
-        'Sunita Devi missed her follow-up, so the system automatically created a task for her ASHA. Kavita Tai records the home visit and the patient gets an SMS.'),
+      show: t('सुनीता देवी का फॉलो-अप छूट गया था; सिस्टम ने अपने आप आशा को कार्य दिया। कविता ताई घर भ्रमण दर्ज करती हैं और फॉलो-अप पूरा हो जाता है।',
+        'Sunita Devi missed her follow-up, so the system automatically created a task for her ASHA. Kavita Tai records the home visit and the follow-up is marked complete.'),
       actions: [{ action: 'visit', notes: 'Visited at home. Random blood sugar 164 mg/dL. Missed review because there was no bus; arranged to accompany her to the CHC tomorrow.' }],
     },
     {

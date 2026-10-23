@@ -3,7 +3,7 @@ import {
   DiagnosticOrder, FollowUpPlan, HealthWorkerTask, CareTimelineEvent,
   AdminMetrics, User, ChatTurn, ChatResponse, PatientRecord, RegisterPayload,
   Doctor, FacilityManage, FacilityService, InventoryItem, ScheduleSlot,
-  AdminActivity, FamilyMember, AuditEvent, Lang, NotificationItem, CareTeamMember
+  AdminActivity, FamilyMember, AuditEvent, Lang, CareTeamMember
 } from '../types';
 import { getOfflineMode, enqueueOfflineAction } from './offlineQueue';
 
@@ -78,7 +78,6 @@ export const api = {
   addFamilyMember: (m: Omit<FamilyMember, 'id'>) => send<FamilyMember>('POST', '/patients/me/family', m),
   getCareTeam: () => get<CareTeamMember[]>('/patients/me/care-team'),
   setConsent: (userId: number, granted: boolean) => send<CareTeamMember[]>('PUT', '/patients/me/consents', { user_id: userId, granted }),
-  getMyNotifications: () => get<NotificationItem[]>('/notifications/me'),
   getPatients: (village?: string) => get<Patient[]>(`/patients${qs({ village })}`),
   getPatient: (id: number) => get<Patient>(`/patients/${id}`),
   getPatientRecord: (id: number) => get<PatientRecord>(`/patients/${id}/record`),

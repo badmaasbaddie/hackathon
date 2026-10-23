@@ -10,7 +10,6 @@ import {
   Activity, Info, Pill, FileText, Calendar, Bell, Users, Stethoscope, XCircle, Volume2, VolumeX
 } from 'lucide-react';
 import { FacilityMap } from './FacilityMap';
-import { SmsPhone } from './SmsPhone';
 import { PrivacyPanel } from './PrivacyPanel';
 import { speak, stopSpeaking, canSpeak } from '../utils/speech';
 
@@ -505,8 +504,6 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                 </div>
               ))}
             </div>
-
-            <SmsPhone language={language} />
 
             <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 space-y-3">
               <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">

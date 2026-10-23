@@ -170,12 +170,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language, user }
           <h3 className="text-base font-bold">{t('इस डेमो में प्रभाव', 'Impact in this demo')}</h3>
           <p className="text-xs text-teal-100">{t('हर संख्या प्लेटफ़ॉर्म पर दर्ज वास्तविक घटनाओं से गिनी गई है।', 'Every number is counted from events recorded on the platform.')}</p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
             { label: t('छूटे फॉलो-अप फिर से जुड़े', 'Missed follow-ups recovered'), value: activity?.impact.missed_follow_ups_recovered, note: t('आशा घर भ्रमण से', 'via ASHA home visits') },
             { label: t('आपात स्थिति में 112 की सलाह', 'Emergencies sent to 112'), value: activity?.impact.emergencies_directed_to_112, note: t('LLM से पहले, तुरंत', 'instantly, before any LLM') },
             { label: t('बेकार यात्राएं टलीं', 'Wasted trips avoided'), value: activity?.impact.wasted_trips_avoided, note: t('जांच/दवा न होने की पहले से जानकारी', 'test or medicine unavailable, known in advance') },
-            { label: t('SMS भेजे गए', 'SMS sent'), value: activity?.impact.sms_reminders_sent, note: t('पुष्टि और रिमाइंडर', 'confirmations & reminders') },
             { label: t('सहमति वापसी का पालन', 'Consent withdrawals honoured'), value: activity?.impact.consent_withdrawals_honoured, note: t('मरीज़ का नियंत्रण', 'patient in control') },
           ].map(k => (
             <div key={k.label} className="bg-white/10 rounded-xl p-3 border border-white/10">

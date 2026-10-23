@@ -69,7 +69,7 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language, user }) => {
       setSelectedTask(null);
       await loadData();
       setNotice(res
-        ? t('घर भ्रमण दर्ज किया गया। फॉलो-अप रिकॉर्ड अपडेट हो गया और मरीज़ को SMS भेजा गया।', 'Home visit recorded. The follow-up record has been updated and the patient was sent an SMS.')
+        ? t('घर भ्रमण दर्ज किया गया। फॉलो-अप रिकॉर्ड अपडेट हो गया।', 'Home visit recorded. The follow-up record has been updated.')
         : t('आप ऑफ़लाइन हैं - भ्रमण सहेजा गया है, कनेक्शन आने पर Sync करें।', 'You are offline - the visit is saved on this device. Use Sync in the top bar when back online.'));
       window.dispatchEvent(new Event('swasthyasetu-data-changed'));
     } catch (err: any) {

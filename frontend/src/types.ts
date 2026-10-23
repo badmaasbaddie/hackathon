@@ -352,15 +352,6 @@ export interface AdminActivity {
 
 export type Lang = 'hi' | 'en' | 'mr';
 
-export interface NotificationItem {
-  id: number;
-  title: string;
-  message: string;
-  notification_type: string;
-  is_read: boolean;
-  created_at: string;
-}
-
 export interface CareTeamMember {
   user_id: number;
   name: string;
@@ -374,6 +365,5 @@ export interface ImpactMetrics {
   missed_follow_ups_recovered: number;
   emergencies_directed_to_112: number;
   wasted_trips_avoided: number;
-  sms_reminders_sent: number;
   consent_withdrawals_honoured: number;
 }

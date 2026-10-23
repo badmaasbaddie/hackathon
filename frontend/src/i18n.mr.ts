@@ -146,8 +146,6 @@ export const MR: Record<string, string> = {
   'Text-to-speech is not supported in this browser.': 'या ब्राउझरमध्ये मोठ्याने वाचण्याची सोय नाही.',
   'No voice for this language is installed in this browser.':
     'या ब्राउझरमध्ये मराठी किंवा हिंदी आवाज इन्स्टॉल नाही, म्हणून तो मराठी वाचू शकत नाही. ॲप Microsoft Edge मध्ये उघडा (मराठी आणि हिंदी आवाज आधीच आहेत) किंवा Google Chrome मध्ये (हिंदी), किंवा Windows सेटिंग्ज > भाषा मध्ये हिंदी स्पीच पॅक जोडा.',
-  'SMS on your phone (demo)': 'तुमच्या फोनवरील SMS (डेमो)',
-  'No messages yet': 'अजून संदेश नाहीत',
   'Who can see my health record': 'माझे आरोग्य रेकॉर्ड कोण पाहू शकते',
   'You decide which doctors and ASHA workers can open your record. Changes take effect immediately and are recorded.':
     'तुमचे रेकॉर्ड कोणते डॉक्टर आणि आशा सेविका पाहू शकतात हे तुम्ही ठरवता. बदल लगेच लागू होतात आणि त्यांची नोंद होते.',
@@ -170,20 +168,20 @@ export const MR: Record<string, string> = {
   "The answer is built from approved reference material and Ramesh's own record, with sources shown. \"Listen\" reads it aloud.":
     'उत्तर मान्यताप्राप्त संदर्भ माहिती आणि रमेश यांच्या स्वतःच्या रेकॉर्डवरून तयार होते, स्रोत दाखवले जातात. "ऐका" उत्तर मोठ्याने वाचते.',
   'Check hospital readiness, then book': 'रुग्णालयाची तयारी पाहून बुकिंग',
-  'The map and cards show Paud CHC has no ultrasound and is out of Amlodipine - before he travels. Booking gives a token and an SMS arrives on his phone (tab 1).':
-    'नकाशा आणि कार्डवर प्रवासाआधीच दिसते की पौड CHC मध्ये सोनोग्राफी नाही आणि अम्लोडिपिन संपले आहे. बुकिंगवर टोकन मिळते आणि फोनवर SMS येतो (टॅब 1).',
+  'The map and cards show Paud CHC has no ultrasound and is out of Amlodipine - before he travels. Booking gives a token that appears in his health record.':
+    'नकाशा आणि कार्डवर प्रवासाआधीच दिसते की पौड CHC मध्ये सोनोग्राफी नाही आणि अम्लोडिपिन संपले आहे. बुकिंगवर टोकन मिळते आणि ते आरोग्य रेकॉर्डमध्ये दिसते.',
   'Doctor - Dr. Deshmukh': 'डॉक्टर - डॉ. देशमुख',
   'Consultation with a live stock check': 'औषध साठा तपासणीसह तपासणी',
-  'The doctor sees his own queue and the AI intake summary. Amlodipine gets a stock warning, ultrasound becomes a referral, and a 7-day follow-up with SMS reminder is scheduled.':
-    'डॉक्टर आपली रांग आणि AI सारांश पाहतात. अम्लोडिपिनवर साठ्याचा इशारा येतो, सोनोग्राफीसाठी रेफरल होते आणि SMS आठवणीसह 7 दिवसांचा फॉलो-अप ठरतो.',
+  'The doctor sees his own queue and the AI intake summary. Amlodipine gets a stock warning, ultrasound becomes a referral, and a 7-day follow-up with a reminder is scheduled.':
+    'डॉक्टर आपली रांग आणि AI सारांश पाहतात. अम्लोडिपिनवर साठ्याचा इशारा येतो, सोनोग्राफीसाठी रेफरल होते आणि आठवणीसह 7 दिवसांचा फॉलो-अप ठरतो.',
   'Hospital - Paud CHC': 'रुग्णालय - पौड CHC',
   'The hospital updates its readiness': 'रुग्णालय आपली माहिती अद्ययावत करते',
   'Staff restock Amlodipine and mark ultrasound available. Patients see the change immediately.':
     'कर्मचारी अम्लोडिपिनचा साठा भरतात आणि सोनोग्राफी उपलब्ध करतात. रुग्णांना बदल लगेच दिसतो.',
   'ASHA - Kavita Tai': 'आशा - कविता ताई',
   'Missed follow-up → home visit': 'चुकलेला फॉलो-अप → गृहभेट',
-  'Sunita Devi missed her follow-up, so the system automatically created a task for her ASHA. Kavita Tai records the home visit and the patient gets an SMS.':
-    'सुनीता देवी यांचा फॉलो-अप चुकला, म्हणून प्रणालीने आपोआप आशा सेविकेला काम दिले. कविता ताई गृहभेटीची नोंद करतात आणि रुग्णाला SMS जातो.',
+  'Sunita Devi missed her follow-up, so the system automatically created a task for her ASHA. Kavita Tai records the home visit and the follow-up is marked complete.':
+    'सुनीता देवी यांचा फॉलो-अप चुकला, म्हणून प्रणालीने आपोआप आशा सेविकेला काम दिले. कविता ताई गृहभेटीची नोंद करतात आणि फॉलो-अप पूर्ण होतो.',
   "Privacy: another area's record stays closed": 'गोपनीयता: दुसऱ्या भागाचे रेकॉर्ड बंदच राहते',
   'Kavita Tai tries to open a patient from another village (#3). The server blocks it and writes it to the audit trail.':
     'कविता ताई दुसऱ्या गावातील रुग्णाचे (#3) रेकॉर्ड उघडण्याचा प्रयत्न करतात. सर्व्हर ते थांबवतो आणि ऑडिटमध्ये नोंद करतो.',
@@ -214,15 +212,13 @@ export const MR: Record<string, string> = {
   'instantly, before any LLM': 'लगेच, LLM आधी',
   'Wasted trips avoided': 'वाया जाणाऱ्या फेऱ्या टळल्या',
   'test or medicine unavailable, known in advance': 'तपासणी/औषध नसल्याचे आधीच कळले',
-  'SMS sent': 'SMS पाठवले',
-  'confirmations & reminders': 'पुष्टी व आठवणी',
   'Consent withdrawals honoured': 'परवानगी काढणे पाळले',
   'patient in control': 'रुग्णाचे नियंत्रण',
   'Security, Access & Clinical Audit Trail': 'सुरक्षा व प्रवेश ऑडिट नोंद',
   'Ecosystem Adapters': 'एकत्रीकरण अडॅप्टर',
 
   // ASHA
-  'Home visit recorded. The follow-up record has been updated and the patient was sent an SMS.': 'गृहभेटीची नोंद झाली. फॉलो-अप रेकॉर्ड अद्ययावत झाले आणि रुग्णाला SMS पाठवला.',
+  'Home visit recorded. The follow-up record has been updated.': 'गृहभेटीची नोंद झाली. फॉलो-अप रेकॉर्ड अद्ययावत झाले.',
   'You are offline - the visit is saved on this device. Use Sync in the top bar when back online.': 'तुम्ही ऑफलाइन आहात - भेट या उपकरणावर जतन केली आहे. ऑनलाइन आल्यावर वरच्या पट्टीतील Sync वापरा.',
   'Could not update the task: ': 'काम अद्ययावत झाले नाही: ',
   'in your catchment, access granted': 'तुमच्या क्षेत्रात, प्रवेश दिला',

@@ -74,7 +74,7 @@ Click **Guided demo** in the top bar, keep "Reset demo data first" ticked and pr
 
 1. Ramesh reports chest pain in his own language → instant 112/108 advice and the nearest emergency-ready centre (safety rules, no AI wait).
 2. An everyday fever question → answer grounded in approved references and his record, with sources; **Listen** reads it aloud.
-3. The facility map and cards show Paud CHC lacks ultrasound and is out of Amlodipine *before he travels*; he books and gets a token plus an SMS.
+3. The facility map and cards show Paud CHC lacks ultrasound and is out of Amlodipine *before he travels*; he books and gets a token.
 4. Dr. Deshmukh sees his queue and the AI intake summary; the stock warning and ultrasound referral appear; a follow-up and SMS reminder are scheduled.
 5. Paud CHC staff restock Amlodipine and mark ultrasound available.
 6. ASHA Kavita Tai records a home visit for Sunita Devi's automatically flagged missed follow-up.
@@ -87,8 +87,7 @@ Click **Guided demo** in the top bar, keep "Reset demo data first" ticked and pr
 - **Read aloud:** answers and emergency advice can be spoken using the browser's voices (a Hindi voice is used when no Marathi voice is installed).
 - **Facility map** (OpenStreetMap, needs internet for the map tiles).
 - **Patient-controlled consent:** withdrawing access is enforced by the server, not just shown in the UI.
-- **SMS phone preview:** confirmations, prescriptions, reminders and ASHA visits appear as simulated SMS.
-- **Impact panel:** follow-ups recovered, emergencies sent to 112, wasted trips avoided, SMS sent, consent withdrawals honoured - all counted from recorded events.
+- **Impact panel:** follow-ups recovered, emergencies sent to 112, wasted trips avoided, consent withdrawals honoured - all counted from recorded events.
 
 ---
 
@@ -112,7 +111,7 @@ Click **Guided demo** in the top bar, keep "Reset demo data first" ticked and pr
 ## 5. Automated Test Suite & Actual Results
 
 ### Backend Unit & Integration Tests (`cd backend && python -m pytest tests`)
-Tests run against a throwaway `tests/test_swasthyasetu.db`, so they never wipe the demo database. 24 tests cover auth/RBAC, Hindi and Marathi emergency screening, consent withdrawal, the SMS inbox, the AI assistant, registration, booking validation, encounters, hospital updates, ASHA tasks, admin monitoring and offline sync.
+Tests run against a throwaway `tests/test_swasthyasetu.db`, so they never wipe the demo database. 24 tests cover auth/RBAC, Hindi and Marathi emergency screening, consent withdrawal, the AI assistant, registration, booking validation, encounters, hospital updates, ASHA tasks, admin monitoring and offline sync.
 
 Earlier output (before the MVP fixes) for reference:
 ```
