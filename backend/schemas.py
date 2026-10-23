@@ -447,4 +447,8 @@ class NotificationOut(BaseModel):
     created_at: UTCDateTime
     model_config = {"from_attributes": True}
 
+class TTSRequest(BaseModel):
+    text: str = Field(min_length=1, max_length=4000)
+    language: Optional[str] = "hi"
+
 FacilityReadinessOut.model_rebuild()

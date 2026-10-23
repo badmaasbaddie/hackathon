@@ -6,8 +6,9 @@ pandas>=2.2
 scikit-learn>=1.5
 joblib>=1.4
 numpy>=1.26
+# HTTP client (ElevenLabs read-aloud) and FastAPI test client
+httpx>=0.27
 # Optional: enables the LLM-backed assistant when ANTHROPIC_API_KEY is set
 anthropic>=2.0
 # Tests
 pytest>=8.0
-httpx>=0.27

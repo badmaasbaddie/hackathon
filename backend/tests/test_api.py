@@ -309,3 +309,31 @@ def test_sms_inbox_and_map_coordinates():
     assert 18 < chc["latitude"] < 19 and 73 < chc["longitude"] < 74
     impact = client.get("/api/admin/activity", headers=as_user("admin_district")).json()["impact"]
     assert impact["sms_reminders_sent"] >= 1
+
+def test_read_aloud_with_elevenlabs(monkeypatch):
+    import tts
+    monkeypatch.delenv("ELEVENLABS_API_KEY", raising=False)
+    assert client.get("/api/tts/status").json()["provider"] == "browser"
+    assert client.post("/api/tts", headers=as_user("ramesh"), json={"text": "नमस्ते", "language": "hi"}).status_code == 503
+
+    sent = {}
+    class FakeResponse:
+        status_code = 200
+        content = b"ID3-fake-mp3"
+    def fake_post(url, params=None, headers=None, json=None, timeout=None):
+        sent.update(url=url, headers=headers, json=json)
+        return FakeResponse()
+    monkeypatch.setenv("ELEVENLABS_API_KEY", "test-key")
+    monkeypatch.setattr(tts.httpx, "post", fake_post)
+    tts._cache.clear()
+
+    assert client.get("/api/tts/status").json()["provider"] == "elevenlabs"
+    assert client.post("/api/tts", json={"text": "x"}).status_code == 401  # login required
+    res = client.post("/api/tts", headers=as_user("ramesh"), json={
+        "text": "आपके लक्षण (PHC/CHC) में दिखाने योग्य हैं।\n\nस्रोत: Fever: home care", "language": "mr"})
+    assert res.status_code == 200
+    assert res.headers["content-type"] == "audio/mpeg"
+    assert res.content == b"ID3-fake-mp3"
+    assert sent["headers"]["xi-api-key"] == "test-key"
+    assert sent["json"]["model_id"] == "eleven_v4" and sent["json"]["language_code"] == "mr"
+    assert "स्रोत" not in sent["json"]["text"] and "PHC/CHC" not in sent["json"]["text"]

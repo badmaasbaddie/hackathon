@@ -1,9 +1,48 @@
 import { Lang } from '../types';
 import { speechLang } from '../i18n';
+import { authHeaders } from '../services/api';
 
 export type SpeakResult = 'ok' | 'no-voice' | 'unsupported';
 
-export const canSpeak = () => typeof window !== 'undefined' && 'speechSynthesis' in window;
+const browserCanSpeak = () => typeof window !== 'undefined' && 'speechSynthesis' in window;
+export const canSpeak = () => typeof window !== 'undefined' && (browserCanSpeak() || typeof Audio !== 'undefined');
+
+// ElevenLabs voices are used when the server has an API key; otherwise the browser's own voices.
+let providerPromise: Promise<'elevenlabs' | 'browser'> | null = null;
+const getProvider = () => {
+  if (!providerPromise) {
+    providerPromise = fetch('/api/tts/status')
+      .then(r => (r.ok ? r.json() : { provider: 'browser' }))
+      .then(d => (d.provider === 'elevenlabs' ? 'elevenlabs' : 'browser'))
+      .catch(() => 'browser' as const);
+  }
+  return providerPromise;
+};
+
+let currentAudio: HTMLAudioElement | null = null;
+let currentUrl: string | null = null;
+
+const stopAudio = () => {
+  if (currentAudio) currentAudio.pause();
+  if (currentUrl) URL.revokeObjectURL(currentUrl);
+  currentAudio = null;
+  currentUrl = null;
+};
+
+const speakWithElevenLabs = async (text: string, language: Lang): Promise<boolean> => {
+  try {
+    const res = await fetch('/api/tts', { method: 'POST', headers: authHeaders(), body: JSON.stringify({ text, language }) });
+    if (!res.ok) return false;
+    const url = URL.createObjectURL(await res.blob());
+    stopAudio();
+    currentUrl = url;
+    currentAudio = new Audio(url);
+    await currentAudio.play();
+    return true;
+  } catch {
+    return false;
+  }
+};
 
 // Browsers load their voice list asynchronously: the first getVoices() call is often
 // empty, so wait briefly for 'voiceschanged' before choosing a voice.
@@ -45,7 +84,9 @@ const speakableText = (text: string) =>
  * English voice: it would skip all Devanagari and read only the English words.
  */
 export const speak = async (text: string, language: Lang): Promise<SpeakResult> => {
-  if (!canSpeak()) return 'unsupported';
+  stopSpeaking();
+  if ((await getProvider()) === 'elevenlabs' && (await speakWithElevenLabs(text, language))) return 'ok';
+  if (!browserCanSpeak()) return 'unsupported';
   const synth = window.speechSynthesis;
   synth.cancel();
   const voice = findVoice(await loadVoices(), language);
@@ -60,5 +101,6 @@ export const speak = async (text: string, language: Lang): Promise<SpeakResult> 
 };
 
 export const stopSpeaking = () => {
-  if (canSpeak()) window.speechSynthesis.cancel();
+  stopAudio();
+  if (browserCanSpeak()) window.speechSynthesis.cancel();
 };

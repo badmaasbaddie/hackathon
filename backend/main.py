@@ -7,8 +7,27 @@ import datetime
 from contextlib import asynccontextmanager
 from typing import List, Optional
 
+
+def _load_env_files():
+    """Read KEY=VALUE lines from .env in the project root or backend folder (real env vars win)."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    for path in (os.path.join(here, "..", ".env"), os.path.join(here, ".env")):
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, value = line.split("=", 1)
+                os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
+_load_env_files()
+
 from fastapi import FastAPI, Depends, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from sqlalchemy import desc, func, or_, inspect
@@ -16,6 +35,7 @@ from sqlalchemy import desc, func, or_, inspect
 import models
 import schemas
 import ai_assistant
+import tts
 from database import get_db, engine, Base, SessionLocal
 from triage_engine import analyze_symptoms
 from seed_data import seed_database
@@ -287,6 +307,10 @@ def get_adapters_status():
              "status": "LIVE_LLM" if llm_on else "DEMO_FALLBACK",
              "description": (f"Claude ({ai_assistant.MODEL_ID}) answers from approved reference material and the patient's record, after deterministic safety screening."
                              if llm_on else "No ANTHROPIC_API_KEY set: deterministic safety screening + retrieved reference text are used to compose answers.")},
+            {"name": "Read-aloud voices (ElevenLabs)", "type": "VOICE",
+             "status": "LIVE_ELEVENLABS" if tts.enabled() else "BROWSER_VOICES",
+             "description": ("Answers are spoken with ElevenLabs voices in Hindi, Marathi and English (text is sent to ElevenLabs)."
+                             if tts.enabled() else "No ELEVENLABS_API_KEY set: the browser's own voices are used, which may lack Hindi/Marathi.")},
             {"name": "SMS & WhatsApp Reminder Dispatcher", "type": "NOTIFICATION", "status": "SIMULATED",
              "description": "Demo adapter: reminders are marked SENT when due; no real SMS is delivered."},
             {"name": "Medicine Inventory Feed", "type": "SUPPLY_CHAIN", "status": "MANUAL_ENTRY",
@@ -622,6 +646,24 @@ def ai_chat(req: schemas.ChatRequest, current_user: models.User = Depends(get_cu
         triage=_intake_response(intake, language, result["triage"]),
         sources=result["sources"],
     )
+
+
+# ----------------- READ ALOUD -----------------
+@app.get("/api/tts/status")
+def tts_status():
+    return {"provider": "elevenlabs" if tts.enabled() else "browser"}
+
+
+@app.post("/api/tts")
+def text_to_speech(req: schemas.TTSRequest, current_user: models.User = Depends(get_current_user)):
+    """Speak text with ElevenLabs. The API key stays on the server; the browser gets MP3 audio."""
+    if not tts.enabled():
+        raise HTTPException(status_code=503, detail="ElevenLabs is not configured")
+    try:
+        audio = tts.synthesize(req.text, req.language or "hi")
+    except tts.TTSError as e:
+        raise HTTPException(status_code=502, detail=str(e))
+    return Response(content=audio, media_type="audio/mpeg")
 
 
 # ----------------- FACILITIES, DOCTORS & READINESS -----------------
