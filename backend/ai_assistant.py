@@ -37,7 +37,10 @@ Your job is to help the patient understand safe next steps - self-care that is c
 
 Ground every medical statement only in the APPROVED REFERENCE MATERIAL and the PATIENT RECORD provided in the conversation. If they do not cover the question, say so plainly and suggest asking the doctor at the PHC/CHC or the ASHA worker. If anything the patient says could be an emergency, tell them to call 112 (ambulance 108) now.
 
-Reply in the patient's language (Hindi in Devanagari if they write in Hindi or Hinglish and the requested language is Hindi; otherwise English). Use short sentences and plain words a person with limited schooling can follow. Keep replies under about 150 words, end with one clear next step, and mention the reference title(s) you relied on in a final line starting with "Sources:"."""
+Reply in the requested language: Hindi or Marathi in Devanagari script, or English. If the patient writes in another of these languages, still answer in the requested one. Use short sentences and plain words a person with limited schooling can follow. Keep replies under about 150 words, end with one clear next step, and mention the reference title(s) you relied on in a final line starting with "Sources:"."""
+
+
+LANGUAGE_NAMES = {"hi": "Hindi", "mr": "Marathi", "en": "English"}
 
 
 def _llm_enabled() -> bool:
@@ -98,22 +101,37 @@ def _format_context(ctx: Dict[str, Any], refs: List[Dict]) -> str:
     return "\n".join(lines)
 
 
+FALLBACK_LABELS = {
+    "en": {"guidance": "Guidance", "follow_up": "Your follow-up: ", "medicines": "Your current medicines: ",
+           "dont_change": " - do not change these without your doctor's advice.",
+           "next": "Next step: book an appointment on the Facilities tab, or contact your ASHA worker.",
+           "sources": "Sources: "},
+    "hi": {"guidance": "मार्गदर्शन", "follow_up": "आपका फॉलो-अप: ", "medicines": "आपकी चालू दवाएं: ",
+           "dont_change": " - इन्हें डॉक्टर की सलाह के बिना न बदलें।",
+           "next": "अगला कदम: अस्पताल टैब में अपॉइंटमेंट बुक करें या अपनी आशा कार्यकर्ता से संपर्क करें।",
+           "sources": "स्रोत: "},
+    "mr": {"guidance": "मार्गदर्शन", "follow_up": "तुमचा फॉलो-अप: ", "medicines": "तुमची सध्याची औषधे: ",
+           "dont_change": " - डॉक्टरांच्या सल्ल्याशिवाय ही बदलू नका.",
+           "next": "पुढील पाऊल: रुग्णालय टॅबमध्ये अपॉइंटमेंट बुक करा किंवा तुमच्या आशा सेविकेशी संपर्क साधा.",
+           "sources": "स्रोत: "},
+}
+
+
 def _fallback_reply(language: str, triage: Dict[str, Any], ctx: Dict[str, Any], refs: List[Dict]) -> str:
-    hi = language == "hi"
+    lbl = FALLBACK_LABELS.get(language, FALLBACK_LABELS["en"])
     parts = [triage["explanation_patient"]]
     if triage["triage_level"] == "URGENT" and triage.get("emergency_advice"):
         parts.append(triage["emergency_advice"])
     if refs:
-        parts.append(("मार्गदर्शन (" if hi else "Guidance (") + refs[0]["title"] + "): " + refs[0]["text"])
+        guidance = refs[0].get("summary", {}).get(language) or refs[0]["text"]
+        parts.append(f"{lbl['guidance']} ({refs[0]['title']}): {guidance}")
     if ctx["follow_ups"]:
-        parts.append(("आपका फॉलो-अप: " if hi else "Your follow-up: ") + ctx["follow_ups"][0])
+        parts.append(lbl["follow_up"] + ctx["follow_ups"][0])
     if ctx["medicines"]:
-        parts.append(("आपकी चालू दवाएं: " if hi else "Your current medicines: ") + "; ".join(ctx["medicines"][:3]) +
-                     (" - इन्हें डॉक्टर की सलाह के बिना न बदलें।" if hi else " - do not change these without your doctor's advice."))
-    parts.append(("अगला कदम: नीचे दिए गए अस्पताल में अपॉइंटमेंट बुक करें या अपनी आशा कार्यकर्ता से संपर्क करें।" if hi
-                  else "Next step: book an appointment at a facility below, or contact your ASHA worker."))
+        parts.append(lbl["medicines"] + "; ".join(ctx["medicines"][:3]) + lbl["dont_change"])
+    parts.append(lbl["next"])
     if refs:
-        parts.append("Sources: " + ", ".join(r["title"] for r in refs))
+        parts.append(lbl["sources"] + ", ".join(r["title"] for r in refs))
     return "\n\n".join(parts)
 
 
@@ -130,7 +148,7 @@ def _call_llm(history: List[Dict[str, str]], context_block: str, language: str) 
         content = m["content"]
         if i == len(history) - 1:
             content = (
-                f"{context_block}\n\nRequested reply language: {'Hindi' if language == 'hi' else 'English'}\n\n"
+                f"{context_block}\n\nRequested reply language: {LANGUAGE_NAMES.get(language, 'English')}\n\n"
                 f"PATIENT MESSAGE:\n{content}"
             )
         messages.append({"role": m["role"], "content": content})

@@ -80,6 +80,8 @@ export interface FacilityReadiness {
   medicine_stock_summary: Record<string, 'IN_STOCK' | 'LOW_STOCK' | 'OUT_OF_STOCK'>;
   estimated_queue_wait_mins: number;
   freshness_label: string;
+  latitude: number;
+  longitude: number;
   doctors: Doctor[];
 }
 
@@ -344,5 +346,34 @@ export interface AdminActivity {
   registrations_last_24h: number;
   logins_last_24h: number;
   access_denials_total: number;
+  impact: ImpactMetrics;
   recent_appointments: Appointment[];
+}
+
+export type Lang = 'hi' | 'en' | 'mr';
+
+export interface NotificationItem {
+  id: number;
+  title: string;
+  message: string;
+  notification_type: string;
+  is_read: boolean;
+  created_at: string;
+}
+
+export interface CareTeamMember {
+  user_id: number;
+  name: string;
+  role: 'DOCTOR' | 'ASHA';
+  detail: string;
+  consent_status: 'GRANTED' | 'REVOKED';
+  updated_at?: string;
+}
+
+export interface ImpactMetrics {
+  missed_follow_ups_recovered: number;
+  emergencies_directed_to_112: number;
+  wasted_trips_avoided: number;
+  sms_reminders_sent: number;
+  consent_withdrawals_honoured: number;
 }

@@ -67,7 +67,28 @@ For frontend development with hot reload, keep the backend running and use `cd f
 | Hospital | `admin_paud` | Doctor duty and OPD schedules, diagnostic service availability, medicine stock |
 | District admin | `admin_district` | Appointment monitoring, platform activity, audit trail, missed-care check |
 
-All data is fictional. ABHA, eSanjeevani and SMS are simulated adapters; nothing is sent to external systems.
+All data is fictional (including the hospital names). ABHA, eSanjeevani and SMS are simulated adapters; nothing is sent to external systems.
+
+### Presenting it: the guided demo
+Click **Guided demo** in the top bar, keep "Reset demo data first" ticked and press **Start the demo**. Nine steps walk through one patient's journey across every role, and each step has a **Do it for me** button:
+
+1. Ramesh reports chest pain in his own language → instant 112/108 advice and the nearest emergency-ready centre (safety rules, no AI wait).
+2. An everyday fever question → answer grounded in approved references and his record, with sources; **Listen** reads it aloud.
+3. The facility map and cards show Paud CHC lacks ultrasound and is out of Amlodipine *before he travels*; he books and gets a token plus an SMS.
+4. Dr. Deshmukh sees his queue and the AI intake summary; the stock warning and ultrasound referral appear; a follow-up and SMS reminder are scheduled.
+5. Paud CHC staff restock Amlodipine and mark ultrasound available.
+6. ASHA Kavita Tai records a home visit for Sunita Devi's automatically flagged missed follow-up.
+7. Kavita Tai tries to open a patient from another village and is blocked (and audited).
+8. Ramesh withdraws Dr. Deshmukh's access in the Privacy tab; the doctor can no longer open his record.
+9. The district dashboard shows appointments, impact numbers and the audit trail.
+
+### Highlights
+- **Hindi, Marathi and English** across the patient screens, the AI assistant and the emergency screening (including Marathi voice input). Staff screens fall back to Hindi where a Marathi label is missing.
+- **Read aloud:** answers and emergency advice can be spoken using the browser's voices (a Hindi voice is used when no Marathi voice is installed).
+- **Facility map** (OpenStreetMap, needs internet for the map tiles).
+- **Patient-controlled consent:** withdrawing access is enforced by the server, not just shown in the UI.
+- **SMS phone preview:** confirmations, prescriptions, reminders and ASHA visits appear as simulated SMS.
+- **Impact panel:** follow-ups recovered, emergencies sent to 112, wasted trips avoided, SMS sent, consent withdrawals honoured - all counted from recorded events.
 
 ---
 
@@ -91,7 +112,7 @@ All data is fictional. ABHA, eSanjeevani and SMS are simulated adapters; nothing
 ## 5. Automated Test Suite & Actual Results
 
 ### Backend Unit & Integration Tests (`cd backend && python -m pytest tests`)
-Tests run against a throwaway `tests/test_swasthyasetu.db`, so they never wipe the demo database. 21 tests cover auth/RBAC, Hindi (incl. Devanagari) emergency screening, the AI assistant, registration, booking validation, encounters, hospital updates, ASHA tasks, admin monitoring and offline sync.
+Tests run against a throwaway `tests/test_swasthyasetu.db`, so they never wipe the demo database. 24 tests cover auth/RBAC, Hindi and Marathi emergency screening, consent withdrawal, the SMS inbox, the AI assistant, registration, booking validation, encounters, hospital updates, ASHA tasks, admin monitoring and offline sync.
 
 Earlier output (before the MVP fixes) for reference:
 ```

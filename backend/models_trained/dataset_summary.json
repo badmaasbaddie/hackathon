@@ -1,7 +1,7 @@
 {
   "status": "TRAINED",
   "dataset_size": 1000,
-  "test_accuracy": 79.0,
+  "test_accuracy": 80.5,
   "classes": [
     "Chronic Disease Mgmt",
     "Daily SMS / Weekly Visit",
@@ -10,16 +10,16 @@
   ],
   "hospitals_count": 10,
   "hospitals": [
-    "Apollo Medics Lucknow",
-    "Mayo Hospital",
-    "Sadar Hospital Lucknow",
-    "Medanta Hospital Lucknow",
-    "KGMU Lucknow",
-    "Sahara Hospital Lucknow",
-    "Charak Hospital",
-    "Ram Manohar Lohia Hospital",
-    "Balrampur Hospital",
-    "District Hospital Lucknow"
+    "Malihabad Community Health Centre",
+    "Nagram Sub-District Hospital",
+    "Gosainganj District Hospital",
+    "Mohanlalganj Referral Hospital",
+    "Chinhat Community Health Centre",
+    "Itaunja Rural Hospital",
+    "Bakshi Ka Talab Hospital",
+    "Kakori Civil Hospital",
+    "Amethi Rural Hospital",
+    "Sarojini Nagar District Hospital"
   ],
   "doctors_count": 10,
   "doctors": [
@@ -49,8 +49,8 @@
     "Itaunja"
   ],
   "metrics": {
-    "accuracy": 0.79,
-    "macro_avg_f1": 0.7706
+    "accuracy": 0.805,
+    "macro_avg_f1": 0.7834
   },
-  "trained_at": "2026-10-23T17:48:22.015149+00:00"
+  "trained_at": "2026-10-23T20:33:33.167275+00:00"
 }

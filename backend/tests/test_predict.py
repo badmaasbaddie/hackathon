@@ -13,7 +13,7 @@ payload = {
     "temp": 102.4,
     "condition": "Severe Pneumonia with Acute Respiratory Distress & Severe Anemia",
     "village": "Kakori",
-    "hub_hospital": "Apollo Medics Lucknow"
+    "hub_hospital": "Malihabad Community Health Centre"
 }
 
 if __name__ == "__main__":

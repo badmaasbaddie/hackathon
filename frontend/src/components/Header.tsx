@@ -1,5 +1,6 @@
+import { makeT } from '../i18n';
 import React, { useState, useEffect } from 'react';
-import { Role, User } from '../types';
+import { Role, User, Lang } from '../types';
 import { getOfflineMode, setOfflineMode, getOfflineQueue, syncOfflineBatch } from '../services/offlineQueue';
 import { api } from '../services/api';
 import { 
@@ -11,9 +12,10 @@ interface HeaderProps {
   currentUser: User | null;
   patientUsername: string;
   onSignIn: (username: string) => void;
-  language: 'hi' | 'en';
-  onLanguageChange: (lang: 'hi' | 'en') => void;
+  language: Lang;
+  onLanguageChange: (lang: Lang) => void;
   onOpenScenarioModal: () => void;
+  onOpenGuidedDemo: () => void;
   onOpenRegister: () => void;
   onDemoReset: () => void;
 }
@@ -25,9 +27,11 @@ export const Header: React.FC<HeaderProps> = ({
   language,
   onLanguageChange,
   onOpenScenarioModal,
+  onOpenGuidedDemo,
   onOpenRegister,
   onDemoReset,
 }) => {
+  const t = makeT(language);
   const currentRole: Role | undefined = currentUser?.role;
   const [isOffline, setIsOffline] = useState<boolean>(getOfflineMode());
   const [queueCount, setQueueCount] = useState<number>(getOfflineQueue().length);
@@ -135,20 +139,26 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Language Switch */}
-          <div className="flex items-center bg-teal-900 rounded border border-teal-700 overflow-hidden text-xs">
-            <button
-              onClick={() => onLanguageChange('hi')}
-              className={`px-2 py-0.5 transition ${language === 'hi' ? 'bg-teal-600 font-bold text-white' : 'text-teal-200 hover:bg-teal-800'}`}
-            >
-              हिन्दी
-            </button>
-            <button
-              onClick={() => onLanguageChange('en')}
-              className={`px-2 py-0.5 transition ${language === 'en' ? 'bg-teal-600 font-bold text-white' : 'text-teal-200 hover:bg-teal-800'}`}
-            >
-              English
-            </button>
+          <div className="flex items-center bg-teal-900 rounded border border-teal-700 overflow-hidden text-xs" role="group" aria-label="Language">
+            {([['hi', 'हिन्दी'], ['mr', 'मराठी'], ['en', 'English']] as [Lang, string][]).map(([code, label]) => (
+              <button
+                key={code}
+                onClick={() => onLanguageChange(code)}
+                aria-pressed={language === code}
+                className={`px-2 py-0.5 transition ${language === code ? 'bg-teal-600 font-bold text-white' : 'text-teal-200 hover:bg-teal-800'}`}
+              >
+                {label}
+              </button>
+            ))}
           </div>
+
+          <button
+            onClick={onOpenGuidedDemo}
+            className="flex items-center gap-1 bg-white hover:bg-amber-100 text-teal-950 font-bold px-2.5 py-0.5 rounded transition shadow-sm"
+          >
+            <PlayCircle size={13} />
+            <span>{t('मार्गदर्शित डेमो', 'Guided demo')}</span>
+          </button>
 
           {/* Quick Scenario Runner */}
           <button
@@ -164,7 +174,7 @@ export const Header: React.FC<HeaderProps> = ({
             className="flex items-center gap-1 bg-teal-600 hover:bg-teal-500 text-white font-semibold px-2.5 py-0.5 rounded transition"
           >
             <ShieldCheck size={13} />
-            <span>{language === 'hi' ? 'नया पंजीकरण' : 'Register'}</span>
+            <span>{t('नया पंजीकरण', 'Register')}</span>
           </button>
 
           {/* Reset Demo */}
@@ -198,7 +208,7 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
             </div>
             <p className="text-xs text-teal-200">
-              {language === 'hi' ? 'ग्रामीण स्वास्थ्य सेवा नेविगेशन एवं निरंतरता प्लेटफ़ॉर्म' : 'Rural Healthcare Navigation, Coordination & Continuity Platform'}
+              {t('ग्रामीण स्वास्थ्य सेवा नेविगेशन एवं निरंतरता प्लेटफ़ॉर्म', 'Rural Healthcare Navigation, Coordination & Continuity Platform')}
             </p>
           </div>
         </div>
@@ -206,7 +216,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Current Active Persona & Switcher */}
         <div className="flex flex-wrap items-center gap-2 bg-teal-950/60 p-1 rounded-xl border border-teal-800/80">
           <div className="text-right px-2 hidden md:block">
-            <div className="text-[11px] text-teal-300">{language === 'hi' ? 'साइन इन' : 'Signed in as'} (demo)</div>
+            <div className="text-[11px] text-teal-300">{t('साइन इन', 'Signed in as')} (demo)</div>
             <div className="text-xs font-semibold text-white truncate max-w-[150px]">
               {currentUser?.full_name || 'Guest'}
             </div>
@@ -227,7 +237,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }`}
                 >
                   <Icon size={14} />
-                  <span>{language === 'hi' ? r.labelHi : r.labelEn}</span>
+                  <span>{t(r.labelHi, r.labelEn)}</span>
                 </button>
               );
             })}

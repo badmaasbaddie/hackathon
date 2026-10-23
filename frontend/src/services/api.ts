@@ -3,7 +3,7 @@ import {
   DiagnosticOrder, FollowUpPlan, HealthWorkerTask, CareTimelineEvent,
   AdminMetrics, User, ChatTurn, ChatResponse, PatientRecord, RegisterPayload,
   Doctor, FacilityManage, FacilityService, InventoryItem, ScheduleSlot,
-  AdminActivity, FamilyMember, AuditEvent
+  AdminActivity, FamilyMember, AuditEvent, Lang, NotificationItem, CareTeamMember
 } from '../types';
 import { getOfflineMode, enqueueOfflineAction } from './offlineQueue';
 
@@ -76,6 +76,9 @@ export const api = {
   // Patients
   getMyPatient: () => get<Patient>('/patients/me'),
   addFamilyMember: (m: Omit<FamilyMember, 'id'>) => send<FamilyMember>('POST', '/patients/me/family', m),
+  getCareTeam: () => get<CareTeamMember[]>('/patients/me/care-team'),
+  setConsent: (userId: number, granted: boolean) => send<CareTeamMember[]>('PUT', '/patients/me/consents', { user_id: userId, granted }),
+  getMyNotifications: () => get<NotificationItem[]>('/notifications/me'),
   getPatients: (village?: string) => get<Patient[]>(`/patients${qs({ village })}`),
   getPatient: (id: number) => get<Patient>(`/patients/${id}`),
   getPatientRecord: (id: number) => get<PatientRecord>(`/patients/${id}/record`),
@@ -84,7 +87,7 @@ export const api = {
   // AI assistant
   submitIntake: (patientId: number, rawInput: string, language = 'hi') =>
     send<SymptomIntakeResponse>('POST', '/symptom-intake', { patient_id: patientId, raw_input: rawInput, language, duration_days: 2 }),
-  chat: (messages: ChatTurn[], language: 'hi' | 'en', patientId?: number) =>
+  chat: (messages: ChatTurn[], language: Lang, patientId?: number) =>
     send<ChatResponse>('POST', '/ai/chat', { messages, language, patient_id: patientId }),
 
   // Facilities & doctors

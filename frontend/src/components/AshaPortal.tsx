@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { HealthWorkerTask, Patient, User } from '../types';
+import { makeT } from '../i18n';
+import React, { useState, useEffect, useRef } from 'react';
+import { HealthWorkerTask, Patient, User, Lang } from '../types';
 import { api } from '../services/api';
 import { localDate } from '../utils/date';
 import { 
@@ -8,13 +9,12 @@ import {
 } from 'lucide-react';
 
 interface AshaPortalProps {
-  language: 'hi' | 'en';
+  language: Lang;
   user: User;
 }
 
 export const AshaPortal: React.FC<AshaPortalProps> = ({ language, user }) => {
-  const hi = language === 'hi';
-  const t = (h: string, e: string) => (hi ? h : e);
+  const t = makeT(language);
   const [lookupId, setLookupId] = useState<string>('3');
   const [lookupResult, setLookupResult] = useState<string | null>(null);
   const today = localDate();
@@ -26,6 +26,8 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language, user }) => {
   const [outcome, setOutcome] = useState<string>('PATIENT_VISITED_CLINIC');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [accessDeniedMessage, setAccessDeniedMessage] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const modalFormRef = useRef<HTMLFormElement>(null);
 
   const loadData = async () => {
     try {
@@ -66,31 +68,55 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language, user }) => {
       });
       setSelectedTask(null);
       await loadData();
-      alert(res
-        ? t('घर भ्रमण दर्ज किया गया। फॉलो-अप रिकॉर्ड अपडेट हो गया।', 'Home visit recorded. The follow-up record has been updated.')
+      setNotice(res
+        ? t('घर भ्रमण दर्ज किया गया। फॉलो-अप रिकॉर्ड अपडेट हो गया और मरीज़ को SMS भेजा गया।', 'Home visit recorded. The follow-up record has been updated and the patient was sent an SMS.')
         : t('आप ऑफ़लाइन हैं - भ्रमण सहेजा गया है, कनेक्शन आने पर Sync करें।', 'You are offline - the visit is saved on this device. Use Sync in the top bar when back online.'));
+      window.dispatchEvent(new Event('swasthyasetu-data-changed'));
     } catch (err: any) {
-      alert('Failed to resolve task: ' + err.message);
+      setNotice(t('कार्य अपडेट नहीं हुआ: ', 'Could not update the task: ') + err.message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   // Scenario G: try to open any patient record by ID; the server decides.
-  const handleLookup = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLookup = async (e?: React.FormEvent, id?: string) => {
+    e?.preventDefault();
     setAccessDeniedMessage(null);
     setLookupResult(null);
     try {
-      const p = await api.getPatient(Number(lookupId));
+      const p = await api.getPatient(Number(id ?? lookupId));
       setLookupResult(`${p.name} (${p.village}) - ${t('आपके क्षेत्र में, पहुंच अनुमत', 'in your catchment, access granted')}`);
     } catch (err: any) {
       setAccessDeniedMessage(err.message);
     }
   };
 
+  const demoRef = useRef<(detail: any) => void>(() => {});
+  demoRef.current = (detail: any) => {
+    if (detail.action === 'visit') {
+      const task = tasks.find(x => x.status === 'OPEN' || x.status === 'IN_PROGRESS');
+      if (!task) return;
+      setSelectedTask(task);
+      setVisitNotes(detail.notes);
+      setOutcome('PATIENT_VISITED_CLINIC');
+      setTimeout(() => modalFormRef.current?.requestSubmit(), 1500);
+    }
+    if (detail.action === 'access-test') {
+      setLookupId('3');
+      handleLookup(undefined, '3');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+  useEffect(() => {
+    const onDemo = (e: Event) => demoRef.current((e as CustomEvent).detail);
+    window.addEventListener('swasthyasetu-demo', onDemo);
+    return () => window.removeEventListener('swasthyasetu-demo', onDemo);
+  }, []);
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+      {notice && <div className="bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs rounded-xl p-3" role="status">{notice}</div>}
       {/* ASHA Profile & Catchment Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
@@ -151,7 +177,7 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language, user }) => {
             <div>
               <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 <AlertCircle className="text-rose-600" size={18} />
-                {language === 'hi' ? 'प्राथमिकता कार्य: छूटे हुए फॉलो-अप (Missed-Care Tasks)' : 'Actionable Missed-Care Tasks'}
+                {t('प्राथमिकता कार्य: छूटे हुए फॉलो-अप (Missed-Care Tasks)', 'Actionable Missed-Care Tasks')}
               </h3>
               <p className="text-xs text-slate-500">
                 Generated automatically when chronic care patients miss their scheduled hospital review.
@@ -227,7 +253,7 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language, user }) => {
           <div>
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <Users className="text-teal-700" size={18} />
-              {language === 'hi' ? 'मरीज़ सूची (Patient Catchment)' : 'Patient Catchment Roster'}
+              {t('मरीज़ सूची (Patient Catchment)', 'Patient Catchment Roster')}
             </h3>
             <p className="text-xs text-slate-500">
               {t('केवल आपको सौंपे गए मरीज़ दिखते हैं।', 'Only patients assigned to you are listed.')}
@@ -296,7 +322,7 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language, user }) => {
               </button>
             </div>
 
-            <form onSubmit={handleResolveTask} className="space-y-4">
+            <form ref={modalFormRef} onSubmit={handleResolveTask} className="space-y-4">
               <div className="space-y-1">
                 <label className="text-xs font-bold text-slate-700">Home Visit & Assessment Notes:</label>
                 <textarea

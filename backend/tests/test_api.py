@@ -268,3 +268,44 @@ def test_offline_sync_batch():
     assert data["results"][0]["status"] == "SYNCED"
     again = client.post("/api/sync/batch", json=batch, headers=as_user("ramesh")).json()
     assert again["results"][0]["status"] == "ALREADY_SYNCED"
+
+def test_marathi_emergency_and_assistant(monkeypatch):
+    monkeypatch.setenv("AI_ASSISTANT_MODE", "fallback")
+    data = client.post("/api/symptom-intake", headers=as_user("ramesh"), json={
+        "patient_id": 1, "raw_input": "मला छातीत दुखत आहे आणि श्वास घ्यायला त्रास होत आहे", "language": "mr"}).json()
+    assert data["is_emergency"] is True
+    assert "112" in data["emergency_advice"]
+    # "विषयावर" (about the topic) contains "विष" (poison) but must not trigger an emergency
+    data = client.post("/api/symptom-intake", headers=as_user("ramesh"), json={
+        "patient_id": 1, "raw_input": "या विषयावर माहिती द्या", "language": "mr"}).json()
+    assert data["is_emergency"] is False
+
+    chat = client.post("/api/ai/chat", headers=as_user("ramesh"), json={
+        "language": "mr", "messages": [{"role": "user", "content": "मला दोन दिवसांपासून ताप आहे"}]}).json()
+    assert chat["sources"][0]["id"] == "REF-FEVER-01"
+    assert "विश्रांती" in chat["reply"]  # Marathi summary of the fever guidance
+
+def test_patient_consent_withdrawal_blocks_doctor():
+    team = client.get("/api/patients/me/care-team", headers=as_user("ramesh")).json()
+    doctor = next(m for m in team if m["role"] == "DOCTOR")
+    assert doctor["consent_status"] == "GRANTED"
+    assert client.get("/api/patients/1/record", headers=as_user("dr_deshmukh")).status_code == 200
+
+    team = client.put("/api/patients/me/consents", headers=as_user("ramesh"), json={"user_id": doctor["user_id"], "granted": False}).json()
+    assert next(m for m in team if m["user_id"] == doctor["user_id"])["consent_status"] == "REVOKED"
+    res = client.get("/api/patients/1/record", headers=as_user("dr_deshmukh"))
+    assert res.status_code == 403
+    assert "withdrawn consent" in res.json()["detail"]
+
+    client.put("/api/patients/me/consents", headers=as_user("ramesh"), json={"user_id": doctor["user_id"], "granted": True})
+    assert client.get("/api/patients/1/record", headers=as_user("dr_deshmukh")).status_code == 200
+
+def test_sms_inbox_and_map_coordinates():
+    client.post("/api/appointments", headers=as_user("ramesh"), json={
+        "patient_id": 1, "doctor_id": 1, "facility_id": 1, "scheduled_date": days_from_today(3), "reason": "BP review"})
+    inbox = client.get("/api/notifications/me", headers=as_user("ramesh")).json()
+    assert inbox[0]["title"] == "Appointment confirmed"
+    chc = paud_chc()
+    assert 18 < chc["latitude"] < 19 and 73 < chc["longitude"] < 74
+    impact = client.get("/api/admin/activity", headers=as_user("admin_district")).json()["impact"]
+    assert impact["sms_reminders_sent"] >= 1

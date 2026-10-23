@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { FacilityManage, User, Doctor, ScheduleSlot, Appointment } from '../types';
+import { makeT } from '../i18n';
+import React, { useState, useEffect, useRef } from 'react';
+import { FacilityManage, User, Doctor, ScheduleSlot, Appointment, Lang } from '../types';
 import { api } from '../services/api';
 import { localDate } from '../utils/date';
 import { Building2, Users, Activity, Pill, Clock, RefreshCw, Calendar, Save } from 'lucide-react';
 
 interface FacilityPortalProps {
-  language: 'hi' | 'en';
+  language: Lang;
   user: User;
 }
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export const FacilityPortal: React.FC<FacilityPortalProps> = ({ language, user }) => {
-  const hi = language === 'hi';
-  const t = (h: string, e: string) => (hi ? h : e);
+  const t = makeT(language);
 
   const [data, setData] = useState<FacilityManage | null>(null);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -41,6 +41,28 @@ export const FacilityPortal: React.FC<FacilityPortalProps> = ({ language, user }
   };
 
   useEffect(() => { load(); }, []);
+
+  const demoRef = useRef<(detail: any) => void>(() => {});
+  demoRef.current = async (detail: any) => {
+    if (detail.action !== 'restock' || !data) return;
+    const amlo = data.inventory.find(i => i.medicine_name.startsWith('Amlodipine'));
+    const usg = data.services.find(sv => sv.name.startsWith('Ultrasound'));
+    try {
+      if (amlo) await api.updateInventory(data.facility.id, amlo.id, 250);
+      if (usg && !usg.is_available) await api.updateService(data.facility.id, usg.id, { is_available: true, notes: null });
+      await load();
+      flash(t('अम्लोडिपिन का स्टॉक भरा गया और अल्ट्रासाउंड उपलब्ध किया गया - मरीज़ों को तुरंत दिखेगा।', 'Amlodipine restocked and ultrasound marked available - patients see this immediately.'));
+      window.dispatchEvent(new Event('swasthyasetu-data-changed'));
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+  useEffect(() => {
+    const onDemo = (e: Event) => demoRef.current((e as CustomEvent).detail);
+    window.addEventListener('swasthyasetu-demo', onDemo);
+    return () => window.removeEventListener('swasthyasetu-demo', onDemo);
+  }, []);
+
 
   const flash = (text: string) => {
     setNotice(text);

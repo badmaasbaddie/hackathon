@@ -1,5 +1,6 @@
+import { makeT } from './i18n';
 import React, { useState, useEffect } from 'react';
-import { Role, User } from './types';
+import { Role, User, Lang } from './types';
 import { api, setAuthToken, getAuthToken } from './services/api';
 import { Header } from './components/Header';
 import { PatientPortal } from './components/PatientPortal';
@@ -9,14 +10,17 @@ import { FacilityPortal } from './components/FacilityPortal';
 import { AdminDashboard } from './components/AdminDashboard';
 import { ScenarioRunnerModal } from './components/ScenarioRunnerModal';
 import { RegisterModal } from './components/RegisterModal';
+import { GuidedDemo } from './components/GuidedDemo';
 
 export const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [patientUsername, setPatientUsername] = useState<string>('ramesh');
-  const [language, setLanguage] = useState<'hi' | 'en'>('hi');
+  const [language, setLanguage] = useState<Lang>('hi');
+  const t = makeT(language);
   const [isScenarioModalOpen, setIsScenarioModalOpen] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
+  const [isDemoOpen, setIsDemoOpen] = useState<boolean>(false);
   const [refreshKey, setRefreshKey] = useState<number>(0);
 
   const signIn = async (username: string) => {
@@ -60,14 +64,13 @@ export const App: React.FC = () => {
         language={language}
         onLanguageChange={setLanguage}
         onOpenScenarioModal={() => setIsScenarioModalOpen(true)}
+        onOpenGuidedDemo={() => setIsDemoOpen(true)}
         onOpenRegister={() => setIsRegisterOpen(true)}
         onDemoReset={handleDemoReset}
       />
 
       <div className="bg-amber-50 border-b border-amber-200 text-amber-900 text-[11px] px-4 py-1.5 text-center">
-        {language === 'hi'
-          ? 'डेमो प्रोटोटाइप: सभी मरीज़, डॉक्टर और स्टॉक डेटा काल्पनिक है। ABHA, eSanjeevani, SMS एकीकरण सिम्युलेटेड हैं। आपात स्थिति में 112 डायल करें।'
-          : 'Demo prototype: all patients, doctors and stock data are fictional. ABHA, eSanjeevani and SMS integrations are simulated. In a real emergency dial 112.'}
+        {t('डेमो प्रोटोटाइप: सभी मरीज़, डॉक्टर और स्टॉक डेटा काल्पनिक है। ABHA, eSanjeevani, SMS एकीकरण सिम्युलेटेड हैं। आपात स्थिति में 112 डायल करें।', 'Demo prototype: all patients, doctors and stock data are fictional. ABHA, eSanjeevani and SMS integrations are simulated. In a real emergency dial 112.')}
       </div>
 
       <main className="flex-1 pb-12" key={`${refreshKey}-${currentUser?.username ?? 'none'}`}>
@@ -91,6 +94,16 @@ export const App: React.FC = () => {
         onClose={() => setIsScenarioModalOpen(false)}
         onSelectScenario={(_id, _role, defaultUser) => signIn(defaultUser)}
       />
+
+      {isDemoOpen && (
+        <GuidedDemo
+          language={language}
+          currentUser={currentUser}
+          onSignIn={signIn}
+          onReset={() => { setPatientUsername('ramesh'); setRefreshKey(prev => prev + 1); }}
+          onClose={() => setIsDemoOpen(false)}
+        />
+      )}
 
       {isRegisterOpen && (
         <RegisterModal language={language} onClose={() => setIsRegisterOpen(false)} onRegistered={handleRegistered} />

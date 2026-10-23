@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Appointment, PatientRecord, User, FacilityReadiness } from '../types';
+import { makeT } from '../i18n';
+import React, { useState, useEffect, useRef } from 'react';
+import { Appointment, PatientRecord, User, FacilityReadiness, Lang } from '../types';
 import { api } from '../services/api';
 import { Clock, CheckCircle2, Pill, Activity, Calendar, ShieldCheck, Plus, Trash2, History } from 'lucide-react';
 
 interface DoctorPortalProps {
-  language: 'hi' | 'en';
+  language: Lang;
   user: User;
 }
 
@@ -20,8 +21,7 @@ const MEDICINES = ['Paracetamol 500mg', 'Metformin 500mg', 'Amlodipine 5mg', 'Or
 const emptyRx = (): RxRow => ({ medicine_name: 'Paracetamol 500mg', dosage: '1 tablet', frequency: 'Twice daily after food', duration_days: 5, instructions: '' });
 
 export const DoctorPortal: React.FC<DoctorPortalProps> = ({ language, user }) => {
-  const hi = language === 'hi';
-  const t = (h: string, e: string) => (hi ? h : e);
+  const t = makeT(language);
 
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedApt, setSelectedApt] = useState<Appointment | null>(null);
@@ -87,35 +87,80 @@ export const DoctorPortal: React.FC<DoctorPortalProps> = ({ language, user }) =>
     loadData(false).catch(err => setRecordError(err.message));
   }, []);
 
-  const handleSubmitEncounter = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedApt) return;
+  const submitEncounter = async (apt: Appointment, v: {
+    chiefComplaints: string; clinicalNotes: string; diagnosis: string; vitalBp: string; vitalPulse: number;
+    vitalTemp: number; vitalSpo2: number; riskFlag: string; rxRows: RxRow[]; orderDiagnostics: string[]; followUpDays: number;
+  }) => {
     setIsSubmitting(true);
     setMessage(null);
     try {
       await api.createEncounter({
-        appointment_id: selectedApt.id,
-        patient_id: selectedApt.patient_id,
-        chief_complaints: chiefComplaints || 'Not recorded',
-        clinical_notes: clinicalNotes || 'Not recorded',
-        diagnosis,
-        vital_bp: vitalBp, vital_pulse: vitalPulse, vital_temp: vitalTemp, vital_spo2: vitalSpo2,
-        clinician_risk_flag: riskFlag,
-        prescriptions: rxRows.filter(r => r.medicine_name.trim()).map(r => ({ ...r, instructions: r.instructions || undefined })),
-        diagnostic_test_names: orderDiagnostics,
-        follow_up_days: followUpDays,
-        follow_up_instructions: `Review in ${followUpDays} days${orderDiagnostics.length ? ' with test reports' : ''}.`
+        appointment_id: apt.id,
+        patient_id: apt.patient_id,
+        chief_complaints: v.chiefComplaints || 'Not recorded',
+        clinical_notes: v.clinicalNotes || 'Not recorded',
+        diagnosis: v.diagnosis,
+        vital_bp: v.vitalBp, vital_pulse: v.vitalPulse, vital_temp: v.vitalTemp, vital_spo2: v.vitalSpo2,
+        clinician_risk_flag: v.riskFlag,
+        prescriptions: v.rxRows.filter(r => r.medicine_name.trim()).map(r => ({ ...r, instructions: r.instructions || undefined })),
+        diagnostic_test_names: v.orderDiagnostics,
+        follow_up_days: v.followUpDays,
+        follow_up_instructions: `Review in ${v.followUpDays} days${v.orderDiagnostics.length ? ' with test reports' : ''}.`
       });
       setMessage({ ok: true, text: t('परामर्श, पर्चा और फॉलो-अप मरीज़ के रिकॉर्ड में सहेजे गए।', 'Consultation, prescription and follow-up saved to the patient record. An SMS reminder has been scheduled.') });
       await loadData();
-      setSelectedApt({ ...selectedApt, status: 'COMPLETED' });
-      await loadPatient(selectedApt);
+      setSelectedApt({ ...apt, status: 'COMPLETED' });
+      await loadPatient(apt);
+      window.dispatchEvent(new Event('swasthyasetu-data-changed'));
     } catch (err: any) {
       setMessage({ ok: false, text: err.message });
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const handleSubmitEncounter = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedApt) return;
+    await submitEncounter(selectedApt, {
+      chiefComplaints, clinicalNotes, diagnosis, vitalBp, vitalPulse, vitalTemp, vitalSpo2, riskFlag, rxRows, orderDiagnostics, followUpDays
+    });
+  };
+
+  const demoRef = useRef<(detail: any) => void>(() => {});
+  demoRef.current = (detail: any) => {
+    if (detail.action !== 'consult') return;
+    const apt = (selectedApt && (selectedApt.status === 'BOOKED' || selectedApt.status === 'IN_QUEUE') ? selectedApt : null)
+      || appointments.find(a => a.status === 'BOOKED' || a.status === 'IN_QUEUE');
+    if (!apt) {
+      setMessage({ ok: false, text: t('कतार में कोई मरीज़ नहीं है।', 'No patient is waiting in the queue.') });
+      return;
+    }
+    const v = {
+      chiefComplaints: 'Chest heaviness on exertion, breathlessness on climbing stairs',
+      clinicalNotes: 'Alert, not in distress at rest. Heart sounds normal, no murmurs. Chest clear. Advised ECG today and ultrasound to rule out other causes.',
+      diagnosis: 'Stable angina - hypertension (uncontrolled)',
+      vitalBp: '152/94', vitalPulse: 88, vitalTemp: 98.4, vitalSpo2: 97, riskFlag: 'MODERATE_RISK',
+      rxRows: [
+        { medicine_name: 'Amlodipine 5mg', dosage: '1 tablet', frequency: 'Once daily, morning', duration_days: 30, instructions: '' },
+        { medicine_name: 'Paracetamol 500mg', dosage: '1 tablet', frequency: 'If needed for pain', duration_days: 3, instructions: '' },
+      ],
+      orderDiagnostics: ['Electrocardiogram (ECG)', 'Ultrasound Abdomen (USG)'],
+      followUpDays: 7,
+    };
+    if (selectedApt?.id !== apt.id) selectAppointment(apt);
+    setTimeout(() => {
+      setChiefComplaints(v.chiefComplaints); setClinicalNotes(v.clinicalNotes); setDiagnosis(v.diagnosis);
+      setVitalBp(v.vitalBp); setVitalPulse(v.vitalPulse); setVitalTemp(v.vitalTemp); setVitalSpo2(v.vitalSpo2);
+      setRiskFlag(v.riskFlag); setRxRows(v.rxRows); setOrderDiagnostics(v.orderDiagnostics); setFollowUpDays(v.followUpDays);
+    }, 600);
+    setTimeout(() => submitEncounter(apt, v), 2200);
+  };
+  useEffect(() => {
+    const onDemo = (e: Event) => demoRef.current((e as CustomEvent).detail);
+    window.addEventListener('swasthyasetu-demo', onDemo);
+    return () => window.removeEventListener('swasthyasetu-demo', onDemo);
+  }, []);
 
   const markNoShow = async () => {
     if (!selectedApt) return;

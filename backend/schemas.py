@@ -112,6 +112,8 @@ class FacilityReadinessOut(BaseModel):
     medicine_stock_summary: Dict[str, str] # e.g. {"Paracetamol": "IN_STOCK", "Amoxicillin": "OUT_OF_STOCK"}
     estimated_queue_wait_mins: int
     freshness_label: str
+    latitude: float
+    longitude: float
     doctors: List["DoctorOut"] = []
 
 class AppointmentCreate(BaseModel):
@@ -423,5 +425,26 @@ class PatientRecordOut(BaseModel):
     reminders: List[ReminderOut]
     appointments: List[AppointmentOut]
     latest_intake: Optional[IntakeOut] = None
+
+class CareTeamMember(BaseModel):
+    user_id: int
+    name: str
+    role: str  # DOCTOR, ASHA
+    detail: str
+    consent_status: str  # GRANTED, REVOKED
+    updated_at: Optional[UTCDateTime] = None
+
+class ConsentUpdateIn(BaseModel):
+    user_id: int
+    granted: bool
+
+class NotificationOut(BaseModel):
+    id: int
+    title: str
+    message: str
+    notification_type: str
+    is_read: bool
+    created_at: UTCDateTime
+    model_config = {"from_attributes": True}
 
 FacilityReadinessOut.model_rebuild()

@@ -583,8 +583,8 @@ def seed_trained_dataset():
     db.add_all([
         models.FamilyMember(patient_id=p_ramesh.id, full_name="Meena Kumar", relationship_type="SPOUSE", age=44, gender="Female", chronic_conditions="None"),
         models.FamilyMember(patient_id=p_ramesh.id, full_name="Aakash Kumar", relationship_type="CHILD", age=19, gender="Male", chronic_conditions="Asthma (Mild)"),
-        models.ConsentRecord(patient_id=p_ramesh.id, granted_to_role="DOCTOR", purpose="Consultation at Paud CHC (Dr. Anand Deshmukh)", status="GRANTED", valid_until=now + datetime.timedelta(days=180)),
-        models.ConsentRecord(patient_id=p_ramesh.id, granted_to_role="ASHA", purpose="Follow-up home visits (Kavita Tai Patil)", status="GRANTED", valid_until=now + datetime.timedelta(days=365)),
+        models.ConsentRecord(patient_id=p_ramesh.id, granted_to_role="DOCTOR", granted_to_user_id=u_deshmukh.id, purpose="Consultation at Paud CHC (Dr. Anand Deshmukh)", status="GRANTED", valid_until=now + datetime.timedelta(days=180)),
+        models.ConsentRecord(patient_id=p_ramesh.id, granted_to_role="ASHA", granted_to_user_id=kavita_id, purpose="Follow-up home visits (Kavita Tai Patil)", status="GRANTED", valid_until=now + datetime.timedelta(days=365)),
     ])
     db.add(models.SymptomIntake(
         patient_id=p_ramesh.id,

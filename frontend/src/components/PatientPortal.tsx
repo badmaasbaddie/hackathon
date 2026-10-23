@@ -1,22 +1,27 @@
+import { makeT, speechLang } from '../i18n';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Patient, FacilityReadiness, Appointment, CareTimelineEvent, User,
-  ChatTurn, ChatResponse, PatientRecord
-} from '../types';
+  ChatTurn, ChatResponse, PatientRecord, Lang } from '../types';
 import { api } from '../services/api';
 import { localDate } from '../utils/date';
 import {
   AlertTriangle, PhoneCall, CheckCircle2, Clock, MapPin, Shield, Mic, Send,
-  Activity, Info, Pill, FileText, Calendar, Bell, Users, Stethoscope, XCircle
+  Activity, Info, Pill, FileText, Calendar, Bell, Users, Stethoscope, XCircle, Volume2, VolumeX
 } from 'lucide-react';
+import { FacilityMap } from './FacilityMap';
+import { SmsPhone } from './SmsPhone';
+import { PrivacyPanel } from './PrivacyPanel';
+import { speak, stopSpeaking, canSpeak } from '../utils/speech';
 
 interface PatientPortalProps {
-  language: 'hi' | 'en';
+  language: Lang;
   user: User;
   onRegister: () => void;
 }
 
-type Tab = 'ASSISTANT' | 'FACILITIES' | 'RECORDS' | 'TIMELINE' | 'FAMILY';
+export type PatientTab = 'ASSISTANT' | 'FACILITIES' | 'RECORDS' | 'TIMELINE' | 'FAMILY' | 'PRIVACY';
+type Tab = PatientTab;
 
 interface AssistantMessage extends ChatTurn {
   meta?: ChatResponse;
@@ -30,8 +35,7 @@ const statusColor = (s: string) =>
       : 'bg-amber-100 text-amber-900';
 
 export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, onRegister }) => {
-  const hi = language === 'hi';
-  const t = (h: string, e: string) => (hi ? h : e);
+  const t = makeT(language);
 
   const [patient, setPatient] = useState<Patient | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -42,6 +46,9 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [readAloud, setReadAloud] = useState<boolean>(() => {
+    try { return localStorage.getItem('swasthyasetu_read_aloud') === 'true'; } catch { return false; }
+  });
   const chatEndRef = useRef<HTMLDivElement>(null);
   const lastMeta = [...messages].reverse().find(m => m.meta)?.meta;
 
@@ -120,7 +127,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
     }
     try {
       const recognition = new SpeechRecognition();
-      recognition.lang = hi ? 'hi-IN' : 'en-IN';
+      recognition.lang = speechLang(language);
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
       setIsListening(true);
@@ -133,18 +140,32 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
     }
   };
 
-  const sendMessage = async (e?: React.FormEvent) => {
+  const toggleReadAloud = () => {
+    const next = !readAloud;
+    setReadAloud(next);
+    if (!next) stopSpeaking();
+    try { localStorage.setItem('swasthyasetu_read_aloud', String(next)); } catch { /* storage unavailable */ }
+  };
+
+  const listen = (text: string) => {
+    if (!speak(text, language)) alert(t('इस ब्राउज़र में पढ़कर सुनाने की सुविधा नहीं है।', 'Text-to-speech is not supported in this browser.'));
+  };
+
+  const sendMessage = async (e?: React.FormEvent, override?: string, fresh = false) => {
     e?.preventDefault();
-    const text = draft.trim();
+    const text = (override ?? draft).trim();
     if (!text || sending) return;
-    const history: AssistantMessage[] = [...messages, { role: 'user', content: text }];
+    // The whole conversation is safety-screened, so a new topic needs a fresh conversation.
+    const history: AssistantMessage[] = [...(fresh ? [] : messages), { role: 'user', content: text }];
     setMessages(history);
     setDraft('');
     setSending(true);
     try {
       const res = await api.chat(history.map(({ role, content }) => ({ role, content })).slice(-20), language);
       setMessages([...history, { role: 'assistant', content: res.reply, meta: res }]);
+      if (readAloud) speak(res.reply, language);
       setBookReason(text.slice(0, 200));
+      window.dispatchEvent(new Event('swasthyasetu-data-changed'));
       if (patient) loadRecords(patient).catch(() => {});
     } catch (err: any) {
       setMessages([...history, { role: 'assistant', content: t('क्षमा करें, सहायक अभी उपलब्ध नहीं है: ', 'Sorry, the assistant is unavailable right now: ') + err.message }]);
@@ -153,16 +174,18 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
     }
   };
 
-  const handleBook = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!patient || !bookFacilityId || !bookDoctorId) return;
+  const handleBook = async (e?: React.FormEvent, override?: { facilityId: number; doctorId: number; reason: string }) => {
+    e?.preventDefault();
+    const facilityId = override?.facilityId ?? bookFacilityId;
+    const doctorId = override?.doctorId ?? bookDoctorId;
+    if (!patient || !facilityId || !doctorId) return;
     setBooking(true);
     setBookingResult(null);
     try {
       const apt = await api.bookAppointment({
-        patient_id: patient.id, doctor_id: bookDoctorId, facility_id: bookFacilityId,
+        patient_id: patient.id, doctor_id: doctorId, facility_id: facilityId,
         scheduled_date: bookDate, scheduled_time: bookTime, consultation_type: bookType,
-        reason: bookReason || lastMeta?.triage.primary_complaint || 'General consultation'
+        reason: override?.reason || bookReason || lastMeta?.triage.primary_complaint || 'General consultation'
       });
       setBookingResult({
         ok: true,
@@ -171,12 +194,37 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
           : `${t('अपॉइंटमेंट बुक हो गया', 'Appointment booked')}: ${apt.appointment_code} • ${t('टोकन', 'Token')} ${apt.queue_token} • ${apt.facility_name} • ${apt.doctor_name} • ${apt.scheduled_date} ${apt.scheduled_time}`
       });
       await loadAll();
+      window.dispatchEvent(new Event('swasthyasetu-data-changed'));
     } catch (err: any) {
       setBookingResult({ ok: false, text: err.message });
     } finally {
       setBooking(false);
     }
   };
+
+  const demoRef = useRef<(detail: any) => void>(() => {});
+  demoRef.current = (detail: any) => {
+    if (detail.action === 'tab') setActiveTab(detail.tab);
+    if (detail.action === 'chat') {
+      setActiveTab('ASSISTANT');
+      sendMessage(undefined, detail.text, Boolean(detail.fresh));
+    }
+    if (detail.action === 'book') {
+      const fac = facilities.find(f => f.facility_type === 'CHC') || facilities[0];
+      const doc = fac?.doctors.find(d => d.is_available_today) || fac?.doctors[0];
+      if (!fac || !doc) return;
+      setBookFacilityId(fac.id);
+      setBookDoctorId(doc.id);
+      setActiveTab('FACILITIES');
+      handleBook(undefined, { facilityId: fac.id, doctorId: doc.id, reason: detail.reason });
+      setTimeout(() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' }), 300);
+    }
+  };
+  useEffect(() => {
+    const onDemo = (e: Event) => demoRef.current((e as CustomEvent).detail);
+    window.addEventListener('swasthyasetu-demo', onDemo);
+    return () => window.removeEventListener('swasthyasetu-demo', onDemo);
+  }, []);
 
   const startBookingAt = (facId: number) => {
     setBookFacilityId(facId);
@@ -224,8 +272,8 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
 
   const samplePrompts = [
     { label: t('सीने में दर्द व सांस में तकलीफ (आपातकाल)', 'Chest pain & breathlessness (emergency)'), text: 'Mujhe chest mein severe pain aur saans lene mein dikkat ho rahi hai pichle 2 ghante se.' },
-    { label: t('बुखार और शरीर दर्द', 'Fever & body pain'), text: hi ? 'मुझे कल रात से हल्का बुखार और बदन दर्द है, क्या करूं?' : 'I have had a mild fever and body pain since last night. What should I do?' },
-    { label: t('बीपी की दवा और फॉलो-अप', 'My BP medicine & follow-up'), text: hi ? 'मेरी बीपी की दवा और अगला फॉलो-अप कब है?' : 'Which BP medicines am I on and when is my next follow-up?' },
+    { label: t('बुखार और शरीर दर्द', 'Fever & body pain'), text: t('मुझे कल रात से हल्का बुखार और बदन दर्द है, क्या करूं?', 'I have had a mild fever and body pain since last night. What should I do?') },
+    { label: t('बीपी की दवा और फॉलो-अप', 'My BP medicine & follow-up'), text: t('मेरी बीपी की दवा और अगला फॉलो-अप कब है?', 'Which BP medicines am I on and when is my next follow-up?') },
   ];
 
   const tabs: { id: Tab; label: string }[] = [
@@ -234,6 +282,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
     { id: 'RECORDS', label: t('३. मेरा स्वास्थ्य रिकॉर्ड', '3. My Health Record') },
     { id: 'TIMELINE', label: t('४. टाइमलाइन', '4. Timeline') },
     { id: 'FAMILY', label: t('५. परिवार', '5. Family') },
+    { id: 'PRIVACY', label: t('६. गोपनीयता', '6. Privacy') },
   ];
 
   return (
@@ -281,13 +330,29 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
             <div>
-              <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <Activity className="text-teal-700" size={20} />
-                {t('स्वास्थ्य सहायक से बात करें', 'Talk to the health assistant')}
-              </h3>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <Activity className="text-teal-700" size={20} />
+                  {t('स्वास्थ्य सहायक से बात करें', 'Talk to the health assistant')}
+                </h3>
+                <div className="flex items-center gap-2">
+                {messages.length > 0 && (
+                  <button type="button" onClick={() => { stopSpeaking(); setMessages([]); }}
+                    className="text-xs font-semibold px-2.5 py-1 rounded-lg border bg-white text-slate-600 border-slate-300 hover:bg-slate-50">
+                    {t('नई बातचीत', 'New conversation')}
+                  </button>
+                )}
+                {canSpeak() && (
+                  <button type="button" onClick={toggleReadAloud} aria-pressed={readAloud}
+                    className={`text-xs font-semibold px-2.5 py-1 rounded-lg border flex items-center gap-1.5 ${readAloud ? 'bg-teal-700 text-white border-teal-700' : 'bg-white text-slate-600 border-slate-300'}`}>
+                    {readAloud ? <Volume2 size={14} /> : <VolumeX size={14} />} {t('जवाब पढ़कर सुनाएं', 'Read answers aloud')}
+                  </button>
+                )}
+                </div>
+              </div>
               <p className="text-xs text-slate-500 mt-1">
-                {t('हिंदी या अंग्रेज़ी में लिखें या बोलें। आपातकालीन संकेत मिलने पर तुरंत 112 की सलाह दी जाती है। यह डॉक्टर का विकल्प नहीं है।',
-                  'Type or speak in Hindi or English. Emergency signs always trigger 112 advice first. This is not a substitute for a doctor.')}
+                {t('हिंदी, मराठी या अंग्रेज़ी में लिखें या बोलें। आपातकालीन संकेत मिलने पर तुरंत 112 की सलाह दी जाती है। यह डॉक्टर का विकल्प नहीं है।',
+                  'Type or speak in Hindi, Marathi or English. Emergency signs always trigger 112 advice first. This is not a substitute for a doctor.')}
               </p>
             </div>
 
@@ -301,6 +366,11 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                   <div>
                     <div className="text-[11px] font-black uppercase text-red-700">{t('आपातकाल - तुरंत कार्रवाई करें', 'Emergency - act now')}</div>
                     <p className="text-sm font-semibold text-red-900 leading-relaxed">{lastMeta.triage.emergency_advice}</p>
+                    {canSpeak() && (
+                      <button type="button" onClick={() => listen(lastMeta.triage.emergency_advice || '')} className="mt-1 text-xs font-bold text-red-800 underline flex items-center gap-1">
+                        <Volume2 size={13} /> {t('सुनें', 'Listen')}
+                      </button>
+                    )}
                   </div>
                 </div>
                 <div className="bg-white/80 rounded-xl p-3 border border-red-200 flex flex-wrap items-center justify-between gap-3">
@@ -349,6 +419,11 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                         </div>
                         {m.meta.sources.length > 0 && <div>{t('स्रोत', 'Sources')}: {m.meta.sources.map(s => s.title).join('; ')}</div>}
                       </div>
+                    )}
+                    {m.role === 'assistant' && canSpeak() && (
+                      <button type="button" onClick={() => listen(m.content)} className="mt-1 text-[11px] font-semibold text-teal-800 flex items-center gap-1" aria-label={t('सुनें', 'Listen')}>
+                        <Volume2 size={12} /> {t('सुनें', 'Listen')}
+                      </button>
                     )}
                   </div>
                 </div>
@@ -412,6 +487,8 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
               ))}
             </div>
 
+            <SmsPhone language={language} />
+
             <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 space-y-3">
               <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <MapPin className="text-teal-700" size={16} /> {t('निकटतम स्वास्थ्य केंद्र', 'Nearby facilities')}
@@ -444,6 +521,8 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                 {t('सभी ज़िले दिखाएं', 'Show all districts')}
               </label>
             </div>
+
+            <FacilityMap facilities={facilities} selectedId={bookFacilityId} onSelect={startBookingAt} language={language} />
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
               {facilities.map(f => (
@@ -694,6 +773,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
           <p className="text-[11px] text-slate-500 flex items-center gap-1"><Info size={12} /> {t('परिवार के सदस्यों के लिए अलग पंजीकरण बाद के चरण में आएगा।', 'Separate health records for family members are planned for a later phase.')}</p>
         </div>
       )}
+      {activeTab === 'PRIVACY' && <PrivacyPanel language={language} />}
     </div>
   );
 };

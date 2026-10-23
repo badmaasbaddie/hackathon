@@ -63,6 +63,7 @@ class ConsentRecord(Base):
     id = Column(Integer, primary_key=True, index=True)
     patient_id = Column(Integer, ForeignKey("patients.id"), nullable=False, index=True)
     granted_to_role = Column(String(50), nullable=False) # DOCTOR, ASHA, FACILITY
+    granted_to_user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)  # a specific clinician / ASHA
     purpose = Column(String(255), nullable=False)
     status = Column(String(20), default="GRANTED") # GRANTED, REVOKED, EXPIRED
     valid_until = Column(DateTime, nullable=True)

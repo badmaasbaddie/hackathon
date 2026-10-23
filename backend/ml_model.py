@@ -179,7 +179,7 @@ def predict_care_pathway(data: dict):
         "Age": int(data.get("age", 35)),
         "Gender": str(data.get("gender", "F")).upper(),
         "Village Name": str(data.get("village", "Mohanlalganj")),
-        "Registered Hub Hospital": str(data.get("hub_hospital", "Apollo Medics Lucknow")),
+        "Registered Hub Hospital": str(data.get("hub_hospital", "Malihabad Community Health Centre")),
         "bp_sys": float(data.get("bp_sys", vitals["bp_sys"])),
         "bp_dia": float(data.get("bp_dia", vitals["bp_dia"])),
         "hr": float(data.get("hr", vitals["hr"])),

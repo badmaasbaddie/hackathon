@@ -11,7 +11,7 @@ from fastapi import FastAPI, Depends, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
-from sqlalchemy import desc, func, or_
+from sqlalchemy import desc, func, or_, inspect
 
 import models
 import schemas
@@ -44,7 +44,10 @@ async def lifespan(_app: FastAPI):
     db = SessionLocal()
     try:
         # Seed on first run, or when the database predates the current schema/seed.
-        if not db.query(models.User).filter(models.User.username == "admin_paud").first():
+        consent_cols = {c["name"] for c in inspect(engine).get_columns("consent_records")}
+        if (not db.query(models.User).filter(models.User.username == "admin_paud").first()
+                or "granted_to_user_id" not in consent_cols
+                or not db.query(models.Facility).filter(models.Facility.name == "Malihabad Community Health Centre").first()):
             db.close()
             seed_database()
             db = SessionLocal()
@@ -123,6 +126,23 @@ def record_audit(db: Session, user: Optional[models.User], action: str, resource
     db.commit()
 
 
+def notify_patient(db: Session, patient_id: int, title: str, message: str, kind: str = "SMS"):
+    """Simulated SMS/WhatsApp to the patient's phone; shown in the patient's 'phone' panel."""
+    patient = db.query(models.Patient).filter(models.Patient.id == patient_id).first()
+    if patient and patient.user_id:
+        db.add(models.Notification(user_id=patient.user_id, title=title, message=message, notification_type=kind))
+
+
+def consent_revoked(db: Session, patient_id: int, user_id: int) -> bool:
+    """The patient's latest decision for this specific clinician / ASHA worker wins."""
+    latest = (
+        db.query(models.ConsentRecord)
+        .filter(models.ConsentRecord.patient_id == patient_id, models.ConsentRecord.granted_to_user_id == user_id)
+        .order_by(desc(models.ConsentRecord.id)).first()
+    )
+    return latest is not None and latest.status == "REVOKED"
+
+
 def doctor_for_user(db: Session, user: models.User) -> Optional[models.Doctor]:
     return db.query(models.Doctor).filter(models.Doctor.user_id == user.id).first()
 
@@ -136,6 +156,8 @@ def can_access_patient(db: Session, user: models.User, patient: models.Patient) 
         return True
     if user.role == "PATIENT":
         return patient.user_id == user.id
+    if user.role in ("ASHA", "DOCTOR") and consent_revoked(db, patient.id, user.id):
+        return False
     if user.role == "ASHA":
         return patient.assigned_asha_id == user.id
     if user.role == "DOCTOR":
@@ -166,7 +188,9 @@ def ensure_patient_access(db: Session, user: models.User, patient_id: int, actio
             db, user, "UNAUTHORIZED_PATIENT_ACCESS_DENIED", "PATIENT_RECORD", patient_id, outcome="DENIED",
             details={"attempted_action": action, "patient_village": patient.village, "actor": user.full_name}
         )
-        if user.role == "ASHA":
+        if consent_revoked(db, patient.id, user.id):
+            detail = f"Access Denied: the patient has withdrawn consent for {user.full_name} to view their health record."
+        elif user.role == "ASHA":
             detail = (f"Access Denied: ASHA worker '{user.full_name}' is not authorized to access patient records "
                       f"outside the assigned catchment (patient from {patient.village}).")
         else:
@@ -210,6 +234,8 @@ def detect_missed_care(db: Session) -> dict:
                 task_type="MISSED_FOLLOW_UP", priority="HIGH", due_date=fup.due_date, status="OPEN"
             ))
             tasks_created += 1
+        notify_patient(db, fup.patient_id, "Missed follow-up",
+                       f"SwasthyaSetu: You missed your follow-up due {fup.due_date}. Your ASHA worker will contact you to help you reach the clinic.")
         db.add(models.CareTimelineEvent(
             patient_id=fup.patient_id, event_type="FOLLOW_UP", title="Scheduled Follow-up Review Missed",
             description=f"Follow-up due {fup.due_date} was not completed. "
@@ -224,6 +250,7 @@ def detect_missed_care(db: Session) -> dict:
     for rem in db.query(models.Reminder).filter(models.Reminder.status == "PENDING", models.Reminder.scheduled_time <= now_naive).all():
         rem.status = "SENT"
         rem.sent_at = now_naive
+        notify_patient(db, rem.patient_id, "Follow-up reminder", rem.message, rem.channel)
         sent += 1
 
     db.commit()
@@ -355,6 +382,75 @@ def add_family_member(req: schemas.FamilyMemberCreate, current_user: models.User
     db.refresh(member)
     record_audit(db, current_user, "FAMILY_MEMBER_ADDED", "PATIENT_RECORD", patient.id)
     return member
+
+
+@app.get("/api/patients/me/care-team", response_model=List[schemas.CareTeamMember])
+def get_my_care_team(current_user: models.User = Depends(require_roles("PATIENT")), db: Session = Depends(get_db)):
+    """Who can see my record, and whether I have allowed it."""
+    patient = patient_for_user(db, current_user)
+    if not patient:
+        raise HTTPException(status_code=404, detail="No health record linked to this account")
+    members = []
+    if patient.assigned_asha_id:
+        asha = db.query(models.User).filter(models.User.id == patient.assigned_asha_id).first()
+        if asha:
+            members.append((asha, "ASHA", f"ASHA worker for {patient.village}"))
+    doctor_ids = {a.doctor_id for a in db.query(models.Appointment).filter(models.Appointment.patient_id == patient.id)} | \
+                 {e.doctor_id for e in db.query(models.ClinicalEncounter).filter(models.ClinicalEncounter.patient_id == patient.id)}
+    _, facilities = _names(db)
+    for doc in db.query(models.Doctor).filter(models.Doctor.id.in_(doctor_ids)).all() if doctor_ids else []:
+        if doc.user_id:
+            user = db.query(models.User).filter(models.User.id == doc.user_id).first()
+            fac = facilities.get(doc.facility_id)
+            members.append((user, "DOCTOR", f"{doc.specialty}, {fac.name if fac else ''}"))
+
+    out = []
+    for user, role, detail in members:
+        latest = (db.query(models.ConsentRecord)
+                  .filter(models.ConsentRecord.patient_id == patient.id, models.ConsentRecord.granted_to_user_id == user.id)
+                  .order_by(desc(models.ConsentRecord.id)).first())
+        out.append(schemas.CareTeamMember(
+            user_id=user.id, name=user.full_name, role=role, detail=detail,
+            consent_status=latest.status if latest else "GRANTED",
+            updated_at=(latest.revoked_at or latest.created_at) if latest else None,
+        ))
+    return out
+
+
+@app.put("/api/patients/me/consents", response_model=List[schemas.CareTeamMember])
+def set_my_consent(req: schemas.ConsentUpdateIn, current_user: models.User = Depends(require_roles("PATIENT")), db: Session = Depends(get_db)):
+    patient = patient_for_user(db, current_user)
+    if not patient:
+        raise HTTPException(status_code=404, detail="No health record linked to this account")
+    team = {m.user_id: m for m in get_my_care_team(current_user, db)}
+    if req.user_id not in team:
+        raise HTTPException(status_code=404, detail="That person is not part of your care team")
+    member = team[req.user_id]
+    status = "GRANTED" if req.granted else "REVOKED"
+    db.add(models.ConsentRecord(
+        patient_id=patient.id, granted_to_role=member.role, granted_to_user_id=member.user_id,
+        purpose=f"Access to health record by {member.name}", status=status,
+        valid_until=(utcnow() + datetime.timedelta(days=365)).replace(tzinfo=None) if req.granted else None,
+        revoked_at=None if req.granted else utcnow().replace(tzinfo=None),
+    ))
+    db.add(models.CareTimelineEvent(
+        patient_id=patient.id, event_type="CONSENT",
+        title=f"Consent {'granted' if req.granted else 'withdrawn'}: {member.name}",
+        description=f"{patient.name} {'allowed' if req.granted else 'stopped'} {member.name} ({member.role}) {'to view' if req.granted else 'from viewing'} the health record.",
+        actor_name=patient.name, actor_role="PATIENT", metadata_json=json.dumps({"user_id": member.user_id, "status": status})
+    ))
+    db.commit()
+    record_audit(db, current_user, "CONSENT_GRANTED" if req.granted else "CONSENT_REVOKED", "PATIENT_RECORD", patient.id,
+                 "SUCCESS", {"for_user": member.name, "role": member.role})
+    return get_my_care_team(current_user, db)
+
+
+@app.get("/api/notifications/me", response_model=List[schemas.NotificationOut])
+def get_my_notifications(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """Simulated SMS inbox for the signed-in user."""
+    detect_missed_care(db)
+    return (db.query(models.Notification).filter(models.Notification.user_id == current_user.id)
+            .order_by(desc(models.Notification.id)).limit(50).all())
 
 
 @app.get("/api/patients", response_model=List[schemas.PatientOut])
@@ -517,7 +613,7 @@ def ai_chat(req: schemas.ChatRequest, current_user: models.User = Depends(get_cu
     history = [m.model_dump() for m in req.messages]
     if history[-1]["role"] != "user":
         raise HTTPException(status_code=422, detail="The last message must come from the user")
-    language = "en" if req.language == "en" else "hi"
+    language = req.language if req.language in ("hi", "en", "mr") else "hi"
 
     result = ai_assistant.respond(db, patient, history, language)
     intake = _record_intake(db, current_user, patient, history[-1]["content"], language, 2, result["triage"])
@@ -580,6 +676,8 @@ def _facility_readiness(db: Session, fac: models.Facility, docs: List[models.Doc
         medicine_stock_summary={item.medicine_name.split()[0]: item.stock_status for item in inv_items},
         estimated_queue_wait_mins=queue_waiting * per_patient // max(len(available_docs), 1),
         freshness_label=_freshness_label(max(timestamps)),
+        latitude=fac.latitude,
+        longitude=fac.longitude,
         doctors=[_doctor_out(d, schedules.get(d.id, [])) for d in docs],
     )
 
@@ -733,6 +831,8 @@ def _create_appointment(db: Session, user: models.User, req: schemas.Appointment
     db.commit()
     db.refresh(apt)
 
+    notify_patient(db, req.patient_id, "Appointment confirmed",
+                   f"SwasthyaSetu: Appointment {apt_code} confirmed with {doc.name} at {fac.name} on {req.scheduled_date}, {apt.scheduled_time}. Token {queue_token}. Reply CANCEL to cancel (demo).")
     db.add(models.QueueEntry(facility_id=fac.id, appointment_id=apt.id, token_number=queue_token,
                              patient_name=patient.name, estimated_wait_minutes=same_day * 12, status="WAITING"))
     db.add(models.CareTimelineEvent(
@@ -880,6 +980,9 @@ def create_clinical_encounter(req: schemas.EncounterCreate, current_user: models
             db.add(models.PrescriptionItem(prescription_id=rx.id, medicine_name=p_item.medicine_name, dosage=p_item.dosage,
                                            frequency=p_item.frequency, duration_days=p_item.duration_days,
                                            instructions=p_item.instructions, collected_status=coll_status))
+        notify_patient(db, req.patient_id, "Prescription issued",
+                       f"SwasthyaSetu: Prescription {rx.prescription_code} issued by {doc.name}."
+                       + (f" Not in stock at this centre: {', '.join(out_of_stock)} - see the app for facilities that have it." if out_of_stock else " Collect your medicines at the dispensary."))
         db.add(models.CareTimelineEvent(
             patient_id=req.patient_id, event_type="PRESCRIPTION", title=f"Digital Prescription Issued ({rx.prescription_code})",
             description=f"{len(req.prescriptions)} medicine(s) prescribed for {req.diagnosis}."
@@ -917,6 +1020,8 @@ def create_clinical_encounter(req: schemas.EncounterCreate, current_user: models
             message=f"SwasthyaSetu Reminder: your follow-up with {doc.name} at {fac.name if fac else 'the facility'} is due on {due}. Please bring previous reports.",
             scheduled_time=(utcnow() + datetime.timedelta(days=max(req.follow_up_days - 1, 0))).replace(tzinfo=None), status="PENDING"
         ))
+        notify_patient(db, req.patient_id, "Follow-up scheduled",
+                       f"SwasthyaSetu: {doc.name} has scheduled your follow-up on {due}. You will get a reminder the day before.")
         db.add(models.CareTimelineEvent(
             patient_id=req.patient_id, event_type="FOLLOW_UP", title="Follow-Up Review Scheduled",
             description=f"Due date: {due}. Instructions: {fup.instructions}. SMS reminder scheduled.",
@@ -1036,6 +1141,9 @@ def _update_task(db: Session, user: models.User, task: models.HealthWorkerTask, 
             if fup:
                 fup.status = "COMPLETED"
 
+    if status in ("RESOLVED", "ESCALATED"):
+        notify_patient(db, task.patient_id, "ASHA visit recorded",
+                       f"SwasthyaSetu: {user.full_name} recorded a home visit. " + ("Your case has been escalated to the medical officer." if status == "ESCALATED" else "Thank you - your follow-up is marked complete."))
     db.add(models.CareTimelineEvent(
         patient_id=task.patient_id, event_type="HOME_VISIT", title=f"ASHA Home Visit Recorded - {status}",
         description=f"Notes: {visit_notes}. Outcome: {outcome or 'Pending review'}.",
@@ -1165,6 +1273,14 @@ def get_admin_activity(current_user: models.User = Depends(require_roles("SUPER_
         "registrations_last_24h": db.query(models.Patient).filter(models.Patient.created_at >= since).count(),
         "logins_last_24h": db.query(models.AuditEvent).filter(models.AuditEvent.action == "USER_LOGIN", models.AuditEvent.created_at >= since).count(),
         "access_denials_total": db.query(models.AuditEvent).filter(models.AuditEvent.outcome == "DENIED").count(),
+        "impact": {
+            "missed_follow_ups_recovered": db.query(models.HealthWorkerTask).filter(models.HealthWorkerTask.status.in_(["RESOLVED", "ESCALATED"])).count(),
+            "emergencies_directed_to_112": db.query(models.SymptomIntake).filter(models.SymptomIntake.emergency_triaged == True).count(),
+            "wasted_trips_avoided": db.query(models.DiagnosticOrder).filter(models.DiagnosticOrder.status == "UNAVAILABLE").count()
+                                    + db.query(models.PrescriptionItem).filter(models.PrescriptionItem.collected_status == "OUT_OF_STOCK").count(),
+            "sms_reminders_sent": db.query(models.Notification).count(),
+            "consent_withdrawals_honoured": db.query(models.ConsentRecord).filter(models.ConsentRecord.status == "REVOKED").count(),
+        },
         "recent_appointments": [_appointment_out(a, names, doctors, facilities).model_dump(mode="json") for a in recent],
     }
 

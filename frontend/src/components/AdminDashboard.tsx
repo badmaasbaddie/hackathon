@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { AdminMetrics, AuditEvent, AdminActivity, User } from '../types';
+import { makeT } from '../i18n';
+import React, { useState, useEffect, useRef } from 'react';
+import { AdminMetrics, AuditEvent, AdminActivity, User, Lang } from '../types';
 import { api } from '../services/api';
 import {
   BarChart3, Users, Building2, AlertTriangle, CheckCircle2,
@@ -7,11 +8,12 @@ import {
 } from 'lucide-react';
 
 interface AdminDashboardProps {
-  language: 'hi' | 'en';
+  language: Lang;
   user: User;
 }
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language, user }) => {
+  const t = makeT(language);
   const [activity, setActivity] = useState<AdminActivity | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [continuityMsg, setContinuityMsg] = useState<string | null>(null);
@@ -60,6 +62,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language, user }
     }
   };
 
+  const demoRef = useRef<(detail: any) => void>(() => {});
+  demoRef.current = (detail: any) => {
+    if (detail.action === 'continuity') runContinuity();
+  };
+  useEffect(() => {
+    const onDemo = (e: Event) => demoRef.current((e as CustomEvent).detail);
+    window.addEventListener('swasthyasetu-demo', onDemo);
+    return () => window.removeEventListener('swasthyasetu-demo', onDemo);
+  }, []);
+
   useEffect(() => {
     loadData();
     const interval = setInterval(loadData, 15000);
@@ -73,7 +85,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language, user }
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl font-bold text-slate-900">
-              {language === 'hi' ? 'जिला सार्वजनिक स्वास्थ्य नियंत्रण कक्ष' : 'District Public Health Operations Center'}
+              {t('जिला सार्वजनिक स्वास्थ्य नियंत्रण कक्ष', 'District Public Health Operations Center')}
             </h2>
             <span className="bg-amber-100 text-amber-900 text-xs px-2.5 py-0.5 rounded-full font-bold">
               Demo data
@@ -149,6 +161,29 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language, user }
             {metrics?.critical_emergency_alerts_count ?? 0}
           </div>
           <p className="text-[10px] text-purple-700 font-medium">{activity?.access_denials_total ?? 0} access denials audited</p>
+        </div>
+      </div>
+
+      {/* IMPACT */}
+      <div className="bg-gradient-to-r from-teal-800 to-teal-900 text-white rounded-2xl p-5 shadow-sm space-y-3">
+        <div>
+          <h3 className="text-base font-bold">{t('इस डेमो में प्रभाव', 'Impact in this demo')}</h3>
+          <p className="text-xs text-teal-100">{t('हर संख्या प्लेटफ़ॉर्म पर दर्ज वास्तविक घटनाओं से गिनी गई है।', 'Every number is counted from events recorded on the platform.')}</p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          {[
+            { label: t('छूटे फॉलो-अप फिर से जुड़े', 'Missed follow-ups recovered'), value: activity?.impact.missed_follow_ups_recovered, note: t('आशा घर भ्रमण से', 'via ASHA home visits') },
+            { label: t('आपात स्थिति में 112 की सलाह', 'Emergencies sent to 112'), value: activity?.impact.emergencies_directed_to_112, note: t('LLM से पहले, तुरंत', 'instantly, before any LLM') },
+            { label: t('बेकार यात्राएं टलीं', 'Wasted trips avoided'), value: activity?.impact.wasted_trips_avoided, note: t('जांच/दवा न होने की पहले से जानकारी', 'test or medicine unavailable, known in advance') },
+            { label: t('SMS भेजे गए', 'SMS sent'), value: activity?.impact.sms_reminders_sent, note: t('पुष्टि और रिमाइंडर', 'confirmations & reminders') },
+            { label: t('सहमति वापसी का पालन', 'Consent withdrawals honoured'), value: activity?.impact.consent_withdrawals_honoured, note: t('मरीज़ का नियंत्रण', 'patient in control') },
+          ].map(k => (
+            <div key={k.label} className="bg-white/10 rounded-xl p-3 border border-white/10">
+              <div className="text-2xl font-black">{k.value ?? '–'}</div>
+              <div className="text-[11px] font-bold text-teal-50">{k.label}</div>
+              <div className="text-[10px] text-teal-200">{k.note}</div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -302,7 +337,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language, user }
             <div>
               <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 <FileText className="text-teal-700" size={18} />
-                {language === 'hi' ? 'सुरक्षा एवं क्लिनिकल ऑडिट ट्रेल' : 'Security, Access & Clinical Audit Trail'}
+                {t('सुरक्षा एवं क्लिनिकल ऑडिट ट्रेल', 'Security, Access & Clinical Audit Trail')}
               </h3>
               <p className="text-xs text-slate-500">
                 Immutable chronological log of patient record accesses, consultations, and permission checks.
@@ -359,7 +394,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language, user }
           <div className="border-b border-slate-200 pb-3">
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <RefreshCw className="text-teal-700" size={18} />
-              {language === 'hi' ? 'एकीकरण एडाप्टर स्थिति' : 'Ecosystem Adapters'}
+              {t('एकीकरण एडाप्टर स्थिति', 'Ecosystem Adapters')}
             </h3>
             <p className="text-xs text-slate-500">
               Clear distinction between genuinely integrated services and simulated mock adapters.

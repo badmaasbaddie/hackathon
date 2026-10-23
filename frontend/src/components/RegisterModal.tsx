@@ -1,16 +1,17 @@
+import { makeT } from '../i18n';
 import React, { useState } from 'react';
-import { User } from '../types';
+import { User, Lang } from '../types';
 import { api } from '../services/api';
 import { UserPlus } from 'lucide-react';
 
 interface RegisterModalProps {
-  language: 'hi' | 'en';
+  language: Lang;
   onClose: () => void;
   onRegistered: (token: string, user: User) => void;
 }
 
 export const RegisterModal: React.FC<RegisterModalProps> = ({ language, onClose, onRegistered }) => {
-  const hi = language === 'hi';
+  const t = makeT(language);
   const [form, setForm] = useState({
     name: '', age: '', gender: 'Female', phone: '', village: '', district: 'Pune', block: 'Mulshi',
     blood_group: 'Unknown', emergency_contact: '', chronic_conditions: ''
@@ -56,11 +57,10 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ language, onClose,
           <div>
             <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <UserPlus className="text-teal-700" size={20} />
-              {hi ? 'नया मरीज़ पंजीकरण' : 'New Patient Registration'}
+              {t('नया मरीज़ पंजीकरण', 'New Patient Registration')}
             </h3>
             <p className="text-xs text-slate-500">
-              {hi ? 'डेमो: एक काल्पनिक ABHA-प्रारूप आईडी बनाई जाएगी। असली व्यक्तिगत जानकारी न डालें।'
-                  : 'Demo: a fictional ABHA-format ID is generated. Please do not enter real personal details.'}
+              {t('डेमो: एक काल्पनिक ABHA-प्रारूप आईडी बनाई जाएगी। असली व्यक्तिगत जानकारी न डालें।', 'Demo: a fictional ABHA-format ID is generated. Please do not enter real personal details.')}
             </p>
           </div>
           <button type="button" onClick={onClose} className="text-slate-400 hover:text-slate-700 font-bold" aria-label="Close">✕</button>
@@ -68,50 +68,50 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ language, onClose,
 
         <div className="grid grid-cols-2 gap-3">
           <div className="col-span-2 space-y-1">
-            <label className={label}>{hi ? 'पूरा नाम' : 'Full name'} *</label>
+            <label className={label}>{t('पूरा नाम', 'Full name')} *</label>
             <input required minLength={2} value={form.name} onChange={set('name')} className={input} />
           </div>
           <div className="space-y-1">
-            <label className={label}>{hi ? 'उम्र' : 'Age'} *</label>
+            <label className={label}>{t('उम्र', 'Age')} *</label>
             <input required type="number" min={0} max={120} value={form.age} onChange={set('age')} className={input} />
           </div>
           <div className="space-y-1">
-            <label className={label}>{hi ? 'लिंग' : 'Gender'} *</label>
+            <label className={label}>{t('लिंग', 'Gender')} *</label>
             <select value={form.gender} onChange={set('gender')} className={input}>
-              <option value="Female">{hi ? 'महिला' : 'Female'}</option>
-              <option value="Male">{hi ? 'पुरुष' : 'Male'}</option>
-              <option value="Other">{hi ? 'अन्य' : 'Other'}</option>
+              <option value="Female">{t('महिला', 'Female')}</option>
+              <option value="Male">{t('पुरुष', 'Male')}</option>
+              <option value="Other">{t('अन्य', 'Other')}</option>
             </select>
           </div>
           <div className="space-y-1">
-            <label className={label}>{hi ? 'मोबाइल नंबर' : 'Mobile number'} *</label>
+            <label className={label}>{t('मोबाइल नंबर', 'Mobile number')} *</label>
             <input required inputMode="numeric" pattern="[0-9]{10}" title="10-digit mobile number" value={form.phone} onChange={set('phone')} className={input} />
           </div>
           <div className="space-y-1">
-            <label className={label}>{hi ? 'गांव' : 'Village'} *</label>
+            <label className={label}>{t('गांव', 'Village')} *</label>
             <input required minLength={2} value={form.village} onChange={set('village')} placeholder="Paud / Pirangut" className={input} />
           </div>
           <div className="space-y-1">
-            <label className={label}>{hi ? 'ब्लॉक / तालुका' : 'Block / Taluka'}</label>
+            <label className={label}>{t('ब्लॉक / तालुका', 'Block / Taluka')}</label>
             <input value={form.block} onChange={set('block')} className={input} />
           </div>
           <div className="space-y-1">
-            <label className={label}>{hi ? 'ज़िला' : 'District'}</label>
+            <label className={label}>{t('ज़िला', 'District')}</label>
             <input value={form.district} onChange={set('district')} className={input} />
           </div>
           <div className="space-y-1">
-            <label className={label}>{hi ? 'ब्लड ग्रुप' : 'Blood group'}</label>
+            <label className={label}>{t('ब्लड ग्रुप', 'Blood group')}</label>
             <select value={form.blood_group} onChange={set('blood_group')} className={input}>
               {['Unknown', 'A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].map(b => <option key={b}>{b}</option>)}
             </select>
           </div>
           <div className="space-y-1">
-            <label className={label}>{hi ? 'आपातकालीन संपर्क' : 'Emergency contact'}</label>
+            <label className={label}>{t('आपातकालीन संपर्क', 'Emergency contact')}</label>
             <input value={form.emergency_contact} onChange={set('emergency_contact')} className={input} />
           </div>
           <div className="col-span-2 space-y-1">
-            <label className={label}>{hi ? 'पुरानी बीमारियां (यदि कोई)' : 'Long-term conditions (if any)'}</label>
-            <input value={form.chronic_conditions} onChange={set('chronic_conditions')} placeholder={hi ? 'जैसे: मधुमेह, बीपी' : 'e.g. diabetes, high BP'} className={input} />
+            <label className={label}>{t('पुरानी बीमारियां (यदि कोई)', 'Long-term conditions (if any)')}</label>
+            <input value={form.chronic_conditions} onChange={set('chronic_conditions')} placeholder={t('जैसे: मधुमेह, बीपी', 'e.g. diabetes, high BP')} className={input} />
           </div>
         </div>
 
@@ -119,10 +119,10 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ language, onClose,
 
         <div className="flex justify-end gap-2 pt-2 border-t border-slate-200">
           <button type="button" onClick={onClose} className="px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">
-            {hi ? 'रद्द करें' : 'Cancel'}
+            {t('रद्द करें', 'Cancel')}
           </button>
           <button type="submit" disabled={submitting} className="bg-teal-700 hover:bg-teal-800 disabled:opacity-50 text-white text-xs font-bold px-4 py-2 rounded-xl">
-            {submitting ? (hi ? 'पंजीकरण हो रहा है…' : 'Registering…') : (hi ? 'पंजीकरण करें' : 'Register')}
+            {submitting ? (t('पंजीकरण हो रहा है…', 'Registering…')) : (t('पंजीकरण करें', 'Register'))}
           </button>
         </div>
       </form>
