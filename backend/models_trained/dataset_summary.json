@@ -1,0 +1,56 @@
+{
+  "status": "TRAINED",
+  "dataset_size": 1000,
+  "test_accuracy": 79.0,
+  "classes": [
+    "Chronic Disease Mgmt",
+    "Daily SMS / Weekly Visit",
+    "High-Risk Maternal Care",
+    "Post-Op Connected Care"
+  ],
+  "hospitals_count": 10,
+  "hospitals": [
+    "Apollo Medics Lucknow",
+    "Mayo Hospital",
+    "Sadar Hospital Lucknow",
+    "Medanta Hospital Lucknow",
+    "KGMU Lucknow",
+    "Sahara Hospital Lucknow",
+    "Charak Hospital",
+    "Ram Manohar Lohia Hospital",
+    "Balrampur Hospital",
+    "District Hospital Lucknow"
+  ],
+  "doctors_count": 10,
+  "doctors": [
+    "Dr. Meera Jha",
+    "Dr. A. K. Srivastava",
+    "Dr. Sanjay Verma",
+    "Dr. Ritu Anand",
+    "Dr. Shalini Rai",
+    "Dr. Sunita Kapoor",
+    "Dr. Alok Pandey",
+    "Dr. Rajesh Mishra",
+    "Dr. Neha Tripathi",
+    "Dr. Vikas Gupta"
+  ],
+  "asha_workers_count": 199,
+  "villages_count": 10,
+  "villages": [
+    "Kakori",
+    "Nagram",
+    "Gosainganj",
+    "Mohanlalganj",
+    "Malihabad",
+    "Mallhabad",
+    "Bakshi Ka Talab",
+    "Amethi",
+    "Chinhat",
+    "Itaunja"
+  ],
+  "metrics": {
+    "accuracy": 0.79,
+    "macro_avg_f1": 0.7706
+  },
+  "trained_at": "2026-10-23T17:48:22.015149+00:00"
+}
