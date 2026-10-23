@@ -141,6 +141,7 @@ export const MR: Record<string, string> = {
   // Read aloud, SMS phone, privacy, map
   'Read answers aloud': 'उत्तरे मोठ्याने वाचा',
   'New conversation': 'नवीन संभाषण',
+  'Preparing the voice…': 'आवाज तयार होत आहे…',
   'Listen': 'ऐका',
   'Stop': 'थांबा',
   'Text-to-speech is not supported in this browser.': 'या ब्राउझरमध्ये मोठ्याने वाचण्याची सोय नाही.',

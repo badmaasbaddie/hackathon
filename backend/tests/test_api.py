@@ -335,5 +335,37 @@ def test_read_aloud_with_elevenlabs(monkeypatch):
     assert res.headers["content-type"] == "audio/mpeg"
     assert res.content == b"ID3-fake-mp3"
     assert sent["headers"]["xi-api-key"] == "test-key"
-    assert sent["json"]["model_id"] == "eleven_v4" and sent["json"]["language_code"] == "mr"
+    assert sent["json"]["model_id"] == "eleven_v4_turbo" and sent["json"]["language_code"] == "mr"
     assert "स्रोत" not in sent["json"]["text"] and "PHC/CHC" not in sent["json"]["text"]
+
+
+def test_read_aloud_streaming(monkeypatch):
+    import tts
+    calls = {}
+
+    class FakeStream:
+        status_code = 200
+        def iter_bytes(self):
+            yield b"ID3-part1-"
+            yield b"part2"
+        def read(self): return b""
+        def close(self): calls["closed"] = True
+
+    class FakeClient:
+        def __init__(self, *a, **k): pass
+        def build_request(self, method, url, params=None, headers=None, json=None):
+            calls.update(url=url, json=json)
+            return object()
+        def send(self, request, stream=False): return FakeStream()
+        def close(self): pass
+
+    monkeypatch.setenv("ELEVENLABS_API_KEY", "test-key")
+    monkeypatch.setattr(tts.httpx, "Client", FakeClient)
+    tts._cache.clear()
+
+    assert client.post("/api/tts/prepare", json={"text": "x"}).status_code == 401
+    url = client.post("/api/tts/prepare", headers=as_user("ramesh"), json={"text": "नमस्ते, आराम करें।", "language": "hi"}).json()["url"]
+    res = client.get(url)
+    assert res.status_code == 200 and res.content == b"ID3-part1-part2"
+    assert calls["url"].endswith("/stream") and calls["json"]["language_code"] == "hi"
+    assert client.get(url).status_code == 404  # single use

@@ -27,7 +27,7 @@ _load_env_files()
 
 from fastapi import FastAPI, Depends, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from sqlalchemy import desc, func, or_, inspect
@@ -664,6 +664,27 @@ def text_to_speech(req: schemas.TTSRequest, current_user: models.User = Depends(
     except tts.TTSError as e:
         raise HTTPException(status_code=502, detail=str(e))
     return Response(content=audio, media_type="audio/mpeg")
+
+
+@app.post("/api/tts/prepare")
+def prepare_speech(req: schemas.TTSRequest, current_user: models.User = Depends(get_current_user)):
+    """Register text to speak; returns a single-use audio URL that streams as it is generated."""
+    if not tts.enabled():
+        raise HTTPException(status_code=503, detail="ElevenLabs is not configured")
+    try:
+        clip_id = tts.prepare(req.text, req.language or "hi")
+    except tts.TTSError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+    return {"url": f"/api/tts/audio/{clip_id}"}
+
+
+@app.get("/api/tts/audio/{clip_id}")
+def stream_speech(clip_id: str):
+    try:
+        chunks = tts.open_stream(clip_id)
+    except tts.TTSError as e:
+        raise HTTPException(status_code=502 if "ElevenLabs" in str(e) else 404, detail=str(e))
+    return StreamingResponse(chunks, media_type="audio/mpeg", headers={"Cache-Control": "no-store"})
 
 
 # ----------------- FACILITIES, DOCTORS & READINESS -----------------

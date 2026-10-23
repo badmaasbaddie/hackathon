@@ -29,13 +29,14 @@ const stopAudio = () => {
   currentUrl = null;
 };
 
+// The server returns a single-use link; the <audio> element streams it, so playback starts
+// while ElevenLabs is still generating the rest of the answer.
 const speakWithElevenLabs = async (text: string, language: Lang): Promise<boolean> => {
   try {
-    const res = await fetch('/api/tts', { method: 'POST', headers: authHeaders(), body: JSON.stringify({ text, language }) });
+    const res = await fetch('/api/tts/prepare', { method: 'POST', headers: authHeaders(), body: JSON.stringify({ text, language }) });
     if (!res.ok) return false;
-    const url = URL.createObjectURL(await res.blob());
+    const { url } = await res.json();
     stopAudio();
-    currentUrl = url;
     currentAudio = new Audio(url);
     await currentAudio.play();
     return true;

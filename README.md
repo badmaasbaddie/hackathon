@@ -84,7 +84,7 @@ Click **Guided demo** in the top bar, keep "Reset demo data first" ticked and pr
 
 ### Highlights
 - **Hindi, Marathi and English** across the patient screens, the AI assistant and the emergency screening (including Marathi voice input). Staff screens fall back to Hindi where a Marathi label is missing.
-- **Read aloud:** answers and emergency advice are spoken with ElevenLabs voices (`eleven_v4`, Hindi, Marathi and English) when `ELEVENLABS_API_KEY` is set in `.env`; otherwise the browser's own voices are used, and the app says so if the browser has no Hindi/Marathi voice. The key stays on the server; the answer text is sent to ElevenLabs.
+- **Read aloud:** answers and emergency advice are spoken with ElevenLabs voices (`eleven_v4_turbo`, streamed so playback starts in about 2 seconds; Hindi, Marathi and English) when `ELEVENLABS_API_KEY` is set in `.env`; otherwise the browser's own voices are used, and the app says so if the browser has no Hindi/Marathi voice. The key stays on the server; the answer text is sent to ElevenLabs.
 - **Facility map** (OpenStreetMap, needs internet for the map tiles).
 - **Patient-controlled consent:** withdrawing access is enforced by the server, not just shown in the UI.
 - **Impact panel:** follow-ups recovered, emergencies sent to 112, wasted trips avoided, consent withdrawals honoured - all counted from recorded events.

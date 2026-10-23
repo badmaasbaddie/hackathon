@@ -147,9 +147,16 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
   };
 
   const [voiceWarning, setVoiceWarning] = useState<string | null>(null);
+  const [voiceLoading, setVoiceLoading] = useState(false);
 
   const listen = async (text: string) => {
-    const result = await speak(text, language);
+    setVoiceLoading(true);
+    let result;
+    try {
+      result = await speak(text, language);
+    } finally {
+      setVoiceLoading(false);
+    }
     if (result === 'unsupported') {
       setVoiceWarning(t('इस ब्राउज़र में पढ़कर सुनाने की सुविधा नहीं है।', 'Text-to-speech is not supported in this browser.'));
     } else if (result === 'no-voice') {
@@ -366,6 +373,12 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                   'Type or speak in Hindi, Marathi or English. Emergency signs always trigger 112 advice first. This is not a substitute for a doctor.')}
               </p>
             </div>
+
+            {voiceLoading && (
+              <div className="text-xs bg-teal-50 border border-teal-200 text-teal-900 rounded-xl p-2.5 flex items-center gap-2" role="status">
+                <Clock size={13} className="animate-spin" /> {t('आवाज़ तैयार हो रही है…', 'Preparing the voice…')}
+              </div>
+            )}
 
             {voiceWarning && (
               <div className="text-xs bg-amber-50 border border-amber-300 text-amber-900 rounded-xl p-3 flex items-start justify-between gap-2" role="status">
