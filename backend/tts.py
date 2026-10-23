@@ -163,3 +163,65 @@ def open_stream(clip_id: str) -> Iterator[bytes]:
                 _remember(cache_key, bytes(audio))
 
     return chunks()
+
+
+# ----------------- Speech-to-text (ElevenLabs Scribe) -----------------
+STT_URL = "https://api.elevenlabs.io/v1/speech-to-text"
+STT_MODEL_ID = "scribe_v2"
+MAX_AUDIO_BYTES = 10 * 1024 * 1024
+_stt_denied = False  # set when the key lacks the speech_to_text permission
+
+
+def stt_enabled() -> bool:
+    return enabled() and not _stt_denied and os.getenv("ELEVENLABS_STT", "on").lower() != "off"
+
+
+def transcribe(audio: bytes, content_type: str, language: str) -> str:
+    """Turn a short recording into text. Raises TTSError on any failure."""
+    global _stt_denied
+    key, lang, _, _ = _settings(language)
+    if not audio or len(audio) < 1000:
+        raise TTSError("The recording was too short")
+    if len(audio) > MAX_AUDIO_BYTES:
+        raise TTSError("The recording is too long")
+    ext = "webm" if "webm" in content_type else "ogg" if "ogg" in content_type else "mp4" if "mp4" in content_type else "wav" if "wav" in content_type else "audio"
+    try:
+        res = httpx.post(
+            STT_URL,
+            headers={"xi-api-key": key},
+            data={"model_id": os.getenv("ELEVENLABS_STT_MODEL_ID", STT_MODEL_ID), "language_code": lang},
+            files={"file": (f"recording.{ext}", audio, content_type or "application/octet-stream")},
+            timeout=60.0,
+        )
+    except httpx.HTTPError as e:
+        logger.warning("ElevenLabs STT unreachable: %s", e)
+        raise TTSError("Could not reach ElevenLabs")
+    if res.status_code != 200:
+        err = _error_from(res)
+        if res.status_code in (401, 403) and "speech_to_text" in str(err):
+            _stt_denied = True
+        raise err
+    return (res.json().get("text") or "").strip()
+
+
+_stt_probed = False
+
+
+def probe_stt() -> None:
+    """Check once whether the key may use speech-to-text, using 0.3 s of silence."""
+    global _stt_probed
+    if _stt_probed or not enabled() or _stt_denied:
+        return
+    _stt_probed = True
+    import io
+    import wave
+    buf = io.BytesIO()
+    with wave.open(buf, "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(16000)
+        w.writeframes(b"\x00\x00" * 4800)
+    try:
+        transcribe(buf.getvalue(), "audio/wav", "en")
+    except TTSError as e:
+        logger.info("Speech-to-text probe: %s", e)

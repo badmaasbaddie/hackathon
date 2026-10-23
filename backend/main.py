@@ -25,7 +25,7 @@ def _load_env_files():
 
 _load_env_files()
 
-from fastapi import FastAPI, Depends, HTTPException, Header
+from fastapi import FastAPI, Depends, HTTPException, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -685,6 +685,25 @@ def stream_speech(clip_id: str):
     except tts.TTSError as e:
         raise HTTPException(status_code=502 if "ElevenLabs" in str(e) else 404, detail=str(e))
     return StreamingResponse(chunks, media_type="audio/mpeg", headers={"Cache-Control": "no-store"})
+
+
+@app.get("/api/stt/status")
+def stt_status():
+    tts.probe_stt()
+    return {"provider": "elevenlabs" if tts.stt_enabled() else "browser"}
+
+
+@app.post("/api/stt")
+async def speech_to_text(request: Request, language: str = "hi", current_user: models.User = Depends(get_current_user)):
+    """Transcribe a short voice recording (raw audio body) with ElevenLabs Scribe."""
+    if not tts.stt_enabled():
+        raise HTTPException(status_code=503, detail="Speech-to-text is not configured")
+    audio = await request.body()
+    try:
+        text = tts.transcribe(audio, request.headers.get("content-type", ""), language)
+    except tts.TTSError as e:
+        raise HTTPException(status_code=502, detail=str(e))
+    return {"text": text, "provider": "elevenlabs"}
 
 
 # ----------------- FACILITIES, DOCTORS & READINESS -----------------

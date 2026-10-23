@@ -369,3 +369,34 @@ def test_read_aloud_streaming(monkeypatch):
     assert res.status_code == 200 and res.content == b"ID3-part1-part2"
     assert calls["url"].endswith("/stream") and calls["json"]["language_code"] == "hi"
     assert client.get(url).status_code == 404  # single use
+
+def test_voice_input_with_elevenlabs(monkeypatch):
+    import tts
+    monkeypatch.setenv("ELEVENLABS_API_KEY", "test-key")
+    monkeypatch.setattr(tts, "_stt_denied", False)
+    monkeypatch.setattr(tts, "_stt_probed", True)
+
+    class Ok:
+        status_code = 200
+        def json(self): return {"text": "मला ताप आहे"}
+    sent = {}
+    def fake_post(url, headers=None, data=None, files=None, timeout=None, **kw):
+        sent.update(url=url, data=data, file=files["file"])
+        return Ok()
+    monkeypatch.setattr(tts.httpx, "post", fake_post)
+
+    assert client.get("/api/stt/status").json()["provider"] == "elevenlabs"
+    audio = b"\x1aE\xdf\xa3" + b"0" * 4000
+    assert client.post("/api/stt?language=mr", content=audio, headers={"Content-Type": "audio/webm"}).status_code == 401
+    res = client.post("/api/stt?language=mr", content=audio, headers={**as_user("ramesh"), "Content-Type": "audio/webm;codecs=opus"})
+    assert res.json()["text"] == "मला ताप आहे"
+    assert sent["url"].endswith("/speech-to-text") and sent["data"]["language_code"] == "mr"
+    assert sent["file"][0] == "recording.webm"
+
+    # A key without the speech_to_text permission switches the app to browser recognition
+    class Denied:
+        status_code = 401
+        def json(self): return {"detail": {"message": "The API key you used is missing the permission speech_to_text"}}
+    monkeypatch.setattr(tts.httpx, "post", lambda *a, **k: Denied())
+    assert client.post("/api/stt?language=hi", content=audio, headers={**as_user("ramesh"), "Content-Type": "audio/webm"}).status_code == 502
+    assert client.get("/api/stt/status").json()["provider"] == "browser"

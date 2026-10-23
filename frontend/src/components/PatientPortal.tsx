@@ -1,4 +1,4 @@
-import { makeT, speechLang } from '../i18n';
+import { makeT } from '../i18n';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Patient, FacilityReadiness, Appointment, CareTimelineEvent, User,
@@ -12,6 +12,7 @@ import {
 import { FacilityMap } from './FacilityMap';
 import { PrivacyPanel } from './PrivacyPanel';
 import { speak, stopSpeaking, canSpeak } from '../utils/speech';
+import { startVoiceInput, VoiceSession, VoiceState, VoiceError } from '../utils/voiceInput';
 
 interface PatientPortalProps {
   language: Lang;
@@ -44,7 +45,9 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
   const [messages, setMessages] = useState<AssistantMessage[]>([]);
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
-  const [isListening, setIsListening] = useState(false);
+  const [voiceState, setVoiceState] = useState<VoiceState>('idle');
+  const [micError, setMicError] = useState<string | null>(null);
+  const voiceSession = useRef<VoiceSession | null>(null);
   const [readAloud, setReadAloud] = useState<boolean>(() => {
     try { return localStorage.getItem('swasthyasetu_read_aloud') === 'true'; } catch { return false; }
   });
@@ -118,25 +121,30 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
     }
   }, [facilities, bookFacilityId]);
 
-  const handleVoiceInput = () => {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      alert(t('आपके ब्राउज़र में वॉइस इनपुट समर्थित नहीं है। कृपया टाइप करें।', 'Speech recognition is not supported in this browser. Please type your symptoms.'));
+  const micMessages: Record<VoiceError, string> = {
+    blocked: t('माइक्रोफ़ोन की अनुमति बंद है। पता बार में ताले के निशान पर क्लिक करके इस साइट को माइक्रोफ़ोन की अनुमति दें। ध्यान दें: Claude ऐप के अंदर का ब्राउज़र माइक्रोफ़ोन इस्तेमाल नहीं कर सकता - ऐप को Chrome या Edge में http://127.0.0.1:8000 पर खोलें।',
+      'Microphone access is blocked. Click the lock icon in the address bar and allow the microphone for this site. Note: the browser inside the Claude app cannot use the microphone - open http://127.0.0.1:8000 in Chrome or Edge.'),
+    'no-mic': t('कोई माइक्रोफ़ोन नहीं मिला। माइक्रोफ़ोन जोड़ें या जांचें कि Windows में वह चालू है।', 'No microphone was found. Connect one, or check that it is enabled in Windows sound settings.'),
+    network: t('आवाज़ पहचानने के लिए इंटरनेट चाहिए। कनेक्शन जांचें और फिर से कोशिश करें।', 'Voice recognition needs an internet connection. Check the connection and try again.'),
+    'no-speech': t('कुछ सुनाई नहीं दिया। माइक दबाकर साफ़ बोलें, फिर दोबारा दबाएं।', "Didn't catch anything. Press the mic, speak clearly, then press it again to finish."),
+    language: t('यह ब्राउज़र इस भाषा की आवाज़ नहीं पहचानता। Google Chrome में कोशिश करें या टाइप करें।', "This browser can't recognise speech in this language. Try Google Chrome, or type instead."),
+    unsupported: t('इस ब्राउज़र में आवाज़ से लिखने की सुविधा नहीं है। Chrome या Edge इस्तेमाल करें या टाइप करें।', 'This browser has no voice input. Use Chrome or Edge, or type instead.'),
+    failed: t('आवाज़ पहचानने में दिक्कत हुई। फिर से कोशिश करें या टाइप करें।', 'Voice recognition failed. Please try again or type instead.'),
+  };
+
+  const handleVoiceInput = async () => {
+    if (voiceState === 'listening') {
+      voiceSession.current?.stop();
       return;
     }
-    try {
-      const recognition = new SpeechRecognition();
-      recognition.lang = speechLang(language);
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-      setIsListening(true);
-      recognition.onresult = (event: any) => setDraft(prev => (prev ? prev + ' ' : '') + event.results[0][0].transcript);
-      recognition.onerror = () => setIsListening(false);
-      recognition.onend = () => setIsListening(false);
-      recognition.start();
-    } catch {
-      setIsListening(false);
-    }
+    if (voiceState === 'transcribing') return;
+    setMicError(null);
+    stopSpeaking();
+    voiceSession.current = await startVoiceInput(language, {
+      onState: setVoiceState,
+      onText: text => setDraft(prev => (prev ? prev + ' ' : '') + text),
+      onError: err => setMicError(micMessages[err]),
+    });
   };
 
   const toggleReadAloud = () => {
@@ -474,15 +482,30 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                 placeholder={t('उदा. "मुझे 2 दिन से बुखार है..."', 'e.g. "I have had a fever for 2 days..."')}
                 className="flex-1 rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-600 focus:ring-1 focus:ring-teal-600 outline-none"
               />
-              <button type="button" onClick={handleVoiceInput} aria-label={t('बोलकर बताएं', 'Speak')}
-                className={`p-3 rounded-xl transition ${isListening ? 'bg-red-500 text-white animate-pulse' : 'bg-slate-100 text-slate-600 hover:bg-teal-100'}`}>
-                <Mic size={18} />
+              <button type="button" onClick={handleVoiceInput} aria-pressed={voiceState === 'listening'}
+                aria-label={voiceState === 'listening' ? t('बोलना समाप्त करें', 'Stop and use what I said') : t('बोलकर बताएं', 'Speak')}
+                className={`p-3 rounded-xl transition ${voiceState === 'listening' ? 'bg-red-500 text-white animate-pulse' : voiceState === 'transcribing' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-600 hover:bg-teal-100'}`}>
+                {voiceState === 'transcribing' ? <Clock size={18} className="animate-spin" /> : <Mic size={18} />}
               </button>
               <button type="submit" disabled={sending || !draft.trim()} aria-label={t('भेजें', 'Send')}
                 className="bg-teal-700 hover:bg-teal-800 disabled:opacity-50 text-white p-3 rounded-xl">
                 <Send size={18} />
               </button>
             </form>
+            {voiceState === 'listening' && (
+              <div className="text-xs text-red-700 font-semibold" role="status">
+                {t('सुन रहा है… बोलें, फिर समाप्त करने के लिए माइक दोबारा दबाएं।', 'Listening… speak now, then press the mic again to finish.')}
+              </div>
+            )}
+            {voiceState === 'transcribing' && (
+              <div className="text-xs text-amber-800 font-semibold" role="status">{t('आपकी बात लिखी जा रही है…', 'Writing down what you said…')}</div>
+            )}
+            {micError && (
+              <div className="text-xs bg-amber-50 border border-amber-300 text-amber-900 rounded-xl p-3 flex items-start justify-between gap-2" role="alert">
+                <span>{micError}</span>
+                <button type="button" onClick={() => setMicError(null)} aria-label="Dismiss" className="font-bold">✕</button>
+              </div>
+            )}
             <div className="text-[11px] text-slate-500 flex items-center gap-1">
               <Shield size={12} className="text-teal-700" />
               {t('आपके रिकॉर्ड का उपयोग केवल आपकी सहायता के लिए किया जाता है और हर पहुंच ऑडिट होती है।', 'Your own record is used only to answer you, and every access is audited.')}

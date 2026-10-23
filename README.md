@@ -85,6 +85,7 @@ Click **Guided demo** in the top bar, keep "Reset demo data first" ticked and pr
 ### Highlights
 - **Hindi, Marathi and English** across the patient screens, the AI assistant and the emergency screening (including Marathi voice input). Staff screens fall back to Hindi where a Marathi label is missing.
 - **Read aloud:** answers and emergency advice are spoken with ElevenLabs voices (`eleven_v4_turbo`, streamed so playback starts in about 2 seconds; Hindi, Marathi and English) when `ELEVENLABS_API_KEY` is set in `.env`; otherwise the browser's own voices are used, and the app says so if the browser has no Hindi/Marathi voice. The key stays on the server; the answer text is sent to ElevenLabs.
+- **Voice input:** the mic uses ElevenLabs speech-to-text (Scribe) when the key has the `speech_to_text` permission, otherwise the browser's own recognition (Chrome or Edge). Every failure shows a clear message. The browser pane inside the Claude app cannot use the microphone - open the app in Chrome or Edge.
 - **Facility map** (OpenStreetMap, needs internet for the map tiles).
 - **Patient-controlled consent:** withdrawing access is enforced by the server, not just shown in the UI.
 - **Impact panel:** follow-ups recovered, emergencies sent to 112, wasted trips avoided, consent withdrawals honoured - all counted from recorded events.
@@ -111,7 +112,7 @@ Click **Guided demo** in the top bar, keep "Reset demo data first" ticked and pr
 ## 5. Automated Test Suite & Actual Results
 
 ### Backend Unit & Integration Tests (`cd backend && python -m pytest tests`)
-Tests run against a throwaway `tests/test_swasthyasetu.db`, so they never wipe the demo database. 25 tests cover auth/RBAC, Hindi and Marathi emergency screening, consent withdrawal, ElevenLabs read-aloud, the AI assistant, registration, booking validation, encounters, hospital updates, ASHA tasks, admin monitoring and offline sync.
+Tests run against a throwaway `tests/test_swasthyasetu.db`, so they never wipe the demo database. 27 tests cover auth/RBAC, Hindi and Marathi emergency screening, consent withdrawal, ElevenLabs read-aloud and voice input, the AI assistant, registration, booking validation, encounters, hospital updates, ASHA tasks, admin monitoring and offline sync.
 
 Earlier output (before the MVP fixes) for reference:
 ```
