@@ -147,8 +147,20 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
     try { localStorage.setItem('swasthyasetu_read_aloud', String(next)); } catch { /* storage unavailable */ }
   };
 
-  const listen = (text: string) => {
-    if (!speak(text, language)) alert(t('इस ब्राउज़र में पढ़कर सुनाने की सुविधा नहीं है।', 'Text-to-speech is not supported in this browser.'));
+  const [voiceWarning, setVoiceWarning] = useState<string | null>(null);
+
+  const listen = async (text: string) => {
+    const result = await speak(text, language);
+    if (result === 'unsupported') {
+      setVoiceWarning(t('इस ब्राउज़र में पढ़कर सुनाने की सुविधा नहीं है।', 'Text-to-speech is not supported in this browser.'));
+    } else if (result === 'no-voice') {
+      setVoiceWarning(t(
+        'इस ब्राउज़र में हिंदी आवाज़ इंस्टॉल नहीं है, इसलिए यह हिंदी नहीं पढ़ सकता। ऐप को Microsoft Edge में खोलें (हिंदी और मराठी आवाज़ें पहले से हैं) या Google Chrome में (हिंदी), या Windows सेटिंग्स > भाषा में हिंदी का स्पीच पैक जोड़ें।',
+        'No voice for this language is installed in this browser.'
+      ));
+    } else {
+      setVoiceWarning(null);
+    }
   };
 
   const sendMessage = async (e?: React.FormEvent, override?: string, fresh = false) => {
@@ -163,7 +175,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
     try {
       const res = await api.chat(history.map(({ role, content }) => ({ role, content })).slice(-20), language);
       setMessages([...history, { role: 'assistant', content: res.reply, meta: res }]);
-      if (readAloud) speak(res.reply, language);
+      if (readAloud) listen(res.reply);
       setBookReason(text.slice(0, 200));
       window.dispatchEvent(new Event('swasthyasetu-data-changed'));
       if (patient) loadRecords(patient).catch(() => {});
@@ -355,6 +367,13 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                   'Type or speak in Hindi, Marathi or English. Emergency signs always trigger 112 advice first. This is not a substitute for a doctor.')}
               </p>
             </div>
+
+            {voiceWarning && (
+              <div className="text-xs bg-amber-50 border border-amber-300 text-amber-900 rounded-xl p-3 flex items-start justify-between gap-2" role="status">
+                <span>{voiceWarning}</span>
+                <button type="button" onClick={() => setVoiceWarning(null)} aria-label="Dismiss" className="font-bold">✕</button>
+              </div>
+            )}
 
             {/* Emergency banner */}
             {lastMeta?.triage.is_emergency && (

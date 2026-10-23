@@ -144,6 +144,8 @@ export const MR: Record<string, string> = {
   'Listen': 'ऐका',
   'Stop': 'थांबा',
   'Text-to-speech is not supported in this browser.': 'या ब्राउझरमध्ये मोठ्याने वाचण्याची सोय नाही.',
+  'No voice for this language is installed in this browser.':
+    'या ब्राउझरमध्ये मराठी किंवा हिंदी आवाज इन्स्टॉल नाही, म्हणून तो मराठी वाचू शकत नाही. ॲप Microsoft Edge मध्ये उघडा (मराठी आणि हिंदी आवाज आधीच आहेत) किंवा Google Chrome मध्ये (हिंदी), किंवा Windows सेटिंग्ज > भाषा मध्ये हिंदी स्पीच पॅक जोडा.',
   'SMS on your phone (demo)': 'तुमच्या फोनवरील SMS (डेमो)',
   'No messages yet': 'अजून संदेश नाहीत',
   'Who can see my health record': 'माझे आरोग्य रेकॉर्ड कोण पाहू शकते',
