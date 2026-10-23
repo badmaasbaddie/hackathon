@@ -145,7 +145,8 @@ export const MR: Record<string, string> = {
   'Microphone access is blocked. Click the lock icon in the address bar and allow the microphone for this site. Note: the browser inside the Claude app cannot use the microphone - open http://127.0.0.1:8000 in Chrome or Edge.':
     'मायक्रोफोनची परवानगी बंद आहे. पत्त्याच्या पट्टीतील कुलूपाच्या चिन्हावर क्लिक करून या साइटला मायक्रोफोनची परवानगी द्या. लक्षात ठेवा: Claude ॲपमधील ब्राउझर मायक्रोफोन वापरू शकत नाही - ॲप Chrome किंवा Edge मध्ये http://127.0.0.1:8000 वर उघडा.',
   'No microphone was found. Connect one, or check that it is enabled in Windows sound settings.': 'मायक्रोफोन सापडला नाही. मायक्रोफोन जोडा किंवा Windows मध्ये तो चालू आहे का ते तपासा.',
-  'Voice recognition needs an internet connection. Check the connection and try again.': 'आवाज ओळखण्यासाठी इंटरनेट लागते. कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.',
+  "The browser's online speech service could not be reached. This happens in browsers such as Brave or Opera, and on networks that block Google or Microsoft speech services. Try Google Chrome or Microsoft Edge, or turn on ElevenLabs Speech to Text for the API key. Meanwhile, please type.":
+    'ब्राउझरच्या ऑनलाइन आवाज ओळख सेवेपर्यंत पोहोचता आले नाही. Brave/Opera सारख्या ब्राउझरमध्ये किंवा Google/Microsoft सेवा अडवणाऱ्या नेटवर्कवर असे होते. Google Chrome किंवा Microsoft Edge वापरून पहा, किंवा ElevenLabs ची Speech to Text परवानगी चालू करा. तोपर्यंत टाइप करा.',
   "Didn't catch anything. Press the mic, speak clearly, then press it again to finish.": 'काहीच ऐकू आले नाही. माइक दाबा, स्पष्ट बोला, मग पूर्ण करण्यासाठी पुन्हा दाबा.',
   "This browser can't recognise speech in this language. Try Google Chrome, or type instead.": 'हा ब्राउझर या भाषेतील आवाज ओळखत नाही. Google Chrome वापरून पहा किंवा टाइप करा.',
   'This browser has no voice input. Use Chrome or Edge, or type instead.': 'या ब्राउझरमध्ये आवाजाने लिहिण्याची सोय नाही. Chrome किंवा Edge वापरा किंवा टाइप करा.',

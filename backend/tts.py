@@ -170,15 +170,21 @@ STT_URL = "https://api.elevenlabs.io/v1/speech-to-text"
 STT_MODEL_ID = "scribe_v2"
 MAX_AUDIO_BYTES = 10 * 1024 * 1024
 _stt_denied = False  # set when the key lacks the speech_to_text permission
+_stt_denied_at = 0.0
+STT_RECHECK_SECONDS = 120  # permission changes on the ElevenLabs site apply without a restart
 
 
 def stt_enabled() -> bool:
+    global _stt_denied, _stt_probed
+    if _stt_denied and time.time() - _stt_denied_at > STT_RECHECK_SECONDS:
+        _stt_denied = False
+        _stt_probed = False
     return enabled() and not _stt_denied and os.getenv("ELEVENLABS_STT", "on").lower() != "off"
 
 
 def transcribe(audio: bytes, content_type: str, language: str) -> str:
     """Turn a short recording into text. Raises TTSError on any failure."""
-    global _stt_denied
+    global _stt_denied, _stt_denied_at
     key, lang, _, _ = _settings(language)
     if not audio or len(audio) < 1000:
         raise TTSError("The recording was too short")
@@ -200,6 +206,7 @@ def transcribe(audio: bytes, content_type: str, language: str) -> str:
         err = _error_from(res)
         if res.status_code in (401, 403) and "speech_to_text" in str(err):
             _stt_denied = True
+            _stt_denied_at = time.time()
         raise err
     return (res.json().get("text") or "").strip()
 
@@ -210,6 +217,7 @@ _stt_probed = False
 def probe_stt() -> None:
     """Check once whether the key may use speech-to-text, using 0.3 s of silence."""
     global _stt_probed
+    stt_enabled()  # lets an expired denial be re-checked
     if _stt_probed or not enabled() or _stt_denied:
         return
     _stt_probed = True

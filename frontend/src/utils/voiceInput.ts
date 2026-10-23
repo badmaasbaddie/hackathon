@@ -20,8 +20,11 @@ const MAX_RECORDING_MS = 15000;
 // ElevenLabs Scribe is used when the server's key allows speech-to-text; otherwise the
 // browser's built-in recognition (Chrome / Edge).
 let providerPromise: Promise<'elevenlabs' | 'browser'> | null = null;
+let checkedAt = 0;
 const getProvider = () => {
-  if (!providerPromise) {
+  // Re-check now and then, so turning on the permission at ElevenLabs takes effect without a reload.
+  if (!providerPromise || Date.now() - checkedAt > 60000) {
+    checkedAt = Date.now();
     providerPromise = fetch('/api/stt/status')
       .then(r => (r.ok ? r.json() : { provider: 'browser' }))
       .then(d => (d.provider === 'elevenlabs' ? 'elevenlabs' : 'browser'))
