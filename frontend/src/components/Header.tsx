@@ -8,26 +8,27 @@ import {
 } from 'lucide-react';
 
 interface HeaderProps {
-  currentRole: Role;
-  onRoleChange: (role: Role) => void;
   currentUser: User | null;
-  onUserSwitch: (username: string) => void;
+  patientUsername: string;
+  onSignIn: (username: string) => void;
   language: 'hi' | 'en';
   onLanguageChange: (lang: 'hi' | 'en') => void;
   onOpenScenarioModal: () => void;
+  onOpenRegister: () => void;
   onDemoReset: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  currentRole,
-  onRoleChange,
   currentUser,
-  onUserSwitch,
+  patientUsername,
+  onSignIn,
   language,
   onLanguageChange,
   onOpenScenarioModal,
+  onOpenRegister,
   onDemoReset,
 }) => {
+  const currentRole: Role | undefined = currentUser?.role;
   const [isOffline, setIsOffline] = useState<boolean>(getOfflineMode());
   const [queueCount, setQueueCount] = useState<number>(getOfflineQueue().length);
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
@@ -58,8 +59,12 @@ export const Header: React.FC<HeaderProps> = ({
   const handleManualSync = async () => {
     setIsSyncing(true);
     try {
-      await syncOfflineBatch(currentUser?.id || 1);
-      alert('Offline queue successfully synchronized with SwasthyaSetu server!');
+      const res = await syncOfflineBatch(currentUser?.id || 0);
+      const failed = res.results.filter((r: any) => r.status === 'FAILED');
+      alert(failed.length
+        ? `Synced ${res.synced_count} action(s). ${failed.length} failed: ${failed.map((f: any) => f.message).join('; ')}`
+        : `Synced ${res.synced_count} queued action(s) with the SwasthyaSetu server.`);
+      window.dispatchEvent(new Event('swasthyasetu-data-changed'));
     } catch (err: any) {
       alert('Sync failed: ' + err.message);
     } finally {
@@ -68,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const handleResetClick = async () => {
-    if (confirm('Reset SwasthyaSetu AI database to clean baseline demo data?')) {
+    if (confirm('Reset the demo database to the clean fictional baseline? All changes made in this demo will be lost.')) {
       setResetting(true);
       try {
         await api.resetDemo();
@@ -82,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const roles: { role: Role; labelHi: string; labelEn: string; icon: any; defaultUser: string }[] = [
-    { role: 'PATIENT', labelHi: 'मरीज़ / परिवार', labelEn: 'Patient / Family', icon: UserIcon, defaultUser: 'ramesh' },
+    { role: 'PATIENT', labelHi: 'मरीज़ / परिवार', labelEn: 'Patient / Family', icon: UserIcon, defaultUser: patientUsername },
     { role: 'ASHA', labelHi: 'आशा कार्यकर्ता', labelEn: 'ASHA / ANM', icon: UserCheck, defaultUser: 'asha_kavita' },
     { role: 'DOCTOR', labelHi: 'डॉक्टर पोर्टल', labelEn: 'Doctor', icon: Stethoscope, defaultUser: 'dr_deshmukh' },
     { role: 'FACILITY_ADMIN', labelHi: 'अस्पताल / CHC', labelEn: 'Facility / CHC', icon: Building2, defaultUser: 'admin_paud' },
@@ -90,7 +95,7 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="bg-gradient-to-r from-teal-900 via-teal-800 to-teal-950 text-white shadow-lg sticky top-0 z-50">
+    <header className="bg-gradient-to-r from-teal-900 via-teal-800 to-teal-950 text-white shadow-lg md:sticky md:top-0 z-40">
       {/* Top Banner / Hackathon Context */}
       <div className="bg-teal-950/80 border-b border-teal-800/60 px-4 py-1.5 text-xs flex flex-wrap justify-between items-center gap-2">
         <div className="flex items-center gap-2">
@@ -98,7 +103,7 @@ export const Header: React.FC<HeaderProps> = ({
             “Doctor tak pahunchna hi nahi, poori healthcare journey ko complete karna.”
           </span>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           {/* Offline Simulation Control */}
           <div className="flex items-center gap-2 bg-teal-900/90 px-2 py-0.5 rounded border border-teal-700">
             <button
@@ -107,6 +112,7 @@ export const Header: React.FC<HeaderProps> = ({
                 isOffline ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-teal-700 text-teal-100 hover:bg-teal-600'
               }`}
               title="Toggle simulated rural network disconnection"
+              aria-pressed={isOffline}
             >
               {isOffline ? <WifiOff size={13} /> : <Wifi size={13} />}
               {isOffline ? 'Simulating Offline' : 'Online'}
@@ -153,6 +159,14 @@ export const Header: React.FC<HeaderProps> = ({
             <span>Judge Scenarios</span>
           </button>
 
+          <button
+            onClick={onOpenRegister}
+            className="flex items-center gap-1 bg-teal-600 hover:bg-teal-500 text-white font-semibold px-2.5 py-0.5 rounded transition"
+          >
+            <ShieldCheck size={13} />
+            <span>{language === 'hi' ? 'नया पंजीकरण' : 'Register'}</span>
+          </button>
+
           {/* Reset Demo */}
           <button
             onClick={handleResetClick}
@@ -169,7 +183,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Main Bar */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
         {/* Brand */}
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="w-10 h-10 rounded-xl bg-teal-600 border border-teal-400 flex items-center justify-center shadow-md">
             <span className="text-2xl font-black text-amber-300">स्</span>
           </div>
@@ -179,35 +193,33 @@ export const Header: React.FC<HeaderProps> = ({
                 SwasthyaSetu AI
                 <span className="text-sm font-normal text-teal-200">| स्वास्थ्यसेतु</span>
               </h1>
-              <span className="bg-teal-800/80 text-teal-200 text-[10px] font-semibold px-2 py-0.5 rounded border border-teal-700">
-                Pillars: 1-Understand • 2-Navigate • 3-Coordinate • 4-Continue
+              <span className="hidden lg:inline bg-teal-800/80 text-teal-200 text-[10px] font-semibold px-2 py-0.5 rounded border border-teal-700">
+                Understand • Navigate • Coordinate • Continue
               </span>
             </div>
             <p className="text-xs text-teal-200">
-              Rural Healthcare Navigation, Coordination & Continuity Platform • Pune Rural Cluster
+              {language === 'hi' ? 'ग्रामीण स्वास्थ्य सेवा नेविगेशन एवं निरंतरता प्लेटफ़ॉर्म' : 'Rural Healthcare Navigation, Coordination & Continuity Platform'}
             </p>
           </div>
         </div>
 
         {/* Current Active Persona & Switcher */}
-        <div className="flex items-center gap-2 bg-teal-950/60 p-1 rounded-xl border border-teal-800/80">
+        <div className="flex flex-wrap items-center gap-2 bg-teal-950/60 p-1 rounded-xl border border-teal-800/80">
           <div className="text-right px-2 hidden md:block">
-            <div className="text-[11px] text-teal-300">Active Persona</div>
+            <div className="text-[11px] text-teal-300">{language === 'hi' ? 'साइन इन' : 'Signed in as'} (demo)</div>
             <div className="text-xs font-semibold text-white truncate max-w-[150px]">
               {currentUser?.full_name || 'Guest'}
             </div>
           </div>
-          <div className="flex items-center gap-1">
+            <div className="flex flex-wrap items-center gap-1">
             {roles.map((r) => {
               const Icon = r.icon;
               const isActive = currentRole === r.role;
               return (
                 <button
                   key={r.role}
-                  onClick={() => {
-                    onRoleChange(r.role);
-                    onUserSwitch(r.defaultUser);
-                  }}
+                  onClick={() => onSignIn(r.defaultUser)}
+                  aria-pressed={isActive}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                     isActive
                       ? 'bg-teal-500 text-teal-950 font-bold shadow-md'

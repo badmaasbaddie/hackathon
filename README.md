@@ -34,31 +34,40 @@ Traditional rural healthcare solutions address isolated stages (such as standalo
 
 ---
 
-## 3. Quick Start & Execution
+## 3. Quick Start (local website)
 
-### Option A: Direct Production Server (Serves Backend APIs & Compiled UI on Port 8000)
+Requirements: Python 3.10+ and Node.js 18+.
+
+### One command (Windows)
 ```powershell
-# Navigate to backend directory
-cd "C:\Users\ambuj kumar\.gemini\antigravity\scratch\swasthyasetu-ai\backend"
+.\start.ps1        # or double-click start.bat
+```
+This installs backend dependencies, builds the frontend if `frontend/dist` is missing (`.\start.ps1 --rebuild` forces a rebuild), reseeds the fictional demo database and serves everything at **http://127.0.0.1:8000**.
 
-# Run seed script (if starting fresh)
-python seed_data.py
-
-# Launch FastAPI production server
+### Manual
+```bash
+cd backend
+python -m pip install -r requirements.txt
+cd ../frontend && npm install && npm run build && cd ../backend
+python seed_data.py                      # optional: reset to the clean demo dataset
 python -m uvicorn main:app --host 127.0.0.1 --port 8000
 ```
-Then open **`http://127.0.0.1:8000`** in your browser.
+For frontend development with hot reload, keep the backend running and use `cd frontend && npm run dev` (http://localhost:5173, proxies `/api` to port 8000).
 
-### Option B: Vite Frontend Dev Server (Port 5173 with proxy to 8000)
-```powershell
-# In terminal 1 (Backend):
-cd "C:\Users\ambuj kumar\.gemini\antigravity\scratch\swasthyasetu-ai\backend"
-python -m uvicorn main:app --host 127.0.0.1 --port 8000
+### AI assistant mode
+- **No API key (default):** the assistant runs the deterministic safety screen, retrieves approved reference notes and the patient's own record, and composes a clearly labelled *demo* answer.
+- **With `ANTHROPIC_API_KEY` set:** answers are written by Claude (`claude-opus-5-5`, override with `AI_MODEL_NAME`) grounded only in the retrieved reference material and patient record. Emergencies are always answered by the safety rules first and never wait for the model.
 
-# In terminal 2 (Frontend):
-cd "C:\Users\ambuj kumar\.gemini\antigravity\scratch\swasthyasetu-ai\frontend"
-npm run dev
-```
+### Demo logins (use the role buttons in the header; no passwords in this prototype)
+| Role | Username | What to try |
+|---|---|---|
+| Patient | `ramesh` (or **Register** a new patient) | AI assistant (Hindi/English, voice), facilities, booking, health record, reminders, family |
+| ASHA / ANM | `asha_kavita` | Assigned patients, overdue follow-up tasks, home-visit recording, Scenario G access test (patient #3) |
+| Doctor | `dr_deshmukh` | Own OPD queue, AI intake summary, consultation, prescriptions with stock check, tests, follow-up |
+| Hospital | `admin_paud` | Doctor duty and OPD schedules, diagnostic service availability, medicine stock |
+| District admin | `admin_district` | Appointment monitoring, platform activity, audit trail, missed-care check |
+
+All data is fictional. ABHA, eSanjeevani and SMS are simulated adapters; nothing is sent to external systems.
 
 ---
 
@@ -81,7 +90,10 @@ npm run dev
 
 ## 5. Automated Test Suite & Actual Results
 
-### Backend Unit & Integration Tests (`pytest tests/test_api.py`)
+### Backend Unit & Integration Tests (`cd backend && python -m pytest tests`)
+Tests run against a throwaway `tests/test_swasthyasetu.db`, so they never wipe the demo database. 21 tests cover auth/RBAC, Hindi (incl. Devanagari) emergency screening, the AI assistant, registration, booking validation, encounters, hospital updates, ASHA tasks, admin monitoring and offline sync.
+
+Earlier output (before the MVP fixes) for reference:
 ```
 tests/test_api.py::test_health_check PASSED                              [  9%]
 tests/test_api.py::test_login PASSED                                     [ 18%]
@@ -142,7 +154,7 @@ tests/test_api.py::test_offline_sync_batch PASSED                        [100%]
 
 To reset the database back to clean baseline demo records at any time:
 1. In the web application header, click the **"Reset"** button.
-2. Alternatively, send an HTTP POST request to:  
-   `POST http://127.0.0.1:8000/api/demo/reset`
+2. Alternatively, send an authenticated POST request:
+   `curl -X POST -H "X-Demo-User: admin_district" http://127.0.0.1:8000/api/demo/reset`
 3. Or run from the command line:  
    `python backend/seed_data.py`

@@ -91,6 +91,17 @@ class Facility(Base):
     doctors = relationship("Doctor", back_populates="facility")
     inventory = relationship("InventorySnapshot", back_populates="facility")
 
+class FacilityService(Base):
+    """A diagnostic test or clinical service offered at a facility, maintained by the hospital."""
+    __tablename__ = "facility_services"
+    id = Column(Integer, primary_key=True, index=True)
+    facility_id = Column(Integer, ForeignKey("facilities.id"), nullable=False, index=True)
+    name = Column(String(100), nullable=False)
+    category = Column(String(30), default="DIAGNOSTIC") # DIAGNOSTIC, CLINICAL
+    is_available = Column(Boolean, default=True)
+    notes = Column(String(255), nullable=True)
+    updated_at = Column(DateTime, default=utcnow)
+
 class Department(Base):
     __tablename__ = "departments"
     id = Column(Integer, primary_key=True, index=True)

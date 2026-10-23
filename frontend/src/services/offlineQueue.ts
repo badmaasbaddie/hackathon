@@ -1,14 +1,15 @@
 import { OfflineAction } from '../types';
+import { authHeaders } from './api';
 
 const QUEUE_KEY = 'swasthyasetu_offline_queue';
 const OFFLINE_TOGGLE_KEY = 'swasthyasetu_offline_mode';
 
 export const getOfflineMode = (): boolean => {
-  return localStorage.getItem(OFFLINE_TOGGLE_KEY) === 'true';
+  try { return localStorage.getItem(OFFLINE_TOGGLE_KEY) === 'true'; } catch { return false; }
 };
 
 export const setOfflineMode = (val: boolean): void => {
-  localStorage.setItem(OFFLINE_TOGGLE_KEY, val ? 'true' : 'false');
+  try { localStorage.setItem(OFFLINE_TOGGLE_KEY, val ? 'true' : 'false'); } catch { /* storage unavailable */ }
   window.dispatchEvent(new Event('offline-mode-changed'));
 };
 
@@ -35,25 +36,25 @@ export const enqueueOfflineAction = (
     status: 'QUEUED'
   };
   queue.push(newAction);
-  localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
+  try { localStorage.setItem(QUEUE_KEY, JSON.stringify(queue)); } catch { /* storage unavailable */ }
   window.dispatchEvent(new Event('offline-queue-updated'));
   return newAction;
 };
 
 export const clearOfflineQueue = (): void => {
-  localStorage.removeItem(QUEUE_KEY);
+  try { localStorage.removeItem(QUEUE_KEY); } catch { /* storage unavailable */ }
   window.dispatchEvent(new Event('offline-queue-updated'));
 };
 
 export const syncOfflineBatch = async (userId: number = 1): Promise<{ synced_count: number; results: any[] }> => {
-  const queue = getOfflineQueue().filter(item => item.status === 'QUEUED');
+  const queue = getOfflineQueue(); // failed items are retried; idempotency keys make this safe
   if (queue.length === 0) {
     return { synced_count: 0, results: [] };
   }
 
   const res = await fetch('/api/sync/batch', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(),
     body: JSON.stringify({
       user_id: userId,
       actions: queue.map(q => ({
@@ -69,6 +70,13 @@ export const syncOfflineBatch = async (userId: number = 1): Promise<{ synced_cou
   }
 
   const data = await res.json();
-  clearOfflineQueue();
+  // Keep only actions the server rejected so the user can see and retry them.
+  const failed = new Set((data.results || []).filter((r: any) => r.status === 'FAILED').map((r: any) => r.idempotency_key));
+  const remaining = getOfflineQueue().filter(q => failed.has(q.idempotency_key)).map(q => ({ ...q, status: 'FAILED' as const }));
+  try {
+    if (remaining.length) localStorage.setItem(QUEUE_KEY, JSON.stringify(remaining));
+    else localStorage.removeItem(QUEUE_KEY);
+  } catch { /* storage unavailable */ }
+  window.dispatchEvent(new Event('offline-queue-updated'));
   return data;
 };

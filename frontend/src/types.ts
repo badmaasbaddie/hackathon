@@ -80,6 +80,7 @@ export interface FacilityReadiness {
   medicine_stock_summary: Record<string, 'IN_STOCK' | 'LOW_STOCK' | 'OUT_OF_STOCK'>;
   estimated_queue_wait_mins: number;
   freshness_label: string;
+  doctors: Doctor[];
 }
 
 export interface Appointment {
@@ -178,6 +179,8 @@ export interface AdminMetrics {
   total_patients: number;
   total_facilities: number;
   total_doctors: number;
+  total_asha_workers: number;
+  total_authorities: number;
   total_appointments: number;
   completed_appointments: number;
   pending_appointments: number;
@@ -198,4 +201,148 @@ export interface OfflineAction {
   payload: any;
   created_at: string;
   status: 'QUEUED' | 'SYNCED' | 'FAILED';
+}
+
+export interface ScheduleSlot {
+  day_of_week: string;
+  start_time: string;
+  end_time: string;
+}
+
+export interface Doctor {
+  id: number;
+  name: string;
+  specialty: string;
+  qualification: string;
+  experience_years: number;
+  facility_id: number;
+  phone?: string;
+  is_available_today: boolean;
+  last_roster_update: string;
+  schedule: ScheduleSlot[];
+}
+
+export interface FacilityService {
+  id: number;
+  facility_id: number;
+  name: string;
+  category: string;
+  is_available: boolean;
+  notes?: string;
+  updated_at: string;
+}
+
+export interface InventoryItem {
+  id: number;
+  facility_id: number;
+  medicine_name: string;
+  quantity_in_stock: number;
+  unit: string;
+  reorder_level: number;
+  stock_status: 'IN_STOCK' | 'LOW_STOCK' | 'OUT_OF_STOCK';
+  last_verified_at: string;
+}
+
+export interface FacilityManage {
+  facility: FacilityReadiness;
+  doctors: Doctor[];
+  services: FacilityService[];
+  inventory: InventoryItem[];
+}
+
+export interface ChatTurn {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export interface ChatResponse {
+  reply: string;
+  mode: 'SAFETY_RULES' | 'LLM' | 'DEMO_FALLBACK';
+  model?: string;
+  triage: SymptomIntakeResponse;
+  sources: { id: string; title: string; source: string }[];
+}
+
+export interface PrescriptionItem {
+  id: number;
+  medicine_name: string;
+  dosage: string;
+  frequency: string;
+  duration_days: number;
+  instructions?: string;
+  collected_status: string;
+}
+
+export interface EncounterDetail {
+  id: number;
+  appointment_id?: number;
+  patient_id: number;
+  doctor_id: number;
+  facility_id: number;
+  encounter_date: string;
+  chief_complaints: string;
+  clinical_notes: string;
+  diagnosis: string;
+  vital_bp: string;
+  vital_pulse: number;
+  vital_temp: number;
+  vital_spo2: number;
+  clinician_risk_flag: string;
+  doctor_name?: string;
+  facility_name?: string;
+  prescriptions: { id: number; prescription_code: string; created_at: string; items: PrescriptionItem[] }[];
+}
+
+export interface Reminder {
+  id: number;
+  follow_up_id: number;
+  channel: string;
+  message: string;
+  scheduled_time: string;
+  status: string;
+}
+
+export interface Intake {
+  id: number;
+  raw_input: string;
+  language: string;
+  primary_complaint: string;
+  triage_level: string;
+  red_flags_detected: string;
+  ai_summary_for_doctor?: string;
+  recommended_specialty: string;
+  created_at: string;
+}
+
+export interface PatientRecord {
+  patient: Patient;
+  encounters: EncounterDetail[];
+  diagnostic_orders: DiagnosticOrder[];
+  follow_ups: FollowUpPlan[];
+  reminders: Reminder[];
+  appointments: Appointment[];
+  latest_intake?: Intake;
+}
+
+export interface RegisterPayload {
+  name: string;
+  age: number;
+  gender: string;
+  phone: string;
+  village: string;
+  block?: string;
+  district?: string;
+  blood_group?: string;
+  emergency_contact?: string;
+  chronic_conditions?: string;
+}
+
+export interface AdminActivity {
+  appointments_by_status: Record<string, number>;
+  appointments_by_facility: { facility: string; count: number }[];
+  intakes_by_triage_level: Record<string, number>;
+  registrations_last_24h: number;
+  logins_last_24h: number;
+  access_denials_total: number;
+  recent_appointments: Appointment[];
 }

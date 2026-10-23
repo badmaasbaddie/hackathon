@@ -1,7 +1,12 @@
+import datetime
 import urllib.request
+import urllib.error
 import json
 
 BASE = "http://127.0.0.1:8000/api"
+
+def days_from_today(n):
+    return (datetime.date.today() + datetime.timedelta(days=n)).isoformat()
 
 def post(url, data, user="ramesh"):
     req = urllib.request.Request(
@@ -61,7 +66,7 @@ apt = post(f"{BASE}/appointments", {
     "patient_id": 1,
     "doctor_id": 1,
     "facility_id": 1,
-    "scheduled_date": "2026-10-25",
+    "scheduled_date": days_from_today(1),
     "scheduled_time": "10:30 AM",
     "consultation_type": "IN_PERSON",
     "reason": "General checkup & body pain"
@@ -70,8 +75,8 @@ assert apt["id"] > 0
 print(f"[SCENARIO A (Part 2) - PASSED] Appointment confirmed with Token {apt['queue_token']} (Code: {apt['appointment_code']}).")
 
 # Scenario B: Test Unavailability
-facs = get(f"{BASE}/facilities")
-chc = next(f for f in facs if f["facility_type"] == "CHC")
+facs = get(f"{BASE}/facilities?district=Pune")
+chc = next(f for f in facs if f["name"].startswith("Paud"))
 dh = next(f for f in facs if f["facility_type"] == "DISTRICT_HOSPITAL")
 assert "Ultrasound Abdomen (USG)" in chc["diagnostic_tests_missing"]
 assert "Ultrasound Abdomen (USG)" in dh["diagnostic_tests_available"]
@@ -83,7 +88,7 @@ assert dh["medicine_stock_summary"]["Amlodipine"] == "IN_STOCK"
 print("[SCENARIO C - PASSED] Medicine stockout for Amlodipine at Paud CHC identified; regional stock at DH confirmed.")
 
 # Scenario D: Missed Follow-up & ASHA Resolution
-tasks = get(f"{BASE}/tasks?status=OPEN")
+tasks = get(f"{BASE}/tasks?status=OPEN", user="asha_kavita")
 sunita_task = next(t for t in tasks if t["patient_name"] == "Sunita Devi")
 assert sunita_task["task_type"] == "MISSED_FOLLOW_UP"
 
@@ -107,7 +112,7 @@ batch = {
                 "patient_id": 1,
                 "doctor_id": 1,
                 "facility_id": 1,
-                "scheduled_date": "2026-10-27",
+                "scheduled_date": days_from_today(3),
                 "reason": "Offline queued appointment"
             }
         }
@@ -120,9 +125,9 @@ assert sync2["results"][0]["status"] == "ALREADY_SYNCED"
 print("[SCENARIO F - PASSED] Offline batch replay processed idempotently without duplicate records.")
 
 # Scenario G: Access Control Check
+patients = get(f"{BASE}/patients?village=Kamshet", user="admin_district")
+anita = next(p for p in patients if p["name"] == "Anita More")
 try:
-    patients = get(f"{BASE}/patients")
-    anita = next(p for p in patients if p["name"] == "Anita More")
     req_denied = urllib.request.Request(f"{BASE}/patients/{anita['id']}", headers={"X-Demo-User": "asha_kavita"})
     urllib.request.urlopen(req_denied)
     print("FAILED: Expected 403 Forbidden")
@@ -132,7 +137,7 @@ except urllib.error.HTTPError as e:
     print(f"[SCENARIO G - PASSED] Access control blocked unauthorized ASHA cross-village access with HTTP 403 Forbidden.")
 
 # Verify Audit Events
-audits = get(f"{BASE}/audit-events")
+audits = get(f"{BASE}/audit-events", user="admin_district")
 denied_event = next(a for a in audits if a["action"] == "UNAUTHORIZED_PATIENT_ACCESS_DENIED")
 assert denied_event["outcome"] == "DENIED"
 print(f"[AUDIT TRAIL - PASSED] Access denial logged: {denied_event['action']} by {denied_event['user_name']}.")

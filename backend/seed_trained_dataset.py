@@ -115,6 +115,22 @@ def seed_trained_dataset():
         )
         facility_records.append(fac)
 
+    # Rest of the Mulshi (Pune) demo cluster, so Paud patients have a PHC and a District Hospital to compare
+    facility_records.append(models.Facility(
+        name="Pirangut Primary Health Centre (PHC)", facility_type="PHC",
+        address="Ghotawade Phata Road, Pirangut, Taluka Mulshi", village_block="Mulshi", district="Pune",
+        phone="020-22950110", emergency_contact="112", latitude=18.5112, longitude=73.6812,
+        distance_km=8.6, travel_time_mins=22, operating_hours="OPD: 09:00 AM - 04:00 PM (Mon-Sat)",
+        is_open_now=True, is_simulated=True, last_verified_at=now - datetime.timedelta(minutes=35)
+    ))
+    facility_records.append(models.Facility(
+        name="Aundh District Hospital (Demo)", facility_type="DISTRICT_HOSPITAL",
+        address="Aundh Camp Road, Aundh, Pune", village_block="Haveli", district="Pune",
+        phone="020-25801234", emergency_contact="112", latitude=18.5590, longitude=73.8070,
+        distance_km=26.0, travel_time_mins=55, operating_hours="24x7 Emergency & Inpatient Care",
+        is_open_now=True, is_simulated=True, last_verified_at=now - datetime.timedelta(minutes=20)
+    ))
+
     db.add_all(facility_records)
     db.commit()
 
@@ -233,7 +249,6 @@ def seed_trained_dataset():
     asha_users.append(asha_kavita)
 
     asha_map = {}
-    asha_map["ASHA-KAVITA"] = 1
 
     for a_code in unique_ashas:
         uname = a_code.lower().replace("-", "_")
@@ -254,6 +269,55 @@ def seed_trained_dataset():
         code_part = u.username.upper().replace("_", "-")
         asha_map[code_part] = u.id
         asha_map[u.username] = u.id
+    kavita_id = asha_kavita.id
+    other_asha_id = asha_users[1].id  # a different ASHA, used for the cross-catchment access check
+
+    # 4b. Facility administrators (hospital staff who maintain rosters, services and stock)
+    facility_admins = [models.User(
+        username="admin_paud",
+        email="admin.paud@swasthyasetu.gov.in",
+        full_name="Paud CHC Facility Manager",
+        role="FACILITY_ADMIN",
+        phone="020-22923451",
+        village="Paud",
+        facility_id=chc_paud.id
+    )]
+    for fac in facility_records[1:]:
+        facility_admins.append(models.User(
+            username=f"facility_admin_{fac.id:02d}",
+            email=f"facility.admin{fac.id:02d}@swasthyasetu.gov.in",
+            full_name=f"{fac.name} Facility Manager",
+            role="FACILITY_ADMIN",
+            phone=fac.phone,
+            village=fac.village_block,
+            facility_id=fac.id
+        ))
+    db.add_all(facility_admins)
+    db.commit()
+
+    # 4c. Diagnostic services per facility (editable by facility admins)
+    tier_tests = {
+        "DISTRICT_HOSPITAL": {"Electrocardiogram (ECG)": True, "Complete Blood Count (CBC)": True, "Ultrasound Abdomen (USG)": True, "Fasting Blood Sugar (FBS)": True, "Chest X-Ray Digital": True},
+        "CHC": {"Electrocardiogram (ECG)": True, "Complete Blood Count (CBC)": True, "Fasting Blood Sugar (FBS)": True, "Chest X-Ray Digital": True, "Ultrasound Abdomen (USG)": False},
+        "PHC": {"Fasting Blood Sugar (FBS)": True, "Urine Albumin": True, "Electrocardiogram (ECG)": False, "Complete Blood Count (CBC)": False, "Ultrasound Abdomen (USG)": False, "Chest X-Ray Digital": False},
+    }
+    services = []
+    for fac in facility_records:
+        for test_name, avail in tier_tests.get(fac.facility_type, tier_tests["PHC"]).items():
+            services.append(models.FacilityService(
+                facility_id=fac.id, name=test_name, category="DIAGNOSTIC", is_available=avail,
+                notes=None if avail else "Equipment not installed at this tier - refer to District Hospital",
+                updated_at=now
+            ))
+    db.add_all(services)
+
+    # 4d. Weekly OPD schedules for every doctor
+    schedules = []
+    for d in doctor_records:
+        for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]:
+            schedules.append(models.DoctorAvailability(doctor_id=d.id, day_of_week=day, start_time="09:00", end_time="14:00", slot_duration_minutes=15))
+    db.add_all(schedules)
+    db.commit()
 
     # 5. Seed standard medicines & inventory
     med_para = models.Medicine(code="MED-PARA", generic_name="Paracetamol", brand_name="Crocin / Dolo", category="ANALGESIC", strength="500mg", dosage_form="TABLET")
@@ -301,7 +365,7 @@ def seed_trained_dataset():
         blood_group="B+",
         emergency_contact="9876543211",
         chronic_conditions="Hypertension (Mild)",
-        assigned_asha_id=1,
+        assigned_asha_id=kavita_id,
         created_at=now - datetime.timedelta(days=45)
     )
     patient_records.append(p_ramesh)
@@ -322,7 +386,7 @@ def seed_trained_dataset():
         blood_group="O+",
         emergency_contact="9823456780",
         chronic_conditions="Type 2 Diabetes Mellitus, Hypertension",
-        assigned_asha_id=1,
+        assigned_asha_id=kavita_id,
         created_at=now - datetime.timedelta(days=90)
     )
     patient_records.append(p_sunita)
@@ -343,7 +407,7 @@ def seed_trained_dataset():
         blood_group="AB+",
         emergency_contact="9988776650",
         chronic_conditions="Hypothyroidism",
-        assigned_asha_id=2, # Outside Kavita's catchment
+        assigned_asha_id=other_asha_id, # Outside Kavita's catchment
         created_at=now - datetime.timedelta(days=20)
     )
     patient_records.append(p_anita)
@@ -376,7 +440,7 @@ def seed_trained_dataset():
         abha = f"91-{age:02d}{random.randint(10,99)}-{random.randint(1000,9999)}-{seq_num:04d}"
 
         # Assign ASHA id
-        assigned_asha_id = asha_map.get(asha_code, asha_map.get(asha_code.lower().replace("-", "_"), 1))
+        assigned_asha_id = asha_map.get(asha_code, asha_map.get(asha_code.lower().replace("-", "_"), kavita_id))
 
         p = models.Patient(
             user_id=None,
@@ -406,7 +470,7 @@ def seed_trained_dataset():
 
     # Pre-seed clinical encounters with exact vitals from dataset for each patient
     for idx, row in df.iterrows():
-        p = patient_records[idx + 2] # Skip ramesh and sunita
+        p = patient_records[idx + 3] # Skip the three baseline demo patients (Ramesh, Sunita, Anita)
         doctor_name = row["Primary Care Doctor"]
         hub_hosp = row["Registered Hub Hospital"]
         vitals_raw = row["Last Update Vitals"]
@@ -458,7 +522,7 @@ def seed_trained_dataset():
         pat = db.query(models.Patient).filter(models.Patient.id == fup.patient_id).first()
         t = models.HealthWorkerTask(
             patient_id=fup.patient_id,
-            asha_worker_id=pat.assigned_asha_id if pat else 1,
+            asha_worker_id=pat.assigned_asha_id if pat else kavita_id,
             follow_up_id=fup.id,
             task_type="MISSED_FOLLOW_UP",
             priority="HIGH",
@@ -486,7 +550,7 @@ def seed_trained_dataset():
 
     task_sunita = models.HealthWorkerTask(
         patient_id=p_sunita.id,
-        asha_worker_id=1,
+        asha_worker_id=kavita_id,
         follow_up_id=overdue_sunita.id,
         task_type="MISSED_FOLLOW_UP",
         priority="HIGH",
@@ -514,6 +578,56 @@ def seed_trained_dataset():
         created_at=now - datetime.timedelta(days=3)
     )
     db.add(tl1)
+
+    # Ramesh's household, consents, and a booked OPD visit so the doctor queue has a live case
+    db.add_all([
+        models.FamilyMember(patient_id=p_ramesh.id, full_name="Meena Kumar", relationship_type="SPOUSE", age=44, gender="Female", chronic_conditions="None"),
+        models.FamilyMember(patient_id=p_ramesh.id, full_name="Aakash Kumar", relationship_type="CHILD", age=19, gender="Male", chronic_conditions="Asthma (Mild)"),
+        models.ConsentRecord(patient_id=p_ramesh.id, granted_to_role="DOCTOR", purpose="Consultation at Paud CHC (Dr. Anand Deshmukh)", status="GRANTED", valid_until=now + datetime.timedelta(days=180)),
+        models.ConsentRecord(patient_id=p_ramesh.id, granted_to_role="ASHA", purpose="Follow-up home visits (Kavita Tai Patil)", status="GRANTED", valid_until=now + datetime.timedelta(days=365)),
+    ])
+    db.add(models.SymptomIntake(
+        patient_id=p_ramesh.id,
+        raw_input="Chalne par seene mein halka bhaaripan aur thakaan, 2 din se.",
+        language="hi",
+        primary_complaint="Exertional chest heaviness and fatigue",
+        duration_days=2,
+        severity="MODERATE",
+        red_flags_detected="None",
+        emergency_triaged=False,
+        triage_level="URGENT",
+        ai_summary_for_doctor="TRIAGE [URGENT]: 48y male, known mild hypertension, reports chest heaviness on walking with fatigue for 2 days; no rest pain reported. ECG evaluation recommended at OPD today.",
+        recommended_specialty="General Medicine",
+        recommended_facility_type="Community Health Centre (CHC)",
+        created_at=now - datetime.timedelta(hours=3)
+    ))
+    db.add(models.Appointment(
+        appointment_code="APT-DEMO01",
+        patient_id=p_ramesh.id,
+        doctor_id=doc_deshmukh.id,
+        facility_id=chc_paud.id,
+        scheduled_date=datetime.date.today().isoformat(),
+        scheduled_time="10:30 AM",
+        consultation_type="IN_PERSON",
+        status="BOOKED",
+        reason="Exertional chest heaviness and fatigue",
+        queue_token="T-1",
+        is_simulated=True,
+        created_at=now - datetime.timedelta(hours=2)
+    ))
+    db.add(models.CareTimelineEvent(
+        patient_id=p_ramesh.id,
+        event_type="APPOINTMENT",
+        title="Appointment Confirmed (APT-DEMO01)",
+        description=f"Token T-1 booked at Paud CHC with Dr. Anand Deshmukh for {datetime.date.today().isoformat()} 10:30 AM.",
+        facility_id=chc_paud.id,
+        doctor_id=doc_deshmukh.id,
+        actor_name="Ramesh Kumar",
+        actor_role="PATIENT",
+        metadata_json='{"appointment_code": "APT-DEMO01", "token": "T-1"}',
+        created_at=now - datetime.timedelta(hours=2)
+    ))
+    db.commit()
 
     # Initial audit
     audit = models.AuditEvent(

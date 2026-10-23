@@ -1,9 +1,13 @@
+import datetime
 import pytest
 from fastapi.testclient import TestClient
 import sys
 import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# Use a throwaway database so running the tests never wipes the demo database.
+_TEST_DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_swasthyasetu.db").replace("\\", "/")
+os.environ["DATABASE_URL"] = f"sqlite:///{_TEST_DB}"
 
 from main import app
 from seed_data import seed_database
@@ -13,6 +17,15 @@ def setup_db():
     seed_database()
 
 client = TestClient(app)
+
+def as_user(username):
+    return {"X-Demo-User": username}
+
+def days_from_today(n):
+    return (datetime.date.today() + datetime.timedelta(days=n)).isoformat()
+
+def paud_chc():
+    return next(f for f in client.get("/api/facilities").json() if f["name"].startswith("Paud"))
 
 def test_health_check():
     res = client.get("/api/health")
@@ -26,15 +39,20 @@ def test_login():
     assert data["user"]["role"] == "DOCTOR"
     assert "Dr. Anand Deshmukh" in data["user"]["full_name"]
 
+def test_unknown_login_and_unauthenticated_requests_rejected():
+    assert client.post("/api/auth/login", json={"username": "nobody"}).status_code == 401
+    assert client.get("/api/patients").status_code == 401
+    assert client.get("/api/patients/1").status_code == 401
+
 def test_emergency_triage_scenario_e():
-    # Scenario E: Severe chest discomfort in Hindi
+    # Scenario E: Severe chest discomfort in Hinglish
     payload = {
         "patient_id": 1,
         "raw_input": "Mujhe pichle 2 ghante se chest mein severe pain aur saans lene mein dikkat ho rahi hai.",
         "language": "hi",
         "duration_days": 1
     }
-    res = client.post("/api/symptom-intake", json=payload, headers={"X-Demo-User": "ramesh"})
+    res = client.post("/api/symptom-intake", json=payload, headers=as_user("ramesh"))
     assert res.status_code == 200
     data = res.json()
     assert data["is_emergency"] is True
@@ -42,160 +60,211 @@ def test_emergency_triage_scenario_e():
     assert "112" in data["emergency_number"]
     assert "Emergency Medicine" in data["recommended_specialty"]
 
+def test_emergency_triage_devanagari_voice_input():
+    # Voice input in hi-IN arrives in Devanagari script
+    payload = {"patient_id": 1, "raw_input": "मुझे सीने में दर्द है और सांस लेने में तकलीफ हो रही है", "language": "hi"}
+    data = client.post("/api/symptom-intake", json=payload, headers=as_user("ramesh")).json()
+    assert data["is_emergency"] is True
+
+def test_no_false_emergency_on_common_words():
+    # "dauran" (during) must not match "daura" (seizure); "benefits" must not match "fits"
+    for text in ["Yatra ke dauran halka sir dard hua", "What are the benefits of walking for BP?"]:
+        data = client.post("/api/symptom-intake", json={"patient_id": 1, "raw_input": text, "language": "en"}, headers=as_user("ramesh")).json()
+        assert data["is_emergency"] is False, text
+
 def test_routine_triage_scenario_a():
-    # Scenario A: Routine minor symptoms
-    payload = {
-        "patient_id": 1,
-        "raw_input": "Halka sirdard aur sardi hai kal se.",
-        "language": "hi",
-        "duration_days": 1
-    }
-    res = client.post("/api/symptom-intake", json=payload, headers={"X-Demo-User": "ramesh"})
+    payload = {"patient_id": 1, "raw_input": "Halka sirdard aur sardi hai kal se.", "language": "hi", "duration_days": 1}
+    res = client.post("/api/symptom-intake", json=payload, headers=as_user("ramesh"))
     assert res.status_code == 200
     data = res.json()
     assert data["is_emergency"] is False
     assert data["triage_level"] == "ROUTINE"
 
-def test_facility_readiness_and_test_unavailability_scenario_b():
-    # Scenario B: Nearest CHC lacks Ultrasound, District Hospital has it
-    res = client.get("/api/facilities")
+def test_ai_chat_grounded_answer(monkeypatch):
+    monkeypatch.setenv("AI_ASSISTANT_MODE", "fallback")
+    res = client.post("/api/ai/chat", headers=as_user("ramesh"), json={
+        "language": "en", "messages": [{"role": "user", "content": "I have mild fever and body pain since yesterday"}]})
     assert res.status_code == 200
-    facilities = res.json()
-    assert len(facilities) >= 2
-    
-    chc = next((f for f in facilities if f["facility_type"] == "CHC"), None)
-    dh = next((f for f in facilities if f["facility_type"] == "DISTRICT_HOSPITAL"), None)
-    
-    assert chc is not None
+    data = res.json()
+    assert data["mode"] == "DEMO_FALLBACK"
+    assert data["sources"][0]["id"] == "REF-FEVER-01"
+    assert data["triage"]["triage_level"] == "ROUTINE"
+
+def test_ai_chat_emergency_never_waits_for_llm(monkeypatch):
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "should-not-be-used")
+    res = client.post("/api/ai/chat", headers=as_user("ramesh"), json={
+        "language": "en", "messages": [{"role": "user", "content": "my father has slurred speech and face drooping"}]})
+    data = res.json()
+    assert data["mode"] == "SAFETY_RULES"
+    assert data["triage"]["is_emergency"] is True
+    assert "112" in data["reply"]
+
+def test_facility_readiness_and_test_unavailability_scenario_b():
+    facilities = client.get("/api/facilities?district=Pune").json()
+    assert {f["facility_type"] for f in facilities} >= {"CHC", "PHC", "DISTRICT_HOSPITAL"}
+    chc = paud_chc()
+    dh = next(f for f in facilities if f["facility_type"] == "DISTRICT_HOSPITAL")
     assert "Ultrasound Abdomen (USG)" in chc["diagnostic_tests_missing"]
     assert "Electrocardiogram (ECG)" in chc["diagnostic_tests_available"]
-    
-    assert dh is not None
     assert "Ultrasound Abdomen (USG)" in dh["diagnostic_tests_available"]
+    assert any(d["name"] == "Dr. Anand Deshmukh" for d in chc["doctors"])
 
 def test_medicine_stock_scenario_c():
-    # Scenario C: Amlodipine out of stock at CHC Paud
-    res = client.get("/api/facilities")
-    facilities = res.json()
-    chc = next((f for f in facilities if f["facility_type"] == "CHC"), None)
+    chc = paud_chc()
     assert chc["medicine_stock_summary"]["Amlodipine"] == "OUT_OF_STOCK"
     assert chc["medicine_stock_summary"]["Paracetamol"] == "IN_STOCK"
 
 def test_appointment_booking_and_idempotency_scenario_f():
-    # Scenario F: Appointment creation with idempotency key
-    key = "idem-test-key-999"
     payload = {
-        "patient_id": 1,
-        "doctor_id": 1,
-        "facility_id": 1,
-        "scheduled_date": "2026-10-25",
-        "scheduled_time": "10:00 AM",
-        "consultation_type": "IN_PERSON",
-        "reason": "Chest discomfort review",
-        "idempotency_key": key
+        "patient_id": 1, "doctor_id": 1, "facility_id": 1,
+        "scheduled_date": days_from_today(1), "scheduled_time": "10:00 AM",
+        "consultation_type": "IN_PERSON", "reason": "Chest discomfort review",
+        "idempotency_key": "idem-test-key-999"
     }
-    res1 = client.post("/api/appointments", json=payload, headers={"X-Demo-User": "ramesh"})
-    assert res1.status_code == 200
-    apt1 = res1.json()
-
-    # Retry same action
-    res2 = client.post("/api/appointments", json=payload, headers={"X-Demo-User": "ramesh"})
-    assert res2.status_code == 200
-    apt2 = res2.json()
-
+    apt1 = client.post("/api/appointments", json=payload, headers=as_user("ramesh")).json()
+    apt2 = client.post("/api/appointments", json=payload, headers=as_user("ramesh")).json()
     assert apt1["id"] == apt2["id"]
     assert apt1["appointment_code"] == apt2["appointment_code"]
+    assert apt1["doctor_name"] == "Dr. Anand Deshmukh"
+
+def test_booking_validation():
+    base = {"patient_id": 1, "doctor_id": 1, "facility_id": 1, "scheduled_date": days_from_today(2)}
+    # doctor does not practise at that facility
+    assert client.post("/api/appointments", json={**base, "facility_id": 2}, headers=as_user("ramesh")).status_code == 422
+    # past date
+    assert client.post("/api/appointments", json={**base, "scheduled_date": days_from_today(-1)}, headers=as_user("ramesh")).status_code == 422
+    # a patient cannot book for somebody else
+    assert client.post("/api/appointments", json={**base, "patient_id": 2}, headers=as_user("ramesh")).status_code == 403
+
+def test_patient_registration_and_health_record():
+    reg = client.post("/api/auth/register", json={"name": "Lata Shinde", "age": 31, "gender": "Female", "phone": "9000011122", "village": "Pirangut"})
+    assert reg.status_code == 200
+    token = reg.json()["access_token"]
+    me = client.get("/api/patients/me", headers=as_user(token)).json()
+    assert me["abha_id"].startswith("91-")
+    kavita = client.post("/api/auth/login", json={"username": "asha_kavita"}).json()["user"]
+    assert me["assigned_asha_id"] == kavita["id"]
+    # duplicate mobile number
+    assert client.post("/api/auth/register", json={"name": "Lata S", "age": 31, "gender": "Female", "phone": "9000011122", "village": "Pirangut"}).status_code == 409
+
+    apt = client.post("/api/appointments", headers=as_user(token), json={
+        "patient_id": me["id"], "doctor_id": 1, "facility_id": 1, "scheduled_date": days_from_today(1), "reason": "Fever"}).json()
+    record = client.get(f"/api/patients/{me['id']}/record", headers=as_user(token)).json()
+    assert record["appointments"][0]["appointment_code"] == apt["appointment_code"]
+    # other patients cannot read it
+    assert client.get(f"/api/patients/{me['id']}/record", headers=as_user("ramesh")).status_code == 403
 
 def test_encounter_and_follow_up_creation():
     payload = {
         "patient_id": 1,
-        "doctor_id": 1,
-        "facility_id": 1,
         "chief_complaints": "Chest heaviness and fatigue on exertion",
         "clinical_notes": "Heart sounds normal. S1, S2 audible. No murmurs. Advised ECG.",
         "diagnosis": "Mild Atypical Angina / Exertional Fatigue",
-        "vital_bp": "130/84",
-        "vital_pulse": 78,
-        "vital_temp": 98.4,
-        "vital_spo2": 99,
+        "vital_bp": "130/84", "vital_pulse": 78, "vital_temp": 98.4, "vital_spo2": 99,
         "clinician_risk_flag": "MODERATE_RISK",
         "prescriptions": [
-            {
-                "medicine_name": "Paracetamol 500mg",
-                "dosage": "500mg",
-                "frequency": "SOS",
-                "duration_days": 3,
-                "instructions": "Take after food if discomfort occurs"
-            }
+            {"medicine_name": "Amlodipine 5mg", "dosage": "5mg", "frequency": "Once daily", "duration_days": 30}
         ],
-        "diagnostic_test_names": ["Electrocardiogram (ECG)"],
+        "diagnostic_test_names": ["Electrocardiogram (ECG)", "Ultrasound Abdomen (USG)"],
         "follow_up_days": 7,
         "follow_up_instructions": "Review with ECG report in 1 week"
     }
-    res = client.post("/api/encounters", json=payload, headers={"X-Demo-User": "dr_deshmukh"})
+    res = client.post("/api/encounters", json=payload, headers=as_user("dr_deshmukh"))
     assert res.status_code == 200
-    data = res.json()
-    assert data["diagnosis"] == "Mild Atypical Angina / Exertional Fatigue"
+    assert res.json()["diagnosis"] == "Mild Atypical Angina / Exertional Fatigue"
+
+    record = client.get("/api/patients/1/record", headers=as_user("ramesh")).json()
+    orders = {o["test_name"]: o["status"] for o in record["diagnostic_orders"]}
+    assert orders["Electrocardiogram (ECG)"] == "ORDERED"
+    assert orders["Ultrasound Abdomen (USG)"] == "UNAVAILABLE"
+    assert record["encounters"][0]["prescriptions"][0]["items"][0]["collected_status"] == "OUT_OF_STOCK"
+    assert any(f["due_date"] == days_from_today(7) for f in record["follow_ups"])
+    assert "Dr. Anand Deshmukh" in record["reminders"][0]["message"]
+
+def test_only_doctors_record_encounters():
+    res = client.post("/api/encounters", headers=as_user("asha_kavita"), json={
+        "patient_id": 1, "chief_complaints": "x", "clinical_notes": "x", "diagnosis": "x"})
+    assert res.status_code == 403
 
 def test_missed_care_and_asha_task_resolution_scenario_d():
-    # Scenario D: ASHA task for Sunita Devi's overdue follow-up
-    res = client.get("/api/tasks?status=OPEN")
-    assert res.status_code == 200
-    tasks = res.json()
+    tasks = client.get("/api/tasks?status=OPEN", headers=as_user("asha_kavita")).json()
     sunita_task = next((t for t in tasks if t["patient_name"] == "Sunita Devi"), None)
     assert sunita_task is not None
     assert sunita_task["task_type"] == "MISSED_FOLLOW_UP"
+    # Kavita only sees her own tasks
+    assert all(t["asha_worker_id"] == sunita_task["asha_worker_id"] for t in tasks)
 
-    # ASHA worker completes home visit and updates task
     update_payload = {
         "status": "RESOLVED",
-        "visit_notes": "Visited Sunita Devi at Pirangut home. Checked random blood sugar (164 mg/dL). She missed follow-up due to lack of bus. Accompanied her to CHC next day.",
+        "visit_notes": "Visited Sunita Devi at home. Random blood sugar 164 mg/dL. Missed follow-up due to no bus; accompanied her to CHC.",
         "outcome": "PATIENT_VISITED_CLINIC"
     }
-    res_update = client.patch(f"/api/tasks/{sunita_task['id']}", json=update_payload, headers={"X-Demo-User": "asha_kavita"})
-    assert res_update.status_code == 200
-    updated = res_update.json()
+    updated = client.patch(f"/api/tasks/{sunita_task['id']}", json=update_payload, headers=as_user("asha_kavita")).json()
     assert updated["status"] == "RESOLVED"
     assert updated["outcome"] == "PATIENT_VISITED_CLINIC"
 
 def test_access_control_scenario_g():
-    # Scenario G: ASHA Kavita Tai attempts to access patient Anita More (assigned to ASHA Rekha)
-    res_pat = client.get("/api/patients")
-    patients = res_pat.json()
-    anita = next((p for p in patients if p["name"] == "Anita More"), None)
-    assert anita is not None
+    anita = next(p for p in client.get("/api/patients?village=Kamshet", headers=as_user("admin_district")).json() if p["name"] == "Anita More")
 
-    # Kavita attempts to view Anita's protected medical record
-    res = client.get(f"/api/patients/{anita['id']}", headers={"X-Demo-User": "asha_kavita"})
+    # Kavita cannot see Anita in her roster, nor open her record
+    roster = client.get("/api/patients", headers=as_user("asha_kavita")).json()
+    assert all(p["id"] != anita["id"] for p in roster)
+    res = client.get(f"/api/patients/{anita['id']}", headers=as_user("asha_kavita"))
     assert res.status_code == 403
     assert "Access Denied" in res.json()["detail"]
 
-    # Verify audit event recorded denial
-    audit_res = client.get("/api/audit-events")
-    audits = audit_res.json()
+    audits = client.get("/api/audit-events", headers=as_user("admin_district")).json()
     denied_audit = next((a for a in audits if a["action"] == "UNAUTHORIZED_PATIENT_ACCESS_DENIED"), None)
     assert denied_audit is not None
     assert denied_audit["outcome"] == "DENIED"
 
+    # admin-only endpoints
+    assert client.get("/api/audit-events", headers=as_user("asha_kavita")).status_code == 403
+    assert client.get("/api/admin/metrics", headers=as_user("ramesh")).status_code == 403
+
+def test_facility_admin_updates_roster_services_and_stock():
+    manage = client.get("/api/facilities/1/manage", headers=as_user("admin_paud")).json()
+    usg = next(s for s in manage["services"] if s["name"].startswith("Ultrasound"))
+    assert client.patch(f"/api/facilities/1/services/{usg['id']}", json={"is_available": True}, headers=as_user("admin_paud")).json()["is_available"] is True
+
+    amlo = next(i for i in manage["inventory"] if i["medicine_name"].startswith("Amlodipine"))
+    assert client.patch(f"/api/facilities/1/inventory/{amlo['id']}", json={"quantity_in_stock": 10}, headers=as_user("admin_paud")).json()["stock_status"] == "LOW_STOCK"
+
+    doc = client.patch("/api/doctors/1", headers=as_user("admin_paud"), json={
+        "is_available_today": False, "schedule": [{"day_of_week": "Monday", "start_time": "10:00", "end_time": "13:00"}]}).json()
+    assert doc["is_available_today"] is False and len(doc["schedule"]) == 1
+    # off-duty doctors cannot be booked for today
+    assert client.post("/api/appointments", headers=as_user("ramesh"), json={
+        "patient_id": 1, "doctor_id": 1, "facility_id": 1, "scheduled_date": days_from_today(0)}).status_code == 409
+
+    chc = paud_chc()
+    assert "Ultrasound Abdomen (USG)" in chc["diagnostic_tests_available"]
+    assert chc["medicine_stock_summary"]["Amlodipine"] == "LOW_STOCK"
+
+    # cannot manage another facility
+    assert client.get("/api/facilities/2/manage", headers=as_user("admin_paud")).status_code == 403
+    assert client.patch("/api/doctors/2", json={"is_available_today": False}, headers=as_user("admin_paud")).status_code == 403
+    client.patch("/api/doctors/1", headers=as_user("admin_paud"), json={"is_available_today": True})
+
+def test_admin_activity_monitoring():
+    metrics = client.get("/api/admin/metrics", headers=as_user("admin_district")).json()
+    assert metrics["total_patients"] >= 1003
+    activity = client.get("/api/admin/activity", headers=as_user("admin_district")).json()
+    assert activity["appointments_by_status"]
+    assert activity["recent_appointments"]
+
 def test_offline_sync_batch():
     batch = {
         "user_id": 1,
-        "actions": [
-            {
-                "idempotency_key": "sync-batch-item-101",
-                "action_type": "BOOK_APPOINTMENT",
-                "payload": {
-                    "patient_id": 1,
-                    "doctor_id": 1,
-                    "facility_id": 1,
-                    "scheduled_date": "2026-10-26",
-                    "reason": "Follow-up synced from offline cache"
-                }
-            }
-        ]
+        "actions": [{
+            "idempotency_key": "sync-batch-item-101",
+            "action_type": "BOOK_APPOINTMENT",
+            "payload": {"patient_id": 1, "doctor_id": 1, "facility_id": 1,
+                        "scheduled_date": days_from_today(2), "reason": "Follow-up synced from offline cache"}
+        }]
     }
-    res = client.post("/api/sync/batch", json=batch, headers={"X-Demo-User": "ramesh"})
-    assert res.status_code == 200
-    data = res.json()
+    data = client.post("/api/sync/batch", json=batch, headers=as_user("ramesh")).json()
     assert data["synced_count"] == 1
     assert data["results"][0]["status"] == "SYNCED"
+    again = client.post("/api/sync/batch", json=batch, headers=as_user("ramesh")).json()
+    assert again["results"][0]["status"] == "ALREADY_SYNCED"

@@ -1,653 +1,697 @@
-import React, { useState, useEffect } from 'react';
-import { Patient, FacilityReadiness, SymptomIntakeResponse, Appointment, CareTimelineEvent } from '../types';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Patient, FacilityReadiness, Appointment, CareTimelineEvent, User,
+  ChatTurn, ChatResponse, PatientRecord
+} from '../types';
 import { api } from '../services/api';
-import { 
-  AlertTriangle, PhoneCall, CheckCircle2, Clock, MapPin, 
-  Stethoscope, Pill, FileText, Calendar, Shield, Users, Mic, Send,
-  ArrowRight, Activity, Info, AlertCircle
+import { localDate } from '../utils/date';
+import {
+  AlertTriangle, PhoneCall, CheckCircle2, Clock, MapPin, Shield, Mic, Send,
+  Activity, Info, Pill, FileText, Calendar, Bell, Users, Stethoscope, XCircle
 } from 'lucide-react';
 
 interface PatientPortalProps {
   language: 'hi' | 'en';
-  onEmergencyTriggered?: () => void;
+  user: User;
+  onRegister: () => void;
 }
 
-export const PatientPortal: React.FC<PatientPortalProps> = ({ language }) => {
-  const [patient, setPatient] = useState<Patient | null>(null);
-  const [symptomText, setSymptomText] = useState<string>('');
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [triageResponse, setTriageResponse] = useState<SymptomIntakeResponse | null>(null);
-  
-  const [facilities, setFacilities] = useState<FacilityReadiness[]>([]);
-  const [selectedFacility, setSelectedFacility] = useState<FacilityReadiness | null>(null);
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [timeline, setTimeline] = useState<CareTimelineEvent[]>([]);
-  const [activeTab, setActiveTab] = useState<'ASSISTANT' | 'TIMELINE' | 'FACILITIES' | 'FAMILY'>('ASSISTANT');
-  const [bookingSuccess, setBookingSuccess] = useState<Appointment | null>(null);
-  const [isListening, setIsListening] = useState<boolean>(false);
+type Tab = 'ASSISTANT' | 'FACILITIES' | 'RECORDS' | 'TIMELINE' | 'FAMILY';
 
-  // Load patient #1 (Ramesh Kumar)
-  const loadData = async () => {
+interface AssistantMessage extends ChatTurn {
+  meta?: ChatResponse;
+}
+
+const TIME_SLOTS = ['09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM'];
+
+const statusColor = (s: string) =>
+  s === 'COMPLETED' || s === 'SENT' || s === 'ORDERED' ? 'bg-emerald-100 text-emerald-800'
+    : s === 'CANCELLED' || s === 'OVERDUE' || s === 'UNAVAILABLE' || s === 'OUT_OF_STOCK' ? 'bg-rose-100 text-rose-800'
+      : 'bg-amber-100 text-amber-900';
+
+export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, onRegister }) => {
+  const hi = language === 'hi';
+  const t = (h: string, e: string) => (hi ? h : e);
+
+  const [patient, setPatient] = useState<Patient | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<Tab>('ASSISTANT');
+
+  // Assistant
+  const [messages, setMessages] = useState<AssistantMessage[]>([]);
+  const [draft, setDraft] = useState('');
+  const [sending, setSending] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+  const lastMeta = [...messages].reverse().find(m => m.meta)?.meta;
+
+  // Facilities & booking
+  const [facilities, setFacilities] = useState<FacilityReadiness[]>([]);
+  const [showAllDistricts, setShowAllDistricts] = useState(false);
+  const [bookFacilityId, setBookFacilityId] = useState<number | null>(null);
+  const [bookDoctorId, setBookDoctorId] = useState<number | null>(null);
+  const [bookDate, setBookDate] = useState(localDate(1));
+  const [bookTime, setBookTime] = useState('10:30 AM');
+  const [bookType, setBookType] = useState('IN_PERSON');
+  const [bookReason, setBookReason] = useState('');
+  const [booking, setBooking] = useState(false);
+  const [bookingResult, setBookingResult] = useState<{ ok: boolean; text: string } | null>(null);
+
+  // Records
+  const [record, setRecord] = useState<PatientRecord | null>(null);
+  const [timeline, setTimeline] = useState<CareTimelineEvent[]>([]);
+
+  // Family
+  const [familyForm, setFamilyForm] = useState({ full_name: '', relationship_type: 'CHILD', age: '', gender: 'Female', chronic_conditions: '' });
+  const [showFamilyForm, setShowFamilyForm] = useState(false);
+
+  const loadFacilities = async (p: Patient | null, all: boolean) => {
+    const facs = await api.getFacilities(all || !p ? undefined : p.district);
+    setFacilities(facs.length ? facs : await api.getFacilities());
+  };
+
+  const loadRecords = async (p: Patient) => {
+    const [rec, tl] = await Promise.all([api.getPatientRecord(p.id), api.getTimeline(p.id)]);
+    setRecord(rec);
+    setTimeline(tl);
+  };
+
+  const loadAll = async () => {
     try {
-      const pat = await api.getPatient(1, 'ramesh');
-      setPatient(pat);
-      const facs = await api.getFacilities();
-      setFacilities(facs);
-      if (facs.length > 0) setSelectedFacility(facs[0]);
-      const apts = await api.getAppointments(1, 'ramesh');
-      setAppointments(apts);
-      const tl = await api.getTimeline(1);
-      setTimeline(tl);
+      const p = await api.getMyPatient();
+      setPatient(p);
+      await Promise.all([loadFacilities(p, showAllDistricts), loadRecords(p)]);
     } catch (err: any) {
-      console.error(err);
+      setLoadError(err.message);
     }
   };
 
   useEffect(() => {
-    loadData();
+    loadAll();
+    const onChange = () => loadAll();
+    window.addEventListener('swasthyasetu-data-changed', onChange);
+    return () => window.removeEventListener('swasthyasetu-data-changed', onChange);
   }, []);
 
+  useEffect(() => {
+    if (patient) loadFacilities(patient, showAllDistricts).catch(() => {});
+  }, [showAllDistricts]);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, [messages]);
+
+  // Pick a sensible default facility/doctor for the booking form.
+  useEffect(() => {
+    if (!facilities.length) return;
+    const fac = facilities.find(f => f.id === bookFacilityId) || facilities[0];
+    if (fac.id !== bookFacilityId) setBookFacilityId(fac.id);
+    const docs = fac.doctors;
+    if (!docs.some(d => d.id === bookDoctorId)) {
+      setBookDoctorId((docs.find(d => d.is_available_today) || docs[0])?.id ?? null);
+    }
+  }, [facilities, bookFacilityId]);
+
   const handleVoiceInput = () => {
-    // Check SpeechRecognition support
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert(language === 'hi' 
-        ? 'आपके ब्राउज़र में वॉइस इनपुट समर्थित नहीं है। कृपया टाइप करें।' 
-        : 'Browser speech recognition not supported. Please type your symptoms.'
-      );
+      alert(t('आपके ब्राउज़र में वॉइस इनपुट समर्थित नहीं है। कृपया टाइप करें।', 'Speech recognition is not supported in this browser. Please type your symptoms.'));
       return;
     }
-
     try {
       const recognition = new SpeechRecognition();
-      recognition.lang = language === 'hi' ? 'hi-IN' : 'en-IN';
+      recognition.lang = hi ? 'hi-IN' : 'en-IN';
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
-
       setIsListening(true);
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
-        setSymptomText(transcript);
-        setIsListening(false);
-      };
-      recognition.onerror = () => {
-        setIsListening(false);
-      };
-      recognition.onend = () => {
-        setIsListening(false);
-      };
+      recognition.onresult = (event: any) => setDraft(prev => (prev ? prev + ' ' : '') + event.results[0][0].transcript);
+      recognition.onerror = () => setIsListening(false);
+      recognition.onend = () => setIsListening(false);
       recognition.start();
     } catch {
       setIsListening(false);
     }
   };
 
-  const handleIntakeSubmit = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!symptomText.trim()) return;
-
-    setIsSubmitting(true);
+  const sendMessage = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    const text = draft.trim();
+    if (!text || sending) return;
+    const history: AssistantMessage[] = [...messages, { role: 'user', content: text }];
+    setMessages(history);
+    setDraft('');
+    setSending(true);
     try {
-      const res = await api.submitIntake(1, symptomText, language, 'ramesh');
-      setTriageResponse(res);
-      // Refresh timeline
-      const tl = await api.getTimeline(1);
-      setTimeline(tl);
+      const res = await api.chat(history.map(({ role, content }) => ({ role, content })).slice(-20), language);
+      setMessages([...history, { role: 'assistant', content: res.reply, meta: res }]);
+      setBookReason(text.slice(0, 200));
+      if (patient) loadRecords(patient).catch(() => {});
     } catch (err: any) {
-      alert('Error submitting intake: ' + err.message);
+      setMessages([...history, { role: 'assistant', content: t('क्षमा करें, सहायक अभी उपलब्ध नहीं है: ', 'Sorry, the assistant is unavailable right now: ') + err.message }]);
     } finally {
-      setIsSubmitting(false);
+      setSending(false);
     }
   };
 
-  const handleBookDemoAppointment = async (facId: number) => {
+  const handleBook = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!patient || !bookFacilityId || !bookDoctorId) return;
+    setBooking(true);
+    setBookingResult(null);
     try {
       const apt = await api.bookAppointment({
-        patient_id: 1,
-        doctor_id: 1,
-        facility_id: facId,
-        scheduled_date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-        scheduled_time: '10:30 AM',
-        consultation_type: 'IN_PERSON',
-        reason: triageResponse?.primary_complaint || 'General Clinical Review'
-      }, 'ramesh');
-      setBookingSuccess(apt);
-      loadData();
+        patient_id: patient.id, doctor_id: bookDoctorId, facility_id: bookFacilityId,
+        scheduled_date: bookDate, scheduled_time: bookTime, consultation_type: bookType,
+        reason: bookReason || lastMeta?.triage.primary_complaint || 'General consultation'
+      });
+      setBookingResult({
+        ok: true,
+        text: apt.status === 'QUEUED_OFFLINE'
+          ? t('आप ऑफ़लाइन हैं - अनुरोध सहेजा गया है और कनेक्शन आने पर भेजा जाएगा।', 'You are offline - the request is saved and will be sent when you reconnect (use Sync in the top bar).')
+          : `${t('अपॉइंटमेंट बुक हो गया', 'Appointment booked')}: ${apt.appointment_code} • ${t('टोकन', 'Token')} ${apt.queue_token} • ${apt.facility_name} • ${apt.doctor_name} • ${apt.scheduled_date} ${apt.scheduled_time}`
+      });
+      await loadAll();
     } catch (err: any) {
-      alert('Failed to book appointment: ' + err.message);
+      setBookingResult({ ok: false, text: err.message });
+    } finally {
+      setBooking(false);
     }
   };
 
+  const startBookingAt = (facId: number) => {
+    setBookFacilityId(facId);
+    setActiveTab('FACILITIES');
+    setTimeout(() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' }), 50);
+  };
+
+  const cancelAppointment = async (apt: Appointment) => {
+    if (!confirm(t(`अपॉइंटमेंट ${apt.appointment_code} रद्द करें?`, `Cancel appointment ${apt.appointment_code}?`))) return;
+    try {
+      await api.setAppointmentStatus(apt.id, 'CANCELLED');
+      await loadAll();
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
+  const addFamily = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await api.addFamilyMember({ ...familyForm, age: Number(familyForm.age), chronic_conditions: familyForm.chronic_conditions || 'None' });
+      setFamilyForm({ full_name: '', relationship_type: 'CHILD', age: '', gender: 'Female', chronic_conditions: '' });
+      setShowFamilyForm(false);
+      setPatient(await api.getMyPatient());
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
+  if (loadError) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-10 text-center space-y-3">
+        <p className="text-sm text-rose-800">{loadError}</p>
+        <button onClick={onRegister} className="bg-teal-700 text-white text-sm font-bold px-4 py-2 rounded-xl">{t('पंजीकरण करें', 'Register as a patient')}</button>
+      </div>
+    );
+  }
+
+  const selectedFacility = facilities.find(f => f.id === bookFacilityId);
+  const emergencyFacility = facilities
+    .filter(f => f.facility_type !== 'PHC' && f.diagnostic_tests_available.includes('Electrocardiogram (ECG)'))
+    .sort((a, b) => a.distance_km - b.distance_km)[0];
+  const upcoming = (record?.appointments || []).filter(a => a.status === 'BOOKED' || a.status === 'IN_QUEUE');
+  const pendingFollowUps = (record?.follow_ups || []).filter(f => f.status === 'SCHEDULED' || f.status === 'OVERDUE');
+
   const samplePrompts = [
-    { label: language === 'hi' ? 'सीने में दर्द व सांस में तकलीफ (आपातकाल)' : 'Severe chest pain & breathlessness (Emergency)', text: 'Mujhe chest mein severe pain aur saans lene mein dikkat ho rahi hai pichle 2 ghante se.' },
-    { label: language === 'hi' ? 'बुखार और शरीर दर्द (सामान्य)' : 'Fever & body pain (Routine)', text: 'Halka bukhar aur badan dard hai kal raat se.' },
-    { label: language === 'hi' ? 'मधुमेह एवं ब्लड प्रेशर फॉलो-अप' : 'Diabetes & BP checkup', text: 'Mujhe BP aur sugar ki dawaiyan leni hain aur regular follow-up check karwana hai.' }
+    { label: t('सीने में दर्द व सांस में तकलीफ (आपातकाल)', 'Chest pain & breathlessness (emergency)'), text: 'Mujhe chest mein severe pain aur saans lene mein dikkat ho rahi hai pichle 2 ghante se.' },
+    { label: t('बुखार और शरीर दर्द', 'Fever & body pain'), text: hi ? 'मुझे कल रात से हल्का बुखार और बदन दर्द है, क्या करूं?' : 'I have had a mild fever and body pain since last night. What should I do?' },
+    { label: t('बीपी की दवा और फॉलो-अप', 'My BP medicine & follow-up'), text: hi ? 'मेरी बीपी की दवा और अगला फॉलो-अप कब है?' : 'Which BP medicines am I on and when is my next follow-up?' },
+  ];
+
+  const tabs: { id: Tab; label: string }[] = [
+    { id: 'ASSISTANT', label: t('१. एआई स्वास्थ्य सहायक', '1. AI Health Assistant') },
+    { id: 'FACILITIES', label: t('२. अस्पताल व अपॉइंटमेंट', '2. Facilities & Booking') },
+    { id: 'RECORDS', label: t('३. मेरा स्वास्थ्य रिकॉर्ड', '3. My Health Record') },
+    { id: 'TIMELINE', label: t('४. टाइमलाइन', '4. Timeline') },
+    { id: 'FAMILY', label: t('५. परिवार', '5. Family') },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
-      {/* Patient Profile Card & Health ID */}
+      {/* Profile */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-teal-100 text-teal-800 font-bold flex items-center justify-center text-xl border border-teal-200">
-            {patient?.name?.charAt(0) || 'R'}
+        <div className="flex items-center gap-4 min-w-0">
+          <div className="w-14 h-14 shrink-0 rounded-2xl bg-teal-100 text-teal-800 font-bold flex items-center justify-center text-xl border border-teal-200">
+            {(patient?.name || user.full_name).charAt(0)}
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold text-slate-900">{patient?.name || 'Ramesh Kumar'}</h2>
-              <span className="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-semibold border border-emerald-200">
-                ABHA Active
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-xl font-bold text-slate-900">{patient?.name || user.full_name}</h2>
+              <span className="bg-slate-100 text-slate-700 text-[11px] px-2 py-0.5 rounded-full font-semibold border border-slate-200">
+                {t('डेमो ABHA', 'Demo ABHA')}: <span className="font-mono">{patient?.abha_id}</span>
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              ABHA ID: <span className="font-mono text-slate-700 font-medium">{patient?.abha_id || '91-4829-1029-3849'}</span> • 
-              Village: <span className="font-medium text-slate-700">{patient?.village || 'Paud'}</span>, Mulshi • 
-              Age: <span className="font-medium text-slate-700">{patient?.age || 48}y / {patient?.gender || 'Male'}</span>
+              {patient?.village}, {patient?.block}, {patient?.district} • {patient?.age}y / {patient?.gender} • {t('ब्लड ग्रुप', 'Blood')}: {patient?.blood_group}
             </p>
             <p className="text-xs text-teal-700 font-medium mt-1">
-              Assigned ASHA Worker: Kavita Tai Patil (Paud Sub-Centre) • Blood: B+
+              {t('पुरानी बीमारी', 'Conditions')}: {patient?.chronic_conditions}
+              {pendingFollowUps.length > 0 && <> • <Bell size={11} className="inline" /> {t('अगला फॉलो-अप', 'Next follow-up')}: {pendingFollowUps[pendingFollowUps.length - 1].due_date}</>}
             </p>
           </div>
         </div>
 
-        {/* Tab Switcher */}
-        <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-medium border border-slate-200">
-          <button
-            onClick={() => setActiveTab('ASSISTANT')}
-            className={`px-3 py-1.5 rounded-lg transition ${activeTab === 'ASSISTANT' ? 'bg-teal-700 text-white font-bold shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
-          >
-            {language === 'hi' ? '१. एआई स्वास्थ्य सहायक' : '1. AI Health Assistant'}
-          </button>
-          <button
-            onClick={() => setActiveTab('FACILITIES')}
-            className={`px-3 py-1.5 rounded-lg transition ${activeTab === 'FACILITIES' ? 'bg-teal-700 text-white font-bold shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
-          >
-            {language === 'hi' ? '२. अस्पताल तैयारी' : '2. Hospital Readiness'}
-          </button>
-          <button
-            onClick={() => setActiveTab('TIMELINE')}
-            className={`px-3 py-1.5 rounded-lg transition ${activeTab === 'TIMELINE' ? 'bg-teal-700 text-white font-bold shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
-          >
-            {language === 'hi' ? '३. डिजिटल स्वास्थ्य टाइमलाइन' : '3. Care Timeline'}
-          </button>
-          <button
-            onClick={() => setActiveTab('FAMILY')}
-            className={`px-3 py-1.5 rounded-lg transition ${activeTab === 'FAMILY' ? 'bg-teal-700 text-white font-bold shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
-          >
-            {language === 'hi' ? '४. परिवार' : '4. Family'}
-          </button>
+        <div className="flex flex-wrap items-center bg-slate-100 p-1 rounded-xl text-xs font-medium border border-slate-200" role="tablist">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-3 py-1.5 rounded-lg transition ${activeTab === tab.id ? 'bg-teal-700 text-white font-bold shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* TAB 1: AI ASSISTANT & 10-STEP INTAKE */}
+      {/* ASSISTANT */}
       {activeTab === 'ASSISTANT' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Intake Input Form */}
-          <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-5">
+          <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
             <div>
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <Activity className="text-teal-700" size={20} />
-                  {language === 'hi' ? 'लक्षण जांच एवं सुरक्षित ट्राइएज' : 'Symptom Intake & Safety Screening'}
-                </h3>
-                <span className="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">
-                  {language === 'hi' ? 'बोलें या टाइप करें' : 'Voice or Typed Input'}
-                </span>
-              </div>
+              <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Activity className="text-teal-700" size={20} />
+                {t('स्वास्थ्य सहायक से बात करें', 'Talk to the health assistant')}
+              </h3>
               <p className="text-xs text-slate-500 mt-1">
-                {language === 'hi' 
-                  ? 'अपनी भाषा में बताएं कि आपको क्या समस्या है। आपातकालीन स्थिति में तुरंत 112 सहायता मिलेगी।'
-                  : 'Describe your symptoms in Hindi or English. Conservative emergency protocols run deterministically.'
-                }
+                {t('हिंदी या अंग्रेज़ी में लिखें या बोलें। आपातकालीन संकेत मिलने पर तुरंत 112 की सलाह दी जाती है। यह डॉक्टर का विकल्प नहीं है।',
+                  'Type or speak in Hindi or English. Emergency signs always trigger 112 advice first. This is not a substitute for a doctor.')}
               </p>
             </div>
 
-            {/* Quick Sample Chips */}
-            <div className="space-y-1.5">
-              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                {language === 'hi' ? 'उदाहरण के लिए क्लिक करें:' : 'Quick Demo Scenarios:'}
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {samplePrompts.map((p, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setSymptomText(p.text)}
-                    className="text-xs bg-slate-50 hover:bg-teal-50 hover:text-teal-900 hover:border-teal-300 border border-slate-200 rounded-lg px-2.5 py-1 text-slate-700 transition text-left"
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Input Form */}
-            <form onSubmit={handleIntakeSubmit} className="space-y-3">
-              <div className="relative">
-                <textarea
-                  rows={3}
-                  value={symptomText}
-                  onChange={(e) => setSymptomText(e.target.value)}
-                  placeholder={language === 'hi' 
-                    ? 'उदा. "मुझे 2 घंटे से सीने में भारीपन लग रहा है और सांस फूल रही है..."' 
-                    : 'e.g. "I have severe chest discomfort and feeling breathless for the past 2 hours..."'
-                  }
-                  className="w-full rounded-xl border border-slate-300 p-3.5 pr-12 text-sm focus:border-teal-600 focus:ring-1 focus:ring-teal-600 outline-none transition"
-                />
-                <button
-                  type="button"
-                  onClick={handleVoiceInput}
-                  className={`absolute right-3 top-3 p-2 rounded-lg transition ${
-                    isListening ? 'bg-red-500 text-white animate-pulse' : 'bg-slate-100 text-slate-600 hover:bg-teal-100 hover:text-teal-700'
-                  }`}
-                  title={isListening ? 'Listening...' : 'Click to Speak'}
-                >
-                  <Mic size={18} />
-                </button>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="text-xs text-slate-500 flex items-center gap-1">
-                  <Shield size={13} className="text-teal-700" />
-                  <span>
-                    {language === 'hi' ? 'चिकित्सकीय सुरक्षा नियम सक्रिय' : 'Deterministic clinical safety engine active'}
-                  </span>
-                </div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !symptomText.trim()}
-                  className="bg-teal-700 hover:bg-teal-800 disabled:opacity-50 text-white font-bold text-sm px-5 py-2.5 rounded-xl flex items-center gap-2 transition shadow-sm"
-                >
-                  {isSubmitting ? (
-                    <Clock className="animate-spin" size={16} />
-                  ) : (
-                    <Send size={16} />
-                  )}
-                  <span>{language === 'hi' ? 'जांच करें (Triage)' : 'Analyze & Screen'}</span>
-                </button>
-              </div>
-            </form>
-
-            {/* EMERGENCY WARNING BANNER (Scenario E) */}
-            {triageResponse && triageResponse.is_emergency && (
-              <div className="bg-red-50 border-2 border-red-500 rounded-2xl p-5 space-y-3 animate-fade-in shadow-md">
+            {/* Emergency banner */}
+            {lastMeta?.triage.is_emergency && (
+              <div className="bg-red-50 border-2 border-red-500 rounded-2xl p-4 space-y-3" role="alert">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center shrink-0">
                     <AlertTriangle size={24} />
                   </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="bg-red-600 text-white text-[11px] font-black uppercase px-2 py-0.5 rounded tracking-wide">
-                        EMERGENCY PROTOCOL TRIGGERED
-                      </span>
-                      <span className="text-xs font-bold text-red-900">
-                        {language === 'hi' ? 'तत्काल आपातकालीन सहायता' : 'Immediate Emergency Assistance'}
-                      </span>
-                    </div>
-                    <p className="text-sm font-semibold text-red-900 leading-relaxed">
-                      {triageResponse.emergency_advice}
-                    </p>
+                  <div>
+                    <div className="text-[11px] font-black uppercase text-red-700">{t('आपातकाल - तुरंत कार्रवाई करें', 'Emergency - act now')}</div>
+                    <p className="text-sm font-semibold text-red-900 leading-relaxed">{lastMeta.triage.emergency_advice}</p>
                   </div>
                 </div>
-
                 <div className="bg-white/80 rounded-xl p-3 border border-red-200 flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <div className="text-xs text-red-700 font-bold uppercase">National Emergency Services (India)</div>
-                    <div className="text-2xl font-black text-red-600 flex items-center gap-2">
-                      <PhoneCall size={22} />
-                      112 / 108
+                  <a href="tel:112" className="text-2xl font-black text-red-600 flex items-center gap-2">
+                    <PhoneCall size={22} /> 112 / 108
+                  </a>
+                  {emergencyFacility && (
+                    <div className="text-right text-xs">
+                      <div className="text-slate-600">{t('निकटतम आपातकालीन केंद्र', 'Nearest emergency-ready facility')}:</div>
+                      <div className="font-bold text-slate-900">{emergencyFacility.name} ({emergencyFacility.distance_km} km, ~{emergencyFacility.travel_time_mins} min) • {emergencyFacility.emergency_contact}</div>
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs text-slate-600">Nearest Emergency Ready Facility:</div>
-                    <div className="text-sm font-bold text-slate-900">
-                      Paud CHC (4.2 km - 12 mins) • 24x7 Doctor & ECG Ready
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-xs text-red-800 bg-red-100/60 p-2.5 rounded-lg border border-red-200">
-                  <span className="font-bold">Clinical Advisory:</span> Do not wait for routine OPD appointments. Go directly to emergency casualty or call 112 for rural ambulance dispatch.
+                  )}
                 </div>
               </div>
             )}
 
-            {/* ROUTINE / URGENT RECOMMENDATION RESULT */}
-            {triageResponse && !triageResponse.is_emergency && (
-              <div className="bg-teal-50 border border-teal-200 rounded-2xl p-5 space-y-4">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center">
-                      <CheckCircle2 size={22} />
-                    </div>
-                    <div>
-                      <span className="bg-teal-700 text-white text-[10px] font-bold uppercase px-2 py-0.5 rounded">
-                        Triage: {triageResponse.triage_level}
-                      </span>
-                      <h4 className="text-base font-bold text-slate-900 mt-1">
-                        {triageResponse.primary_complaint}
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="text-right text-xs">
-                    <span className="text-slate-500">Specialty: </span>
-                    <span className="font-bold text-teal-800">{triageResponse.recommended_specialty}</span>
+            {/* Conversation */}
+            <div className="border border-slate-200 rounded-xl bg-slate-50 p-3 h-[360px] overflow-y-auto space-y-3" aria-live="polite">
+              {messages.length === 0 && (
+                <div className="space-y-2">
+                  <p className="text-xs text-slate-500">{t('उदाहरण के लिए क्लिक करें:', 'Try one of these:')}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {samplePrompts.map((p, idx) => (
+                      <button key={idx} type="button" onClick={() => setDraft(p.text)}
+                        className="text-xs bg-white hover:bg-teal-50 border border-slate-200 hover:border-teal-300 rounded-lg px-2.5 py-1 text-slate-700 text-left">
+                        {p.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
-
-                <p className="text-sm text-slate-700 bg-white/70 p-3 rounded-xl border border-teal-100 leading-relaxed">
-                  {triageResponse.explanation_patient}
-                </p>
-
-                {/* Structured Doctor Summary */}
-                <div className="bg-white rounded-xl p-3 border border-slate-200 space-y-1">
-                  <div className="text-[11px] font-bold text-slate-500 uppercase flex items-center gap-1">
-                    <Info size={12} className="text-teal-700" />
-                    Doctor-Facing Structured Intake Summary:
-                  </div>
-                  <p className="text-xs font-mono text-slate-700 bg-slate-50 p-2 rounded">
-                    {triageResponse.ai_doctor_summary}
-                  </p>
-                </div>
-
-                {/* Action to book */}
-                <div className="pt-2 flex items-center justify-between border-t border-teal-200/60">
-                  <div className="text-xs text-teal-900">
-                    Recommended: <strong>{triageResponse.recommended_facility_type}</strong>
-                  </div>
-                  <button
-                    onClick={() => handleBookDemoAppointment(1)}
-                    className="bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1.5 transition shadow-sm"
-                  >
-                    <span>{language === 'hi' ? 'CHC पौड में अपॉइंटमेंट बुक करें' : 'Book at Paud CHC'}</span>
-                    <ArrowRight size={14} />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Booking Success Toast */}
-            {bookingSuccess && (
-              <div className="bg-emerald-50 border border-emerald-300 rounded-xl p-4 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="text-emerald-600 shrink-0" size={24} />
-                  <div>
-                    <div className="text-sm font-bold text-emerald-900">
-                      Appointment Booked Successfully! Token: {bookingSuccess.queue_token}
-                    </div>
-                    <div className="text-xs text-emerald-700 font-mono">
-                      Code: {bookingSuccess.appointment_code} • {bookingSuccess.scheduled_date} ({bookingSuccess.scheduled_time})
-                    </div>
-                  </div>
-                </div>
-                <span className="text-[11px] bg-emerald-200 text-emerald-900 px-2.5 py-1 rounded-md font-semibold">
-                  Saved in Record
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Right Rail: Verified Facility Readiness Snapshot */}
-          <div className="space-y-4">
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                  <MapPin className="text-teal-700" size={18} />
-                  {language === 'hi' ? 'निकटतम स्वास्थ्य केंद्र' : 'Nearest Ready Facilities'}
-                </h3>
-                <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Live Status
-                </span>
-              </div>
-
-              <div className="space-y-3">
-                {facilities.map((fac) => (
-                  <div
-                    key={fac.id}
-                    onClick={() => setSelectedFacility(fac)}
-                    className={`p-3.5 rounded-xl border text-xs cursor-pointer transition space-y-2 ${
-                      selectedFacility?.id === fac.id 
-                        ? 'border-teal-600 bg-teal-50/60 shadow-sm' 
-                        : 'border-slate-200 hover:border-slate-300 bg-white'
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <span className="font-bold text-slate-900 text-sm leading-tight">{fac.name}</span>
-                      <span className="bg-teal-100 text-teal-800 text-[10px] font-bold px-1.5 py-0.5 rounded shrink-0">
-                        {fac.facility_type}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-3 text-slate-500">
-                      <span>{fac.distance_km} km ({fac.travel_time_mins} min)</span>
-                      <span>•</span>
-                      <span className="text-emerald-700 font-semibold">{fac.available_doctors_count} Doctor on Duty</span>
-                    </div>
-
-                    {/* Honest Test Availability Indicator (Scenario B) */}
-                    <div className="pt-1 border-t border-slate-100 space-y-1">
-                      <div className="text-[11px] text-slate-600 flex items-center justify-between">
-                        <span>ECG:</span>
-                        <span className={fac.diagnostic_tests_available.includes('Electrocardiogram (ECG)') ? 'text-emerald-700 font-bold' : 'text-slate-400'}>
-                          {fac.diagnostic_tests_available.includes('Electrocardiogram (ECG)') ? 'Available ✓' : 'Unavailable ✕'}
-                        </span>
+              )}
+              {messages.map((m, idx) => (
+                <div key={idx} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm whitespace-pre-line ${
+                    m.role === 'user' ? 'bg-teal-700 text-white'
+                      : m.meta?.triage.is_emergency ? 'bg-red-100 border border-red-300 text-red-950'
+                        : 'bg-white border border-slate-200 text-slate-800'}`}>
+                    {m.content}
+                    {m.meta && (
+                      <div className="mt-2 pt-2 border-t border-slate-200/70 text-[10px] text-slate-500 space-y-0.5">
+                        <div>
+                          <span className={`font-bold px-1.5 rounded ${statusColor(m.meta.triage.triage_level === 'ROUTINE' ? 'COMPLETED' : m.meta.triage.triage_level === 'EMERGENCY' ? 'CANCELLED' : 'BOOKED')}`}>
+                            {m.meta.triage.triage_level}
+                          </span>{' '}
+                          {m.meta.mode === 'LLM' ? `AI: ${m.meta.model}` : m.meta.mode === 'SAFETY_RULES' ? t('सुरक्षा नियम', 'Safety rules') : t('डेमो मोड (बिना LLM)', 'Demo mode (no LLM key)')}
+                        </div>
+                        {m.meta.sources.length > 0 && <div>{t('स्रोत', 'Sources')}: {m.meta.sources.map(s => s.title).join('; ')}</div>}
                       </div>
-                      <div className="text-[11px] text-slate-600 flex items-center justify-between">
-                        <span>Ultrasound (USG):</span>
-                        <span className={fac.diagnostic_tests_available.includes('Ultrasound Abdomen (USG)') ? 'text-emerald-700 font-bold' : 'text-amber-700 font-semibold'}>
-                          {fac.diagnostic_tests_available.includes('Ultrasound Abdomen (USG)') ? 'Available ✓' : 'Lacking (Referral to DH)'}
-                        </span>
-                      </div>
-                      {/* Medicine Stock (Scenario C) */}
-                      <div className="text-[11px] text-slate-600 flex items-center justify-between">
-                        <span>Amlodipine (BP):</span>
-                        <span className={fac.medicine_stock_summary['Amlodipine'] === 'IN_STOCK' ? 'text-emerald-700 font-bold' : 'text-red-600 font-bold'}>
-                          {fac.medicine_stock_summary['Amlodipine'] === 'IN_STOCK' ? 'In Stock' : 'Out of Stock ✕'}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="text-[10px] text-slate-400 text-right">
-                      {fac.freshness_label}
-                    </div>
+                    )}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
+              {sending && <div className="text-xs text-slate-500 flex items-center gap-1"><Clock size={12} className="animate-spin" /> {t('सोच रहा है…', 'Thinking…')}</div>}
+              <div ref={chatEndRef} />
             </div>
 
-            {/* ABHA Consent & Data Sharing Card */}
-            <div className="bg-gradient-to-br from-teal-900 to-teal-950 text-white rounded-2xl p-4 space-y-2.5 shadow-sm">
-              <div className="flex items-center gap-2">
-                <Shield className="text-teal-300" size={16} />
-                <h4 className="text-xs font-bold uppercase tracking-wider text-teal-200">ABDM Consent Architecture</h4>
+            <form onSubmit={sendMessage} className="flex items-end gap-2">
+              <label htmlFor="symptom-input" className="sr-only">{t('अपने लक्षण लिखें', 'Describe your symptoms')}</label>
+              <textarea
+                id="symptom-input"
+                rows={2}
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
+                placeholder={t('उदा. "मुझे 2 दिन से बुखार है..."', 'e.g. "I have had a fever for 2 days..."')}
+                className="flex-1 rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-600 focus:ring-1 focus:ring-teal-600 outline-none"
+              />
+              <button type="button" onClick={handleVoiceInput} aria-label={t('बोलकर बताएं', 'Speak')}
+                className={`p-3 rounded-xl transition ${isListening ? 'bg-red-500 text-white animate-pulse' : 'bg-slate-100 text-slate-600 hover:bg-teal-100'}`}>
+                <Mic size={18} />
+              </button>
+              <button type="submit" disabled={sending || !draft.trim()} aria-label={t('भेजें', 'Send')}
+                className="bg-teal-700 hover:bg-teal-800 disabled:opacity-50 text-white p-3 rounded-xl">
+                <Send size={18} />
+              </button>
+            </form>
+            <div className="text-[11px] text-slate-500 flex items-center gap-1">
+              <Shield size={12} className="text-teal-700" />
+              {t('आपके रिकॉर्ड का उपयोग केवल आपकी सहायता के लिए किया जाता है और हर पहुंच ऑडिट होती है।', 'Your own record is used only to answer you, and every access is audited.')}
+            </div>
+          </div>
+
+          {/* Right rail */}
+          <div className="space-y-4">
+            {lastMeta && !lastMeta.triage.is_emergency && (
+              <div className="bg-teal-50 border border-teal-200 rounded-2xl p-4 space-y-2">
+                <div className="text-xs font-bold text-teal-900">{t('सुझाया गया अगला कदम', 'Suggested next step')}</div>
+                <p className="text-xs text-slate-700">{lastMeta.triage.explanation_patient}</p>
+                <div className="text-[11px] text-slate-600">
+                  {t('सुविधा', 'Facility')}: <strong>{lastMeta.triage.recommended_facility_type}</strong> • {t('विशेषज्ञता', 'Specialty')}: <strong>{lastMeta.triage.recommended_specialty}</strong>
+                </div>
+                <button onClick={() => setActiveTab('FACILITIES')} className="w-full bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-3 py-2 rounded-xl">
+                  {t('अस्पताल चुनें और अपॉइंटमेंट बुक करें', 'Choose a facility & book')}
+                </button>
               </div>
-              <p className="text-xs text-teal-100 leading-relaxed">
-                Health records are encrypted and shared strictly upon patient-verified consent with assigned ASHA worker & attending MO.
-              </p>
-              <div className="text-[11px] text-teal-300 flex items-center justify-between pt-1 border-t border-teal-800">
-                <span>Active Consents: 2 (Dr. Deshmukh, ASHA Patil)</span>
-                <span className="underline cursor-pointer hover:text-white">Manage</span>
-              </div>
+            )}
+
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 space-y-3">
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <Calendar className="text-teal-700" size={16} /> {t('आगामी अपॉइंटमेंट', 'Upcoming appointments')}
+              </h3>
+              {upcoming.length === 0 ? (
+                <p className="text-xs text-slate-400">{t('कोई अपॉइंटमेंट नहीं', 'None booked')}</p>
+              ) : upcoming.map(a => (
+                <div key={a.id} className="text-xs border border-slate-200 rounded-lg p-2.5 space-y-0.5">
+                  <div className="font-bold text-slate-900">{a.scheduled_date} • {a.scheduled_time} • {t('टोकन', 'Token')} {a.queue_token}</div>
+                  <div className="text-slate-600">{a.doctor_name}, {a.facility_name}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 space-y-3">
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <MapPin className="text-teal-700" size={16} /> {t('निकटतम स्वास्थ्य केंद्र', 'Nearby facilities')}
+              </h3>
+              {facilities.slice(0, 3).map(fac => (
+                <button key={fac.id} onClick={() => startBookingAt(fac.id)} className="w-full text-left p-2.5 rounded-xl border border-slate-200 hover:border-teal-500 text-xs space-y-1">
+                  <div className="flex justify-between gap-2">
+                    <span className="font-bold text-slate-900">{fac.name}</span>
+                    <span className="bg-teal-100 text-teal-800 text-[10px] font-bold px-1.5 rounded shrink-0 h-fit">{fac.facility_type}</span>
+                  </div>
+                  <div className="text-slate-500">{fac.distance_km} km (~{fac.travel_time_mins} min) • {fac.available_doctors_count} {t('डॉक्टर उपलब्ध', 'doctors on duty')}</div>
+                </button>
+              ))}
             </div>
           </div>
         </div>
       )}
 
-      {/* TAB 2: DETAILED HOSPITAL READINESS VIEW */}
+      {/* FACILITIES & BOOKING */}
       {activeTab === 'FACILITIES' && (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
-            <div>
-              <h3 className="text-lg font-bold text-slate-900">
-                {language === 'hi' ? 'अस्पताल संसाधन एवं तैयारी (Hospital Readiness)' : 'Facility Readiness & Resource Availability'}
-              </h3>
-              <p className="text-xs text-slate-500">
-                Transparent verification of doctors, diagnostics, medicine stock, and queue estimates. Never presents fictional data as live.
-              </p>
+        <div className="space-y-6">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">{t('स्वास्थ्य केंद्र और उपलब्ध सेवाएं', 'Healthcare facilities & available services')}</h3>
+                <p className="text-xs text-slate-500">{t('डॉक्टर रोस्टर, जांच और दवा स्टॉक अस्पताल स्टाफ द्वारा अपडेट किए जाते हैं। अंतिम अपडेट समय दिखाया गया है।', 'Doctor rosters, tests and medicine stock are updated by facility staff; the last update time is shown on each card.')}</p>
+              </div>
+              <label className="text-xs text-slate-600 flex items-center gap-2">
+                <input type="checkbox" checked={showAllDistricts} onChange={e => setShowAllDistricts(e.target.checked)} />
+                {t('सभी ज़िले दिखाएं', 'Show all districts')}
+              </label>
             </div>
-            <span className="text-xs font-bold text-teal-800 bg-teal-50 border border-teal-200 px-3 py-1 rounded-lg">
-              District: Pune • Taluka: Mulshi
-            </span>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {facilities.map((f) => (
-              <div key={f.id} className="border border-slate-200 rounded-2xl p-5 space-y-4 hover:shadow-md transition">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <span className="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold uppercase">
-                      {f.facility_type}
-                    </span>
-                    <h4 className="text-base font-bold text-slate-900 mt-1">{f.name}</h4>
-                    <p className="text-xs text-slate-500">{f.address}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+              {facilities.map(f => (
+                <div key={f.id} className={`border rounded-2xl p-4 space-y-3 ${bookFacilityId === f.id ? 'border-teal-600 ring-1 ring-teal-600' : 'border-slate-200'}`}>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <span className="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold">{f.facility_type}</span>
+                      <h4 className="text-sm font-bold text-slate-900 mt-1">{f.name}</h4>
+                      <p className="text-[11px] text-slate-500">{f.address}</p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className="text-sm font-bold text-teal-800">{f.distance_km} km</div>
+                      <div className="text-[11px] text-slate-400">~{f.travel_time_mins} min</div>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-sm font-bold text-teal-800">{f.distance_km} km</div>
-                    <div className="text-[11px] text-slate-400">~{f.travel_time_mins} mins</div>
+                  <div className="bg-slate-50 rounded-xl p-2.5 space-y-1 text-[11px]">
+                    <div className="flex justify-between gap-2"><span className="text-slate-500">{t('समय', 'Hours')}</span><span className="font-semibold text-right">{f.operating_hours}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-500">{t('डॉक्टर ड्यूटी पर', 'Doctors on duty')}</span><span className="font-semibold text-emerald-700">{f.available_doctors_count}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-500">{t('आज की अनुमानित प्रतीक्षा', "Est. wait today")}</span><span className="font-semibold">{f.estimated_queue_wait_mins} min</span></div>
+                    <div className="flex justify-between"><span className="text-slate-500">{t('फ़ोन', 'Phone')}</span><span className="font-semibold">{f.phone}</span></div>
                   </div>
-                </div>
-
-                <div className="bg-slate-50 rounded-xl p-3 space-y-2 text-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Operating Hours:</span>
-                    <span className="font-semibold text-slate-800">{f.operating_hours}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Est. Queue Wait:</span>
-                    <span className="font-semibold text-slate-800">{f.estimated_queue_wait_mins} mins</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-500">Doctors on Duty:</span>
-                    <span className="font-semibold text-emerald-700">{f.available_doctors_count} Available</span>
-                  </div>
-                </div>
-
-                {/* Diagnostics List */}
-                <div className="space-y-1.5">
-                  <div className="text-xs font-bold text-slate-700">Diagnostic Tests:</div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {f.diagnostic_tests_available.map((t, idx) => (
-                      <span key={idx} className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">
-                        ✓ {t.split('(')[0]}
-                      </span>
+                  <div className="flex flex-wrap gap-1">
+                    {f.diagnostic_tests_available.map(test => (
+                      <span key={test} className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] px-1.5 py-0.5 rounded">✓ {test.split(' (')[0]}</span>
                     ))}
-                    {f.diagnostic_tests_missing.map((t, idx) => (
-                      <span key={idx} className="bg-rose-50 text-rose-700 border border-rose-200 text-[10px] font-semibold px-2 py-0.5 rounded">
-                        ✕ {t.split('(')[0]} (DH Only)
-                      </span>
+                    {f.diagnostic_tests_missing.map(test => (
+                      <span key={test} className="bg-rose-50 text-rose-700 border border-rose-200 text-[10px] px-1.5 py-0.5 rounded">✕ {test.split(' (')[0]}</span>
                     ))}
                   </div>
-                </div>
-
-                {/* Medicine Stock Status */}
-                <div className="space-y-1.5 pt-2 border-t border-slate-100">
-                  <div className="text-xs font-bold text-slate-700">Medicine Stock:</div>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    {Object.entries(f.medicine_stock_summary).map(([med, st], idx) => (
-                      <div key={idx} className="flex items-center justify-between bg-slate-50 p-1.5 rounded border border-slate-200">
+                  <div className="grid grid-cols-2 gap-1 text-[10px]">
+                    {Object.entries(f.medicine_stock_summary).map(([med, st]) => (
+                      <div key={med} className="flex justify-between bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200">
                         <span className="truncate">{med}</span>
-                        <span className={`text-[10px] font-bold ${st === 'IN_STOCK' ? 'text-emerald-700' : 'text-rose-600'}`}>
-                          {st === 'IN_STOCK' ? 'In Stock' : 'Out'}
+                        <span className={`font-bold ${st === 'IN_STOCK' ? 'text-emerald-700' : st === 'LOW_STOCK' ? 'text-amber-700' : 'text-rose-600'}`}>
+                          {st === 'IN_STOCK' ? t('उपलब्ध', 'In stock') : st === 'LOW_STOCK' ? t('कम', 'Low') : t('खत्म', 'Out')}
                         </span>
                       </div>
                     ))}
                   </div>
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="text-[10px] text-slate-400">{f.freshness_label}</span>
+                    <button onClick={() => startBookingAt(f.id)} className="bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg">
+                      {t('यहां बुक करें', 'Book here')}
+                    </button>
+                  </div>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                <div className="pt-2 flex items-center justify-between text-xs text-slate-400">
-                  <span>{f.freshness_label}</span>
-                  <button
-                    onClick={() => handleBookDemoAppointment(f.id)}
-                    className="bg-teal-700 hover:bg-teal-800 text-white font-bold px-3 py-1.5 rounded-lg transition"
-                  >
-                    Select
-                  </button>
+          {/* Booking form */}
+          <form id="booking-form" onSubmit={handleBook} className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
+            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <Calendar className="text-teal-700" size={20} /> {t('अपॉइंटमेंट का अनुरोध', 'Request an appointment')}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+              <label className="space-y-1">
+                <span className="text-xs font-semibold text-slate-700">{t('स्वास्थ्य केंद्र', 'Facility')}</span>
+                <select value={bookFacilityId ?? ''} onChange={e => { setBookFacilityId(Number(e.target.value)); setBookDoctorId(null); }} className="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                  {facilities.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
+                </select>
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs font-semibold text-slate-700">{t('डॉक्टर', 'Doctor')}</span>
+                <select value={bookDoctorId ?? ''} onChange={e => setBookDoctorId(Number(e.target.value))} className="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                  {(selectedFacility?.doctors || []).map(d => (
+                    <option key={d.id} value={d.id}>
+                      {d.name} - {d.specialty}{d.is_available_today ? '' : ` (${t('आज छुट्टी', 'off today')})`}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs font-semibold text-slate-700">{t('परामर्श प्रकार', 'Consultation')}</span>
+                <select value={bookType} onChange={e => setBookType(e.target.value)} className="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                  <option value="IN_PERSON">{t('अस्पताल में', 'In person')}</option>
+                  <option value="TELEMEDICINE">{t('टेली-परामर्श (डेमो)', 'Teleconsultation (demo)')}</option>
+                </select>
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs font-semibold text-slate-700">{t('तारीख', 'Date')}</span>
+                <input type="date" min={localDate(0)} value={bookDate} onChange={e => setBookDate(e.target.value)} required className="w-full p-2 border border-slate-300 rounded-lg" />
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs font-semibold text-slate-700">{t('समय', 'Time')}</span>
+                <select value={bookTime} onChange={e => setBookTime(e.target.value)} className="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                  {TIME_SLOTS.map(s => <option key={s}>{s}</option>)}
+                </select>
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs font-semibold text-slate-700">{t('कारण', 'Reason')}</span>
+                <input value={bookReason} onChange={e => setBookReason(e.target.value)} maxLength={200} placeholder={t('जैसे: बुखार', 'e.g. fever')} className="w-full p-2 border border-slate-300 rounded-lg" />
+              </label>
+            </div>
+            {(() => {
+              const doc = selectedFacility?.doctors.find(d => d.id === bookDoctorId);
+              return doc && doc.schedule.length > 0 ? (
+                <p className="text-[11px] text-slate-500">
+                  {t('ओपीडी समय', 'OPD schedule')}: {doc.schedule.map(s => `${s.day_of_week.slice(0, 3)} ${s.start_time}-${s.end_time}`).join(', ')}
+                </p>
+              ) : null;
+            })()}
+            {bookingResult && (
+              <div className={`text-xs rounded-lg p-3 border flex items-center gap-2 ${bookingResult.ok ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-rose-50 border-rose-300 text-rose-900'}`}>
+                {bookingResult.ok ? <CheckCircle2 size={16} /> : <XCircle size={16} />} {bookingResult.text}
+              </div>
+            )}
+            <div className="flex justify-end">
+              <button type="submit" disabled={booking || !bookDoctorId} className="bg-teal-700 hover:bg-teal-800 disabled:opacity-50 text-white text-sm font-bold px-5 py-2.5 rounded-xl">
+                {booking ? t('बुक हो रहा है…', 'Booking…') : t('अपॉइंटमेंट बुक करें', 'Book appointment')}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* HEALTH RECORD */}
+      {activeTab === 'RECORDS' && record && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-3">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2"><Bell className="text-teal-700" size={18} /> {t('फॉलो-अप और रिमाइंडर', 'Follow-ups & reminders')}</h3>
+            {record.follow_ups.length === 0 && <p className="text-xs text-slate-400">{t('कोई फॉलो-अप नहीं', 'No follow-ups')}</p>}
+            {record.follow_ups.map(f => (
+              <div key={f.id} className="text-xs border border-slate-200 rounded-lg p-2.5 flex justify-between gap-3">
+                <div><div className="font-bold text-slate-900">{t('देय तिथि', 'Due')} {f.due_date}</div><div className="text-slate-600">{f.instructions}</div></div>
+                <span className={`h-fit text-[10px] font-bold px-2 py-0.5 rounded ${statusColor(f.status)}`}>{f.status}</span>
+              </div>
+            ))}
+            {record.reminders.map(r => (
+              <div key={r.id} className="text-[11px] bg-slate-50 border border-slate-200 rounded-lg p-2 flex justify-between gap-3">
+                <span>{r.channel}: {r.message}</span>
+                <span className="shrink-0 text-slate-500">{r.status === 'SENT' ? t('भेजा गया', 'Sent') : `${t('निर्धारित', 'Scheduled')} ${new Date(r.scheduled_time).toLocaleDateString()}`}</span>
+              </div>
+            ))}
+          </section>
+
+          <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-3">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2"><Calendar className="text-teal-700" size={18} /> {t('अपॉइंटमेंट', 'Appointments')}</h3>
+            {record.appointments.length === 0 && <p className="text-xs text-slate-400">{t('कोई अपॉइंटमेंट नहीं', 'No appointments')}</p>}
+            {record.appointments.map(a => (
+              <div key={a.id} className="text-xs border border-slate-200 rounded-lg p-2.5 flex justify-between gap-3">
+                <div>
+                  <div className="font-bold text-slate-900">{a.scheduled_date} {a.scheduled_time} • {a.appointment_code} • {t('टोकन', 'Token')} {a.queue_token}</div>
+                  <div className="text-slate-600">{a.doctor_name}, {a.facility_name} • {a.consultation_type}</div>
                 </div>
+                <div className="flex flex-col items-end gap-1">
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${statusColor(a.status)}`}>{a.status}</span>
+                  {a.status === 'BOOKED' && <button onClick={() => cancelAppointment(a)} className="text-[10px] text-rose-700 underline">{t('रद्द करें', 'Cancel')}</button>}
+                </div>
+              </div>
+            ))}
+          </section>
+
+          <section className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-3">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2"><Stethoscope className="text-teal-700" size={18} /> {t('परामर्श और पर्चे', 'Consultations & prescriptions')}</h3>
+            {record.encounters.length === 0 && <p className="text-xs text-slate-400">{t('अभी कोई परामर्श नहीं', 'No consultations yet')}</p>}
+            {record.encounters.map(e => (
+              <div key={e.id} className="border border-slate-200 rounded-xl p-3 text-xs space-y-1.5">
+                <div className="flex flex-wrap justify-between gap-2">
+                  <span className="font-bold text-slate-900">{e.diagnosis}</span>
+                  <span className="text-slate-500">{new Date(e.encounter_date).toLocaleDateString()} • {e.doctor_name} • {e.facility_name}</span>
+                </div>
+                <div className="text-slate-600">BP {e.vital_bp} • {t('नाड़ी', 'Pulse')} {e.vital_pulse} • {t('तापमान', 'Temp')} {e.vital_temp}°F • SpO2 {e.vital_spo2}%</div>
+                {e.prescriptions.flatMap(rx => rx.items.map(item => (
+                  <div key={item.id} className="flex flex-wrap justify-between gap-2 bg-slate-50 rounded p-1.5">
+                    <span><Pill size={11} className="inline text-teal-700" /> {item.medicine_name} {item.dosage} • {item.frequency} • {item.duration_days} {t('दिन', 'days')}</span>
+                    {item.collected_status === 'OUT_OF_STOCK' && <span className="text-[10px] font-bold text-rose-700">{t('इस केंद्र पर स्टॉक नहीं', 'Not in stock at this facility')}</span>}
+                  </div>
+                )))}
+              </div>
+            ))}
+          </section>
+
+          <section className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-3">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2"><FileText className="text-teal-700" size={18} /> {t('जांच', 'Diagnostic tests')}</h3>
+            {record.diagnostic_orders.length === 0 && <p className="text-xs text-slate-400">{t('कोई जांच नहीं', 'No tests ordered')}</p>}
+            {record.diagnostic_orders.map(o => (
+              <div key={o.id} className="text-xs border border-slate-200 rounded-lg p-2.5 flex justify-between gap-3">
+                <span>{o.test_name} • {o.facility_name} • {o.scheduled_date}</span>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${statusColor(o.status)}`}>{o.status === 'UNAVAILABLE' ? t('यहां उपलब्ध नहीं - रेफ़र', 'Not available here - referral') : o.status}</span>
+              </div>
+            ))}
+          </section>
+        </div>
+      )}
+
+      {/* TIMELINE */}
+      {activeTab === 'TIMELINE' && (
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900">{t('डिजिटल स्वास्थ्य टाइमलाइन', 'Care journey timeline')}</h3>
+            <p className="text-xs text-slate-500">{t('परामर्श, जांच, पर्चे और फॉलो-अप का क्रमवार रिकॉर्ड', 'Chronological record of consultations, tests, prescriptions and follow-ups')}</p>
+          </div>
+          <div className="relative border-l-2 border-teal-600 ml-4 space-y-6 pl-6">
+            {timeline.length === 0 ? (
+              <p className="text-xs text-slate-400 italic">{t('अभी कोई घटना नहीं', 'No events yet')}</p>
+            ) : timeline.map(ev => (
+              <div key={ev.id} className="relative space-y-1">
+                <div className="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-teal-600 border-2 border-white" />
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-xs font-bold text-teal-900 uppercase">{ev.event_type} • {ev.actor_name}</span>
+                  <span className="text-[11px] text-slate-400 font-mono">{new Date(ev.created_at).toLocaleString()}</span>
+                </div>
+                <h4 className="text-sm font-bold text-slate-800">{ev.title}</h4>
+                <p className="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-200">{ev.description}</p>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* TAB 3: DIGITAL CARE TIMELINE (Step 9) */}
-      {activeTab === 'TIMELINE' && (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-            <div>
-              <h3 className="text-lg font-bold text-slate-900">
-                {language === 'hi' ? 'डिजिटल स्वास्थ्य टाइमलाइन (Digital Health Timeline)' : 'Chronological Care Journey Timeline'}
-              </h3>
-              <p className="text-xs text-slate-500">
-                Audited chronological log of consultations, referrals, orders, prescriptions, and follow-up activities.
-              </p>
-            </div>
-            <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-lg">
-              Patient: Ramesh Kumar ({patient?.abha_id})
-            </span>
-          </div>
-
-          <div className="relative border-l-2 border-teal-600 ml-4 space-y-6 pl-6">
-            {timeline.length === 0 ? (
-              <p className="text-xs text-slate-400 italic">No timeline events recorded yet.</p>
-            ) : (
-              timeline.map((ev) => (
-                <div key={ev.id} className="relative space-y-1">
-                  <div className="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-teal-600 border-2 border-white shadow-sm" />
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-teal-900 uppercase tracking-wide">
-                      {ev.event_type} • {ev.actor_name} ({ev.actor_role})
-                    </span>
-                    <span className="text-[11px] text-slate-400 font-mono">
-                      {new Date(ev.created_at).toLocaleString()}
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-slate-800">{ev.title}</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                    {ev.description}
-                  </p>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* TAB 4: FAMILY HEALTH MANAGEMENT */}
+      {/* FAMILY */}
       {activeTab === 'FAMILY' && (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-            <div>
-              <h3 className="text-lg font-bold text-slate-900">
-                {language === 'hi' ? 'पारिवारिक स्वास्थ्य प्रबंधन (Family Health)' : 'Family Members & Household Health'}
-              </h3>
-              <p className="text-xs text-slate-500">
-                Manage dependents, elderly parents, and child immunization under unified rural household card.
-              </p>
-            </div>
-            <button className="bg-teal-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-teal-800 transition">
-              + Add Family Member
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2"><Users className="text-teal-700" size={20} /> {t('परिवार के सदस्य', 'Family members')}</h3>
+            <button onClick={() => setShowFamilyForm(v => !v)} className="bg-teal-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-teal-800">
+              + {t('सदस्य जोड़ें', 'Add family member')}
             </button>
           </div>
-
+          {showFamilyForm && (
+            <form onSubmit={addFamily} className="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <input required placeholder={t('नाम', 'Name')} value={familyForm.full_name} onChange={e => setFamilyForm({ ...familyForm, full_name: e.target.value })} className="p-2 border rounded-lg col-span-2 md:col-span-1" />
+              <select value={familyForm.relationship_type} onChange={e => setFamilyForm({ ...familyForm, relationship_type: e.target.value })} className="p-2 border rounded-lg bg-white">
+                <option value="SPOUSE">{t('पति/पत्नी', 'Spouse')}</option><option value="CHILD">{t('बच्चा', 'Child')}</option>
+                <option value="PARENT">{t('माता/पिता', 'Parent')}</option><option value="SIBLING">{t('भाई/बहन', 'Sibling')}</option>
+              </select>
+              <input required type="number" min={0} max={120} placeholder={t('उम्र', 'Age')} value={familyForm.age} onChange={e => setFamilyForm({ ...familyForm, age: e.target.value })} className="p-2 border rounded-lg" />
+              <select value={familyForm.gender} onChange={e => setFamilyForm({ ...familyForm, gender: e.target.value })} className="p-2 border rounded-lg bg-white">
+                <option value="Female">{t('महिला', 'Female')}</option><option value="Male">{t('पुरुष', 'Male')}</option>
+              </select>
+              <input placeholder={t('बीमारी (यदि कोई)', 'Conditions (if any)')} value={familyForm.chronic_conditions} onChange={e => setFamilyForm({ ...familyForm, chronic_conditions: e.target.value })} className="p-2 border rounded-lg" />
+              <button type="submit" className="col-span-2 md:col-span-5 bg-teal-700 text-white font-bold py-2 rounded-lg">{t('सहेजें', 'Save')}</button>
+            </form>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="border border-slate-200 rounded-xl p-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900">Meena Kumar</span>
-                <span className="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-semibold">Spouse (44y)</span>
+            {(patient?.family_members || []).length === 0 && <p className="text-xs text-slate-400">{t('अभी कोई सदस्य नहीं जोड़ा गया', 'No family members added yet')}</p>}
+            {(patient?.family_members || []).map(m => (
+              <div key={m.id} className="border border-slate-200 rounded-xl p-4 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900">{m.full_name}</span>
+                  <span className="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-semibold">{m.relationship_type} ({m.age}y, {m.gender})</span>
+                </div>
+                <p className="text-xs text-slate-500">{t('बीमारी', 'Conditions')}: {m.chronic_conditions}</p>
               </div>
-              <p className="text-xs text-slate-500">Chronic Conditions: None reported</p>
-              <div className="text-xs text-emerald-700 font-medium">✓ Anemia Screening up to date</div>
-            </div>
-
-            <div className="border border-slate-200 rounded-xl p-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900">Aakash Kumar</span>
-                <span className="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-semibold">Child (19y)</span>
-              </div>
-              <p className="text-xs text-slate-500">Chronic Conditions: Asthma (Mild)</p>
-              <div className="text-xs text-teal-700 font-medium">Inhaler prescription active</div>
-            </div>
+            ))}
           </div>
+          <p className="text-[11px] text-slate-500 flex items-center gap-1"><Info size={12} /> {t('परिवार के सदस्यों के लिए अलग पंजीकरण बाद के चरण में आएगा।', 'Separate health records for family members are planned for a later phase.')}</p>
         </div>
       )}
     </div>

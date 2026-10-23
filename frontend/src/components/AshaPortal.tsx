@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { HealthWorkerTask, Patient } from '../types';
+import { HealthWorkerTask, Patient, User } from '../types';
 import { api } from '../services/api';
+import { localDate } from '../utils/date';
 import { 
   Users, AlertCircle, CheckCircle2, Clock, MapPin, 
   Search, ShieldAlert, FileText, ChevronRight, Check
@@ -8,9 +9,15 @@ import {
 
 interface AshaPortalProps {
   language: 'hi' | 'en';
+  user: User;
 }
 
-export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
+export const AshaPortal: React.FC<AshaPortalProps> = ({ language, user }) => {
+  const hi = language === 'hi';
+  const t = (h: string, e: string) => (hi ? h : e);
+  const [lookupId, setLookupId] = useState<string>('3');
+  const [lookupResult, setLookupResult] = useState<string | null>(null);
+  const today = localDate();
   const [tasks, setTasks] = useState<HealthWorkerTask[]>([]);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [searchVillage, setSearchVillage] = useState<string>('');
@@ -22,9 +29,8 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
 
   const loadData = async () => {
     try {
-      const taskList = await api.getTasks();
+      const [taskList, patList] = await Promise.all([api.getTasks(), api.getPatients(searchVillage)]);
       setTasks(taskList);
-      const patList = await api.getPatients(searchVillage, 'asha_kavita');
       setPatients(patList);
     } catch (err: any) {
       console.error(err);
@@ -32,8 +38,15 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
   };
 
   useEffect(() => {
-    loadData();
+    const timer = setTimeout(loadData, 250);
+    return () => clearTimeout(timer);
   }, [searchVillage]);
+
+  useEffect(() => {
+    const onChange = () => loadData();
+    window.addEventListener('swasthyasetu-data-changed', onChange);
+    return () => window.removeEventListener('swasthyasetu-data-changed', onChange);
+  }, []);
 
   const handleOpenTaskModal = (task: HealthWorkerTask) => {
     setSelectedTask(task);
@@ -46,14 +59,16 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
 
     setIsSubmitting(true);
     try {
-      await api.updateTask(selectedTask.id, {
-        status: 'RESOLVED',
+      const res = await api.updateTask(selectedTask.id, {
+        status: outcome === 'ESCALATED_TO_MO' ? 'ESCALATED' : 'RESOLVED',
         visit_notes: visitNotes,
         outcome: outcome
-      }, 'asha_kavita');
+      });
       setSelectedTask(null);
       await loadData();
-      alert('Task resolved successfully! Dashboard and follow-up records updated.');
+      alert(res
+        ? t('घर भ्रमण दर्ज किया गया। फॉलो-अप रिकॉर्ड अपडेट हो गया।', 'Home visit recorded. The follow-up record has been updated.')
+        : t('आप ऑफ़लाइन हैं - भ्रमण सहेजा गया है, कनेक्शन आने पर Sync करें।', 'You are offline - the visit is saved on this device. Use Sync in the top bar when back online.'));
     } catch (err: any) {
       alert('Failed to resolve task: ' + err.message);
     } finally {
@@ -61,12 +76,14 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
     }
   };
 
-  // Scenario G: Access Control Test
-  const handleTestUnauthorizedAccess = async (targetPatient: Patient) => {
+  // Scenario G: try to open any patient record by ID; the server decides.
+  const handleLookup = async (e: React.FormEvent) => {
+    e.preventDefault();
     setAccessDeniedMessage(null);
+    setLookupResult(null);
     try {
-      await api.getPatient(targetPatient.id, 'asha_kavita');
-      alert('Access granted unexpectedly.');
+      const p = await api.getPatient(Number(lookupId));
+      setLookupResult(`${p.name} (${p.village}) - ${t('आपके क्षेत्र में, पहुंच अनुमत', 'in your catchment, access granted')}`);
     } catch (err: any) {
       setAccessDeniedMessage(err.message);
     }
@@ -78,17 +95,17 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-xl border border-amber-200">
-            K
+            {user.full_name.charAt(0)}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold text-slate-900">Kavita Tai Patil</h2>
+              <h2 className="text-xl font-bold text-slate-900">{user.full_name}</h2>
               <span className="bg-amber-100 text-amber-900 text-xs px-2.5 py-0.5 rounded-full font-semibold border border-amber-200">
                 ASHA Community Health Worker
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Assigned Catchment: <span className="font-semibold text-slate-700">Paud & Pirangut Villages (Mulshi Block)</span> • Sub-Centre: Paud CHC
+              {t('क्षेत्र', 'Catchment')}: <span className="font-semibold text-slate-700">{user.village}</span> • {patients.length} {t('मरीज़', 'assigned patients')}
             </p>
           </div>
         </div>
@@ -96,15 +113,15 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
         {/* Quick Summary Pill */}
         <div className="flex items-center gap-3">
           <div className="bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-xl text-center">
-            <div className="text-[10px] uppercase font-bold text-rose-700">Missed Follow-Ups</div>
+            <div className="text-[10px] uppercase font-bold text-rose-700">{t('खुले कार्य', 'Open tasks')}</div>
             <div className="text-lg font-black text-rose-900">
-              {tasks.filter(t => t.status === 'OPEN').length}
+              {tasks.filter(x => x.status === 'OPEN' || x.status === 'IN_PROGRESS').length}
             </div>
           </div>
           <div className="bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-center">
             <div className="text-[10px] uppercase font-bold text-emerald-700">Resolved Visits</div>
             <div className="text-lg font-black text-emerald-900">
-              {tasks.filter(t => t.status === 'RESOLVED').length}
+              {tasks.filter(x => x.status === 'RESOLVED').length}
             </div>
           </div>
         </div>
@@ -115,7 +132,7 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
         <div className="bg-rose-50 border-2 border-rose-500 rounded-2xl p-5 space-y-2 shadow-sm animate-fade-in">
           <div className="flex items-center gap-2 text-rose-800 font-bold text-sm">
             <ShieldAlert size={20} className="text-rose-600" />
-            <span>Scenario G Demonstration: Access Control & Role Permissions Enforced</span>
+            <span>{t('पहुंच अस्वीकृत - भूमिका आधारित सुरक्षा', 'Access denied - role-based access control enforced')}</span>
           </div>
           <p className="text-xs text-rose-900 font-mono bg-white p-2.5 rounded-lg border border-rose-200">
             {accessDeniedMessage}
@@ -153,8 +170,8 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
                 <div
                   key={task.id}
                   className={`p-4 rounded-xl border transition space-y-3 ${
-                    task.status === 'RESOLVED' 
-                      ? 'bg-emerald-50/40 border-emerald-200' 
+                    task.status === 'RESOLVED' || task.status === 'ESCALATED'
+                      ? 'bg-emerald-50/40 border-emerald-200'
                       : 'bg-rose-50/30 border-rose-200 hover:border-rose-400'
                   }`}
                 >
@@ -171,11 +188,15 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
                         </span>
                       </div>
                       <p className="text-xs text-slate-600 mt-1">
-                        Task Type: <span className="font-semibold">{task.task_type}</span> • Due Date: {task.due_date}
+                        {task.task_type.replace(/_/g, ' ')} • {task.priority} • {t('देय', 'Due')} {task.due_date}
+                        {task.status === 'OPEN' && task.due_date < today && (
+                          <span className="ml-1 font-bold text-rose-700">({Math.round((Date.parse(today) - Date.parse(task.due_date)) / 86400000)} {t('दिन से लंबित', 'days overdue')})</span>
+                        )}
+                        {task.patient_phone && <> • <a className="underline" href={`tel:${task.patient_phone}`}>{task.patient_phone}</a></>}
                       </p>
                     </div>
 
-                    {task.status !== 'RESOLVED' ? (
+                    {task.status !== 'RESOLVED' && task.status !== 'ESCALATED' ? (
                       <button
                         onClick={() => handleOpenTaskModal(task)}
                         className="bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shadow-sm"
@@ -184,7 +205,7 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
                       </button>
                     ) : (
                       <span className="text-xs text-emerald-800 font-semibold flex items-center gap-1">
-                        <Check size={14} /> Resolved ({task.outcome})
+                        <Check size={14} /> {task.status} ({task.outcome})
                       </span>
                     )}
                   </div>
@@ -209,9 +230,19 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
               {language === 'hi' ? 'मरीज़ सूची (Patient Catchment)' : 'Patient Catchment Roster'}
             </h3>
             <p className="text-xs text-slate-500">
-              Filter by village or click to test cross-catchment security checks.
+              {t('केवल आपको सौंपे गए मरीज़ दिखते हैं।', 'Only patients assigned to you are listed.')}
             </p>
           </div>
+
+          <form onSubmit={handleLookup} className="bg-amber-50/60 border border-amber-200 rounded-xl p-3 space-y-2 text-xs">
+            <label className="font-bold text-amber-900 block" htmlFor="lookup-id">{t('रिकॉर्ड आईडी से खोलें (Scenario G)', 'Open a record by patient ID (Scenario G)')}</label>
+            <div className="flex gap-2">
+              <input id="lookup-id" type="number" min={1} value={lookupId} onChange={e => setLookupId(e.target.value)} className="flex-1 p-2 border border-slate-300 rounded-lg" />
+              <button type="submit" className="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 rounded-lg">{t('खोलें', 'Open')}</button>
+            </div>
+            <p className="text-[10px] text-amber-800">{t('#3 अनीता मोरे दूसरे क्षेत्र की मरीज़ हैं - सर्वर पहुंच रोक देगा।', 'Try #3 (Anita More, another catchment) - the server blocks and audits it.')}</p>
+            {lookupResult && <p className="text-emerald-800 font-semibold">{lookupResult}</p>}
+          </form>
 
           {/* Village Filter Input */}
           <div className="relative">
@@ -226,42 +257,17 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
           </div>
 
           <div className="space-y-2.5 max-h-[460px] overflow-y-auto pr-1">
-            {patients.map((pat) => {
-              const isAssigned = pat.assigned_asha_id === 4; // Kavita's user id is 4
-              return (
-                <div
-                  key={pat.id}
-                  className={`p-3 rounded-xl border text-xs space-y-1.5 ${
-                    isAssigned ? 'border-slate-200 bg-slate-50/60' : 'border-amber-200 bg-amber-50/40'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900">{pat.name}</span>
-                    <span className="text-[10px] text-slate-500 font-mono">{pat.village}</span>
-                  </div>
-                  <p className="text-[11px] text-slate-600">
-                    Age: {pat.age}y • Chronic: {pat.chronic_conditions}
-                  </p>
-
-                  <div className="pt-1 flex items-center justify-between">
-                    <span className={`text-[10px] font-bold ${isAssigned ? 'text-teal-700' : 'text-amber-700'}`}>
-                      {isAssigned ? '✓ In Your Catchment' : '⚠ Other Catchment'}
-                    </span>
-                    {!isAssigned ? (
-                      <button
-                        onClick={() => handleTestUnauthorizedAccess(pat)}
-                        className="bg-amber-600 hover:bg-amber-700 text-white text-[10px] font-bold px-2 py-1 rounded transition"
-                        title="Click to trigger Scenario G unauthorized access test"
-                      >
-                        Test Access (Scenario G)
-                      </button>
-                    ) : (
-                      <span className="text-[10px] text-slate-400 font-mono">{pat.phone}</span>
-                    )}
-                  </div>
+            {patients.length === 0 && <p className="text-xs text-slate-400">{t('कोई मरीज़ नहीं मिला', 'No patients found')}</p>}
+            {patients.map((pat) => (
+              <div key={pat.id} className="p-3 rounded-xl border border-slate-200 bg-slate-50/60 text-xs space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900">{pat.name} <span className="text-slate-400 font-mono">#{pat.id}</span></span>
+                  <span className="text-[10px] text-slate-500 font-mono">{pat.village}</span>
                 </div>
-              );
-            })}
+                <p className="text-[11px] text-slate-600">{pat.age}y • {pat.chronic_conditions}</p>
+                <a href={`tel:${pat.phone}`} className="text-[10px] text-teal-700 font-mono">{pat.phone}</a>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,413 +1,339 @@
 import React, { useState, useEffect } from 'react';
-import { Appointment, Patient, CareTimelineEvent } from '../types';
+import { Appointment, PatientRecord, User, FacilityReadiness } from '../types';
 import { api } from '../services/api';
-import { 
-  Stethoscope, Users, FileText, CheckCircle2, Clock, 
-  AlertTriangle, Pill, Activity, Calendar, ShieldCheck, ArrowRight
-} from 'lucide-react';
+import { Clock, CheckCircle2, Pill, Activity, Calendar, ShieldCheck, Plus, Trash2, History } from 'lucide-react';
 
 interface DoctorPortalProps {
   language: 'hi' | 'en';
+  user: User;
 }
 
-export const DoctorPortal: React.FC<DoctorPortalProps> = ({ language }) => {
+interface RxRow {
+  medicine_name: string;
+  dosage: string;
+  frequency: string;
+  duration_days: number;
+  instructions: string;
+}
+
+const MEDICINES = ['Paracetamol 500mg', 'Metformin 500mg', 'Amlodipine 5mg', 'Oral Rehydration Salts (ORS)', 'Amoxicillin 500mg', 'Telmisartan 40mg'];
+const emptyRx = (): RxRow => ({ medicine_name: 'Paracetamol 500mg', dosage: '1 tablet', frequency: 'Twice daily after food', duration_days: 5, instructions: '' });
+
+export const DoctorPortal: React.FC<DoctorPortalProps> = ({ language, user }) => {
+  const hi = language === 'hi';
+  const t = (h: string, e: string) => (hi ? h : e);
+
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedApt, setSelectedApt] = useState<Appointment | null>(null);
-  const [patient, setPatient] = useState<Patient | null>(null);
-  const [timeline, setTimeline] = useState<CareTimelineEvent[]>([]);
+  const [record, setRecord] = useState<PatientRecord | null>(null);
+  const [recordError, setRecordError] = useState<string | null>(null);
+  const [facility, setFacility] = useState<FacilityReadiness | null>(null);
+  const [showCompleted, setShowCompleted] = useState(false);
 
-  // Encounter Form State
-  const [chiefComplaints, setChiefComplaints] = useState<string>('Chest discomfort on exertion, mild shortness of breath');
-  const [clinicalNotes, setClinicalNotes] = useState<string>('Vitals stable. Heart sounds S1, S2 audible. No murmurs. Bilateral vesicular breath sounds.');
-  const [diagnosis, setDiagnosis] = useState<string>('Mild Atypical Angina / Exertional Fatigue');
-  const [vitalBp, setVitalBp] = useState<string>('130/84');
-  const [vitalPulse, setVitalPulse] = useState<number>(76);
-  const [vitalTemp, setVitalTemp] = useState<number>(98.4);
-  const [vitalSpo2, setVitalSpo2] = useState<number>(98);
-  const [riskFlag, setRiskFlag] = useState<string>('MODERATE_RISK');
+  const [chiefComplaints, setChiefComplaints] = useState('');
+  const [clinicalNotes, setClinicalNotes] = useState('');
+  const [diagnosis, setDiagnosis] = useState('');
+  const [vitalBp, setVitalBp] = useState('120/80');
+  const [vitalPulse, setVitalPulse] = useState(76);
+  const [vitalTemp, setVitalTemp] = useState(98.4);
+  const [vitalSpo2, setVitalSpo2] = useState(98);
+  const [riskFlag, setRiskFlag] = useState('NORMAL');
+  const [rxRows, setRxRows] = useState<RxRow[]>([emptyRx()]);
+  const [orderDiagnostics, setOrderDiagnostics] = useState<string[]>([]);
+  const [followUpDays, setFollowUpDays] = useState(7);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
 
-  // Prescriptions & Diagnostics
-  const [prescribeMedicine, setPrescribeMedicine] = useState<string>('Paracetamol 500mg');
-  const [orderDiagnostics, setOrderDiagnostics] = useState<string[]>(['Electrocardiogram (ECG)']);
-  const [followUpDays, setFollowUpDays] = useState<number>(7);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [encounterDone, setEncounterDone] = useState<boolean>(false);
+  const resetForm = (apt: Appointment | null) => {
+    setChiefComplaints(apt?.reason || '');
+    setClinicalNotes('');
+    setDiagnosis('');
+    setVitalBp('120/80'); setVitalPulse(76); setVitalTemp(98.4); setVitalSpo2(98);
+    setRiskFlag('NORMAL');
+    setRxRows([emptyRx()]);
+    setOrderDiagnostics([]);
+    setFollowUpDays(7);
+  };
 
-  const loadData = async () => {
+  const loadPatient = async (apt: Appointment) => {
+    setRecord(null);
+    setRecordError(null);
     try {
-      const apts = await api.getAppointments();
-      setAppointments(apts);
-      if (apts.length > 0 && !selectedApt) {
-        setSelectedApt(apts[0]);
-        loadPatientDetails(apts[0].patient_id);
-      }
+      setRecord(await api.getPatientRecord(apt.patient_id));
     } catch (err: any) {
-      console.error(err);
+      setRecordError(err.message);
     }
   };
 
-  const loadPatientDetails = async (patientId: number) => {
-    try {
-      const pat = await api.getPatient(patientId, 'dr_deshmukh');
-      setPatient(pat);
-      const tl = await api.getTimeline(patientId);
-      setTimeline(tl);
-    } catch (err: any) {
-      console.error(err);
+  const selectAppointment = (apt: Appointment) => {
+    setSelectedApt(apt);
+    setMessage(null);
+    resetForm(apt);
+    loadPatient(apt);
+  };
+
+  const loadData = async (keepSelection = true) => {
+    const [apts, facs] = await Promise.all([api.getAppointments(), api.getFacilities()]);
+    setAppointments(apts);
+    setFacility(facs.find(f => f.id === user.facility_id) || null);
+    const open = apts.filter(a => a.status === 'BOOKED' || a.status === 'IN_QUEUE');
+    if (!keepSelection || !selectedApt) {
+      const first = open[open.length - 1] || apts[0];
+      if (first) selectAppointment(first);
     }
   };
 
   useEffect(() => {
-    loadData();
+    loadData(false).catch(err => setRecordError(err.message));
   }, []);
-
-  const handleSelectAppointment = (apt: Appointment) => {
-    setSelectedApt(apt);
-    loadPatientDetails(apt.patient_id);
-    setEncounterDone(false);
-  };
-
-  const handleToggleDiagnostic = (testName: string) => {
-    if (orderDiagnostics.includes(testName)) {
-      setOrderDiagnostics(orderDiagnostics.filter(t => t !== testName));
-    } else {
-      setOrderDiagnostics([...orderDiagnostics, testName]);
-    }
-  };
 
   const handleSubmitEncounter = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedApt || !patient) return;
-
+    if (!selectedApt) return;
     setIsSubmitting(true);
+    setMessage(null);
     try {
       await api.createEncounter({
         appointment_id: selectedApt.id,
-        patient_id: patient.id,
-        doctor_id: 1, // Dr. Deshmukh
-        facility_id: 1, // Paud CHC
-        chief_complaints: chiefComplaints,
-        clinical_notes: clinicalNotes,
-        diagnosis: diagnosis,
-        vital_bp: vitalBp,
-        vital_pulse: vitalPulse,
-        vital_temp: vitalTemp,
-        vital_spo2: vitalSpo2,
+        patient_id: selectedApt.patient_id,
+        chief_complaints: chiefComplaints || 'Not recorded',
+        clinical_notes: clinicalNotes || 'Not recorded',
+        diagnosis,
+        vital_bp: vitalBp, vital_pulse: vitalPulse, vital_temp: vitalTemp, vital_spo2: vitalSpo2,
         clinician_risk_flag: riskFlag,
-        prescriptions: [
-          {
-            medicine_name: prescribeMedicine,
-            dosage: prescribeMedicine.includes('Paracetamol') ? '500mg' : '5mg',
-            frequency: 'Twice daily after food',
-            duration_days: 5,
-            instructions: 'Take with warm water'
-          }
-        ],
+        prescriptions: rxRows.filter(r => r.medicine_name.trim()).map(r => ({ ...r, instructions: r.instructions || undefined })),
         diagnostic_test_names: orderDiagnostics,
         follow_up_days: followUpDays,
-        follow_up_instructions: `Review in ${followUpDays} days with completed reports.`
-      }, 'dr_deshmukh');
-
-      setEncounterDone(true);
+        follow_up_instructions: `Review in ${followUpDays} days${orderDiagnostics.length ? ' with test reports' : ''}.`
+      });
+      setMessage({ ok: true, text: t('परामर्श, पर्चा और फॉलो-अप मरीज़ के रिकॉर्ड में सहेजे गए।', 'Consultation, prescription and follow-up saved to the patient record. An SMS reminder has been scheduled.') });
       await loadData();
-      alert('Consultation encounter, digital prescription & follow-up saved to patient timeline!');
+      setSelectedApt({ ...selectedApt, status: 'COMPLETED' });
+      await loadPatient(selectedApt);
     } catch (err: any) {
-      alert('Failed to save encounter: ' + err.message);
+      setMessage({ ok: false, text: err.message });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const markNoShow = async () => {
+    if (!selectedApt) return;
+    try {
+      const updated = await api.setAppointmentStatus(selectedApt.id, 'NO_SHOW');
+      setSelectedApt(updated);
+      await loadData();
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
+  const stockOf = (med: string) => facility?.medicine_stock_summary[med.split(' ')[0]];
+  const tests = [...(facility?.diagnostic_tests_available || []), ...(facility?.diagnostic_tests_missing || [])];
+  const visibleApts = appointments.filter(a => showCompleted || a.status === 'BOOKED' || a.status === 'IN_QUEUE');
+  const patient = record?.patient;
+  const isOpen = selectedApt && (selectedApt.status === 'BOOKED' || selectedApt.status === 'IN_QUEUE');
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
-      {/* Doctor Header Banner */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-teal-100 text-teal-800 font-bold flex items-center justify-center text-xl border border-teal-200">
-            D
+            {user.full_name.replace('Dr. ', '').charAt(0)}
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold text-slate-900">Dr. Anand Deshmukh, MD</h2>
-              <span className="bg-teal-100 text-teal-900 text-xs px-2.5 py-0.5 rounded-full font-semibold border border-teal-200">
-                Medical Officer / Physician
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Paud Community Health Centre (CHC) • OPD Hours: 08:30 AM - 02:00 PM • Teleconsult Available
-            </p>
+            <h2 className="text-xl font-bold text-slate-900">{user.full_name}</h2>
+            <p className="text-xs text-slate-500 mt-0.5">{facility?.name} • {facility?.operating_hours}</p>
           </div>
         </div>
-
         <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 text-xs text-slate-600">
           <ShieldCheck className="text-teal-700" size={16} />
-          <span>ABDM Clinician Registration: <strong className="text-slate-800">MCI-MH-49201</strong></span>
+          <span>{t('केवल आपके मरीज़ों का रिकॉर्ड दिखता है; हर पहुंच ऑडिट होती है', 'You only see patients in your care; every access is audited')}</span>
         </div>
       </div>
 
-      {/* Main Grid: Queue on Left, Encounter on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column: Daily Consultation Queue */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
+        {/* Queue */}
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4 h-fit">
           <div className="flex items-center justify-between border-b border-slate-200 pb-3">
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Clock className="text-teal-700" size={18} />
-              {language === 'hi' ? 'दैनिक ओपीडी कतार' : 'Today\'s OPD Queue'}
+              <Clock className="text-teal-700" size={18} /> {t('ओपीडी कतार', 'OPD queue')}
             </h3>
-            <span className="text-xs font-semibold bg-teal-50 text-teal-800 px-2.5 py-0.5 rounded border border-teal-200">
-              {appointments.length} Registered
-            </span>
+            <label className="text-[11px] text-slate-600 flex items-center gap-1">
+              <input type="checkbox" checked={showCompleted} onChange={e => setShowCompleted(e.target.checked)} /> {t('सभी', 'Show all')}
+            </label>
           </div>
-
-          <div className="space-y-2.5">
-            {appointments.map((apt) => {
-              const isSelected = selectedApt?.id === apt.id;
-              return (
-                <div
-                  key={apt.id}
-                  onClick={() => handleSelectAppointment(apt)}
-                  className={`p-3 rounded-xl border text-xs cursor-pointer transition space-y-1.5 ${
-                    isSelected ? 'border-teal-600 bg-teal-50/60 shadow-sm' : 'border-slate-200 hover:border-slate-300'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900">{apt.patient_name || 'Patient'}</span>
-                    <span className="bg-teal-700 text-white font-mono font-bold text-[10px] px-2 py-0.5 rounded">
-                      {apt.queue_token}
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-500">
-                    Reason: {apt.reason || 'General Health Consultation'}
-                  </p>
-                  <div className="flex items-center justify-between text-[10px] text-slate-400">
-                    <span>{apt.scheduled_date} ({apt.scheduled_time})</span>
-                    <span className={`font-semibold ${apt.status === 'COMPLETED' ? 'text-emerald-700' : 'text-amber-700'}`}>
-                      {apt.status}
-                    </span>
-                  </div>
+          <div className="space-y-2.5 max-h-[560px] overflow-y-auto pr-1">
+            {visibleApts.length === 0 && <p className="text-xs text-slate-400">{t('कतार खाली है', 'No patients waiting')}</p>}
+            {visibleApts.map(apt => (
+              <button key={apt.id} onClick={() => selectAppointment(apt)}
+                className={`w-full text-left p-3 rounded-xl border text-xs transition space-y-1 ${selectedApt?.id === apt.id ? 'border-teal-600 bg-teal-50/60' : 'border-slate-200 hover:border-slate-300'}`}>
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900">{apt.patient_name}</span>
+                  <span className="bg-teal-700 text-white font-mono font-bold text-[10px] px-2 py-0.5 rounded">{apt.queue_token}</span>
                 </div>
-              );
-            })}
+                <p className="text-[11px] text-slate-500">{apt.reason || 'General consultation'}</p>
+                <div className="flex items-center justify-between text-[10px] text-slate-400">
+                  <span>{apt.scheduled_date} ({apt.scheduled_time}) • {apt.consultation_type}</span>
+                  <span className={`font-semibold ${apt.status === 'COMPLETED' ? 'text-emerald-700' : apt.status === 'BOOKED' ? 'text-amber-700' : 'text-slate-500'}`}>{apt.status}</span>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Right 2 Columns: Clinical Encounter Workspace */}
+        {/* Workspace */}
         <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
-            <div>
-              <span className="text-[10px] bg-slate-100 text-slate-600 font-bold uppercase px-2 py-0.5 rounded">
-                Active Consultation Record
-              </span>
-              <h3 className="text-lg font-bold text-slate-900 mt-1">
-                {patient ? `${patient.name} (${patient.age}y / ${patient.gender})` : 'Select a patient'}
-              </h3>
-              <p className="text-xs text-slate-500 font-mono">
-                ABHA ID: {patient?.abha_id} • Village: {patient?.village}
-              </p>
-            </div>
+          {!selectedApt && <p className="text-sm text-slate-500">{t('कतार से मरीज़ चुनें', 'Select a patient from the queue')}</p>}
+          {recordError && <div className="text-xs bg-rose-50 border border-rose-300 text-rose-900 rounded-lg p-3">{recordError}</div>}
 
-            <div className="flex items-center gap-2">
-              <span className="text-xs bg-emerald-50 text-emerald-800 font-semibold px-2.5 py-1 rounded border border-emerald-200">
-                ✓ Consent Authorized
-              </span>
-            </div>
-          </div>
-
-          {/* AI Intake Summary Banner */}
-          <div className="bg-teal-50/80 border border-teal-200 rounded-xl p-3.5 space-y-1 text-xs">
-            <div className="font-bold text-teal-900 flex items-center gap-1.5">
-              <Activity size={14} />
-              AI Assistant Structured Intake Summary:
-            </div>
-            <p className="text-slate-700 leading-relaxed font-mono text-[11px] bg-white/80 p-2 rounded border border-teal-100">
-              "Patient Ramesh Kumar (48y/M) presented with acute chest heaviness on walking with dyspnea. Duration: 1-2 days. Triage screened: ECG evaluation recommended. Mild hypertension history."
-            </p>
-          </div>
-
-          {/* Clinical Encounter Form */}
-          <form onSubmit={handleSubmitEncounter} className="space-y-4">
-            {/* Vitals Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
-              <div>
-                <label className="text-slate-500 font-medium">Blood Pressure:</label>
-                <input
-                  type="text"
-                  value={vitalBp}
-                  onChange={(e) => setVitalBp(e.target.value)}
-                  className="w-full font-mono font-bold text-slate-900 bg-white border border-slate-300 rounded px-2 py-1 mt-0.5"
-                />
-              </div>
-              <div>
-                <label className="text-slate-500 font-medium">Pulse (bpm):</label>
-                <input
-                  type="number"
-                  value={vitalPulse}
-                  onChange={(e) => setVitalPulse(Number(e.target.value))}
-                  className="w-full font-mono font-bold text-slate-900 bg-white border border-slate-300 rounded px-2 py-1 mt-0.5"
-                />
-              </div>
-              <div>
-                <label className="text-slate-500 font-medium">Temp (°F):</label>
-                <input
-                  type="number"
-                  step="0.1"
-                  value={vitalTemp}
-                  onChange={(e) => setVitalTemp(Number(e.target.value))}
-                  className="w-full font-mono font-bold text-slate-900 bg-white border border-slate-300 rounded px-2 py-1 mt-0.5"
-                />
-              </div>
-              <div>
-                <label className="text-slate-500 font-medium">SpO2 (%):</label>
-                <input
-                  type="number"
-                  value={vitalSpo2}
-                  onChange={(e) => setVitalSpo2(Number(e.target.value))}
-                  className="w-full font-mono font-bold text-slate-900 bg-white border border-slate-300 rounded px-2 py-1 mt-0.5"
-                />
-              </div>
-            </div>
-
-            {/* Diagnosis & Risk Flag */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div className="md:col-span-2 space-y-1">
-                <label className="text-xs font-bold text-slate-700">Diagnosis / Clinical Impression:</label>
-                <input
-                  type="text"
-                  value={diagnosis}
-                  onChange={(e) => setDiagnosis(e.target.value)}
-                  required
-                  className="w-full text-xs p-2.5 border border-slate-300 rounded-xl outline-none focus:border-teal-600 font-medium"
-                />
-              </div>
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Clinician Risk Flag:</label>
-                <select
-                  value={riskFlag}
-                  onChange={(e) => setRiskFlag(e.target.value)}
-                  className="w-full text-xs p-2.5 border border-slate-300 rounded-xl outline-none focus:border-teal-600 bg-white font-semibold"
-                >
-                  <option value="NORMAL">Normal / Low Risk</option>
-                  <option value="MODERATE_RISK">Moderate Risk (Follow-up)</option>
-                  <option value="HIGH_RISK">High Risk (Escalate)</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Examination Notes */}
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-700">Clinical Examination & Doctor's Notes:</label>
-              <textarea
-                rows={2}
-                value={clinicalNotes}
-                onChange={(e) => setClinicalNotes(e.target.value)}
-                className="w-full text-xs p-2.5 border border-slate-300 rounded-xl outline-none focus:border-teal-600"
-              />
-            </div>
-
-            {/* Digital Prescription (with stock verification) */}
-            <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                  <Pill size={14} className="text-teal-700" />
-                  Digital Prescription Entry
-                </span>
-                <span className="text-[11px] text-slate-500">
-                  Linked to Paud CHC Dispensary
-                </span>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3">
-                <select
-                  value={prescribeMedicine}
-                  onChange={(e) => setPrescribeMedicine(e.target.value)}
-                  className="text-xs p-2 border border-slate-300 rounded-lg outline-none bg-white font-medium"
-                >
-                  <option value="Paracetamol 500mg">Paracetamol 500mg (In Stock ✓)</option>
-                  <option value="Metformin 500mg">Metformin 500mg (In Stock ✓)</option>
-                  <option value="Amlodipine 5mg">Amlodipine 5mg (OUT OF STOCK - Scenario C)</option>
-                  <option value="Oral Rehydration Salts (ORS)">Oral Rehydration Salts (In Stock ✓)</option>
-                </select>
-
-                {prescribeMedicine.includes('Amlodipine') && (
-                  <span className="text-xs text-rose-700 font-bold bg-rose-50 border border-rose-200 px-2 py-1 rounded">
-                    ⚠ Warning: Amlodipine 5mg currently out-of-stock at Paud CHC. Available at Aundh DH (26 km).
-                  </span>
+          {patient && (
+            <>
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900">{patient.name} ({patient.age}y / {patient.gender})</h3>
+                  <p className="text-xs text-slate-500 font-mono">ABHA {patient.abha_id} • {patient.village} • {t('ब्लड', 'Blood')} {patient.blood_group}</p>
+                  <p className="text-xs text-slate-600 mt-0.5">{t('पुरानी बीमारी', 'Known conditions')}: <strong>{patient.chronic_conditions}</strong></p>
+                </div>
+                {isOpen && (
+                  <button onClick={markNoShow} className="text-xs text-slate-600 border border-slate-300 rounded-lg px-2.5 py-1 hover:bg-slate-50">
+                    {t('नहीं आए', 'Mark no-show')}
+                  </button>
                 )}
               </div>
-            </div>
 
-            {/* Diagnostics Orders (with facility availability check) */}
-            <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                  <Activity size={14} className="text-teal-700" />
-                  Order Diagnostic Investigations
-                </span>
-                <span className="text-[11px] text-slate-500">
-                  Scenario B: USG requires District referral
-                </span>
-              </div>
+              {record?.latest_intake ? (
+                <div className={`border rounded-xl p-3.5 space-y-1 text-xs ${record.latest_intake.triage_level === 'EMERGENCY' ? 'bg-red-50 border-red-300' : 'bg-teal-50/80 border-teal-200'}`}>
+                  <div className="font-bold text-teal-900 flex items-center gap-1.5">
+                    <Activity size={14} /> {t('एआई सहायक इनटेक सारांश', 'AI assistant intake summary')} • {record.latest_intake.triage_level} • {new Date(record.latest_intake.created_at).toLocaleString()}
+                  </div>
+                  <p className="text-slate-700 font-mono text-[11px] bg-white/80 p-2 rounded border border-teal-100">{record.latest_intake.ai_summary_for_doctor}</p>
+                  <p className="text-[11px] text-slate-500">{t('मरीज़ के शब्द', "Patient's words")}: “{record.latest_intake.raw_input}”</p>
+                </div>
+              ) : (
+                <p className="text-xs text-slate-400">{t('कोई एआई इनटेक नहीं', 'No AI intake on record for this patient')}</p>
+              )}
 
-              <div className="flex flex-wrap gap-2 text-xs">
-                {['Electrocardiogram (ECG)', 'Complete Blood Count (CBC)', 'Fasting Blood Sugar (FBS)', 'Ultrasound Abdomen (USG)'].map((test) => {
-                  const isChecked = orderDiagnostics.includes(test);
-                  const isMissingAtChc = test.includes('Ultrasound');
-                  return (
-                    <button
-                      key={test}
-                      type="button"
-                      onClick={() => handleToggleDiagnostic(test)}
-                      className={`px-3 py-1.5 rounded-lg border font-medium transition flex items-center gap-1.5 ${
-                        isChecked 
-                          ? 'bg-teal-700 text-white border-teal-700 shadow-sm' 
-                          : 'bg-white text-slate-700 border-slate-300 hover:border-slate-400'
-                      }`}
-                    >
-                      <span>{isChecked ? '✓' : '+'}</span>
-                      <span>{test}</span>
-                      {isMissingAtChc && (
-                        <span className="text-[9px] bg-rose-100 text-rose-800 px-1 rounded ml-1 font-bold">
-                          DH Referral
-                        </span>
-                      )}
+              {record && record.encounters.length > 0 && (
+                <details className="text-xs border border-slate-200 rounded-xl p-3">
+                  <summary className="font-bold text-slate-800 cursor-pointer flex items-center gap-1.5"><History size={14} /> {t('पिछला इतिहास', 'Previous consultations')} ({record.encounters.length})</summary>
+                  <div className="mt-2 space-y-2">
+                    {record.encounters.slice(0, 5).map(e => (
+                      <div key={e.id} className="bg-slate-50 rounded p-2">
+                        <div className="font-semibold">{new Date(e.encounter_date).toLocaleDateString()} • {e.diagnosis} • {e.doctor_name}</div>
+                        <div className="text-slate-600">BP {e.vital_bp}, SpO2 {e.vital_spo2}% • {e.prescriptions.flatMap(p => p.items.map(i => i.medicine_name)).join(', ') || 'No medicines'}</div>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              )}
+
+              {message && (
+                <div className={`text-xs rounded-lg p-3 border ${message.ok ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-rose-50 border-rose-300 text-rose-900'}`}>{message.text}</div>
+              )}
+
+              {isOpen ? (
+                <form onSubmit={handleSubmitEncounter} className="space-y-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
+                    <label><span className="text-slate-500 font-medium">BP</span>
+                      <input value={vitalBp} onChange={e => setVitalBp(e.target.value)} pattern="\d{2,3}/\d{2,3}" title="e.g. 120/80" className="w-full font-mono font-bold bg-white border border-slate-300 rounded px-2 py-1 mt-0.5" /></label>
+                    <label><span className="text-slate-500 font-medium">{t('नाड़ी', 'Pulse')} (bpm)</span>
+                      <input type="number" min={20} max={250} value={vitalPulse} onChange={e => setVitalPulse(Number(e.target.value))} className="w-full font-mono font-bold bg-white border border-slate-300 rounded px-2 py-1 mt-0.5" /></label>
+                    <label><span className="text-slate-500 font-medium">{t('तापमान', 'Temp')} (°F)</span>
+                      <input type="number" step="0.1" min={90} max={110} value={vitalTemp} onChange={e => setVitalTemp(Number(e.target.value))} className="w-full font-mono font-bold bg-white border border-slate-300 rounded px-2 py-1 mt-0.5" /></label>
+                    <label><span className="text-slate-500 font-medium">SpO2 (%)</span>
+                      <input type="number" min={50} max={100} value={vitalSpo2} onChange={e => setVitalSpo2(Number(e.target.value))} className="w-full font-mono font-bold bg-white border border-slate-300 rounded px-2 py-1 mt-0.5" /></label>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                    <label className="space-y-1"><span className="font-bold text-slate-700">{t('मुख्य शिकायत', 'Chief complaints')}</span>
+                      <input value={chiefComplaints} onChange={e => setChiefComplaints(e.target.value)} className="w-full p-2.5 border border-slate-300 rounded-xl" /></label>
+                    <label className="space-y-1"><span className="font-bold text-slate-700">{t('निदान', 'Diagnosis / impression')} *</span>
+                      <input value={diagnosis} onChange={e => setDiagnosis(e.target.value)} required className="w-full p-2.5 border border-slate-300 rounded-xl" /></label>
+                    <label className="space-y-1 md:col-span-2"><span className="font-bold text-slate-700">{t('जांच एवं नोट्स', 'Examination & notes')}</span>
+                      <textarea rows={2} value={clinicalNotes} onChange={e => setClinicalNotes(e.target.value)} className="w-full p-2.5 border border-slate-300 rounded-xl" /></label>
+                    <label className="space-y-1"><span className="font-bold text-slate-700">{t('जोखिम स्तर', 'Clinician risk flag')}</span>
+                      <select value={riskFlag} onChange={e => setRiskFlag(e.target.value)} className="w-full p-2.5 border border-slate-300 rounded-xl bg-white">
+                        <option value="NORMAL">Normal / low risk</option>
+                        <option value="MODERATE_RISK">Moderate risk</option>
+                        <option value="HIGH_RISK">High risk</option>
+                      </select></label>
+                  </div>
+
+                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5"><Pill size={14} className="text-teal-700" /> {t('डिजिटल पर्चा', 'Digital prescription')}</span>
+                      <button type="button" onClick={() => setRxRows([...rxRows, emptyRx()])} className="text-xs text-teal-800 font-semibold flex items-center gap-1"><Plus size={13} /> {t('दवा जोड़ें', 'Add medicine')}</button>
+                    </div>
+                    {rxRows.map((row, idx) => {
+                      const stock = stockOf(row.medicine_name);
+                      const update = (patch: Partial<RxRow>) => setRxRows(rxRows.map((r, i) => i === idx ? { ...r, ...patch } : r));
+                      return (
+                        <div key={idx} className="grid grid-cols-2 md:grid-cols-12 gap-2 text-xs items-center">
+                          <select value={row.medicine_name} onChange={e => update({ medicine_name: e.target.value })} className="md:col-span-4 p-2 border border-slate-300 rounded-lg bg-white">
+                            {MEDICINES.map(m => <option key={m}>{m}</option>)}
+                          </select>
+                          <input value={row.dosage} onChange={e => update({ dosage: e.target.value })} className="md:col-span-2 p-2 border border-slate-300 rounded-lg" aria-label="Dosage" />
+                          <input value={row.frequency} onChange={e => update({ frequency: e.target.value })} className="md:col-span-3 p-2 border border-slate-300 rounded-lg" aria-label="Frequency" />
+                          <input type="number" min={1} max={365} value={row.duration_days} onChange={e => update({ duration_days: Number(e.target.value) })} className="md:col-span-1 p-2 border border-slate-300 rounded-lg" aria-label="Days" />
+                          <span className={`md:col-span-1 text-[10px] font-bold ${stock === 'IN_STOCK' ? 'text-emerald-700' : stock === 'LOW_STOCK' ? 'text-amber-700' : stock === 'OUT_OF_STOCK' ? 'text-rose-700' : 'text-slate-400'}`}>
+                            {stock === 'IN_STOCK' ? 'In stock' : stock === 'LOW_STOCK' ? 'Low' : stock === 'OUT_OF_STOCK' ? 'OUT' : 'Not tracked'}
+                          </span>
+                          <button type="button" onClick={() => setRxRows(rxRows.filter((_, i) => i !== idx))} aria-label="Remove medicine" className="md:col-span-1 text-slate-400 hover:text-rose-600"><Trash2 size={14} /></button>
+                        </div>
+                      );
+                    })}
+                    {rxRows.some(r => stockOf(r.medicine_name) === 'OUT_OF_STOCK') && (
+                      <p className="text-[11px] text-rose-700 font-semibold">
+                        ⚠ {t('कुछ दवाएं इस केंद्र पर उपलब्ध नहीं हैं; मरीज़ को स्टॉक वाले केंद्र की जानकारी दें।', 'Some medicines are out of stock at this facility; the patient will see which facilities have stock. The prescription is not changed automatically.')}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                    <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5"><Activity size={14} className="text-teal-700" /> {t('जांच का आदेश', 'Order diagnostics')}</span>
+                    <div className="flex flex-wrap gap-2 text-xs">
+                      {tests.map(test => {
+                        const checked = orderDiagnostics.includes(test);
+                        const unavailable = facility?.diagnostic_tests_missing.includes(test);
+                        return (
+                          <button key={test} type="button" aria-pressed={checked}
+                            onClick={() => setOrderDiagnostics(checked ? orderDiagnostics.filter(x => x !== test) : [...orderDiagnostics, test])}
+                            className={`px-3 py-1.5 rounded-lg border font-medium flex items-center gap-1.5 ${checked ? 'bg-teal-700 text-white border-teal-700' : 'bg-white text-slate-700 border-slate-300'}`}>
+                            {checked ? '✓' : '+'} {test}
+                            {unavailable && <span className="text-[9px] bg-rose-100 text-rose-800 px-1 rounded font-bold">{t('रेफ़रल', 'Referral')}</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-3 bg-teal-50/60 p-3 rounded-xl border border-teal-200 text-xs">
+                    <label className="flex items-center gap-2">
+                      <Calendar size={15} className="text-teal-700" />
+                      <span className="font-bold text-teal-950">{t('फॉलो-अप', 'Follow-up')}:</span>
+                      <select value={followUpDays} onChange={e => setFollowUpDays(Number(e.target.value))} className="p-1 border border-teal-300 rounded bg-white font-semibold">
+                        <option value={0}>{t('ज़रूरत नहीं', 'Not needed')}</option>
+                        <option value={3}>3 {t('दिन', 'days')}</option>
+                        <option value={7}>7 {t('दिन', 'days')}</option>
+                        <option value={14}>14 {t('दिन', 'days')}</option>
+                        <option value={30}>30 {t('दिन', 'days')}</option>
+                      </select>
+                    </label>
+                    <span className="text-[11px] text-teal-800">{t('छूटे फॉलो-अप पर आशा कार्यकर्ता को कार्य मिलता है', 'A missed follow-up automatically creates an ASHA home-visit task')}</span>
+                  </div>
+
+                  <div className="flex justify-end">
+                    <button type="submit" disabled={isSubmitting} className="bg-teal-700 hover:bg-teal-800 disabled:opacity-50 text-white font-bold text-sm px-6 py-2.5 rounded-xl flex items-center gap-2">
+                      <CheckCircle2 size={16} /> {isSubmitting ? t('सहेजा जा रहा है…', 'Saving…') : t('परामर्श पूरा करें', 'Complete consultation')}
                     </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Follow-up Scheduling */}
-            <div className="flex flex-wrap items-center justify-between gap-3 bg-teal-50/60 p-3 rounded-xl border border-teal-200">
-              <div className="flex items-center gap-2 text-xs">
-                <Calendar size={15} className="text-teal-700" />
-                <span className="font-bold text-teal-950">Schedule Follow-up Review:</span>
-                <select
-                  value={followUpDays}
-                  onChange={(e) => setFollowUpDays(Number(e.target.value))}
-                  className="p-1 border border-teal-300 rounded bg-white text-xs font-semibold"
-                >
-                  <option value={7}>After 7 Days (Review ECG & BP)</option>
-                  <option value={14}>After 14 Days (Routine Check)</option>
-                  <option value={30}>After 30 Days (Chronic Diabetic Panel)</option>
-                </select>
-              </div>
-              <span className="text-[11px] text-teal-800">
-                Missed review triggers automatic ASHA home-visit task
-              </span>
-            </div>
-
-            {/* Submit Button */}
-            <div className="pt-2 flex items-center justify-end">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-teal-700 hover:bg-teal-800 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition shadow-sm flex items-center gap-2"
-              >
-                <CheckCircle2 size={16} />
-                <span>{isSubmitting ? 'Recording Encounter...' : 'Complete Consultation & Issue Orders'}</span>
-              </button>
-            </div>
-          </form>
+                  </div>
+                </form>
+              ) : (
+                selectedApt && <p className="text-xs text-slate-500">{t('यह अपॉइंटमेंट', 'This appointment is')} {selectedApt.status}.</p>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -16,13 +16,14 @@ payload = {
     "hub_hospital": "Apollo Medics Lucknow"
 }
 
-req = urllib.request.Request(
+if __name__ == "__main__":
+  req = urllib.request.Request(
     "http://127.0.0.1:8000/api/ai/predict-care",
     data=json.dumps(payload).encode("utf-8"),
-    headers={"Content-Type": "application/json"}
-)
+    headers={"Content-Type": "application/json", "X-Demo-User": "admin_district"}
+  )
 
-res = urllib.request.urlopen(req)
-result = json.loads(res.read().decode("utf-8"))
-print("AI Critical Case Result:")
-print(json.dumps(result, indent=2))
+  res = urllib.request.urlopen(req)
+  result = json.loads(res.read().decode("utf-8"))
+  print("AI Critical Case Result:")
+  print(json.dumps(result, indent=2))

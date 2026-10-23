@@ -1,6 +1,10 @@
-from pydantic import BaseModel, Field
-from typing import List, Optional, Dict, Any
-from datetime import datetime
+from pydantic import BaseModel, Field, AfterValidator
+from typing import List, Optional, Dict, Any, Annotated
+from datetime import datetime, timezone
+
+# SQLite returns naive datetimes; they are stored in UTC, so mark them as UTC
+# before serialising so browsers convert them to local time correctly.
+UTCDateTime = Annotated[datetime, AfterValidator(lambda v: v.replace(tzinfo=timezone.utc) if v.tzinfo is None else v)]
 
 class UserBase(BaseModel):
     username: str
@@ -14,7 +18,7 @@ class UserBase(BaseModel):
 class UserOut(UserBase):
     id: int
     is_active: bool
-    created_at: datetime
+    created_at: UTCDateTime
     model_config = {"from_attributes": True}
 
 class LoginRequest(BaseModel):
@@ -58,7 +62,7 @@ class PatientCreate(PatientBase):
 class PatientOut(PatientBase):
     id: int
     user_id: Optional[int] = None
-    created_at: datetime
+    created_at: UTCDateTime
     family_members: List[FamilyMemberOut] = []
     model_config = {"from_attributes": True}
 
@@ -100,7 +104,7 @@ class FacilityReadinessOut(BaseModel):
     operating_hours: str
     is_open_now: bool
     is_simulated: bool
-    last_verified_at: datetime
+    last_verified_at: UTCDateTime
     available_doctors_count: int
     doctor_names: List[str]
     diagnostic_tests_available: List[str]
@@ -108,6 +112,7 @@ class FacilityReadinessOut(BaseModel):
     medicine_stock_summary: Dict[str, str] # e.g. {"Paracetamol": "IN_STOCK", "Amoxicillin": "OUT_OF_STOCK"}
     estimated_queue_wait_mins: int
     freshness_label: str
+    doctors: List["DoctorOut"] = []
 
 class AppointmentCreate(BaseModel):
     patient_id: int
@@ -132,7 +137,7 @@ class AppointmentOut(BaseModel):
     reason: Optional[str]
     queue_token: str
     is_simulated: bool
-    created_at: datetime
+    created_at: UTCDateTime
     patient_name: Optional[str] = None
     doctor_name: Optional[str] = None
     facility_name: Optional[str] = None
@@ -153,8 +158,8 @@ class PrescriptionItemOut(PrescriptionItemIn):
 class EncounterCreate(BaseModel):
     appointment_id: Optional[int] = None
     patient_id: int
-    doctor_id: int
-    facility_id: int
+    doctor_id: Optional[int] = None  # derived from the signed-in doctor
+    facility_id: Optional[int] = None  # derived from the doctor's facility
     chief_complaints: str
     clinical_notes: str
     diagnosis: str
@@ -174,7 +179,7 @@ class EncounterOut(BaseModel):
     patient_id: int
     doctor_id: int
     facility_id: int
-    encounter_date: datetime
+    encounter_date: UTCDateTime
     chief_complaints: str
     clinical_notes: str
     diagnosis: str
@@ -183,7 +188,7 @@ class EncounterOut(BaseModel):
     vital_temp: float
     vital_spo2: int
     clinician_risk_flag: str
-    created_at: datetime
+    created_at: UTCDateTime
     model_config = {"from_attributes": True}
 
 class DiagnosticOrderOut(BaseModel):
@@ -196,7 +201,7 @@ class DiagnosticOrderOut(BaseModel):
     urgency: str
     status: str
     scheduled_date: Optional[str]
-    created_at: datetime
+    created_at: UTCDateTime
     facility_name: Optional[str] = None
     model_config = {"from_attributes": True}
 
@@ -217,7 +222,7 @@ class FollowUpOut(BaseModel):
     due_date: str
     instructions: str
     status: str
-    created_at: datetime
+    created_at: UTCDateTime
     model_config = {"from_attributes": True}
 
 class HealthWorkerTaskOut(BaseModel):
@@ -235,7 +240,7 @@ class HealthWorkerTaskOut(BaseModel):
     visit_notes: Optional[str] = None
     outcome: Optional[str] = None
     escalated_to_doctor_id: Optional[int] = None
-    created_at: datetime
+    created_at: UTCDateTime
     model_config = {"from_attributes": True}
 
 class TaskUpdateIn(BaseModel):
@@ -255,7 +260,7 @@ class CareTimelineEventOut(BaseModel):
     actor_name: str
     actor_role: str
     metadata_json: str
-    created_at: datetime
+    created_at: UTCDateTime
     model_config = {"from_attributes": True}
 
 class SyncActionItem(BaseModel):
@@ -284,3 +289,139 @@ class AdminMetricsOut(BaseModel):
     medicine_stock_alerts_count: int
     data_freshness_pct: float
     is_demo_metric: bool = True
+
+class RegisterRequest(BaseModel):
+    name: str = Field(min_length=2, max_length=100)
+    age: int = Field(ge=0, le=120)
+    gender: str
+    phone: str = Field(min_length=10, max_length=15)
+    village: str = Field(min_length=2, max_length=100)
+    block: Optional[str] = "Mulshi"
+    district: Optional[str] = "Pune"
+    blood_group: Optional[str] = "Unknown"
+    emergency_contact: Optional[str] = None
+    chronic_conditions: Optional[str] = "None"
+    preferred_language: Optional[str] = "hi"
+
+class ChatTurn(BaseModel):
+    role: str  # user | assistant
+    content: str = Field(min_length=1, max_length=2000)
+
+class ChatRequest(BaseModel):
+    patient_id: Optional[int] = None
+    language: Optional[str] = "hi"
+    messages: List[ChatTurn] = Field(min_length=1, max_length=20)
+
+class ChatSource(BaseModel):
+    id: str
+    title: str
+    source: str
+
+class ChatResponse(BaseModel):
+    reply: str
+    mode: str  # SAFETY_RULES, LLM, DEMO_FALLBACK
+    model: Optional[str] = None
+    triage: SymptomIntakeResponse
+    sources: List[ChatSource]
+
+class ScheduleSlot(BaseModel):
+    day_of_week: str
+    start_time: str
+    end_time: str
+
+class DoctorOut(BaseModel):
+    id: int
+    name: str
+    specialty: str
+    qualification: str
+    experience_years: int
+    facility_id: int
+    phone: Optional[str] = None
+    is_available_today: bool
+    last_roster_update: UTCDateTime
+    schedule: List[ScheduleSlot] = []
+
+class DoctorUpdateIn(BaseModel):
+    is_available_today: Optional[bool] = None
+    schedule: Optional[List[ScheduleSlot]] = None
+
+class FacilityServiceOut(BaseModel):
+    id: int
+    facility_id: int
+    name: str
+    category: str
+    is_available: bool
+    notes: Optional[str] = None
+    updated_at: UTCDateTime
+    model_config = {"from_attributes": True}
+
+class ServiceUpdateIn(BaseModel):
+    is_available: bool
+    notes: Optional[str] = None
+
+class InventoryOut(BaseModel):
+    id: int
+    facility_id: int
+    medicine_name: str
+    quantity_in_stock: int
+    unit: str
+    reorder_level: int
+    stock_status: str
+    last_verified_at: UTCDateTime
+    model_config = {"from_attributes": True}
+
+class InventoryUpdateIn(BaseModel):
+    quantity_in_stock: int = Field(ge=0)
+
+class FacilityManageOut(BaseModel):
+    facility: FacilityReadinessOut
+    doctors: List[DoctorOut]
+    services: List[FacilityServiceOut]
+    inventory: List[InventoryOut]
+
+class AppointmentStatusIn(BaseModel):
+    status: str  # CANCELLED, NO_SHOW, IN_QUEUE
+
+class PrescriptionOut(BaseModel):
+    id: int
+    prescription_code: str
+    created_at: UTCDateTime
+    items: List[PrescriptionItemOut] = []
+    model_config = {"from_attributes": True}
+
+class EncounterDetailOut(EncounterOut):
+    doctor_name: Optional[str] = None
+    facility_name: Optional[str] = None
+    prescriptions: List[PrescriptionOut] = []
+
+class ReminderOut(BaseModel):
+    id: int
+    follow_up_id: int
+    channel: str
+    message: str
+    scheduled_time: UTCDateTime
+    status: str
+    model_config = {"from_attributes": True}
+
+class IntakeOut(BaseModel):
+    id: int
+    raw_input: str
+    language: str
+    primary_complaint: str
+    triage_level: str
+    red_flags_detected: str
+    ai_summary_for_doctor: Optional[str] = None
+    recommended_specialty: str
+    created_at: UTCDateTime
+    model_config = {"from_attributes": True}
+
+class PatientRecordOut(BaseModel):
+    patient: PatientOut
+    encounters: List[EncounterDetailOut]
+    diagnostic_orders: List[DiagnosticOrderOut]
+    follow_ups: List[FollowUpOut]
+    reminders: List[ReminderOut]
+    appointments: List[AppointmentOut]
+    latest_intake: Optional[IntakeOut] = None
+
+FacilityReadinessOut.model_rebuild()
