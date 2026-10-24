@@ -3,7 +3,7 @@ import {
   DiagnosticOrder, FollowUpPlan, HealthWorkerTask, CareTimelineEvent,
   AdminMetrics, User, ChatTurn, ChatResponse, PatientRecord, RegisterPayload,
   Doctor, FacilityManage, FacilityService, InventoryItem, ScheduleSlot,
-  AdminActivity, FamilyMember, AuditEvent, Lang, CareTeamMember
+  AdminActivity, FamilyMember, AuditEvent, Lang, CareTeamMember, CaseReviewSummary
 } from '../types';
 import { getOfflineMode, enqueueOfflineAction } from './offlineQueue';
 
@@ -155,6 +155,7 @@ export const api = {
   getAuditEvents: (limit = 50) => get<AuditEvent[]>(`/audit-events${qs({ limit })}`),
   getAdminMetrics: () => get<AdminMetrics>('/admin/metrics'),
   getAdminActivity: () => get<AdminActivity>('/admin/activity'),
+  getCaseReviews: () => get<CaseReviewSummary>('/admin/case-reviews'),
   runContinuityEngine: () => send<{ newly_overdue: number; tasks_created: number; reminders_sent: number }>('POST', '/continuity/run'),
   getModelInfo: () => get<any>('/ai/model-info'),
   retrainModel: () => send<any>('POST', '/ai/train'),

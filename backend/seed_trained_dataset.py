@@ -222,6 +222,16 @@ def seed_trained_dataset():
         )
         doctor_records.append(d)
 
+    # Specialists the Pune cluster's district hospital needs for obstetric and critical emergencies
+    aundh = facility_records[-1]
+    for full_d, uname, spec in [("Dr. Kavya Joshi", "dr_kavya_joshi", "Obstetrics & Gynaecology"),
+                                ("Dr. Sameer Kulkarni", "dr_sameer_kulkarni", "Emergency & Critical Care Medicine")]:
+        doctor_users.append(models.User(username=uname, email=f"{uname}@gov.in", full_name=full_d, role="DOCTOR",
+                                        phone=f"98{random.randint(10000000, 99999999)}", village="Aundh", facility_id=aundh.id))
+        doctor_records.append(models.Doctor(user_id=None, facility_id=aundh.id, name=full_d, specialty=spec,
+                                            qualification="MBBS, MD / MS", experience_years=random.randint(8, 20),
+                                            phone=doctor_users[-1].phone, is_available_today=True, last_roster_update=now))
+
     db.add_all(doctor_users)
     db.commit()
 
@@ -301,11 +311,26 @@ def seed_trained_dataset():
         "CHC": {"Electrocardiogram (ECG)": True, "Complete Blood Count (CBC)": True, "Fasting Blood Sugar (FBS)": True, "Chest X-Ray Digital": True, "Ultrasound Abdomen (USG)": False},
         "PHC": {"Fasting Blood Sugar (FBS)": True, "Urine Albumin": True, "Electrocardiogram (ECG)": False, "Complete Blood Count (CBC)": False, "Ultrasound Abdomen (USG)": False, "Chest X-Ray Digital": False},
     }
+    # Services that the 100 synthetic case reviews show emergencies need (care_pathways.py)
+    emergency_services = {
+        "DISTRICT_HOSPITAL": {"Troponin test": True, "CT Brain": True, "Blood bank / transfusion": True, "ICU beds": True,
+                              "Emergency obstetric care (EmOC)": True, "Malaria test": True, "TB sputum test": True,
+                              "Lactate test": True, "Electrolyte panel": True},
+        "CHC": {"Troponin test": False, "CT Brain": False, "Blood bank / transfusion": False, "ICU beds": False,
+                "Emergency obstetric care (EmOC)": True, "Malaria test": True, "TB sputum test": True,
+                "Lactate test": False, "Electrolyte panel": True},
+        "PHC": {"Troponin test": False, "CT Brain": False, "Blood bank / transfusion": False, "ICU beds": False,
+                "Emergency obstetric care (EmOC)": False, "Malaria test": True, "TB sputum test": True,
+                "Lactate test": False, "Electrolyte panel": False},
+    }
+    for tier, extra in emergency_services.items():
+        tier_tests[tier] = {**tier_tests[tier], **extra}
     services = []
     for fac in facility_records:
         for test_name, avail in tier_tests.get(fac.facility_type, tier_tests["PHC"]).items():
             services.append(models.FacilityService(
-                facility_id=fac.id, name=test_name, category="DIAGNOSTIC", is_available=avail,
+                facility_id=fac.id, name=test_name, is_available=avail,
+                category="CLINICAL" if test_name in ("ICU beds", "Blood bank / transfusion", "Emergency obstetric care (EmOC)") else "DIAGNOSTIC",
                 notes=None if avail else "Equipment not installed at this tier - refer to District Hospital",
                 updated_at=now
             ))

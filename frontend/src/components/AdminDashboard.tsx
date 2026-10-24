@@ -2,6 +2,7 @@ import { makeT } from '../i18n';
 import React, { useState, useEffect, useRef } from 'react';
 import { AdminMetrics, AuditEvent, AdminActivity, User, Lang } from '../types';
 import { api } from '../services/api';
+import { CaseReviewPanel } from './CaseReviewPanel';
 import {
   BarChart3, Users, Building2, AlertTriangle, CheckCircle2,
   Clock, ShieldAlert, Activity, Pill, RefreshCw, FileText, Calendar
@@ -185,6 +186,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language, user }
           ))}
         </div>
       </div>
+
+      <CaseReviewPanel language={language} />
 
       {/* APPOINTMENT MONITORING */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

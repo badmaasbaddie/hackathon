@@ -56,6 +56,7 @@ export interface SymptomIntakeResponse {
   ai_doctor_summary: string;
   explanation_patient: string;
   is_simulated_ai: boolean;
+  care_pathways?: CarePathway[];
 }
 
 export interface FacilityReadiness {
@@ -77,6 +78,8 @@ export interface FacilityReadiness {
   doctor_names: string[];
   diagnostic_tests_available: string[];
   diagnostic_tests_missing: string[];
+  clinical_services_available?: string[];
+  clinical_services_missing?: string[];
   medicine_stock_summary: Record<string, 'IN_STOCK' | 'LOW_STOCK' | 'OUT_OF_STOCK'>;
   estimated_queue_wait_mins: number;
   freshness_label: string;
@@ -366,4 +369,41 @@ export interface ImpactMetrics {
   emergencies_directed_to_112: number;
   wasted_trips_avoided: number;
   consent_withdrawals_honoured: number;
+}
+
+export interface PathwayFacility {
+  id: number;
+  name: string;
+  facility_type: string;
+  distance_km: number;
+  travel_time_mins: number;
+  phone: string;
+}
+
+export interface CarePathway {
+  condition: string;
+  condition_key: string;
+  label: string;
+  needs_facility: string;
+  needs_specialist: string;
+  needs_tests: string;
+  required_services: string[];
+  recommended_facility: PathwayFacility | null;
+  nearest_facility: PathwayFacility | null;
+  nearest_facility_missing: string[];
+  case_reviews: { cases: number; median_distance_km: number; median_delay_hrs: number; main_barrier: string };
+}
+
+export interface CaseReviewSummary {
+  notice: string;
+  excluded_fields: Record<string, string>;
+  total_cases: number;
+  median_distance_km: number;
+  median_delay_hrs: number;
+  conditions: {
+    condition: string; label: string; cases: number; needs_facility: string; needs_specialist: string; needs_tests: string;
+    median_distance_km: number; median_delay_hrs: number; main_barrier: string;
+    facilities_ready: number; facilities_total: number; ready_facility_names: string[];
+  }[];
+  barriers: { barrier: string; cases: number; how_swasthyasetu_helps: string | null }[];
 }

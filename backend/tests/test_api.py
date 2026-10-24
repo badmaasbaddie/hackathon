@@ -422,3 +422,42 @@ def test_emergency_screen_tolerates_speech_recognition_errors():
     # ...without turning everyday sentences into emergencies
     for text in ["मेरा दोस्त आया है", "मुझे दो दिन से हल्का बुखार और खांसी है", "या विषयावर माहिती द्या", "मला सर्दी आहे"]:
         assert analyze_symptoms(text, "hi")["is_emergency"] is False, text
+
+def test_all_100_case_reviews_are_flagged():
+    """Every synthetic case-review symptom pattern must at least be URGENT, and the deadly ones EMERGENCY."""
+    import json
+    from triage_engine import analyze_symptoms
+    cases = json.load(open(os.path.join(os.path.dirname(__file__), "..", "data", "case_reviews_synthetic.json"), encoding="utf-8"))["cases"]
+    assert len(cases) == 100
+    same_day_ok = {"Severe anemia", "TB complication"}
+    for c in cases:
+        level = analyze_symptoms(c["symptoms"], "en")["triage_level"]
+        expected = {"URGENT", "EMERGENCY"} if c["disease"] in same_day_ok else {"EMERGENCY"}
+        assert level in expected, (c["id"], c["disease"], level)
+
+def test_condition_danger_signs_in_hindi_and_marathi():
+    from triage_engine import analyze_symptoms
+    for text, lang in [("पापा को अचानक कमजोरी आई और बोलने में दिक्कत है", "hi"), ("डिलीवरी के बाद बहुत खून बह रहा है", "hi"),
+                       ("गर्भावस्था में दौरे पड़ रहे हैं", "hi"), ("शुगर बहुत ज़्यादा है और उल्टी हो रही है", "hi"),
+                       ("आईला अचानक अशक्तपणा आला आणि बोलता येत नाही", "mr"), ("बाळंतपणानंतर रक्तस्राव थांबत नाही", "mr"),
+                       ("साखर खूप वाढली आहे आणि उलट्या होत आहेत", "mr"), ("ताप आहे आणि रुग्ण गोंधळलेला आहे", "mr")]:
+        assert analyze_symptoms(text, lang)["is_emergency"] is True, text
+    for text in ["I am confused about my appointment time", "मेरा दौरे पर जाना है"]:
+        assert analyze_symptoms(text, "en")["is_emergency"] is False, text
+
+def test_care_pathway_sends_stroke_to_a_facility_with_ct():
+    res = client.post("/api/symptom-intake", headers=as_user("ramesh"), json={
+        "patient_id": 1, "raw_input": "Papa ko achanak kamzori aur bolne mein dikkat ho rahi hai", "language": "hi"}).json()
+    stroke = next(p for p in res["care_pathways"] if p["condition"] == "Stroke")
+    assert stroke["needs_tests"] == "CT Brain"
+    assert stroke["recommended_facility"]["name"].startswith("Aundh")
+    assert "CT Brain" in stroke["nearest_facility_missing"]  # Paud CHC is nearer but has no CT
+    assert stroke["case_reviews"]["cases"] == 10
+    assert "Case-review pattern match: Stroke" in res["ai_doctor_summary"]
+
+def test_case_review_summary_for_district():
+    data = client.get("/api/admin/case-reviews", headers=as_user("admin_district")).json()
+    assert data["total_cases"] == 100 and len(data["conditions"]) == 10
+    assert "medicine" in data["excluded_fields"]
+    assert any(b["how_swasthyasetu_helps"] for b in data["barriers"])
+    assert client.get("/api/admin/case-reviews", headers=as_user("ramesh")).status_code == 403

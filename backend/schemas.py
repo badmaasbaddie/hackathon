@@ -89,6 +89,8 @@ class SymptomIntakeResponse(BaseModel):
     ai_doctor_summary: str
     explanation_patient: str
     is_simulated_ai: bool = True
+    # Condition patterns from the synthetic case reviews: what is needed and where to go
+    care_pathways: List[Dict[str, Any]] = []
 
 class FacilityReadinessOut(BaseModel):
     id: int
@@ -109,6 +111,8 @@ class FacilityReadinessOut(BaseModel):
     doctor_names: List[str]
     diagnostic_tests_available: List[str]
     diagnostic_tests_missing: List[str]
+    clinical_services_available: List[str] = []
+    clinical_services_missing: List[str] = []
     medicine_stock_summary: Dict[str, str] # e.g. {"Paracetamol": "IN_STOCK", "Amoxicillin": "OUT_OF_STOCK"}
     estimated_queue_wait_mins: int
     freshness_label: str

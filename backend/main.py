@@ -38,6 +38,7 @@ import schemas
 import ai_assistant
 import tts
 import stt_local
+import care_pathways
 from database import get_db, engine, Base, SessionLocal
 from triage_engine import analyze_symptoms
 from seed_data import seed_database
@@ -69,7 +70,8 @@ async def lifespan(_app: FastAPI):
         consent_cols = {c["name"] for c in inspect(engine).get_columns("consent_records")}
         if (not db.query(models.User).filter(models.User.username == "admin_paud").first()
                 or "granted_to_user_id" not in consent_cols
-                or not db.query(models.Facility).filter(models.Facility.name == "Malihabad Community Health Centre").first()):
+                or not db.query(models.Facility).filter(models.Facility.name == "Malihabad Community Health Centre").first()
+                or not db.query(models.FacilityService).filter(models.FacilityService.name == "CT Brain").first()):
             db.close()
             seed_database()
             db = SessionLocal()
@@ -577,6 +579,18 @@ def get_patient_health_record(patient_id: int, current_user: models.User = Depen
 
 
 # ----------------- SYMPTOM INTAKE & AI ASSISTANT -----------------
+def _with_pathways(db: Session, patient: models.Patient, text: str, language: str, triage: dict) -> list:
+    """Attach care pathways and note the matched patterns in the doctor-facing summary."""
+    pathways = care_pathways.pathways_for(db, text, patient.district, language)
+    if pathways:
+        notes = []
+        for p in pathways:
+            where = p["recommended_facility"]["name"] if p["recommended_facility"] else "no facility in the district has all of it"
+            notes.append(f"{p['condition']} (needs {p['needs_tests']}, {p['needs_specialist']}; best-equipped: {where})")
+        triage["ai_doctor_summary"] += " Case-review pattern match: " + "; ".join(notes) + "."
+    return pathways
+
+
 def _record_intake(db: Session, user: models.User, patient: models.Patient, text: str, language: str, duration_days: int, triage: dict) -> models.SymptomIntake:
     intake = models.SymptomIntake(
         patient_id=patient.id, raw_input=text, language=language,
@@ -604,7 +618,7 @@ def _record_intake(db: Session, user: models.User, patient: models.Patient, text
     return intake
 
 
-def _intake_response(intake: models.SymptomIntake, language: str, triage: dict) -> schemas.SymptomIntakeResponse:
+def _intake_response(intake: models.SymptomIntake, language: str, triage: dict, pathways: list = None) -> schemas.SymptomIntakeResponse:
     return schemas.SymptomIntakeResponse(
         intake_id=intake.id, patient_id=intake.patient_id, language=language,
         primary_complaint=triage["primary_complaint"], duration_days=intake.duration_days,
@@ -612,7 +626,8 @@ def _intake_response(intake: models.SymptomIntake, language: str, triage: dict) 
         red_flags=triage["red_flags"], emergency_advice=triage["emergency_advice"],
         emergency_number=triage["emergency_number"], recommended_specialty=triage["recommended_specialty"],
         recommended_facility_type=triage["recommended_facility_type"], ai_doctor_summary=triage["ai_doctor_summary"],
-        explanation_patient=triage["explanation_patient"], is_simulated_ai=True
+        explanation_patient=triage["explanation_patient"], is_simulated_ai=True,
+        care_pathways=pathways or [],
     )
 
 
@@ -622,8 +637,9 @@ def submit_symptom_intake(req: schemas.SymptomIntakeRequest, current_user: model
     language = req.language or "hi"
     duration = req.duration_days or 2
     triage = analyze_symptoms(text=req.raw_input, language=language, duration_days=duration)
+    pathways = _with_pathways(db, patient, req.raw_input, language, triage)
     intake = _record_intake(db, current_user, patient, req.raw_input, language, duration, triage)
-    return _intake_response(intake, language, triage)
+    return _intake_response(intake, language, triage, pathways)
 
 
 @app.post("/api/ai/chat", response_model=schemas.ChatResponse)
@@ -644,10 +660,12 @@ def ai_chat(req: schemas.ChatRequest, current_user: models.User = Depends(get_cu
     language = req.language if req.language in ("hi", "en", "mr") else "hi"
 
     result = ai_assistant.respond(db, patient, history, language)
+    user_text = " ".join(m["content"] for m in history if m["role"] == "user")
+    pathways = _with_pathways(db, patient, user_text, language, result["triage"])
     intake = _record_intake(db, current_user, patient, history[-1]["content"], language, 2, result["triage"])
     return schemas.ChatResponse(
         reply=result["reply"], mode=result["mode"], model=result["model"],
-        triage=_intake_response(intake, language, result["triage"]),
+        triage=_intake_response(intake, language, result["triage"], pathways),
         sources=result["sources"],
     )
 
@@ -776,8 +794,10 @@ def _facility_readiness(db: Session, fac: models.Facility, docs: List[models.Doc
         last_verified_at=fac.last_verified_at,
         available_doctors_count=len(available_docs),
         doctor_names=[f"{d.name} ({d.specialty})" for d in available_docs],
-        diagnostic_tests_available=[s.name for s in services if s.is_available],
-        diagnostic_tests_missing=[s.name for s in services if not s.is_available],
+        diagnostic_tests_available=[s.name for s in services if s.is_available and s.category == "DIAGNOSTIC"],
+        diagnostic_tests_missing=[s.name for s in services if not s.is_available and s.category == "DIAGNOSTIC"],
+        clinical_services_available=[s.name for s in services if s.is_available and s.category != "DIAGNOSTIC"],
+        clinical_services_missing=[s.name for s in services if not s.is_available and s.category != "DIAGNOSTIC"],
         medicine_stock_summary={item.medicine_name.split()[0]: item.stock_status for item in inv_items},
         estimated_queue_wait_mins=queue_waiting * per_patient // max(len(available_docs), 1),
         freshness_label=_freshness_label(max(timestamps)),
@@ -1388,6 +1408,12 @@ def get_admin_activity(current_user: models.User = Depends(require_roles("SUPER_
         },
         "recent_appointments": [_appointment_out(a, names, doctors, facilities).model_dump(mode="json") for a in recent],
     }
+
+
+@app.get("/api/admin/case-reviews")
+def get_case_reviews(current_user: models.User = Depends(require_roles("SUPER_ADMIN")), db: Session = Depends(get_db)):
+    """Lessons from the 100 synthetic case reviews, with today's facility readiness for each condition."""
+    return care_pathways.review_summary(db)
 
 
 # ----------------- CARE-PATHWAY ML MODEL (trained on the fictional dataset) -----------------

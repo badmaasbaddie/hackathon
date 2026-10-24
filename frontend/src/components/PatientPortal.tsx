@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { FacilityMap } from './FacilityMap';
 import { PrivacyPanel } from './PrivacyPanel';
+import { CarePathwayCard } from './CarePathwayCard';
 import { speak, stopSpeaking, canSpeak } from '../utils/speech';
 import { startVoiceInput, VoiceSession, VoiceState, VoiceError } from '../utils/voiceInput';
 
@@ -290,7 +291,10 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
   }
 
   const selectedFacility = facilities.find(f => f.id === bookFacilityId);
-  const emergencyFacility = facilities
+  // When a condition is recognised, point to the facility that can actually treat it;
+  // otherwise to the nearest facility with basic emergency capability.
+  const pathwayTargetId = lastMeta?.triage.care_pathways?.find(p => p.recommended_facility)?.recommended_facility?.id;
+  const emergencyFacility = (pathwayTargetId !== undefined && facilities.find(f => f.id === pathwayTargetId)) || facilities
     .filter(f => f.facility_type !== 'PHC' && f.diagnostic_tests_available.includes('Electrocardiogram (ECG)'))
     .sort((a, b) => a.distance_km - b.distance_km)[0];
   const upcoming = (record?.appointments || []).filter(a => a.status === 'BOOKED' || a.status === 'IN_QUEUE');
@@ -418,11 +422,14 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                   </a>
                   {emergencyFacility && (
                     <div className="text-right text-xs">
-                      <div className="text-slate-600">{t('निकटतम आपातकालीन केंद्र', 'Nearest emergency-ready facility')}:</div>
+                      <div className="text-slate-600">{pathwayTargetId !== undefined ? t('इस आपात स्थिति के लिए सही केंद्र', 'Right facility for this emergency') : t('निकटतम आपातकालीन केंद्र', 'Nearest emergency-ready facility')}:</div>
                       <div className="font-bold text-slate-900">{emergencyFacility.name} ({emergencyFacility.distance_km} km, ~{emergencyFacility.travel_time_mins} min) • {emergencyFacility.emergency_contact}</div>
                     </div>
                   )}
                 </div>
+                {(lastMeta.triage.care_pathways || []).slice(0, 2).map(p => (
+                  <CarePathwayCard key={p.condition} pathway={p} emergency language={language} />
+                ))}
               </div>
             )}
 
@@ -521,6 +528,9 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                 <div className="text-[11px] text-slate-600">
                   {t('सुविधा', 'Facility')}: <strong>{lastMeta.triage.recommended_facility_type}</strong> • {t('विशेषज्ञता', 'Specialty')}: <strong>{lastMeta.triage.recommended_specialty}</strong>
                 </div>
+                {(lastMeta.triage.care_pathways || []).slice(0, 2).map(p => (
+                  <CarePathwayCard key={p.condition} pathway={p} emergency={false} language={language} onBook={startBookingAt} />
+                ))}
                 <button onClick={() => setActiveTab('FACILITIES')} className="w-full bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-3 py-2 rounded-xl">
                   {t('अस्पताल चुनें और अपॉइंटमेंट बुक करें', 'Choose a facility & book')}
                 </button>
@@ -604,6 +614,16 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
                       <span key={test} className="bg-rose-50 text-rose-700 border border-rose-200 text-[10px] px-1.5 py-0.5 rounded">✕ {test.split(' (')[0]}</span>
                     ))}
                   </div>
+                  {((f.clinical_services_available || []).length + (f.clinical_services_missing || []).length) > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {(f.clinical_services_available || []).map(svc => (
+                        <span key={svc} className="bg-sky-50 text-sky-800 border border-sky-200 text-[10px] px-1.5 py-0.5 rounded font-semibold">✓ {svc}</span>
+                      ))}
+                      {(f.clinical_services_missing || []).map(svc => (
+                        <span key={svc} className="bg-slate-100 text-slate-500 border border-slate-200 text-[10px] px-1.5 py-0.5 rounded line-through">{svc}</span>
+                      ))}
+                    </div>
+                  )}
                   <div className="grid grid-cols-2 gap-1 text-[10px]">
                     {Object.entries(f.medicine_stock_summary).map(([med, st]) => (
                       <div key={med} className="flex justify-between bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200">

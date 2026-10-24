@@ -27,12 +27,14 @@ EMERGENCY_KEYWORDS: Dict[str, List[str]] = {
         "सांस फूल रही", "साँस फूल रही", "सांस लेने में दिक्कत", "सांस लेने में तकलीफ", "साँस लेने में तकलीफ",
         "सांस नहीं आ रही", "सांस नहीं ले पा",
         "श्वास घ्यायला त्रास", "श्वास घेण्यास त्रास", "श्वास घेता येत नाही", "दम लागत", "धाप लागत", "dam lagat",
+        "respiratory distress", "breathing difficulty", "cannot breathe", "can't breathe",
     ],
     "NEURO": [
         "stroke", "face drooping", "slurred speech", "paralysis", "sudden loss of vision", "unconscious",
         "seizure", "fits", "lakwa", "ek taraf kamzori", "behosh", "mirgi",
         "लकवा", "बेहोश", "दौरा पड़", "मिर्गी", "एक तरफ कमजोरी", "चेहरा टेढ़ा",
         "अर्धांगवायू", "पक्षाघात", "फिट येत", "फिट आली", "आकडी", "बोलताना अडखळ", "beshuddh",
+        "sudden weakness", "speech difficulty", "difficulty speaking", "trouble speaking", "weakness on one side", "seizures", "convulsion", "altered consciousness", "unresponsive", "not responding", "achanak kamzori", "bolne mein dikkat", "hosh nahi", "अचानक कमजोरी", "बोलने में दिक्कत", "बोलने में परेशानी", "बोल नहीं पा", "होश नहीं", "अचानक अशक्तपणा", "बोलण्यास त्रास", "बोलता येत नाही", "शुद्ध नाही", "झटके येत",
     ],
     "BLEEDING": [
         "severe bleeding", "uncontrolled bleeding", "blood vomiting", "vomiting blood",
@@ -44,10 +46,21 @@ EMERGENCY_KEYWORDS: Dict[str, List[str]] = {
         "pregnancy bleeding", "bleeding in pregnancy", "severe labor pain before term", "garbh me dard",
         "garbhavastha me khoon", "गर्भावस्था में खून", "गर्भ में दर्द",
         "गरोदरपणात रक्तस्राव", "गरोदरपणात रक्त", "गर्भारपणात रक्त",
+        "bleeding after delivery", "heavy bleeding after", "postpartum bleeding", "pregnancy with seizures", "seizures in pregnancy", "high bp in pregnancy", "delivery ke baad khoon", "delivery ke baad bahut khoon", "डिलीवरी के बाद बहुत खून", "डिलीवरी के बाद खून", "प्रसव के बाद खून", "गर्भावस्था में दौरे", "गर्भावस्था में बहुत तेज बीपी", "प्रसूतीनंतर खूप रक्तस्राव", "बाळंतपणानंतर रक्तस्राव", "गरोदरपणात झटके",
     ],
     "POISONING": [
         "poison", "snake bite", "saanp ne kaata", "zeher", "जहर", "सांप ने काटा", "साँप ने काटा",
         "साप चावला", "सर्पदंश", "विषबाधा", "विष प्या", "विष घेतले",
+    ],
+    "SEPSIS": [
+        "fever with confusion", "fever and confusion", "sudden confusion", "confused and drowsy", "low blood pressure", "very low bp", "cold and clammy",
+        "बुखार के साथ बेहोशी", "भ्रम", "बीपी बहुत कम", "बहुत कम बीपी",
+        "गोंधळलेले", "गोंधळलेला", "गोंधळलेली", "रक्तदाब खूप कमी",
+    ],
+    "METABOLIC": [
+        "very high sugar", "sugar very high", "blood sugar very high", "sugar bahut zyada", "sugar bahut badh",
+        "शुगर बहुत ज़्यादा", "शुगर बहुत बढ़", "बहुत ज़्यादा शुगर",
+        "साखर खूप वाढली", "साखर खूप जास्त",
     ],
 }
 
@@ -57,9 +70,20 @@ URGENT_KEYWORDS = [
     "fracture", "haddi toot", "deep cut", "infection", "burn", "jal gaya",
     "तेज बुखार", "पेट में तेज दर्द", "लगातार उल्टी", "दस्त", "हड्डी टूट", "गहरा घाव", "जल गया",
     "खूप ताप", "जास्त ताप", "पोटात खूप दुख", "सतत उलट्या", "जुलाब", "हाड मोडले", "भाजले",
+    "breathlessness", "dizziness", "weight loss", "persistent cough", "worsening breathing", "chills", "very high bp", "chakkar", "चक्कर", "सांस फूलना", "वजन कम हो", "लगातार खांसी", "खून की कमी", "चक्कर येत", "वजन कमी", "सतत खोकला", "रक्त कमी",
 ]
 
 EMERGENCY_TEXT = {
+    "SEPSIS": {
+        "en": ("Fever with confusion, very low blood pressure or cold clammy skin can be a life-threatening infection (sepsis).", "Possible sepsis / septic shock", "Check BP, pulse, temperature; start sepsis protocol and refer to ICU-capable facility."),
+        "hi": ("बुखार के साथ भ्रम, बहुत कम बीपी या ठंडी चिपचिपी त्वचा जानलेवा संक्रमण (सेप्सिस) हो सकता है।", "Possible sepsis / septic shock", "Check BP, pulse, temperature; start sepsis protocol and refer to ICU-capable facility."),
+        "mr": ("तापासोबत गोंधळ, खूप कमी रक्तदाब किंवा थंड चिकट त्वचा हा जीवघेणा संसर्ग (सेप्सिस) असू शकतो.", "Possible sepsis / septic shock", "Check BP, pulse, temperature; start sepsis protocol and refer to ICU-capable facility."),
+    },
+    "METABOLIC": {
+        "en": ("Very high blood sugar with vomiting or drowsiness is a diabetic emergency.", "Possible diabetic ketoacidosis / hyperglycaemic emergency", "Check glucose and electrolytes; IV fluids and insulin protocol at an emergency facility."),
+        "hi": ("बहुत ज़्यादा शुगर के साथ उल्टी या सुस्ती मधुमेह की आपात स्थिति है।", "Possible diabetic ketoacidosis / hyperglycaemic emergency", "Check glucose and electrolytes; IV fluids and insulin protocol at an emergency facility."),
+        "mr": ("खूप जास्त साखरेसोबत उलट्या किंवा सुस्ती ही मधुमेहाची आपत्कालीन स्थिती आहे.", "Possible diabetic ketoacidosis / hyperglycaemic emergency", "Check glucose and electrolytes; IV fluids and insulin protocol at an emergency facility."),
+    },
     "CARDIAC": {
         "en": ("Chest pain or pressure can be a heart emergency.", "Possible acute coronary syndrome", "Immediate ECG and vitals stabilisation recommended."),
         "hi": ("सीने में दर्द या भारीपन दिल की आपात स्थिति हो सकती है।", "Possible acute coronary syndrome", "Immediate ECG and vitals stabilisation recommended."),
