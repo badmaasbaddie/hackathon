@@ -371,7 +371,8 @@ def test_read_aloud_streaming(monkeypatch):
     assert client.get(url).status_code == 404  # single use
 
 def test_voice_input_with_elevenlabs(monkeypatch):
-    import tts
+    import tts, stt_local
+    monkeypatch.setenv("LOCAL_STT", "off")
     monkeypatch.setenv("ELEVENLABS_API_KEY", "test-key")
     monkeypatch.setattr(tts, "_stt_denied", False)
     monkeypatch.setattr(tts, "_stt_probed", True)
@@ -400,3 +401,24 @@ def test_voice_input_with_elevenlabs(monkeypatch):
     monkeypatch.setattr(tts.httpx, "post", lambda *a, **k: Denied())
     assert client.post("/api/stt?language=hi", content=audio, headers={**as_user("ramesh"), "Content-Type": "audio/webm"}).status_code == 502
     assert client.get("/api/stt/status").json()["provider"] == "browser"
+
+
+def test_voice_input_offline_whisper(monkeypatch):
+    import tts, stt_local
+    monkeypatch.delenv("ELEVENLABS_API_KEY", raising=False)
+    monkeypatch.setenv("LOCAL_STT", "on")
+    monkeypatch.setattr(stt_local, "available", lambda: True)
+    monkeypatch.setattr(stt_local, "transcribe", lambda audio, language: "मुझे सीने में दर्द है")
+    assert client.get("/api/stt/status").json()["provider"] == "local"
+    res = client.post("/api/stt?language=hi", content=b"x" * 2000, headers={**as_user("ramesh"), "Content-Type": "audio/webm"})
+    assert res.json() == {"text": "मुझे सीने में दर्द है", "provider": "local"}
+    assert client.post("/api/stt?language=hi", content=b"x" * 10, headers={**as_user("ramesh"), "Content-Type": "audio/webm"}).status_code == 422
+
+def test_emergency_screen_tolerates_speech_recognition_errors():
+    from triage_engine import analyze_symptoms
+    # Whisper heard "छातीत दुखत ... श्वास घ्यायला त्रास" as below; it must still be an emergency.
+    assert analyze_symptoms("मला चातीत दुखता हे, और श्वास गयला त्रास होता हे.", "mr")["is_emergency"] is True
+    assert analyze_symptoms("मुझे सीने मे दरद है", "hi")["is_emergency"] is True
+    # ...without turning everyday sentences into emergencies
+    for text in ["मेरा दोस्त आया है", "मुझे दो दिन से हल्का बुखार और खांसी है", "या विषयावर माहिती द्या", "मला सर्दी आहे"]:
+        assert analyze_symptoms(text, "hi")["is_emergency"] is False, text

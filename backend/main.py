@@ -28,6 +28,7 @@ _load_env_files()
 from fastapi import FastAPI, Depends, HTTPException, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, StreamingResponse
+from fastapi.concurrency import run_in_threadpool
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from sqlalchemy import desc, func, or_, inspect
@@ -36,6 +37,7 @@ import models
 import schemas
 import ai_assistant
 import tts
+import stt_local
 from database import get_db, engine, Base, SessionLocal
 from triage_engine import analyze_symptoms
 from seed_data import seed_database
@@ -74,6 +76,8 @@ async def lifespan(_app: FastAPI):
         detect_missed_care(db)
     finally:
         db.close()
+    if not tts.stt_enabled():
+        stt_local.warm_up()
     yield
 
 
@@ -687,23 +691,42 @@ def stream_speech(clip_id: str):
     return StreamingResponse(chunks, media_type="audio/mpeg", headers={"Cache-Control": "no-store"})
 
 
+def _stt_provider() -> str:
+    tts.probe_stt()
+    if tts.stt_enabled():
+        return "elevenlabs"
+    return "local" if stt_local.available() else "browser"
+
+
 @app.get("/api/stt/status")
 def stt_status():
-    tts.probe_stt()
-    return {"provider": "elevenlabs" if tts.stt_enabled() else "browser"}
+    return {"provider": _stt_provider()}
 
 
 @app.post("/api/stt")
 async def speech_to_text(request: Request, language: str = "hi", current_user: models.User = Depends(get_current_user)):
-    """Transcribe a short voice recording (raw audio body) with ElevenLabs Scribe."""
-    if not tts.stt_enabled():
+    """Transcribe a short voice recording (raw audio body): ElevenLabs Scribe if the key allows it,
+    otherwise Whisper running on this computer."""
+    provider = _stt_provider()
+    if provider == "browser":
         raise HTTPException(status_code=503, detail="Speech-to-text is not configured")
     audio = await request.body()
+    if not audio or len(audio) < 1000:
+        raise HTTPException(status_code=422, detail="The recording was too short")
+    if len(audio) > tts.MAX_AUDIO_BYTES:
+        raise HTTPException(status_code=413, detail="The recording is too long")
+    if provider == "elevenlabs":
+        try:
+            return {"text": tts.transcribe(audio, request.headers.get("content-type", ""), language), "provider": "elevenlabs"}
+        except tts.TTSError as e:
+            if not stt_local.available():
+                raise HTTPException(status_code=502, detail=str(e))
     try:
-        text = tts.transcribe(audio, request.headers.get("content-type", ""), language)
-    except tts.TTSError as e:
-        raise HTTPException(status_code=502, detail=str(e))
-    return {"text": text, "provider": "elevenlabs"}
+        text = await run_in_threadpool(stt_local.transcribe, audio, language)
+    except Exception as e:
+        logger.warning("Offline transcription failed: %s", e)
+        raise HTTPException(status_code=502, detail="Could not transcribe the recording")
+    return {"text": text, "provider": "local"}
 
 
 # ----------------- FACILITIES, DOCTORS & READINESS -----------------

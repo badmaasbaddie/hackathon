@@ -17,9 +17,9 @@ export interface VoiceSession {
 
 const MAX_RECORDING_MS = 15000;
 
-// ElevenLabs Scribe is used when the server's key allows speech-to-text; otherwise the
-// browser's built-in recognition (Chrome / Edge).
-let providerPromise: Promise<'elevenlabs' | 'browser'> | null = null;
+// The server transcribes recordings with ElevenLabs Scribe (when the key allows it) or with
+// Whisper running on the server's computer; otherwise the browser's own recognition is used.
+let providerPromise: Promise<'server' | 'browser'> | null = null;
 let checkedAt = 0;
 const getProvider = () => {
   // Re-check now and then, so turning on the permission at ElevenLabs takes effect without a reload.
@@ -27,7 +27,7 @@ const getProvider = () => {
     checkedAt = Date.now();
     providerPromise = fetch('/api/stt/status')
       .then(r => (r.ok ? r.json() : { provider: 'browser' }))
-      .then(d => (d.provider === 'elevenlabs' ? 'elevenlabs' : 'browser'))
+      .then(d => (d.provider === 'elevenlabs' || d.provider === 'local' ? 'server' : 'browser'))
       .catch(() => 'browser' as const);
   }
   return providerPromise;
@@ -36,7 +36,7 @@ const getProvider = () => {
 const canRecord = () => typeof MediaRecorder !== 'undefined' && !!navigator.mediaDevices?.getUserMedia;
 const browserRecognition = () => (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
-const recordWithElevenLabs = async (language: Lang, h: VoiceHandlers): Promise<VoiceSession | null> => {
+const recordForServer = async (language: Lang, h: VoiceHandlers): Promise<VoiceSession | null> => {
   let stream: MediaStream;
   try {
     stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -124,6 +124,6 @@ const recognizeInBrowser = (language: Lang, h: VoiceHandlers): VoiceSession | nu
 };
 
 export const startVoiceInput = async (language: Lang, handlers: VoiceHandlers): Promise<VoiceSession | null> => {
-  if ((await getProvider()) === 'elevenlabs' && canRecord()) return recordWithElevenLabs(language, handlers);
+  if ((await getProvider()) === 'server' && canRecord()) return recordForServer(language, handlers);
   return recognizeInBrowser(language, handlers);
 };

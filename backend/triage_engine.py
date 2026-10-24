@@ -93,10 +93,33 @@ EMERGENCY_TEXT = {
 }
 
 
+# Speech recognition often confuses similar Devanagari sounds (छ/च, घ/ग, vowel signs,
+# doubled letters). For multi-word Devanagari phrases we therefore also compare a
+# consonant "skeleton". Single words are matched exactly, so a short word like "दस्त"
+# (diarrhoea) cannot match "दोस्त" (friend).
+_ASPIRATE = str.maketrans({
+    "ख": "क", "घ": "ग", "छ": "च", "झ": "ज", "ठ": "ट", "ढ": "ड",
+    "थ": "त", "ध": "द", "फ": "प", "भ": "ब", "ण": "न", "ष": "श", "ऴ": "ळ",
+})
+_DROP = re.compile("[\u093c\u0901\u0902\u0903\u093e-\u094d\u0962\u0963\u0905-\u0914.,!?।]")
+
+
+def _skeleton(text: str) -> str:
+    out = _DROP.sub("", text.translate(_ASPIRATE))
+    out = re.sub(r"(.)\1+", r"\1", out)  # collapse doubled letters
+    return re.sub(r"\s+", " ", out).strip()
+
+
+def _is_devanagari(text: str) -> bool:
+    return re.search("[\u0900-\u097f]", text) is not None
+
+
 def _matches(text: str, keyword: str) -> bool:
     # Devanagari has no reliable \b semantics, so use plain containment there.
-    if re.search(r"[ऀ-ॿ]", keyword):
-        return keyword in text
+    if _is_devanagari(keyword):
+        if keyword in text:
+            return True
+        return " " in keyword.strip() and _skeleton(keyword) in _skeleton(text)
     return re.search(r"(?<![a-z])" + re.escape(keyword) + r"(?![a-z])", text) is not None
 
 

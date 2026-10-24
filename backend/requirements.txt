@@ -8,6 +8,9 @@ joblib>=1.4
 numpy>=1.26
 # HTTP client (ElevenLabs read-aloud) and FastAPI test client
 httpx>=0.27
+# Offline voice input (Whisper); av<17 is needed by faster-whisper 1.2
+faster-whisper>=1.2
+av>=14,<17
 # Optional: enables the LLM-backed assistant when ANTHROPIC_API_KEY is set
 anthropic>=2.0
 # Tests
