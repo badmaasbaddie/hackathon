@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HealthWorkerTask, Patient } from '../types';
 import { api } from '../services/api';
+import { PatientMasterProfileModal } from './PatientMasterProfileModal';
 import { 
   Users, AlertCircle, CheckCircle2, Clock, MapPin, 
   Search, ShieldAlert, FileText, ChevronRight, Check
@@ -19,6 +20,7 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
   const [outcome, setOutcome] = useState<string>('PATIENT_VISITED_CLINIC');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [accessDeniedMessage, setAccessDeniedMessage] = useState<string | null>(null);
+  const [masterProfilePatientId, setMasterProfilePatientId] = useState<number | null>(null);
 
   const loadData = async () => {
     try {
@@ -175,18 +177,28 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
                       </p>
                     </div>
 
-                    {task.status !== 'RESOLVED' ? (
+                    <div className="flex items-center gap-2">
                       <button
-                        onClick={() => handleOpenTaskModal(task)}
-                        className="bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shadow-sm"
+                        onClick={() => setMasterProfilePatientId(task.patient_id)}
+                        className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-2.5 py-1.5 rounded-lg transition flex items-center gap-1 border border-slate-300"
+                        title="View Master Profile & Grounded AI Care Brief"
                       >
-                        Record Home Visit
+                        <FileText size={12} />
+                        <span>Profile & Labs</span>
                       </button>
-                    ) : (
-                      <span className="text-xs text-emerald-800 font-semibold flex items-center gap-1">
-                        <Check size={14} /> Resolved ({task.outcome})
-                      </span>
-                    )}
+                      {task.status !== 'RESOLVED' ? (
+                        <button
+                          onClick={() => handleOpenTaskModal(task)}
+                          className="bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shadow-sm"
+                        >
+                          Record Home Visit
+                        </button>
+                      ) : (
+                        <span className="text-xs text-emerald-800 font-semibold flex items-center gap-1">
+                          <Check size={14} /> Resolved ({task.outcome})
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {task.visit_notes && (
@@ -256,7 +268,12 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
                         Test Access (Scenario G)
                       </button>
                     ) : (
-                      <span className="text-[10px] text-slate-400 font-mono">{pat.phone}</span>
+                      <button
+                        onClick={() => setMasterProfilePatientId(pat.id)}
+                        className="text-[10px] text-teal-700 hover:text-teal-900 font-bold underline cursor-pointer"
+                      >
+                        View Master Record →
+                      </button>
                     )}
                   </div>
                 </div>
@@ -337,6 +354,14 @@ export const AshaPortal: React.FC<AshaPortalProps> = ({ language }) => {
             </form>
           </div>
         </div>
+      )}
+
+      {masterProfilePatientId && (
+        <PatientMasterProfileModal
+          patientId={masterProfilePatientId}
+          onClose={() => setMasterProfilePatientId(null)}
+          language={language}
+        />
       )}
     </div>
   );

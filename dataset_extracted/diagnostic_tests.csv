@@ -1,0 +1,401 @@
+test_id,test_name,hospital_id,available,availability_note
+T001,CBC,H001,True,Same day
+T002,Blood Sugar,H001,True,Same day
+T003,X-Ray,H001,True,Same day
+T004,ECG,H001,True,Same day
+T005,Lipid Profile,H001,True,Same day
+T006,Urine Test,H001,True,Same day
+T007,HbA1c,H001,True,Same day
+T008,Ultrasound,H001,False,Refer to nearby facility
+T001,CBC,H002,True,Same day
+T002,Blood Sugar,H002,True,Same day
+T003,X-Ray,H002,True,Same day
+T004,ECG,H002,True,Same day
+T005,Lipid Profile,H002,True,Same day
+T006,Urine Test,H002,True,Same day
+T007,HbA1c,H002,True,Same day
+T008,Ultrasound,H002,True,Same day
+T001,CBC,H003,True,Same day
+T002,Blood Sugar,H003,True,Same day
+T003,X-Ray,H003,True,Same day
+T004,ECG,H003,True,Same day
+T005,Lipid Profile,H003,True,Same day
+T006,Urine Test,H003,True,Same day
+T007,HbA1c,H003,True,Same day
+T008,Ultrasound,H003,True,Same day
+T001,CBC,H004,True,Same day
+T002,Blood Sugar,H004,True,Same day
+T003,X-Ray,H004,True,Same day
+T004,ECG,H004,False,Refer to nearby facility
+T005,Lipid Profile,H004,False,Refer to nearby facility
+T006,Urine Test,H004,False,Refer to nearby facility
+T007,HbA1c,H004,True,Same day
+T008,Ultrasound,H004,True,Same day
+T001,CBC,H005,True,Same day
+T002,Blood Sugar,H005,True,Same day
+T003,X-Ray,H005,True,Same day
+T004,ECG,H005,True,Same day
+T005,Lipid Profile,H005,False,Refer to nearby facility
+T006,Urine Test,H005,True,Same day
+T007,HbA1c,H005,False,Refer to nearby facility
+T008,Ultrasound,H005,True,Same day
+T001,CBC,H006,True,Same day
+T002,Blood Sugar,H006,True,Same day
+T003,X-Ray,H006,True,Same day
+T004,ECG,H006,False,Refer to nearby facility
+T005,Lipid Profile,H006,True,Same day
+T006,Urine Test,H006,False,Refer to nearby facility
+T007,HbA1c,H006,True,Same day
+T008,Ultrasound,H006,True,Same day
+T001,CBC,H007,True,Same day
+T002,Blood Sugar,H007,True,Same day
+T003,X-Ray,H007,True,Same day
+T004,ECG,H007,True,Same day
+T005,Lipid Profile,H007,False,Refer to nearby facility
+T006,Urine Test,H007,True,Same day
+T007,HbA1c,H007,True,Same day
+T008,Ultrasound,H007,True,Same day
+T001,CBC,H008,False,Refer to nearby facility
+T002,Blood Sugar,H008,True,Same day
+T003,X-Ray,H008,True,Same day
+T004,ECG,H008,True,Same day
+T005,Lipid Profile,H008,True,Same day
+T006,Urine Test,H008,True,Same day
+T007,HbA1c,H008,True,Same day
+T008,Ultrasound,H008,True,Same day
+T001,CBC,H009,True,Same day
+T002,Blood Sugar,H009,True,Same day
+T003,X-Ray,H009,False,Refer to nearby facility
+T004,ECG,H009,True,Same day
+T005,Lipid Profile,H009,True,Same day
+T006,Urine Test,H009,True,Same day
+T007,HbA1c,H009,True,Same day
+T008,Ultrasound,H009,False,Refer to nearby facility
+T001,CBC,H010,False,Refer to nearby facility
+T002,Blood Sugar,H010,True,Same day
+T003,X-Ray,H010,True,Same day
+T004,ECG,H010,True,Same day
+T005,Lipid Profile,H010,True,Same day
+T006,Urine Test,H010,False,Refer to nearby facility
+T007,HbA1c,H010,True,Same day
+T008,Ultrasound,H010,True,Same day
+T001,CBC,H011,True,Same day
+T002,Blood Sugar,H011,False,Refer to nearby facility
+T003,X-Ray,H011,True,Same day
+T004,ECG,H011,True,Same day
+T005,Lipid Profile,H011,False,Refer to nearby facility
+T006,Urine Test,H011,False,Refer to nearby facility
+T007,HbA1c,H011,True,Same day
+T008,Ultrasound,H011,True,Same day
+T001,CBC,H012,False,Refer to nearby facility
+T002,Blood Sugar,H012,True,Same day
+T003,X-Ray,H012,True,Same day
+T004,ECG,H012,False,Refer to nearby facility
+T005,Lipid Profile,H012,False,Refer to nearby facility
+T006,Urine Test,H012,True,Same day
+T007,HbA1c,H012,False,Refer to nearby facility
+T008,Ultrasound,H012,True,Same day
+T001,CBC,H013,True,Same day
+T002,Blood Sugar,H013,False,Refer to nearby facility
+T003,X-Ray,H013,True,Same day
+T004,ECG,H013,True,Same day
+T005,Lipid Profile,H013,True,Same day
+T006,Urine Test,H013,True,Same day
+T007,HbA1c,H013,True,Same day
+T008,Ultrasound,H013,True,Same day
+T001,CBC,H014,False,Refer to nearby facility
+T002,Blood Sugar,H014,True,Same day
+T003,X-Ray,H014,True,Same day
+T004,ECG,H014,True,Same day
+T005,Lipid Profile,H014,True,Same day
+T006,Urine Test,H014,False,Refer to nearby facility
+T007,HbA1c,H014,True,Same day
+T008,Ultrasound,H014,True,Same day
+T001,CBC,H015,True,Same day
+T002,Blood Sugar,H015,True,Same day
+T003,X-Ray,H015,False,Refer to nearby facility
+T004,ECG,H015,True,Same day
+T005,Lipid Profile,H015,True,Same day
+T006,Urine Test,H015,True,Same day
+T007,HbA1c,H015,True,Same day
+T008,Ultrasound,H015,True,Same day
+T001,CBC,H016,True,Same day
+T002,Blood Sugar,H016,True,Same day
+T003,X-Ray,H016,True,Same day
+T004,ECG,H016,True,Same day
+T005,Lipid Profile,H016,True,Same day
+T006,Urine Test,H016,True,Same day
+T007,HbA1c,H016,True,Same day
+T008,Ultrasound,H016,True,Same day
+T001,CBC,H017,True,Same day
+T002,Blood Sugar,H017,False,Refer to nearby facility
+T003,X-Ray,H017,True,Same day
+T004,ECG,H017,True,Same day
+T005,Lipid Profile,H017,True,Same day
+T006,Urine Test,H017,True,Same day
+T007,HbA1c,H017,True,Same day
+T008,Ultrasound,H017,False,Refer to nearby facility
+T001,CBC,H018,False,Refer to nearby facility
+T002,Blood Sugar,H018,True,Same day
+T003,X-Ray,H018,True,Same day
+T004,ECG,H018,True,Same day
+T005,Lipid Profile,H018,True,Same day
+T006,Urine Test,H018,True,Same day
+T007,HbA1c,H018,True,Same day
+T008,Ultrasound,H018,True,Same day
+T001,CBC,H019,True,Same day
+T002,Blood Sugar,H019,True,Same day
+T003,X-Ray,H019,False,Refer to nearby facility
+T004,ECG,H019,True,Same day
+T005,Lipid Profile,H019,True,Same day
+T006,Urine Test,H019,True,Same day
+T007,HbA1c,H019,True,Same day
+T008,Ultrasound,H019,True,Same day
+T001,CBC,H020,True,Same day
+T002,Blood Sugar,H020,True,Same day
+T003,X-Ray,H020,True,Same day
+T004,ECG,H020,True,Same day
+T005,Lipid Profile,H020,True,Same day
+T006,Urine Test,H020,True,Same day
+T007,HbA1c,H020,True,Same day
+T008,Ultrasound,H020,False,Refer to nearby facility
+T001,CBC,H021,True,Same day
+T002,Blood Sugar,H021,True,Same day
+T003,X-Ray,H021,False,Refer to nearby facility
+T004,ECG,H021,True,Same day
+T005,Lipid Profile,H021,True,Same day
+T006,Urine Test,H021,True,Same day
+T007,HbA1c,H021,True,Same day
+T008,Ultrasound,H021,False,Refer to nearby facility
+T001,CBC,H022,True,Same day
+T002,Blood Sugar,H022,True,Same day
+T003,X-Ray,H022,True,Same day
+T004,ECG,H022,False,Refer to nearby facility
+T005,Lipid Profile,H022,True,Same day
+T006,Urine Test,H022,True,Same day
+T007,HbA1c,H022,False,Refer to nearby facility
+T008,Ultrasound,H022,True,Same day
+T001,CBC,H023,False,Refer to nearby facility
+T002,Blood Sugar,H023,True,Same day
+T003,X-Ray,H023,True,Same day
+T004,ECG,H023,False,Refer to nearby facility
+T005,Lipid Profile,H023,True,Same day
+T006,Urine Test,H023,True,Same day
+T007,HbA1c,H023,True,Same day
+T008,Ultrasound,H023,True,Same day
+T001,CBC,H024,True,Same day
+T002,Blood Sugar,H024,False,Refer to nearby facility
+T003,X-Ray,H024,True,Same day
+T004,ECG,H024,True,Same day
+T005,Lipid Profile,H024,True,Same day
+T006,Urine Test,H024,True,Same day
+T007,HbA1c,H024,True,Same day
+T008,Ultrasound,H024,False,Refer to nearby facility
+T001,CBC,H025,False,Refer to nearby facility
+T002,Blood Sugar,H025,False,Refer to nearby facility
+T003,X-Ray,H025,True,Same day
+T004,ECG,H025,True,Same day
+T005,Lipid Profile,H025,False,Refer to nearby facility
+T006,Urine Test,H025,True,Same day
+T007,HbA1c,H025,False,Refer to nearby facility
+T008,Ultrasound,H025,True,Same day
+T001,CBC,H026,True,Same day
+T002,Blood Sugar,H026,False,Refer to nearby facility
+T003,X-Ray,H026,True,Same day
+T004,ECG,H026,True,Same day
+T005,Lipid Profile,H026,True,Same day
+T006,Urine Test,H026,False,Refer to nearby facility
+T007,HbA1c,H026,True,Same day
+T008,Ultrasound,H026,False,Refer to nearby facility
+T001,CBC,H027,False,Refer to nearby facility
+T002,Blood Sugar,H027,True,Same day
+T003,X-Ray,H027,True,Same day
+T004,ECG,H027,True,Same day
+T005,Lipid Profile,H027,True,Same day
+T006,Urine Test,H027,True,Same day
+T007,HbA1c,H027,True,Same day
+T008,Ultrasound,H027,True,Same day
+T001,CBC,H028,False,Refer to nearby facility
+T002,Blood Sugar,H028,False,Refer to nearby facility
+T003,X-Ray,H028,True,Same day
+T004,ECG,H028,True,Same day
+T005,Lipid Profile,H028,True,Same day
+T006,Urine Test,H028,False,Refer to nearby facility
+T007,HbA1c,H028,True,Same day
+T008,Ultrasound,H028,True,Same day
+T001,CBC,H029,True,Same day
+T002,Blood Sugar,H029,True,Same day
+T003,X-Ray,H029,False,Refer to nearby facility
+T004,ECG,H029,True,Same day
+T005,Lipid Profile,H029,True,Same day
+T006,Urine Test,H029,True,Same day
+T007,HbA1c,H029,True,Same day
+T008,Ultrasound,H029,True,Same day
+T001,CBC,H030,True,Same day
+T002,Blood Sugar,H030,True,Same day
+T003,X-Ray,H030,True,Same day
+T004,ECG,H030,True,Same day
+T005,Lipid Profile,H030,True,Same day
+T006,Urine Test,H030,True,Same day
+T007,HbA1c,H030,True,Same day
+T008,Ultrasound,H030,True,Same day
+T001,CBC,H031,True,Same day
+T002,Blood Sugar,H031,False,Refer to nearby facility
+T003,X-Ray,H031,False,Refer to nearby facility
+T004,ECG,H031,False,Refer to nearby facility
+T005,Lipid Profile,H031,True,Same day
+T006,Urine Test,H031,True,Same day
+T007,HbA1c,H031,True,Same day
+T008,Ultrasound,H031,False,Refer to nearby facility
+T001,CBC,H032,True,Same day
+T002,Blood Sugar,H032,False,Refer to nearby facility
+T003,X-Ray,H032,True,Same day
+T004,ECG,H032,True,Same day
+T005,Lipid Profile,H032,True,Same day
+T006,Urine Test,H032,True,Same day
+T007,HbA1c,H032,True,Same day
+T008,Ultrasound,H032,True,Same day
+T001,CBC,H033,False,Refer to nearby facility
+T002,Blood Sugar,H033,False,Refer to nearby facility
+T003,X-Ray,H033,True,Same day
+T004,ECG,H033,False,Refer to nearby facility
+T005,Lipid Profile,H033,False,Refer to nearby facility
+T006,Urine Test,H033,True,Same day
+T007,HbA1c,H033,False,Refer to nearby facility
+T008,Ultrasound,H033,True,Same day
+T001,CBC,H034,True,Same day
+T002,Blood Sugar,H034,True,Same day
+T003,X-Ray,H034,True,Same day
+T004,ECG,H034,True,Same day
+T005,Lipid Profile,H034,True,Same day
+T006,Urine Test,H034,True,Same day
+T007,HbA1c,H034,False,Refer to nearby facility
+T008,Ultrasound,H034,True,Same day
+T001,CBC,H035,True,Same day
+T002,Blood Sugar,H035,True,Same day
+T003,X-Ray,H035,True,Same day
+T004,ECG,H035,True,Same day
+T005,Lipid Profile,H035,False,Refer to nearby facility
+T006,Urine Test,H035,True,Same day
+T007,HbA1c,H035,False,Refer to nearby facility
+T008,Ultrasound,H035,True,Same day
+T001,CBC,H036,True,Same day
+T002,Blood Sugar,H036,True,Same day
+T003,X-Ray,H036,False,Refer to nearby facility
+T004,ECG,H036,True,Same day
+T005,Lipid Profile,H036,True,Same day
+T006,Urine Test,H036,True,Same day
+T007,HbA1c,H036,True,Same day
+T008,Ultrasound,H036,True,Same day
+T001,CBC,H037,True,Same day
+T002,Blood Sugar,H037,False,Refer to nearby facility
+T003,X-Ray,H037,True,Same day
+T004,ECG,H037,True,Same day
+T005,Lipid Profile,H037,False,Refer to nearby facility
+T006,Urine Test,H037,True,Same day
+T007,HbA1c,H037,True,Same day
+T008,Ultrasound,H037,True,Same day
+T001,CBC,H038,True,Same day
+T002,Blood Sugar,H038,True,Same day
+T003,X-Ray,H038,False,Refer to nearby facility
+T004,ECG,H038,True,Same day
+T005,Lipid Profile,H038,True,Same day
+T006,Urine Test,H038,True,Same day
+T007,HbA1c,H038,True,Same day
+T008,Ultrasound,H038,True,Same day
+T001,CBC,H039,True,Same day
+T002,Blood Sugar,H039,True,Same day
+T003,X-Ray,H039,True,Same day
+T004,ECG,H039,True,Same day
+T005,Lipid Profile,H039,True,Same day
+T006,Urine Test,H039,True,Same day
+T007,HbA1c,H039,True,Same day
+T008,Ultrasound,H039,False,Refer to nearby facility
+T001,CBC,H040,True,Same day
+T002,Blood Sugar,H040,True,Same day
+T003,X-Ray,H040,True,Same day
+T004,ECG,H040,True,Same day
+T005,Lipid Profile,H040,True,Same day
+T006,Urine Test,H040,True,Same day
+T007,HbA1c,H040,True,Same day
+T008,Ultrasound,H040,True,Same day
+T001,CBC,H041,True,Same day
+T002,Blood Sugar,H041,True,Same day
+T003,X-Ray,H041,False,Refer to nearby facility
+T004,ECG,H041,True,Same day
+T005,Lipid Profile,H041,True,Same day
+T006,Urine Test,H041,True,Same day
+T007,HbA1c,H041,True,Same day
+T008,Ultrasound,H041,True,Same day
+T001,CBC,H042,True,Same day
+T002,Blood Sugar,H042,True,Same day
+T003,X-Ray,H042,False,Refer to nearby facility
+T004,ECG,H042,True,Same day
+T005,Lipid Profile,H042,False,Refer to nearby facility
+T006,Urine Test,H042,True,Same day
+T007,HbA1c,H042,True,Same day
+T008,Ultrasound,H042,True,Same day
+T001,CBC,H043,True,Same day
+T002,Blood Sugar,H043,True,Same day
+T003,X-Ray,H043,True,Same day
+T004,ECG,H043,True,Same day
+T005,Lipid Profile,H043,False,Refer to nearby facility
+T006,Urine Test,H043,True,Same day
+T007,HbA1c,H043,False,Refer to nearby facility
+T008,Ultrasound,H043,True,Same day
+T001,CBC,H044,True,Same day
+T002,Blood Sugar,H044,True,Same day
+T003,X-Ray,H044,True,Same day
+T004,ECG,H044,True,Same day
+T005,Lipid Profile,H044,False,Refer to nearby facility
+T006,Urine Test,H044,True,Same day
+T007,HbA1c,H044,True,Same day
+T008,Ultrasound,H044,True,Same day
+T001,CBC,H045,True,Same day
+T002,Blood Sugar,H045,True,Same day
+T003,X-Ray,H045,False,Refer to nearby facility
+T004,ECG,H045,True,Same day
+T005,Lipid Profile,H045,True,Same day
+T006,Urine Test,H045,True,Same day
+T007,HbA1c,H045,True,Same day
+T008,Ultrasound,H045,True,Same day
+T001,CBC,H046,True,Same day
+T002,Blood Sugar,H046,True,Same day
+T003,X-Ray,H046,True,Same day
+T004,ECG,H046,True,Same day
+T005,Lipid Profile,H046,True,Same day
+T006,Urine Test,H046,True,Same day
+T007,HbA1c,H046,True,Same day
+T008,Ultrasound,H046,True,Same day
+T001,CBC,H047,True,Same day
+T002,Blood Sugar,H047,True,Same day
+T003,X-Ray,H047,True,Same day
+T004,ECG,H047,True,Same day
+T005,Lipid Profile,H047,False,Refer to nearby facility
+T006,Urine Test,H047,True,Same day
+T007,HbA1c,H047,True,Same day
+T008,Ultrasound,H047,False,Refer to nearby facility
+T001,CBC,H048,True,Same day
+T002,Blood Sugar,H048,True,Same day
+T003,X-Ray,H048,True,Same day
+T004,ECG,H048,True,Same day
+T005,Lipid Profile,H048,True,Same day
+T006,Urine Test,H048,False,Refer to nearby facility
+T007,HbA1c,H048,True,Same day
+T008,Ultrasound,H048,True,Same day
+T001,CBC,H049,True,Same day
+T002,Blood Sugar,H049,True,Same day
+T003,X-Ray,H049,True,Same day
+T004,ECG,H049,True,Same day
+T005,Lipid Profile,H049,True,Same day
+T006,Urine Test,H049,True,Same day
+T007,HbA1c,H049,True,Same day
+T008,Ultrasound,H049,True,Same day
+T001,CBC,H050,True,Same day
+T002,Blood Sugar,H050,True,Same day
+T003,X-Ray,H050,True,Same day
+T004,ECG,H050,False,Refer to nearby facility
+T005,Lipid Profile,H050,True,Same day
+T006,Urine Test,H050,True,Same day
+T007,HbA1c,H050,True,Same day
+T008,Ultrasound,H050,True,Same day

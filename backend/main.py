@@ -16,10 +16,11 @@ from database import get_db, engine, Base
 from triage_engine import analyze_symptoms
 from seed_data import seed_database
 from ml_model import train_model, predict_care_pathway, INFO_FILE
+import monitoring_routes
 
 app = FastAPI(
     title="SwasthyaSetu AI API",
-    description="Rural Healthcare Navigation, Coordination & Continuity Platform API (Govt. of Maharashtra Hacktoberfest)",
+    description="Rural Healthcare Navigation, Coordination & Continuity Platform API",
     version="1.0.0"
 )
 
@@ -31,6 +32,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(monitoring_routes.router)
 
 def utcnow():
     return datetime.datetime.now(datetime.timezone.utc)
@@ -149,16 +152,40 @@ def get_me(current_user: models.User = Depends(get_current_user)):
 # ----------------- PATIENTS & FAMILY -----------------
 @app.get("/api/patients", response_model=List[schemas.PatientOut])
 def list_patients(
+    search: Optional[str] = None,
     village: Optional[str] = None,
+    condition: Optional[str] = None,
+    care_status: Optional[str] = None,
+    overdue_only: Optional[bool] = False,
+    limit: int = 1500,
+    offset: int = 0,
     current_user: models.User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     query = db.query(models.Patient)
+    if search:
+        s = f"%{search.strip()}%"
+        query = query.filter(
+            (models.Patient.name.ilike(s)) |
+            (models.Patient.external_id.ilike(s)) |
+            (models.Patient.abha_id.ilike(s))
+        )
     if village:
-        query = query.filter(models.Patient.village.ilike(f"%{village}%"))
-    
-    # If ASHA, can see patients in their assigned scope or filter
-    patients = query.all()
+        query = query.filter(models.Patient.village.ilike(f"%{village.strip()}%"))
+    if condition:
+        query = query.filter(models.Patient.chronic_conditions.ilike(f"%{condition.strip()}%"))
+    if care_status:
+        query = query.filter(models.Patient.care_status == care_status.strip().upper())
+    if overdue_only:
+        # Filter patients who have overdue follow-ups
+        overdue_patient_ids = [
+            f.patient_id for f in db.query(models.FollowUpPlan.patient_id).filter(
+                models.FollowUpPlan.status.in_(["OVERDUE", "MISSED"])
+            ).all()
+        ]
+        query = query.filter(models.Patient.id.in_(overdue_patient_ids))
+
+    patients = query.order_by(models.Patient.id).offset(offset).limit(limit).all()
     return patients
 
 @app.get("/api/patients/{patient_id}", response_model=schemas.PatientOut)
@@ -644,7 +671,7 @@ def list_health_worker_tasks(
     if asha_worker_id:
         q = q.filter(models.HealthWorkerTask.asha_worker_id == asha_worker_id)
     if status:
-        q = q.filter(models.HealthWorkerTask.status == status)
+        q = q.filter(models.HealthWorkerTask.status.ilike(f"%{status}%"))
     
     tasks = q.order_by(desc(models.HealthWorkerTask.priority)).all()
     for t in tasks:
@@ -793,7 +820,7 @@ def get_admin_metrics(db: Session = Depends(get_db)):
     tot_apts = db.query(models.Appointment).count()
     completed_apts = db.query(models.Appointment).filter(models.Appointment.status == "COMPLETED").count()
     pending_apts = db.query(models.Appointment).filter(models.Appointment.status == "BOOKED").count()
-    overdue_fups = db.query(models.FollowUpPlan).filter(models.FollowUpPlan.status == "OVERDUE").count()
+    overdue_fups = db.query(models.FollowUpPlan).filter(models.FollowUpPlan.status.in_(["OVERDUE", "MISSED"])).count()
     open_tasks = db.query(models.HealthWorkerTask).filter(models.HealthWorkerTask.status.in_(["OPEN", "IN_PROGRESS"])).count()
     resolved_tasks = db.query(models.HealthWorkerTask).filter(models.HealthWorkerTask.status == "RESOLVED").count()
     emergency_alerts = db.query(models.SymptomIntake).filter(models.SymptomIntake.emergency_triaged == True).count()

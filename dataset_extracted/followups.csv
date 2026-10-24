@@ -1,0 +1,1001 @@
+followup_id,patient_id,due_date,care_type,status,next_action
+F0001,P0001,2026-11-12,Child vaccination,Due,Reminder scheduled
+F0002,P0002,2026-12-17,Child vaccination,Completed,None
+F0003,P0003,2026-11-13,Diabetes follow-up,Scheduled,Reminder scheduled
+F0004,P0004,2026-12-23,Child vaccination,Due,Reminder scheduled
+F0005,P0005,2027-01-20,BP review,Due,Reminder scheduled
+F0006,P0006,2027-01-27,Child vaccination,Scheduled,Reminder scheduled
+F0007,P0007,2026-12-11,BP review,Scheduled,Reminder scheduled
+F0008,P0008,2026-11-24,Diabetes follow-up,Missed,Health worker follow-up
+F0009,P0009,2026-11-23,Diabetes follow-up,Due,Reminder scheduled
+F0010,P0010,2026-12-14,Child vaccination,Missed,Health worker follow-up
+F0011,P0011,2027-01-18,BP review,Due,Reminder scheduled
+F0012,P0012,2027-01-06,Diabetes follow-up,Missed,Health worker follow-up
+F0013,P0013,2026-11-25,Routine consultation,Due,Reminder scheduled
+F0014,P0014,2026-11-03,BP review,Completed,None
+F0015,P0015,2026-12-17,BP review,Due,Reminder scheduled
+F0016,P0016,2026-11-04,BP review,Missed,Health worker follow-up
+F0017,P0017,2026-11-29,BP review,Due,Reminder scheduled
+F0018,P0018,2026-12-05,Child vaccination,Missed,Health worker follow-up
+F0019,P0019,2026-11-26,Pregnancy check-up,Due,Reminder scheduled
+F0020,P0020,2027-01-30,Child vaccination,Missed,Health worker follow-up
+F0021,P0021,2027-01-03,Routine consultation,Scheduled,Reminder scheduled
+F0022,P0022,2026-12-22,Pregnancy check-up,Completed,None
+F0023,P0023,2026-11-23,Pregnancy check-up,Completed,None
+F0024,P0024,2026-12-21,Routine consultation,Due,Reminder scheduled
+F0025,P0025,2027-01-15,BP review,Missed,Health worker follow-up
+F0026,P0026,2026-11-27,Child vaccination,Scheduled,Reminder scheduled
+F0027,P0027,2026-12-28,Routine consultation,Scheduled,Reminder scheduled
+F0028,P0028,2026-12-05,Routine consultation,Missed,Health worker follow-up
+F0029,P0029,2026-11-14,Child vaccination,Scheduled,Reminder scheduled
+F0030,P0030,2026-11-26,Pregnancy check-up,Missed,Health worker follow-up
+F0031,P0031,2027-01-20,Child vaccination,Due,Reminder scheduled
+F0032,P0032,2026-11-22,Routine consultation,Due,Reminder scheduled
+F0033,P0033,2026-12-03,Pregnancy check-up,Scheduled,Reminder scheduled
+F0034,P0034,2027-01-17,Child vaccination,Missed,Health worker follow-up
+F0035,P0035,2026-11-04,BP review,Due,Reminder scheduled
+F0036,P0036,2026-12-12,BP review,Scheduled,Reminder scheduled
+F0037,P0037,2026-12-16,Diabetes follow-up,Completed,None
+F0038,P0038,2026-11-28,Pregnancy check-up,Missed,Health worker follow-up
+F0039,P0039,2026-11-19,Diabetes follow-up,Missed,Health worker follow-up
+F0040,P0040,2026-11-02,Diabetes follow-up,Missed,Health worker follow-up
+F0041,P0041,2026-12-13,Child vaccination,Completed,None
+F0042,P0042,2027-01-12,BP review,Missed,Health worker follow-up
+F0043,P0043,2027-01-11,Child vaccination,Due,Reminder scheduled
+F0044,P0044,2026-12-07,Routine consultation,Completed,None
+F0045,P0045,2026-11-28,Routine consultation,Due,Reminder scheduled
+F0046,P0046,2026-12-06,Routine consultation,Due,Reminder scheduled
+F0047,P0047,2027-01-22,Child vaccination,Scheduled,Reminder scheduled
+F0048,P0048,2026-12-11,BP review,Missed,Health worker follow-up
+F0049,P0049,2026-11-26,Child vaccination,Due,Reminder scheduled
+F0050,P0050,2027-01-03,Pregnancy check-up,Due,Reminder scheduled
+F0051,P0051,2026-12-24,Diabetes follow-up,Due,Reminder scheduled
+F0052,P0052,2026-12-28,Routine consultation,Completed,None
+F0053,P0053,2026-12-12,BP review,Scheduled,Reminder scheduled
+F0054,P0054,2027-01-13,Pregnancy check-up,Due,Reminder scheduled
+F0055,P0055,2026-11-03,Child vaccination,Due,Reminder scheduled
+F0056,P0056,2026-12-07,Child vaccination,Completed,None
+F0057,P0057,2026-11-05,Pregnancy check-up,Due,Reminder scheduled
+F0058,P0058,2027-01-22,Diabetes follow-up,Due,Reminder scheduled
+F0059,P0059,2026-12-31,Child vaccination,Due,Reminder scheduled
+F0060,P0060,2026-12-09,Pregnancy check-up,Missed,Health worker follow-up
+F0061,P0061,2026-12-15,Diabetes follow-up,Scheduled,Reminder scheduled
+F0062,P0062,2027-01-11,Child vaccination,Missed,Health worker follow-up
+F0063,P0063,2027-01-18,Child vaccination,Due,Reminder scheduled
+F0064,P0064,2026-12-09,Child vaccination,Scheduled,Reminder scheduled
+F0065,P0065,2027-01-22,Pregnancy check-up,Due,Reminder scheduled
+F0066,P0066,2027-01-19,Diabetes follow-up,Due,Reminder scheduled
+F0067,P0067,2026-11-29,Diabetes follow-up,Due,Reminder scheduled
+F0068,P0068,2026-11-18,Pregnancy check-up,Due,Reminder scheduled
+F0069,P0069,2027-01-28,BP review,Scheduled,Reminder scheduled
+F0070,P0070,2026-11-22,BP review,Due,Reminder scheduled
+F0071,P0071,2026-12-18,Diabetes follow-up,Due,Reminder scheduled
+F0072,P0072,2026-12-04,Diabetes follow-up,Due,Reminder scheduled
+F0073,P0073,2026-11-07,Diabetes follow-up,Missed,Health worker follow-up
+F0074,P0074,2026-12-04,Routine consultation,Missed,Health worker follow-up
+F0075,P0075,2026-12-19,BP review,Missed,Health worker follow-up
+F0076,P0076,2026-11-18,Diabetes follow-up,Scheduled,Reminder scheduled
+F0077,P0077,2026-11-17,BP review,Missed,Health worker follow-up
+F0078,P0078,2027-01-14,Child vaccination,Scheduled,Reminder scheduled
+F0079,P0079,2027-01-25,Routine consultation,Due,Reminder scheduled
+F0080,P0080,2027-01-07,Routine consultation,Completed,None
+F0081,P0081,2027-01-01,Pregnancy check-up,Scheduled,Reminder scheduled
+F0082,P0082,2026-12-12,BP review,Scheduled,Reminder scheduled
+F0083,P0083,2026-11-12,Pregnancy check-up,Missed,Health worker follow-up
+F0084,P0084,2026-11-11,Routine consultation,Missed,Health worker follow-up
+F0085,P0085,2026-12-02,Diabetes follow-up,Completed,None
+F0086,P0086,2026-11-10,Diabetes follow-up,Scheduled,Reminder scheduled
+F0087,P0087,2026-11-28,BP review,Due,Reminder scheduled
+F0088,P0088,2026-12-30,BP review,Scheduled,Reminder scheduled
+F0089,P0089,2027-01-02,Pregnancy check-up,Due,Reminder scheduled
+F0090,P0090,2026-11-27,Pregnancy check-up,Missed,Health worker follow-up
+F0091,P0091,2027-01-30,BP review,Scheduled,Reminder scheduled
+F0092,P0092,2027-01-04,BP review,Due,Reminder scheduled
+F0093,P0093,2026-11-29,Child vaccination,Missed,Health worker follow-up
+F0094,P0094,2026-12-28,Child vaccination,Completed,None
+F0095,P0095,2026-11-25,Pregnancy check-up,Due,Reminder scheduled
+F0096,P0096,2026-12-25,Pregnancy check-up,Completed,None
+F0097,P0097,2027-01-13,BP review,Due,Reminder scheduled
+F0098,P0098,2026-12-30,Diabetes follow-up,Due,Reminder scheduled
+F0099,P0099,2026-12-01,Child vaccination,Due,Reminder scheduled
+F0100,P0100,2026-11-24,Diabetes follow-up,Missed,Health worker follow-up
+F0101,P0101,2026-12-31,Pregnancy check-up,Scheduled,Reminder scheduled
+F0102,P0102,2026-12-04,Routine consultation,Due,Reminder scheduled
+F0103,P0103,2026-11-11,Child vaccination,Missed,Health worker follow-up
+F0104,P0104,2026-11-28,Child vaccination,Completed,None
+F0105,P0105,2027-01-04,Routine consultation,Scheduled,Reminder scheduled
+F0106,P0106,2026-12-13,Child vaccination,Due,Reminder scheduled
+F0107,P0107,2026-12-05,Diabetes follow-up,Missed,Health worker follow-up
+F0108,P0108,2026-11-07,Child vaccination,Scheduled,Reminder scheduled
+F0109,P0109,2026-11-25,BP review,Missed,Health worker follow-up
+F0110,P0110,2026-12-22,Routine consultation,Completed,None
+F0111,P0111,2026-12-06,Routine consultation,Scheduled,Reminder scheduled
+F0112,P0112,2026-12-26,Diabetes follow-up,Due,Reminder scheduled
+F0113,P0113,2027-01-22,Diabetes follow-up,Completed,None
+F0114,P0114,2026-11-29,Diabetes follow-up,Due,Reminder scheduled
+F0115,P0115,2026-11-05,BP review,Missed,Health worker follow-up
+F0116,P0116,2026-11-09,Pregnancy check-up,Due,Reminder scheduled
+F0117,P0117,2026-11-29,Child vaccination,Scheduled,Reminder scheduled
+F0118,P0118,2026-12-21,BP review,Due,Reminder scheduled
+F0119,P0119,2027-01-28,Child vaccination,Missed,Health worker follow-up
+F0120,P0120,2026-11-27,BP review,Completed,None
+F0121,P0121,2026-12-15,Routine consultation,Missed,Health worker follow-up
+F0122,P0122,2026-12-07,Diabetes follow-up,Due,Reminder scheduled
+F0123,P0123,2026-11-24,Pregnancy check-up,Scheduled,Reminder scheduled
+F0124,P0124,2027-01-28,BP review,Completed,None
+F0125,P0125,2026-12-11,BP review,Due,Reminder scheduled
+F0126,P0126,2026-11-24,Child vaccination,Missed,Health worker follow-up
+F0127,P0127,2026-11-19,Child vaccination,Due,Reminder scheduled
+F0128,P0128,2026-12-25,Diabetes follow-up,Missed,Health worker follow-up
+F0129,P0129,2026-11-23,Diabetes follow-up,Missed,Health worker follow-up
+F0130,P0130,2026-11-22,Routine consultation,Due,Reminder scheduled
+F0131,P0131,2026-12-16,Routine consultation,Scheduled,Reminder scheduled
+F0132,P0132,2026-11-01,BP review,Scheduled,Reminder scheduled
+F0133,P0133,2026-12-31,Diabetes follow-up,Due,Reminder scheduled
+F0134,P0134,2026-11-03,BP review,Missed,Health worker follow-up
+F0135,P0135,2027-01-07,BP review,Completed,None
+F0136,P0136,2026-11-13,Pregnancy check-up,Due,Reminder scheduled
+F0137,P0137,2026-12-13,Child vaccination,Scheduled,Reminder scheduled
+F0138,P0138,2026-12-15,Child vaccination,Missed,Health worker follow-up
+F0139,P0139,2026-12-03,Child vaccination,Missed,Health worker follow-up
+F0140,P0140,2026-11-02,Pregnancy check-up,Missed,Health worker follow-up
+F0141,P0141,2027-01-30,Routine consultation,Missed,Health worker follow-up
+F0142,P0142,2027-01-24,Diabetes follow-up,Scheduled,Reminder scheduled
+F0143,P0143,2026-12-05,BP review,Due,Reminder scheduled
+F0144,P0144,2026-12-23,BP review,Completed,None
+F0145,P0145,2026-12-16,Diabetes follow-up,Scheduled,Reminder scheduled
+F0146,P0146,2026-12-02,Pregnancy check-up,Scheduled,Reminder scheduled
+F0147,P0147,2026-11-27,BP review,Due,Reminder scheduled
+F0148,P0148,2026-12-19,Pregnancy check-up,Due,Reminder scheduled
+F0149,P0149,2027-01-20,Routine consultation,Scheduled,Reminder scheduled
+F0150,P0150,2026-11-23,Pregnancy check-up,Missed,Health worker follow-up
+F0151,P0151,2026-12-13,Routine consultation,Scheduled,Reminder scheduled
+F0152,P0152,2026-12-24,Pregnancy check-up,Missed,Health worker follow-up
+F0153,P0153,2026-11-25,Routine consultation,Due,Reminder scheduled
+F0154,P0154,2027-01-06,Routine consultation,Missed,Health worker follow-up
+F0155,P0155,2026-11-16,Child vaccination,Scheduled,Reminder scheduled
+F0156,P0156,2027-01-12,Pregnancy check-up,Missed,Health worker follow-up
+F0157,P0157,2026-11-15,Child vaccination,Due,Reminder scheduled
+F0158,P0158,2027-01-27,Child vaccination,Completed,None
+F0159,P0159,2027-01-27,Routine consultation,Completed,None
+F0160,P0160,2026-12-08,Pregnancy check-up,Completed,None
+F0161,P0161,2027-01-02,Diabetes follow-up,Missed,Health worker follow-up
+F0162,P0162,2026-12-08,Child vaccination,Due,Reminder scheduled
+F0163,P0163,2026-11-06,Pregnancy check-up,Completed,None
+F0164,P0164,2027-01-15,Diabetes follow-up,Due,Reminder scheduled
+F0165,P0165,2027-01-02,Diabetes follow-up,Missed,Health worker follow-up
+F0166,P0166,2026-12-26,Diabetes follow-up,Missed,Health worker follow-up
+F0167,P0167,2026-11-07,BP review,Missed,Health worker follow-up
+F0168,P0168,2026-12-15,Routine consultation,Missed,Health worker follow-up
+F0169,P0169,2027-01-25,Diabetes follow-up,Completed,None
+F0170,P0170,2026-12-05,BP review,Completed,None
+F0171,P0171,2026-12-26,Pregnancy check-up,Due,Reminder scheduled
+F0172,P0172,2026-11-29,Child vaccination,Due,Reminder scheduled
+F0173,P0173,2026-12-16,Child vaccination,Completed,None
+F0174,P0174,2026-12-25,Diabetes follow-up,Scheduled,Reminder scheduled
+F0175,P0175,2026-12-04,Routine consultation,Missed,Health worker follow-up
+F0176,P0176,2026-12-10,Routine consultation,Completed,None
+F0177,P0177,2026-12-26,Routine consultation,Missed,Health worker follow-up
+F0178,P0178,2026-11-18,Pregnancy check-up,Completed,None
+F0179,P0179,2026-11-18,Routine consultation,Scheduled,Reminder scheduled
+F0180,P0180,2026-11-26,Pregnancy check-up,Missed,Health worker follow-up
+F0181,P0181,2026-11-11,Routine consultation,Missed,Health worker follow-up
+F0182,P0182,2027-01-20,Routine consultation,Scheduled,Reminder scheduled
+F0183,P0183,2026-11-24,Child vaccination,Scheduled,Reminder scheduled
+F0184,P0184,2026-11-13,Routine consultation,Completed,None
+F0185,P0185,2026-12-27,Routine consultation,Missed,Health worker follow-up
+F0186,P0186,2027-01-27,Child vaccination,Missed,Health worker follow-up
+F0187,P0187,2026-12-16,Child vaccination,Scheduled,Reminder scheduled
+F0188,P0188,2026-12-24,Child vaccination,Scheduled,Reminder scheduled
+F0189,P0189,2026-11-04,Child vaccination,Due,Reminder scheduled
+F0190,P0190,2026-11-12,Routine consultation,Completed,None
+F0191,P0191,2026-12-09,Routine consultation,Completed,None
+F0192,P0192,2027-01-05,BP review,Missed,Health worker follow-up
+F0193,P0193,2027-01-19,Diabetes follow-up,Missed,Health worker follow-up
+F0194,P0194,2026-12-21,Child vaccination,Completed,None
+F0195,P0195,2027-01-25,Child vaccination,Due,Reminder scheduled
+F0196,P0196,2027-01-06,Diabetes follow-up,Scheduled,Reminder scheduled
+F0197,P0197,2026-11-11,Pregnancy check-up,Due,Reminder scheduled
+F0198,P0198,2027-01-23,Pregnancy check-up,Due,Reminder scheduled
+F0199,P0199,2027-01-16,Pregnancy check-up,Due,Reminder scheduled
+F0200,P0200,2027-01-12,Pregnancy check-up,Scheduled,Reminder scheduled
+F0201,P0201,2026-11-08,Routine consultation,Due,Reminder scheduled
+F0202,P0202,2027-01-26,BP review,Due,Reminder scheduled
+F0203,P0203,2027-01-06,Routine consultation,Completed,None
+F0204,P0204,2027-01-03,BP review,Completed,None
+F0205,P0205,2027-01-26,Pregnancy check-up,Completed,None
+F0206,P0206,2027-01-20,Diabetes follow-up,Missed,Health worker follow-up
+F0207,P0207,2027-01-02,Diabetes follow-up,Completed,None
+F0208,P0208,2026-11-09,BP review,Due,Reminder scheduled
+F0209,P0209,2027-01-17,Routine consultation,Due,Reminder scheduled
+F0210,P0210,2026-11-13,BP review,Completed,None
+F0211,P0211,2026-11-14,Diabetes follow-up,Scheduled,Reminder scheduled
+F0212,P0212,2027-01-04,Child vaccination,Scheduled,Reminder scheduled
+F0213,P0213,2026-11-08,Pregnancy check-up,Due,Reminder scheduled
+F0214,P0214,2026-12-22,BP review,Scheduled,Reminder scheduled
+F0215,P0215,2026-12-01,Routine consultation,Missed,Health worker follow-up
+F0216,P0216,2027-01-27,Routine consultation,Scheduled,Reminder scheduled
+F0217,P0217,2026-11-16,BP review,Scheduled,Reminder scheduled
+F0218,P0218,2027-01-21,BP review,Due,Reminder scheduled
+F0219,P0219,2026-11-19,BP review,Completed,None
+F0220,P0220,2027-01-05,Child vaccination,Completed,None
+F0221,P0221,2027-01-01,Pregnancy check-up,Missed,Health worker follow-up
+F0222,P0222,2027-01-25,Routine consultation,Due,Reminder scheduled
+F0223,P0223,2027-01-03,Pregnancy check-up,Missed,Health worker follow-up
+F0224,P0224,2026-12-21,Diabetes follow-up,Scheduled,Reminder scheduled
+F0225,P0225,2026-12-30,Child vaccination,Scheduled,Reminder scheduled
+F0226,P0226,2026-11-19,Pregnancy check-up,Due,Reminder scheduled
+F0227,P0227,2026-12-29,Routine consultation,Due,Reminder scheduled
+F0228,P0228,2026-12-20,Routine consultation,Due,Reminder scheduled
+F0229,P0229,2026-12-09,Routine consultation,Due,Reminder scheduled
+F0230,P0230,2026-12-27,Pregnancy check-up,Due,Reminder scheduled
+F0231,P0231,2026-11-18,Child vaccination,Scheduled,Reminder scheduled
+F0232,P0232,2026-12-06,BP review,Due,Reminder scheduled
+F0233,P0233,2026-12-16,Pregnancy check-up,Completed,None
+F0234,P0234,2027-01-30,Routine consultation,Scheduled,Reminder scheduled
+F0235,P0235,2026-11-09,BP review,Completed,None
+F0236,P0236,2026-12-16,Child vaccination,Missed,Health worker follow-up
+F0237,P0237,2026-11-18,Pregnancy check-up,Missed,Health worker follow-up
+F0238,P0238,2026-12-21,Child vaccination,Due,Reminder scheduled
+F0239,P0239,2026-12-19,Routine consultation,Scheduled,Reminder scheduled
+F0240,P0240,2027-01-24,Routine consultation,Completed,None
+F0241,P0241,2027-01-30,BP review,Missed,Health worker follow-up
+F0242,P0242,2027-01-29,Routine consultation,Missed,Health worker follow-up
+F0243,P0243,2027-01-14,Routine consultation,Missed,Health worker follow-up
+F0244,P0244,2027-01-19,Diabetes follow-up,Scheduled,Reminder scheduled
+F0245,P0245,2026-11-06,BP review,Due,Reminder scheduled
+F0246,P0246,2026-11-30,Diabetes follow-up,Due,Reminder scheduled
+F0247,P0247,2027-01-03,Pregnancy check-up,Scheduled,Reminder scheduled
+F0248,P0248,2026-11-30,Diabetes follow-up,Completed,None
+F0249,P0249,2026-11-23,Child vaccination,Scheduled,Reminder scheduled
+F0250,P0250,2026-11-09,Routine consultation,Due,Reminder scheduled
+F0251,P0251,2026-12-03,Diabetes follow-up,Due,Reminder scheduled
+F0252,P0252,2026-11-10,Pregnancy check-up,Scheduled,Reminder scheduled
+F0253,P0253,2027-01-17,BP review,Due,Reminder scheduled
+F0254,P0254,2026-12-12,Child vaccination,Due,Reminder scheduled
+F0255,P0255,2026-12-19,Routine consultation,Completed,None
+F0256,P0256,2027-01-11,BP review,Completed,None
+F0257,P0257,2026-12-03,Child vaccination,Scheduled,Reminder scheduled
+F0258,P0258,2027-01-26,BP review,Missed,Health worker follow-up
+F0259,P0259,2026-11-26,Child vaccination,Completed,None
+F0260,P0260,2027-01-07,Diabetes follow-up,Completed,None
+F0261,P0261,2027-01-14,Diabetes follow-up,Due,Reminder scheduled
+F0262,P0262,2026-11-27,BP review,Due,Reminder scheduled
+F0263,P0263,2026-11-01,Child vaccination,Missed,Health worker follow-up
+F0264,P0264,2027-01-12,Pregnancy check-up,Due,Reminder scheduled
+F0265,P0265,2026-11-24,BP review,Scheduled,Reminder scheduled
+F0266,P0266,2026-11-27,Routine consultation,Scheduled,Reminder scheduled
+F0267,P0267,2026-12-16,Routine consultation,Missed,Health worker follow-up
+F0268,P0268,2027-01-11,Diabetes follow-up,Completed,None
+F0269,P0269,2026-12-27,Child vaccination,Scheduled,Reminder scheduled
+F0270,P0270,2026-11-10,BP review,Due,Reminder scheduled
+F0271,P0271,2027-01-06,Diabetes follow-up,Missed,Health worker follow-up
+F0272,P0272,2026-11-16,BP review,Scheduled,Reminder scheduled
+F0273,P0273,2026-11-07,Diabetes follow-up,Missed,Health worker follow-up
+F0274,P0274,2026-11-29,Pregnancy check-up,Missed,Health worker follow-up
+F0275,P0275,2026-12-20,Diabetes follow-up,Missed,Health worker follow-up
+F0276,P0276,2026-11-21,Diabetes follow-up,Missed,Health worker follow-up
+F0277,P0277,2027-01-08,Routine consultation,Completed,None
+F0278,P0278,2027-01-18,Child vaccination,Missed,Health worker follow-up
+F0279,P0279,2027-01-19,Routine consultation,Due,Reminder scheduled
+F0280,P0280,2027-01-29,Routine consultation,Due,Reminder scheduled
+F0281,P0281,2026-12-31,Diabetes follow-up,Missed,Health worker follow-up
+F0282,P0282,2026-11-05,Child vaccination,Missed,Health worker follow-up
+F0283,P0283,2026-12-04,Pregnancy check-up,Completed,None
+F0284,P0284,2026-11-08,BP review,Completed,None
+F0285,P0285,2027-01-10,Diabetes follow-up,Missed,Health worker follow-up
+F0286,P0286,2026-12-01,Diabetes follow-up,Scheduled,Reminder scheduled
+F0287,P0287,2027-01-12,Pregnancy check-up,Due,Reminder scheduled
+F0288,P0288,2026-11-10,Routine consultation,Scheduled,Reminder scheduled
+F0289,P0289,2027-01-18,Routine consultation,Due,Reminder scheduled
+F0290,P0290,2027-01-01,Pregnancy check-up,Completed,None
+F0291,P0291,2026-11-06,Diabetes follow-up,Due,Reminder scheduled
+F0292,P0292,2027-01-03,Pregnancy check-up,Completed,None
+F0293,P0293,2026-12-26,Pregnancy check-up,Scheduled,Reminder scheduled
+F0294,P0294,2026-11-30,Diabetes follow-up,Due,Reminder scheduled
+F0295,P0295,2026-11-04,Routine consultation,Completed,None
+F0296,P0296,2027-01-17,Diabetes follow-up,Scheduled,Reminder scheduled
+F0297,P0297,2027-01-10,Diabetes follow-up,Scheduled,Reminder scheduled
+F0298,P0298,2026-12-20,BP review,Scheduled,Reminder scheduled
+F0299,P0299,2026-12-26,Routine consultation,Scheduled,Reminder scheduled
+F0300,P0300,2026-11-18,Child vaccination,Due,Reminder scheduled
+F0301,P0301,2026-11-16,Pregnancy check-up,Missed,Health worker follow-up
+F0302,P0302,2026-11-25,Child vaccination,Missed,Health worker follow-up
+F0303,P0303,2026-11-08,BP review,Completed,None
+F0304,P0304,2026-11-12,BP review,Due,Reminder scheduled
+F0305,P0305,2026-12-23,Diabetes follow-up,Due,Reminder scheduled
+F0306,P0306,2026-12-02,Diabetes follow-up,Due,Reminder scheduled
+F0307,P0307,2026-11-08,Child vaccination,Completed,None
+F0308,P0308,2026-11-24,Diabetes follow-up,Missed,Health worker follow-up
+F0309,P0309,2026-12-11,Routine consultation,Missed,Health worker follow-up
+F0310,P0310,2027-01-23,Pregnancy check-up,Completed,None
+F0311,P0311,2026-11-17,Child vaccination,Scheduled,Reminder scheduled
+F0312,P0312,2027-01-24,Diabetes follow-up,Due,Reminder scheduled
+F0313,P0313,2026-11-10,Routine consultation,Missed,Health worker follow-up
+F0314,P0314,2026-11-27,Pregnancy check-up,Scheduled,Reminder scheduled
+F0315,P0315,2026-11-29,Pregnancy check-up,Scheduled,Reminder scheduled
+F0316,P0316,2026-12-17,BP review,Missed,Health worker follow-up
+F0317,P0317,2027-01-07,Pregnancy check-up,Missed,Health worker follow-up
+F0318,P0318,2027-01-29,Diabetes follow-up,Due,Reminder scheduled
+F0319,P0319,2026-12-15,Routine consultation,Scheduled,Reminder scheduled
+F0320,P0320,2027-01-02,Diabetes follow-up,Missed,Health worker follow-up
+F0321,P0321,2026-11-27,Routine consultation,Completed,None
+F0322,P0322,2026-11-30,Routine consultation,Missed,Health worker follow-up
+F0323,P0323,2026-11-27,Pregnancy check-up,Due,Reminder scheduled
+F0324,P0324,2026-11-19,BP review,Due,Reminder scheduled
+F0325,P0325,2027-01-29,Child vaccination,Scheduled,Reminder scheduled
+F0326,P0326,2026-11-15,Child vaccination,Due,Reminder scheduled
+F0327,P0327,2026-11-05,Pregnancy check-up,Missed,Health worker follow-up
+F0328,P0328,2027-01-15,Pregnancy check-up,Scheduled,Reminder scheduled
+F0329,P0329,2026-11-11,Pregnancy check-up,Due,Reminder scheduled
+F0330,P0330,2027-01-18,Child vaccination,Scheduled,Reminder scheduled
+F0331,P0331,2026-11-03,Child vaccination,Scheduled,Reminder scheduled
+F0332,P0332,2026-12-27,BP review,Due,Reminder scheduled
+F0333,P0333,2026-11-27,BP review,Scheduled,Reminder scheduled
+F0334,P0334,2027-01-24,Routine consultation,Scheduled,Reminder scheduled
+F0335,P0335,2026-11-07,Diabetes follow-up,Missed,Health worker follow-up
+F0336,P0336,2027-01-09,Diabetes follow-up,Missed,Health worker follow-up
+F0337,P0337,2027-01-17,Pregnancy check-up,Missed,Health worker follow-up
+F0338,P0338,2027-01-15,Diabetes follow-up,Completed,None
+F0339,P0339,2026-12-14,Child vaccination,Scheduled,Reminder scheduled
+F0340,P0340,2026-11-08,Routine consultation,Due,Reminder scheduled
+F0341,P0341,2026-12-20,Routine consultation,Missed,Health worker follow-up
+F0342,P0342,2026-12-30,Routine consultation,Scheduled,Reminder scheduled
+F0343,P0343,2027-01-12,BP review,Missed,Health worker follow-up
+F0344,P0344,2026-12-19,BP review,Scheduled,Reminder scheduled
+F0345,P0345,2026-11-17,Pregnancy check-up,Due,Reminder scheduled
+F0346,P0346,2027-01-27,Diabetes follow-up,Missed,Health worker follow-up
+F0347,P0347,2026-12-02,Pregnancy check-up,Missed,Health worker follow-up
+F0348,P0348,2027-01-13,Diabetes follow-up,Scheduled,Reminder scheduled
+F0349,P0349,2027-01-18,Pregnancy check-up,Missed,Health worker follow-up
+F0350,P0350,2026-12-05,Routine consultation,Missed,Health worker follow-up
+F0351,P0351,2026-11-02,Pregnancy check-up,Due,Reminder scheduled
+F0352,P0352,2027-01-12,Pregnancy check-up,Missed,Health worker follow-up
+F0353,P0353,2026-11-23,Child vaccination,Scheduled,Reminder scheduled
+F0354,P0354,2026-11-03,Diabetes follow-up,Scheduled,Reminder scheduled
+F0355,P0355,2026-12-30,Pregnancy check-up,Due,Reminder scheduled
+F0356,P0356,2027-01-01,Child vaccination,Completed,None
+F0357,P0357,2026-11-08,Pregnancy check-up,Due,Reminder scheduled
+F0358,P0358,2027-01-18,Diabetes follow-up,Missed,Health worker follow-up
+F0359,P0359,2026-12-27,Pregnancy check-up,Completed,None
+F0360,P0360,2026-12-06,Child vaccination,Missed,Health worker follow-up
+F0361,P0361,2026-11-17,BP review,Completed,None
+F0362,P0362,2026-11-19,BP review,Due,Reminder scheduled
+F0363,P0363,2026-11-15,BP review,Due,Reminder scheduled
+F0364,P0364,2027-01-27,Routine consultation,Scheduled,Reminder scheduled
+F0365,P0365,2026-12-11,Routine consultation,Due,Reminder scheduled
+F0366,P0366,2026-11-30,Pregnancy check-up,Due,Reminder scheduled
+F0367,P0367,2026-12-03,Pregnancy check-up,Due,Reminder scheduled
+F0368,P0368,2027-01-09,Routine consultation,Due,Reminder scheduled
+F0369,P0369,2026-12-01,Diabetes follow-up,Missed,Health worker follow-up
+F0370,P0370,2026-11-10,Diabetes follow-up,Scheduled,Reminder scheduled
+F0371,P0371,2027-01-05,BP review,Due,Reminder scheduled
+F0372,P0372,2026-11-27,Routine consultation,Missed,Health worker follow-up
+F0373,P0373,2026-12-18,Diabetes follow-up,Scheduled,Reminder scheduled
+F0374,P0374,2027-01-22,Pregnancy check-up,Scheduled,Reminder scheduled
+F0375,P0375,2026-11-19,Pregnancy check-up,Due,Reminder scheduled
+F0376,P0376,2027-01-17,Pregnancy check-up,Missed,Health worker follow-up
+F0377,P0377,2026-12-23,Child vaccination,Missed,Health worker follow-up
+F0378,P0378,2026-12-08,BP review,Due,Reminder scheduled
+F0379,P0379,2026-12-18,Pregnancy check-up,Due,Reminder scheduled
+F0380,P0380,2026-11-20,Diabetes follow-up,Due,Reminder scheduled
+F0381,P0381,2027-01-17,Pregnancy check-up,Completed,None
+F0382,P0382,2027-01-05,BP review,Missed,Health worker follow-up
+F0383,P0383,2026-12-19,BP review,Due,Reminder scheduled
+F0384,P0384,2026-12-19,Diabetes follow-up,Due,Reminder scheduled
+F0385,P0385,2026-11-29,Routine consultation,Scheduled,Reminder scheduled
+F0386,P0386,2026-11-16,Routine consultation,Due,Reminder scheduled
+F0387,P0387,2026-12-31,Pregnancy check-up,Scheduled,Reminder scheduled
+F0388,P0388,2026-12-05,Routine consultation,Completed,None
+F0389,P0389,2026-12-08,Pregnancy check-up,Completed,None
+F0390,P0390,2026-12-02,BP review,Missed,Health worker follow-up
+F0391,P0391,2026-12-29,Diabetes follow-up,Missed,Health worker follow-up
+F0392,P0392,2027-01-28,Child vaccination,Completed,None
+F0393,P0393,2026-12-23,Diabetes follow-up,Missed,Health worker follow-up
+F0394,P0394,2026-12-16,Pregnancy check-up,Due,Reminder scheduled
+F0395,P0395,2027-01-23,Routine consultation,Scheduled,Reminder scheduled
+F0396,P0396,2026-11-30,Child vaccination,Scheduled,Reminder scheduled
+F0397,P0397,2026-11-30,Routine consultation,Completed,None
+F0398,P0398,2026-12-02,Routine consultation,Scheduled,Reminder scheduled
+F0399,P0399,2027-01-25,Routine consultation,Completed,None
+F0400,P0400,2026-12-04,Pregnancy check-up,Missed,Health worker follow-up
+F0401,P0401,2026-12-11,Diabetes follow-up,Due,Reminder scheduled
+F0402,P0402,2026-12-23,Routine consultation,Scheduled,Reminder scheduled
+F0403,P0403,2026-11-19,BP review,Scheduled,Reminder scheduled
+F0404,P0404,2026-11-24,Diabetes follow-up,Scheduled,Reminder scheduled
+F0405,P0405,2026-11-22,Child vaccination,Due,Reminder scheduled
+F0406,P0406,2026-12-04,Diabetes follow-up,Scheduled,Reminder scheduled
+F0407,P0407,2026-11-17,Child vaccination,Due,Reminder scheduled
+F0408,P0408,2026-11-04,Diabetes follow-up,Completed,None
+F0409,P0409,2026-11-17,Child vaccination,Scheduled,Reminder scheduled
+F0410,P0410,2026-12-16,Child vaccination,Completed,None
+F0411,P0411,2027-01-29,Pregnancy check-up,Completed,None
+F0412,P0412,2026-11-16,Pregnancy check-up,Missed,Health worker follow-up
+F0413,P0413,2027-01-15,Diabetes follow-up,Due,Reminder scheduled
+F0414,P0414,2026-11-10,Child vaccination,Missed,Health worker follow-up
+F0415,P0415,2026-12-23,Child vaccination,Scheduled,Reminder scheduled
+F0416,P0416,2026-12-08,BP review,Scheduled,Reminder scheduled
+F0417,P0417,2026-11-24,BP review,Due,Reminder scheduled
+F0418,P0418,2026-11-01,Child vaccination,Missed,Health worker follow-up
+F0419,P0419,2026-12-19,Child vaccination,Missed,Health worker follow-up
+F0420,P0420,2026-11-23,Diabetes follow-up,Missed,Health worker follow-up
+F0421,P0421,2026-11-30,Child vaccination,Missed,Health worker follow-up
+F0422,P0422,2026-12-14,Routine consultation,Due,Reminder scheduled
+F0423,P0423,2027-01-06,Pregnancy check-up,Scheduled,Reminder scheduled
+F0424,P0424,2026-12-12,Pregnancy check-up,Scheduled,Reminder scheduled
+F0425,P0425,2026-11-23,Diabetes follow-up,Completed,None
+F0426,P0426,2026-11-27,Routine consultation,Scheduled,Reminder scheduled
+F0427,P0427,2026-12-06,Diabetes follow-up,Missed,Health worker follow-up
+F0428,P0428,2026-12-15,BP review,Missed,Health worker follow-up
+F0429,P0429,2026-11-16,Pregnancy check-up,Missed,Health worker follow-up
+F0430,P0430,2027-01-02,BP review,Scheduled,Reminder scheduled
+F0431,P0431,2026-11-22,Pregnancy check-up,Missed,Health worker follow-up
+F0432,P0432,2027-01-17,BP review,Due,Reminder scheduled
+F0433,P0433,2027-01-25,BP review,Missed,Health worker follow-up
+F0434,P0434,2026-11-13,Routine consultation,Completed,None
+F0435,P0435,2027-01-05,Diabetes follow-up,Completed,None
+F0436,P0436,2027-01-16,Routine consultation,Due,Reminder scheduled
+F0437,P0437,2027-01-08,Diabetes follow-up,Completed,None
+F0438,P0438,2027-01-02,Pregnancy check-up,Due,Reminder scheduled
+F0439,P0439,2026-11-27,Routine consultation,Missed,Health worker follow-up
+F0440,P0440,2026-12-25,Routine consultation,Scheduled,Reminder scheduled
+F0441,P0441,2026-11-17,Pregnancy check-up,Scheduled,Reminder scheduled
+F0442,P0442,2026-11-15,Child vaccination,Due,Reminder scheduled
+F0443,P0443,2026-12-26,Pregnancy check-up,Scheduled,Reminder scheduled
+F0444,P0444,2026-11-12,Pregnancy check-up,Completed,None
+F0445,P0445,2027-01-25,Pregnancy check-up,Due,Reminder scheduled
+F0446,P0446,2026-11-11,Diabetes follow-up,Completed,None
+F0447,P0447,2026-12-12,Routine consultation,Completed,None
+F0448,P0448,2026-12-13,Child vaccination,Missed,Health worker follow-up
+F0449,P0449,2027-01-20,Pregnancy check-up,Due,Reminder scheduled
+F0450,P0450,2026-11-05,Diabetes follow-up,Scheduled,Reminder scheduled
+F0451,P0451,2027-01-30,BP review,Missed,Health worker follow-up
+F0452,P0452,2027-01-11,Diabetes follow-up,Due,Reminder scheduled
+F0453,P0453,2026-12-02,Routine consultation,Completed,None
+F0454,P0454,2026-12-19,BP review,Completed,None
+F0455,P0455,2026-12-04,BP review,Scheduled,Reminder scheduled
+F0456,P0456,2027-01-02,Child vaccination,Completed,None
+F0457,P0457,2026-12-07,BP review,Completed,None
+F0458,P0458,2027-01-21,Routine consultation,Due,Reminder scheduled
+F0459,P0459,2026-11-28,Child vaccination,Due,Reminder scheduled
+F0460,P0460,2026-11-09,Routine consultation,Scheduled,Reminder scheduled
+F0461,P0461,2027-01-18,BP review,Completed,None
+F0462,P0462,2026-11-05,Pregnancy check-up,Scheduled,Reminder scheduled
+F0463,P0463,2027-01-18,Routine consultation,Scheduled,Reminder scheduled
+F0464,P0464,2026-12-01,Child vaccination,Missed,Health worker follow-up
+F0465,P0465,2027-01-07,Pregnancy check-up,Completed,None
+F0466,P0466,2026-11-30,Child vaccination,Missed,Health worker follow-up
+F0467,P0467,2027-01-02,Routine consultation,Scheduled,Reminder scheduled
+F0468,P0468,2026-12-16,Pregnancy check-up,Scheduled,Reminder scheduled
+F0469,P0469,2026-11-13,Diabetes follow-up,Completed,None
+F0470,P0470,2026-12-07,Child vaccination,Scheduled,Reminder scheduled
+F0471,P0471,2026-12-12,Child vaccination,Completed,None
+F0472,P0472,2026-11-15,Child vaccination,Completed,None
+F0473,P0473,2026-12-11,Pregnancy check-up,Due,Reminder scheduled
+F0474,P0474,2027-01-29,BP review,Scheduled,Reminder scheduled
+F0475,P0475,2027-01-01,Routine consultation,Scheduled,Reminder scheduled
+F0476,P0476,2026-12-23,Diabetes follow-up,Completed,None
+F0477,P0477,2026-12-08,Routine consultation,Missed,Health worker follow-up
+F0478,P0478,2026-11-28,Diabetes follow-up,Scheduled,Reminder scheduled
+F0479,P0479,2027-01-11,Pregnancy check-up,Missed,Health worker follow-up
+F0480,P0480,2027-01-26,Child vaccination,Missed,Health worker follow-up
+F0481,P0481,2026-12-21,Child vaccination,Scheduled,Reminder scheduled
+F0482,P0482,2026-12-22,Diabetes follow-up,Missed,Health worker follow-up
+F0483,P0483,2026-12-05,BP review,Scheduled,Reminder scheduled
+F0484,P0484,2026-12-14,Pregnancy check-up,Due,Reminder scheduled
+F0485,P0485,2026-12-28,BP review,Scheduled,Reminder scheduled
+F0486,P0486,2027-01-13,Routine consultation,Completed,None
+F0487,P0487,2026-11-27,Routine consultation,Due,Reminder scheduled
+F0488,P0488,2027-01-18,BP review,Missed,Health worker follow-up
+F0489,P0489,2027-01-17,Diabetes follow-up,Due,Reminder scheduled
+F0490,P0490,2026-12-19,Pregnancy check-up,Due,Reminder scheduled
+F0491,P0491,2026-12-16,Diabetes follow-up,Due,Reminder scheduled
+F0492,P0492,2027-01-06,Pregnancy check-up,Completed,None
+F0493,P0493,2027-01-08,BP review,Completed,None
+F0494,P0494,2027-01-08,BP review,Scheduled,Reminder scheduled
+F0495,P0495,2026-12-08,Pregnancy check-up,Completed,None
+F0496,P0496,2026-12-13,BP review,Scheduled,Reminder scheduled
+F0497,P0497,2027-01-10,Diabetes follow-up,Completed,None
+F0498,P0498,2026-11-05,Routine consultation,Due,Reminder scheduled
+F0499,P0499,2026-11-14,Child vaccination,Scheduled,Reminder scheduled
+F0500,P0500,2026-11-06,Pregnancy check-up,Completed,None
+F0501,P0501,2026-12-09,BP review,Due,Reminder scheduled
+F0502,P0502,2027-01-20,Diabetes follow-up,Completed,None
+F0503,P0503,2026-12-05,Child vaccination,Due,Reminder scheduled
+F0504,P0504,2027-01-23,BP review,Scheduled,Reminder scheduled
+F0505,P0505,2026-12-05,Diabetes follow-up,Due,Reminder scheduled
+F0506,P0506,2026-11-10,Diabetes follow-up,Scheduled,Reminder scheduled
+F0507,P0507,2026-11-02,Diabetes follow-up,Completed,None
+F0508,P0508,2027-01-15,BP review,Scheduled,Reminder scheduled
+F0509,P0509,2027-01-17,Pregnancy check-up,Missed,Health worker follow-up
+F0510,P0510,2026-12-25,Pregnancy check-up,Due,Reminder scheduled
+F0511,P0511,2026-12-06,BP review,Scheduled,Reminder scheduled
+F0512,P0512,2026-11-13,Routine consultation,Missed,Health worker follow-up
+F0513,P0513,2026-12-31,Pregnancy check-up,Scheduled,Reminder scheduled
+F0514,P0514,2026-12-25,BP review,Due,Reminder scheduled
+F0515,P0515,2026-12-23,Child vaccination,Missed,Health worker follow-up
+F0516,P0516,2026-12-07,Child vaccination,Completed,None
+F0517,P0517,2026-11-03,Child vaccination,Scheduled,Reminder scheduled
+F0518,P0518,2026-12-18,Child vaccination,Due,Reminder scheduled
+F0519,P0519,2026-11-29,Child vaccination,Due,Reminder scheduled
+F0520,P0520,2026-11-30,Pregnancy check-up,Scheduled,Reminder scheduled
+F0521,P0521,2027-01-01,Pregnancy check-up,Due,Reminder scheduled
+F0522,P0522,2026-12-13,Diabetes follow-up,Completed,None
+F0523,P0523,2026-11-13,BP review,Completed,None
+F0524,P0524,2027-01-02,Diabetes follow-up,Completed,None
+F0525,P0525,2026-11-19,Routine consultation,Scheduled,Reminder scheduled
+F0526,P0526,2026-12-31,Diabetes follow-up,Completed,None
+F0527,P0527,2027-01-03,Child vaccination,Missed,Health worker follow-up
+F0528,P0528,2026-12-10,BP review,Missed,Health worker follow-up
+F0529,P0529,2026-11-05,Routine consultation,Missed,Health worker follow-up
+F0530,P0530,2027-01-16,Diabetes follow-up,Scheduled,Reminder scheduled
+F0531,P0531,2026-12-05,Routine consultation,Completed,None
+F0532,P0532,2027-01-02,Pregnancy check-up,Scheduled,Reminder scheduled
+F0533,P0533,2027-01-23,Pregnancy check-up,Completed,None
+F0534,P0534,2026-12-30,Routine consultation,Scheduled,Reminder scheduled
+F0535,P0535,2027-01-11,Diabetes follow-up,Due,Reminder scheduled
+F0536,P0536,2026-12-25,Child vaccination,Due,Reminder scheduled
+F0537,P0537,2026-11-17,BP review,Due,Reminder scheduled
+F0538,P0538,2027-01-06,BP review,Due,Reminder scheduled
+F0539,P0539,2026-11-26,Diabetes follow-up,Scheduled,Reminder scheduled
+F0540,P0540,2026-11-05,Child vaccination,Scheduled,Reminder scheduled
+F0541,P0541,2026-11-22,BP review,Scheduled,Reminder scheduled
+F0542,P0542,2027-01-10,Child vaccination,Scheduled,Reminder scheduled
+F0543,P0543,2026-11-02,Diabetes follow-up,Missed,Health worker follow-up
+F0544,P0544,2026-12-26,Pregnancy check-up,Missed,Health worker follow-up
+F0545,P0545,2027-01-06,Routine consultation,Missed,Health worker follow-up
+F0546,P0546,2026-12-18,BP review,Completed,None
+F0547,P0547,2026-12-08,Routine consultation,Completed,None
+F0548,P0548,2026-12-18,Child vaccination,Missed,Health worker follow-up
+F0549,P0549,2026-12-30,Pregnancy check-up,Completed,None
+F0550,P0550,2026-11-18,Routine consultation,Completed,None
+F0551,P0551,2026-12-31,Pregnancy check-up,Due,Reminder scheduled
+F0552,P0552,2026-12-24,BP review,Completed,None
+F0553,P0553,2026-12-31,Diabetes follow-up,Due,Reminder scheduled
+F0554,P0554,2026-12-10,BP review,Completed,None
+F0555,P0555,2027-01-28,Routine consultation,Due,Reminder scheduled
+F0556,P0556,2026-12-29,Diabetes follow-up,Missed,Health worker follow-up
+F0557,P0557,2026-11-08,Routine consultation,Scheduled,Reminder scheduled
+F0558,P0558,2026-11-21,Pregnancy check-up,Due,Reminder scheduled
+F0559,P0559,2027-01-21,Pregnancy check-up,Completed,None
+F0560,P0560,2027-01-20,BP review,Due,Reminder scheduled
+F0561,P0561,2026-12-06,Child vaccination,Missed,Health worker follow-up
+F0562,P0562,2027-01-14,Pregnancy check-up,Missed,Health worker follow-up
+F0563,P0563,2027-01-19,Pregnancy check-up,Scheduled,Reminder scheduled
+F0564,P0564,2027-01-11,Diabetes follow-up,Completed,None
+F0565,P0565,2027-01-15,Diabetes follow-up,Completed,None
+F0566,P0566,2026-11-28,BP review,Missed,Health worker follow-up
+F0567,P0567,2026-12-04,BP review,Due,Reminder scheduled
+F0568,P0568,2027-01-06,Pregnancy check-up,Scheduled,Reminder scheduled
+F0569,P0569,2027-01-13,Routine consultation,Missed,Health worker follow-up
+F0570,P0570,2027-01-25,BP review,Scheduled,Reminder scheduled
+F0571,P0571,2026-11-22,BP review,Due,Reminder scheduled
+F0572,P0572,2026-11-28,Routine consultation,Due,Reminder scheduled
+F0573,P0573,2026-11-19,BP review,Completed,None
+F0574,P0574,2026-12-31,Pregnancy check-up,Due,Reminder scheduled
+F0575,P0575,2026-11-10,BP review,Due,Reminder scheduled
+F0576,P0576,2027-01-05,Child vaccination,Scheduled,Reminder scheduled
+F0577,P0577,2027-01-25,Pregnancy check-up,Scheduled,Reminder scheduled
+F0578,P0578,2026-12-09,BP review,Due,Reminder scheduled
+F0579,P0579,2027-01-11,Child vaccination,Scheduled,Reminder scheduled
+F0580,P0580,2026-12-20,Pregnancy check-up,Scheduled,Reminder scheduled
+F0581,P0581,2026-12-10,Routine consultation,Missed,Health worker follow-up
+F0582,P0582,2026-11-11,BP review,Completed,None
+F0583,P0583,2027-01-21,BP review,Missed,Health worker follow-up
+F0584,P0584,2026-12-26,Child vaccination,Scheduled,Reminder scheduled
+F0585,P0585,2027-01-28,Diabetes follow-up,Missed,Health worker follow-up
+F0586,P0586,2027-01-11,Pregnancy check-up,Scheduled,Reminder scheduled
+F0587,P0587,2026-11-23,Pregnancy check-up,Due,Reminder scheduled
+F0588,P0588,2026-12-30,Child vaccination,Missed,Health worker follow-up
+F0589,P0589,2026-11-28,Child vaccination,Completed,None
+F0590,P0590,2026-12-18,Diabetes follow-up,Completed,None
+F0591,P0591,2026-11-26,Pregnancy check-up,Scheduled,Reminder scheduled
+F0592,P0592,2027-01-07,Diabetes follow-up,Completed,None
+F0593,P0593,2027-01-15,Pregnancy check-up,Missed,Health worker follow-up
+F0594,P0594,2026-11-13,Pregnancy check-up,Missed,Health worker follow-up
+F0595,P0595,2027-01-04,Routine consultation,Due,Reminder scheduled
+F0596,P0596,2026-12-05,Pregnancy check-up,Due,Reminder scheduled
+F0597,P0597,2027-01-22,Child vaccination,Scheduled,Reminder scheduled
+F0598,P0598,2026-11-06,Pregnancy check-up,Missed,Health worker follow-up
+F0599,P0599,2027-01-20,Routine consultation,Due,Reminder scheduled
+F0600,P0600,2026-11-04,Routine consultation,Scheduled,Reminder scheduled
+F0601,P0601,2027-01-20,Child vaccination,Scheduled,Reminder scheduled
+F0602,P0602,2026-11-23,Routine consultation,Scheduled,Reminder scheduled
+F0603,P0603,2026-11-14,Pregnancy check-up,Due,Reminder scheduled
+F0604,P0604,2026-11-04,BP review,Completed,None
+F0605,P0605,2026-11-17,Child vaccination,Due,Reminder scheduled
+F0606,P0606,2026-11-16,Child vaccination,Due,Reminder scheduled
+F0607,P0607,2027-01-21,Pregnancy check-up,Due,Reminder scheduled
+F0608,P0608,2026-11-13,BP review,Missed,Health worker follow-up
+F0609,P0609,2027-01-23,Pregnancy check-up,Due,Reminder scheduled
+F0610,P0610,2027-01-26,BP review,Missed,Health worker follow-up
+F0611,P0611,2027-01-15,Routine consultation,Missed,Health worker follow-up
+F0612,P0612,2026-11-02,Child vaccination,Scheduled,Reminder scheduled
+F0613,P0613,2027-01-25,Diabetes follow-up,Due,Reminder scheduled
+F0614,P0614,2026-11-25,Pregnancy check-up,Completed,None
+F0615,P0615,2026-11-11,Child vaccination,Completed,None
+F0616,P0616,2026-11-06,Routine consultation,Missed,Health worker follow-up
+F0617,P0617,2026-11-26,BP review,Scheduled,Reminder scheduled
+F0618,P0618,2027-01-21,Pregnancy check-up,Due,Reminder scheduled
+F0619,P0619,2026-12-06,Diabetes follow-up,Missed,Health worker follow-up
+F0620,P0620,2026-12-14,Routine consultation,Scheduled,Reminder scheduled
+F0621,P0621,2027-01-29,Routine consultation,Due,Reminder scheduled
+F0622,P0622,2026-12-30,Diabetes follow-up,Due,Reminder scheduled
+F0623,P0623,2026-11-12,Diabetes follow-up,Completed,None
+F0624,P0624,2026-11-24,Routine consultation,Missed,Health worker follow-up
+F0625,P0625,2027-01-20,BP review,Due,Reminder scheduled
+F0626,P0626,2026-11-02,Pregnancy check-up,Completed,None
+F0627,P0627,2026-12-29,BP review,Due,Reminder scheduled
+F0628,P0628,2026-12-10,BP review,Completed,None
+F0629,P0629,2026-12-10,Child vaccination,Due,Reminder scheduled
+F0630,P0630,2027-01-30,BP review,Missed,Health worker follow-up
+F0631,P0631,2026-12-06,Routine consultation,Completed,None
+F0632,P0632,2026-12-11,BP review,Scheduled,Reminder scheduled
+F0633,P0633,2026-11-25,BP review,Missed,Health worker follow-up
+F0634,P0634,2026-11-23,Pregnancy check-up,Missed,Health worker follow-up
+F0635,P0635,2027-01-29,Pregnancy check-up,Scheduled,Reminder scheduled
+F0636,P0636,2026-11-12,Pregnancy check-up,Scheduled,Reminder scheduled
+F0637,P0637,2027-01-14,Pregnancy check-up,Missed,Health worker follow-up
+F0638,P0638,2027-01-22,BP review,Scheduled,Reminder scheduled
+F0639,P0639,2026-11-05,BP review,Scheduled,Reminder scheduled
+F0640,P0640,2027-01-08,Child vaccination,Completed,None
+F0641,P0641,2026-12-15,BP review,Missed,Health worker follow-up
+F0642,P0642,2026-12-14,Diabetes follow-up,Missed,Health worker follow-up
+F0643,P0643,2027-01-05,Pregnancy check-up,Completed,None
+F0644,P0644,2026-11-28,Pregnancy check-up,Scheduled,Reminder scheduled
+F0645,P0645,2026-11-05,Routine consultation,Due,Reminder scheduled
+F0646,P0646,2027-01-24,Child vaccination,Completed,None
+F0647,P0647,2026-11-18,Routine consultation,Scheduled,Reminder scheduled
+F0648,P0648,2026-12-12,Routine consultation,Missed,Health worker follow-up
+F0649,P0649,2026-12-19,Pregnancy check-up,Due,Reminder scheduled
+F0650,P0650,2027-01-29,Pregnancy check-up,Due,Reminder scheduled
+F0651,P0651,2026-11-02,Child vaccination,Completed,None
+F0652,P0652,2026-12-31,Pregnancy check-up,Missed,Health worker follow-up
+F0653,P0653,2027-01-22,BP review,Due,Reminder scheduled
+F0654,P0654,2026-12-16,BP review,Missed,Health worker follow-up
+F0655,P0655,2026-12-30,Diabetes follow-up,Completed,None
+F0656,P0656,2026-12-27,Routine consultation,Scheduled,Reminder scheduled
+F0657,P0657,2027-01-13,Child vaccination,Scheduled,Reminder scheduled
+F0658,P0658,2026-12-31,Pregnancy check-up,Completed,None
+F0659,P0659,2026-12-18,Child vaccination,Missed,Health worker follow-up
+F0660,P0660,2027-01-26,Pregnancy check-up,Scheduled,Reminder scheduled
+F0661,P0661,2026-11-06,Routine consultation,Completed,None
+F0662,P0662,2026-11-14,Child vaccination,Scheduled,Reminder scheduled
+F0663,P0663,2026-12-05,Routine consultation,Scheduled,Reminder scheduled
+F0664,P0664,2026-11-04,Routine consultation,Completed,None
+F0665,P0665,2026-11-22,Routine consultation,Missed,Health worker follow-up
+F0666,P0666,2027-01-29,Routine consultation,Completed,None
+F0667,P0667,2026-11-18,Pregnancy check-up,Completed,None
+F0668,P0668,2026-11-07,Pregnancy check-up,Due,Reminder scheduled
+F0669,P0669,2026-11-19,Child vaccination,Missed,Health worker follow-up
+F0670,P0670,2026-12-21,Child vaccination,Completed,None
+F0671,P0671,2026-11-01,BP review,Completed,None
+F0672,P0672,2026-11-23,Pregnancy check-up,Missed,Health worker follow-up
+F0673,P0673,2026-11-11,BP review,Completed,None
+F0674,P0674,2026-11-27,Diabetes follow-up,Scheduled,Reminder scheduled
+F0675,P0675,2026-12-02,Routine consultation,Completed,None
+F0676,P0676,2026-12-18,Child vaccination,Due,Reminder scheduled
+F0677,P0677,2026-11-21,Diabetes follow-up,Missed,Health worker follow-up
+F0678,P0678,2026-12-31,BP review,Scheduled,Reminder scheduled
+F0679,P0679,2026-12-31,Child vaccination,Scheduled,Reminder scheduled
+F0680,P0680,2027-01-30,Diabetes follow-up,Completed,None
+F0681,P0681,2026-12-20,Pregnancy check-up,Completed,None
+F0682,P0682,2026-11-18,Pregnancy check-up,Scheduled,Reminder scheduled
+F0683,P0683,2026-12-07,Routine consultation,Scheduled,Reminder scheduled
+F0684,P0684,2026-12-21,Pregnancy check-up,Due,Reminder scheduled
+F0685,P0685,2027-01-02,BP review,Due,Reminder scheduled
+F0686,P0686,2027-01-17,BP review,Completed,None
+F0687,P0687,2026-12-18,Pregnancy check-up,Missed,Health worker follow-up
+F0688,P0688,2027-01-04,Routine consultation,Due,Reminder scheduled
+F0689,P0689,2027-01-16,Diabetes follow-up,Scheduled,Reminder scheduled
+F0690,P0690,2027-01-22,BP review,Completed,None
+F0691,P0691,2027-01-03,Diabetes follow-up,Completed,None
+F0692,P0692,2026-11-28,Child vaccination,Missed,Health worker follow-up
+F0693,P0693,2026-11-12,Child vaccination,Missed,Health worker follow-up
+F0694,P0694,2027-01-23,Child vaccination,Completed,None
+F0695,P0695,2026-11-20,Pregnancy check-up,Missed,Health worker follow-up
+F0696,P0696,2026-12-20,Diabetes follow-up,Scheduled,Reminder scheduled
+F0697,P0697,2026-12-04,BP review,Scheduled,Reminder scheduled
+F0698,P0698,2026-11-21,Routine consultation,Scheduled,Reminder scheduled
+F0699,P0699,2026-11-14,Diabetes follow-up,Scheduled,Reminder scheduled
+F0700,P0700,2026-12-15,Child vaccination,Due,Reminder scheduled
+F0701,P0701,2026-11-02,Pregnancy check-up,Completed,None
+F0702,P0702,2026-11-17,Child vaccination,Scheduled,Reminder scheduled
+F0703,P0703,2026-11-02,Child vaccination,Scheduled,Reminder scheduled
+F0704,P0704,2026-12-25,Pregnancy check-up,Due,Reminder scheduled
+F0705,P0705,2026-12-25,Diabetes follow-up,Missed,Health worker follow-up
+F0706,P0706,2027-01-17,Routine consultation,Scheduled,Reminder scheduled
+F0707,P0707,2026-12-18,Pregnancy check-up,Scheduled,Reminder scheduled
+F0708,P0708,2027-01-08,Diabetes follow-up,Missed,Health worker follow-up
+F0709,P0709,2026-11-23,Routine consultation,Scheduled,Reminder scheduled
+F0710,P0710,2026-12-20,BP review,Due,Reminder scheduled
+F0711,P0711,2026-11-01,Routine consultation,Missed,Health worker follow-up
+F0712,P0712,2026-12-04,Routine consultation,Completed,None
+F0713,P0713,2027-01-18,Child vaccination,Scheduled,Reminder scheduled
+F0714,P0714,2026-11-07,Pregnancy check-up,Scheduled,Reminder scheduled
+F0715,P0715,2026-11-06,Child vaccination,Due,Reminder scheduled
+F0716,P0716,2026-12-29,Diabetes follow-up,Missed,Health worker follow-up
+F0717,P0717,2027-01-16,Pregnancy check-up,Missed,Health worker follow-up
+F0718,P0718,2026-12-25,Pregnancy check-up,Missed,Health worker follow-up
+F0719,P0719,2026-11-04,BP review,Missed,Health worker follow-up
+F0720,P0720,2026-12-08,Child vaccination,Missed,Health worker follow-up
+F0721,P0721,2026-11-03,Pregnancy check-up,Scheduled,Reminder scheduled
+F0722,P0722,2026-12-09,Routine consultation,Due,Reminder scheduled
+F0723,P0723,2026-11-15,Diabetes follow-up,Missed,Health worker follow-up
+F0724,P0724,2027-01-08,BP review,Scheduled,Reminder scheduled
+F0725,P0725,2026-11-23,Routine consultation,Due,Reminder scheduled
+F0726,P0726,2026-11-13,BP review,Completed,None
+F0727,P0727,2027-01-21,Child vaccination,Scheduled,Reminder scheduled
+F0728,P0728,2026-12-06,Child vaccination,Missed,Health worker follow-up
+F0729,P0729,2027-01-28,Routine consultation,Completed,None
+F0730,P0730,2027-01-12,Diabetes follow-up,Scheduled,Reminder scheduled
+F0731,P0731,2026-11-10,Pregnancy check-up,Missed,Health worker follow-up
+F0732,P0732,2026-11-05,Routine consultation,Completed,None
+F0733,P0733,2027-01-21,Child vaccination,Due,Reminder scheduled
+F0734,P0734,2027-01-05,Pregnancy check-up,Due,Reminder scheduled
+F0735,P0735,2027-01-21,Child vaccination,Missed,Health worker follow-up
+F0736,P0736,2026-12-22,BP review,Due,Reminder scheduled
+F0737,P0737,2026-12-03,Child vaccination,Due,Reminder scheduled
+F0738,P0738,2026-11-15,Routine consultation,Completed,None
+F0739,P0739,2026-12-04,Routine consultation,Missed,Health worker follow-up
+F0740,P0740,2027-01-05,Diabetes follow-up,Completed,None
+F0741,P0741,2026-12-18,BP review,Scheduled,Reminder scheduled
+F0742,P0742,2026-12-26,BP review,Missed,Health worker follow-up
+F0743,P0743,2026-12-06,Routine consultation,Due,Reminder scheduled
+F0744,P0744,2026-12-22,Pregnancy check-up,Completed,None
+F0745,P0745,2026-12-05,Child vaccination,Due,Reminder scheduled
+F0746,P0746,2026-11-27,Child vaccination,Due,Reminder scheduled
+F0747,P0747,2027-01-24,Pregnancy check-up,Completed,None
+F0748,P0748,2026-12-05,Routine consultation,Scheduled,Reminder scheduled
+F0749,P0749,2027-01-21,Diabetes follow-up,Missed,Health worker follow-up
+F0750,P0750,2026-11-29,Diabetes follow-up,Completed,None
+F0751,P0751,2027-01-30,BP review,Missed,Health worker follow-up
+F0752,P0752,2026-11-09,Routine consultation,Missed,Health worker follow-up
+F0753,P0753,2026-12-29,Routine consultation,Scheduled,Reminder scheduled
+F0754,P0754,2026-12-13,Child vaccination,Scheduled,Reminder scheduled
+F0755,P0755,2027-01-11,Pregnancy check-up,Due,Reminder scheduled
+F0756,P0756,2026-12-14,Pregnancy check-up,Missed,Health worker follow-up
+F0757,P0757,2026-12-27,Child vaccination,Completed,None
+F0758,P0758,2027-01-03,Routine consultation,Completed,None
+F0759,P0759,2027-01-29,Child vaccination,Completed,None
+F0760,P0760,2026-12-03,Diabetes follow-up,Scheduled,Reminder scheduled
+F0761,P0761,2027-01-24,Child vaccination,Due,Reminder scheduled
+F0762,P0762,2027-01-11,Diabetes follow-up,Missed,Health worker follow-up
+F0763,P0763,2026-11-27,Pregnancy check-up,Missed,Health worker follow-up
+F0764,P0764,2026-12-08,Child vaccination,Missed,Health worker follow-up
+F0765,P0765,2027-01-26,Diabetes follow-up,Scheduled,Reminder scheduled
+F0766,P0766,2026-11-20,Routine consultation,Completed,None
+F0767,P0767,2026-12-16,Child vaccination,Scheduled,Reminder scheduled
+F0768,P0768,2026-11-03,Routine consultation,Missed,Health worker follow-up
+F0769,P0769,2027-01-02,Child vaccination,Completed,None
+F0770,P0770,2027-01-08,Child vaccination,Completed,None
+F0771,P0771,2027-01-17,Diabetes follow-up,Due,Reminder scheduled
+F0772,P0772,2026-12-21,BP review,Completed,None
+F0773,P0773,2026-11-15,BP review,Missed,Health worker follow-up
+F0774,P0774,2026-11-21,Routine consultation,Scheduled,Reminder scheduled
+F0775,P0775,2026-12-23,BP review,Missed,Health worker follow-up
+F0776,P0776,2026-12-24,Pregnancy check-up,Missed,Health worker follow-up
+F0777,P0777,2026-12-17,Pregnancy check-up,Due,Reminder scheduled
+F0778,P0778,2027-01-04,BP review,Scheduled,Reminder scheduled
+F0779,P0779,2026-12-22,Child vaccination,Scheduled,Reminder scheduled
+F0780,P0780,2026-12-07,BP review,Scheduled,Reminder scheduled
+F0781,P0781,2026-11-23,Pregnancy check-up,Scheduled,Reminder scheduled
+F0782,P0782,2026-11-01,Child vaccination,Missed,Health worker follow-up
+F0783,P0783,2027-01-23,Diabetes follow-up,Completed,None
+F0784,P0784,2026-12-20,Child vaccination,Scheduled,Reminder scheduled
+F0785,P0785,2026-12-23,Diabetes follow-up,Completed,None
+F0786,P0786,2027-01-19,BP review,Completed,None
+F0787,P0787,2027-01-18,Routine consultation,Due,Reminder scheduled
+F0788,P0788,2027-01-13,Diabetes follow-up,Scheduled,Reminder scheduled
+F0789,P0789,2026-12-12,BP review,Completed,None
+F0790,P0790,2027-01-12,Diabetes follow-up,Scheduled,Reminder scheduled
+F0791,P0791,2026-12-18,Routine consultation,Due,Reminder scheduled
+F0792,P0792,2027-01-23,Routine consultation,Scheduled,Reminder scheduled
+F0793,P0793,2027-01-05,BP review,Completed,None
+F0794,P0794,2026-12-29,BP review,Missed,Health worker follow-up
+F0795,P0795,2026-11-23,BP review,Scheduled,Reminder scheduled
+F0796,P0796,2026-12-12,Pregnancy check-up,Completed,None
+F0797,P0797,2026-11-09,BP review,Due,Reminder scheduled
+F0798,P0798,2027-01-13,Child vaccination,Scheduled,Reminder scheduled
+F0799,P0799,2026-12-02,BP review,Scheduled,Reminder scheduled
+F0800,P0800,2026-11-23,Routine consultation,Scheduled,Reminder scheduled
+F0801,P0801,2027-01-22,Routine consultation,Due,Reminder scheduled
+F0802,P0802,2026-12-13,BP review,Completed,None
+F0803,P0803,2026-12-30,Diabetes follow-up,Due,Reminder scheduled
+F0804,P0804,2026-11-05,Routine consultation,Scheduled,Reminder scheduled
+F0805,P0805,2026-12-31,Diabetes follow-up,Scheduled,Reminder scheduled
+F0806,P0806,2026-12-24,Routine consultation,Missed,Health worker follow-up
+F0807,P0807,2026-11-16,Child vaccination,Due,Reminder scheduled
+F0808,P0808,2027-01-01,Pregnancy check-up,Due,Reminder scheduled
+F0809,P0809,2026-12-21,Pregnancy check-up,Due,Reminder scheduled
+F0810,P0810,2026-12-22,Child vaccination,Scheduled,Reminder scheduled
+F0811,P0811,2026-11-16,BP review,Due,Reminder scheduled
+F0812,P0812,2026-12-04,BP review,Due,Reminder scheduled
+F0813,P0813,2026-12-17,Pregnancy check-up,Scheduled,Reminder scheduled
+F0814,P0814,2026-11-19,Child vaccination,Completed,None
+F0815,P0815,2026-11-27,Diabetes follow-up,Missed,Health worker follow-up
+F0816,P0816,2026-12-13,Child vaccination,Due,Reminder scheduled
+F0817,P0817,2027-01-30,BP review,Scheduled,Reminder scheduled
+F0818,P0818,2026-12-04,Pregnancy check-up,Missed,Health worker follow-up
+F0819,P0819,2027-01-28,Pregnancy check-up,Scheduled,Reminder scheduled
+F0820,P0820,2026-12-28,Routine consultation,Missed,Health worker follow-up
+F0821,P0821,2026-12-06,BP review,Due,Reminder scheduled
+F0822,P0822,2026-11-19,Diabetes follow-up,Missed,Health worker follow-up
+F0823,P0823,2026-11-29,Routine consultation,Missed,Health worker follow-up
+F0824,P0824,2026-12-17,Pregnancy check-up,Missed,Health worker follow-up
+F0825,P0825,2026-11-21,Child vaccination,Missed,Health worker follow-up
+F0826,P0826,2026-12-27,BP review,Missed,Health worker follow-up
+F0827,P0827,2027-01-28,BP review,Completed,None
+F0828,P0828,2027-01-17,Child vaccination,Missed,Health worker follow-up
+F0829,P0829,2026-12-03,Diabetes follow-up,Completed,None
+F0830,P0830,2026-11-28,BP review,Missed,Health worker follow-up
+F0831,P0831,2027-01-14,Pregnancy check-up,Due,Reminder scheduled
+F0832,P0832,2026-12-17,Child vaccination,Scheduled,Reminder scheduled
+F0833,P0833,2027-01-19,Pregnancy check-up,Completed,None
+F0834,P0834,2027-01-22,Routine consultation,Completed,None
+F0835,P0835,2027-01-04,Routine consultation,Missed,Health worker follow-up
+F0836,P0836,2026-12-18,Child vaccination,Scheduled,Reminder scheduled
+F0837,P0837,2027-01-22,Routine consultation,Completed,None
+F0838,P0838,2027-01-01,Child vaccination,Completed,None
+F0839,P0839,2026-12-19,Diabetes follow-up,Due,Reminder scheduled
+F0840,P0840,2026-12-14,Pregnancy check-up,Completed,None
+F0841,P0841,2026-11-27,BP review,Completed,None
+F0842,P0842,2026-12-06,BP review,Due,Reminder scheduled
+F0843,P0843,2026-12-16,Child vaccination,Scheduled,Reminder scheduled
+F0844,P0844,2027-01-12,Routine consultation,Due,Reminder scheduled
+F0845,P0845,2026-11-30,Pregnancy check-up,Completed,None
+F0846,P0846,2027-01-25,Child vaccination,Due,Reminder scheduled
+F0847,P0847,2027-01-20,Pregnancy check-up,Due,Reminder scheduled
+F0848,P0848,2027-01-04,Pregnancy check-up,Due,Reminder scheduled
+F0849,P0849,2027-01-10,Diabetes follow-up,Due,Reminder scheduled
+F0850,P0850,2026-12-28,BP review,Completed,None
+F0851,P0851,2026-12-03,BP review,Completed,None
+F0852,P0852,2026-11-30,BP review,Scheduled,Reminder scheduled
+F0853,P0853,2026-11-06,Routine consultation,Missed,Health worker follow-up
+F0854,P0854,2026-12-06,BP review,Due,Reminder scheduled
+F0855,P0855,2026-11-09,Routine consultation,Completed,None
+F0856,P0856,2026-12-09,BP review,Due,Reminder scheduled
+F0857,P0857,2026-11-30,Routine consultation,Completed,None
+F0858,P0858,2027-01-14,Child vaccination,Scheduled,Reminder scheduled
+F0859,P0859,2026-11-13,Pregnancy check-up,Due,Reminder scheduled
+F0860,P0860,2027-01-21,BP review,Due,Reminder scheduled
+F0861,P0861,2027-01-01,Child vaccination,Due,Reminder scheduled
+F0862,P0862,2026-11-11,BP review,Scheduled,Reminder scheduled
+F0863,P0863,2026-11-13,Routine consultation,Completed,None
+F0864,P0864,2027-01-02,Routine consultation,Missed,Health worker follow-up
+F0865,P0865,2026-11-02,Diabetes follow-up,Scheduled,Reminder scheduled
+F0866,P0866,2026-12-27,Routine consultation,Completed,None
+F0867,P0867,2027-01-21,Diabetes follow-up,Scheduled,Reminder scheduled
+F0868,P0868,2026-12-03,Routine consultation,Scheduled,Reminder scheduled
+F0869,P0869,2026-12-05,BP review,Scheduled,Reminder scheduled
+F0870,P0870,2026-12-13,Routine consultation,Scheduled,Reminder scheduled
+F0871,P0871,2026-12-07,Pregnancy check-up,Missed,Health worker follow-up
+F0872,P0872,2027-01-08,Pregnancy check-up,Completed,None
+F0873,P0873,2026-12-06,Child vaccination,Missed,Health worker follow-up
+F0874,P0874,2026-11-15,Child vaccination,Completed,None
+F0875,P0875,2026-11-01,Routine consultation,Missed,Health worker follow-up
+F0876,P0876,2026-12-31,BP review,Scheduled,Reminder scheduled
+F0877,P0877,2026-11-23,Child vaccination,Due,Reminder scheduled
+F0878,P0878,2027-01-26,Diabetes follow-up,Missed,Health worker follow-up
+F0879,P0879,2026-12-27,Routine consultation,Missed,Health worker follow-up
+F0880,P0880,2026-11-24,Diabetes follow-up,Completed,None
+F0881,P0881,2026-11-30,Pregnancy check-up,Completed,None
+F0882,P0882,2027-01-04,Pregnancy check-up,Missed,Health worker follow-up
+F0883,P0883,2027-01-07,Diabetes follow-up,Scheduled,Reminder scheduled
+F0884,P0884,2027-01-27,Routine consultation,Missed,Health worker follow-up
+F0885,P0885,2026-11-27,Pregnancy check-up,Completed,None
+F0886,P0886,2026-11-21,Child vaccination,Completed,None
+F0887,P0887,2026-11-22,Routine consultation,Completed,None
+F0888,P0888,2027-01-24,Pregnancy check-up,Completed,None
+F0889,P0889,2027-01-06,Routine consultation,Scheduled,Reminder scheduled
+F0890,P0890,2026-12-24,BP review,Missed,Health worker follow-up
+F0891,P0891,2026-12-04,Pregnancy check-up,Scheduled,Reminder scheduled
+F0892,P0892,2026-12-18,Pregnancy check-up,Completed,None
+F0893,P0893,2026-12-13,Pregnancy check-up,Missed,Health worker follow-up
+F0894,P0894,2026-12-28,Child vaccination,Missed,Health worker follow-up
+F0895,P0895,2027-01-12,Child vaccination,Scheduled,Reminder scheduled
+F0896,P0896,2026-11-01,Diabetes follow-up,Scheduled,Reminder scheduled
+F0897,P0897,2026-12-23,BP review,Missed,Health worker follow-up
+F0898,P0898,2026-12-29,Diabetes follow-up,Missed,Health worker follow-up
+F0899,P0899,2027-01-30,BP review,Completed,None
+F0900,P0900,2027-01-24,Pregnancy check-up,Missed,Health worker follow-up
+F0901,P0901,2026-12-18,Pregnancy check-up,Due,Reminder scheduled
+F0902,P0902,2026-12-25,Pregnancy check-up,Scheduled,Reminder scheduled
+F0903,P0903,2027-01-11,BP review,Completed,None
+F0904,P0904,2027-01-19,Pregnancy check-up,Scheduled,Reminder scheduled
+F0905,P0905,2026-11-14,BP review,Due,Reminder scheduled
+F0906,P0906,2026-11-21,Child vaccination,Missed,Health worker follow-up
+F0907,P0907,2027-01-15,Diabetes follow-up,Scheduled,Reminder scheduled
+F0908,P0908,2027-01-24,Child vaccination,Scheduled,Reminder scheduled
+F0909,P0909,2026-12-02,Routine consultation,Missed,Health worker follow-up
+F0910,P0910,2027-01-15,Diabetes follow-up,Scheduled,Reminder scheduled
+F0911,P0911,2026-11-13,Pregnancy check-up,Due,Reminder scheduled
+F0912,P0912,2026-12-06,Child vaccination,Missed,Health worker follow-up
+F0913,P0913,2026-12-07,Child vaccination,Due,Reminder scheduled
+F0914,P0914,2026-11-18,Pregnancy check-up,Due,Reminder scheduled
+F0915,P0915,2026-12-23,BP review,Completed,None
+F0916,P0916,2027-01-15,Routine consultation,Missed,Health worker follow-up
+F0917,P0917,2026-11-26,Child vaccination,Due,Reminder scheduled
+F0918,P0918,2026-12-02,Routine consultation,Missed,Health worker follow-up
+F0919,P0919,2027-01-09,Routine consultation,Missed,Health worker follow-up
+F0920,P0920,2027-01-07,Diabetes follow-up,Missed,Health worker follow-up
+F0921,P0921,2026-11-18,Pregnancy check-up,Due,Reminder scheduled
+F0922,P0922,2026-12-17,BP review,Scheduled,Reminder scheduled
+F0923,P0923,2026-11-24,Child vaccination,Missed,Health worker follow-up
+F0924,P0924,2026-11-30,Pregnancy check-up,Scheduled,Reminder scheduled
+F0925,P0925,2026-12-13,Pregnancy check-up,Completed,None
+F0926,P0926,2026-12-03,BP review,Due,Reminder scheduled
+F0927,P0927,2026-11-16,Child vaccination,Scheduled,Reminder scheduled
+F0928,P0928,2026-12-21,Diabetes follow-up,Scheduled,Reminder scheduled
+F0929,P0929,2027-01-07,Routine consultation,Due,Reminder scheduled
+F0930,P0930,2026-12-18,Routine consultation,Due,Reminder scheduled
+F0931,P0931,2026-12-26,Routine consultation,Due,Reminder scheduled
+F0932,P0932,2026-12-12,Pregnancy check-up,Scheduled,Reminder scheduled
+F0933,P0933,2027-01-13,Diabetes follow-up,Missed,Health worker follow-up
+F0934,P0934,2026-11-10,Routine consultation,Due,Reminder scheduled
+F0935,P0935,2026-11-15,Routine consultation,Completed,None
+F0936,P0936,2026-11-12,Routine consultation,Scheduled,Reminder scheduled
+F0937,P0937,2027-01-23,Diabetes follow-up,Completed,None
+F0938,P0938,2027-01-27,Pregnancy check-up,Scheduled,Reminder scheduled
+F0939,P0939,2026-12-30,BP review,Scheduled,Reminder scheduled
+F0940,P0940,2027-01-23,Diabetes follow-up,Missed,Health worker follow-up
+F0941,P0941,2026-11-24,Child vaccination,Missed,Health worker follow-up
+F0942,P0942,2027-01-07,Diabetes follow-up,Scheduled,Reminder scheduled
+F0943,P0943,2026-12-22,Diabetes follow-up,Missed,Health worker follow-up
+F0944,P0944,2027-01-19,Diabetes follow-up,Scheduled,Reminder scheduled
+F0945,P0945,2026-11-02,Pregnancy check-up,Completed,None
+F0946,P0946,2026-12-25,Pregnancy check-up,Completed,None
+F0947,P0947,2026-11-29,Routine consultation,Missed,Health worker follow-up
+F0948,P0948,2026-12-29,Routine consultation,Completed,None
+F0949,P0949,2026-12-16,BP review,Completed,None
+F0950,P0950,2026-11-19,Pregnancy check-up,Completed,None
+F0951,P0951,2026-11-24,Diabetes follow-up,Due,Reminder scheduled
+F0952,P0952,2027-01-08,BP review,Due,Reminder scheduled
+F0953,P0953,2027-01-09,Diabetes follow-up,Missed,Health worker follow-up
+F0954,P0954,2026-12-12,BP review,Missed,Health worker follow-up
+F0955,P0955,2027-01-24,BP review,Completed,None
+F0956,P0956,2026-12-09,Child vaccination,Completed,None
+F0957,P0957,2026-12-05,BP review,Completed,None
+F0958,P0958,2026-12-16,BP review,Due,Reminder scheduled
+F0959,P0959,2026-12-27,Child vaccination,Due,Reminder scheduled
+F0960,P0960,2026-11-04,BP review,Scheduled,Reminder scheduled
+F0961,P0961,2026-12-19,Child vaccination,Due,Reminder scheduled
+F0962,P0962,2026-12-27,BP review,Scheduled,Reminder scheduled
+F0963,P0963,2026-11-27,Routine consultation,Scheduled,Reminder scheduled
+F0964,P0964,2026-11-16,BP review,Due,Reminder scheduled
+F0965,P0965,2027-01-04,BP review,Due,Reminder scheduled
+F0966,P0966,2026-11-27,Child vaccination,Due,Reminder scheduled
+F0967,P0967,2027-01-17,Pregnancy check-up,Missed,Health worker follow-up
+F0968,P0968,2026-12-24,BP review,Completed,None
+F0969,P0969,2026-11-12,Child vaccination,Missed,Health worker follow-up
+F0970,P0970,2026-12-03,Child vaccination,Due,Reminder scheduled
+F0971,P0971,2026-11-03,Child vaccination,Due,Reminder scheduled
+F0972,P0972,2026-12-24,Diabetes follow-up,Scheduled,Reminder scheduled
+F0973,P0973,2026-12-16,Pregnancy check-up,Missed,Health worker follow-up
+F0974,P0974,2026-11-09,Pregnancy check-up,Scheduled,Reminder scheduled
+F0975,P0975,2026-11-30,Child vaccination,Due,Reminder scheduled
+F0976,P0976,2026-12-31,Pregnancy check-up,Due,Reminder scheduled
+F0977,P0977,2027-01-22,Diabetes follow-up,Missed,Health worker follow-up
+F0978,P0978,2026-11-19,BP review,Completed,None
+F0979,P0979,2027-01-12,BP review,Due,Reminder scheduled
+F0980,P0980,2027-01-06,BP review,Completed,None
+F0981,P0981,2027-01-28,Diabetes follow-up,Scheduled,Reminder scheduled
+F0982,P0982,2026-11-08,Pregnancy check-up,Completed,None
+F0983,P0983,2026-12-18,BP review,Scheduled,Reminder scheduled
+F0984,P0984,2026-12-24,BP review,Completed,None
+F0985,P0985,2027-01-06,BP review,Completed,None
+F0986,P0986,2026-12-17,BP review,Due,Reminder scheduled
+F0987,P0987,2026-11-04,BP review,Scheduled,Reminder scheduled
+F0988,P0988,2026-12-10,Pregnancy check-up,Scheduled,Reminder scheduled
+F0989,P0989,2026-12-04,Diabetes follow-up,Missed,Health worker follow-up
+F0990,P0990,2026-11-04,Diabetes follow-up,Missed,Health worker follow-up
+F0991,P0991,2026-12-31,BP review,Due,Reminder scheduled
+F0992,P0992,2026-12-23,Routine consultation,Due,Reminder scheduled
+F0993,P0993,2026-12-19,BP review,Completed,None
+F0994,P0994,2026-11-13,Pregnancy check-up,Due,Reminder scheduled
+F0995,P0995,2026-11-29,Child vaccination,Due,Reminder scheduled
+F0996,P0996,2026-11-09,Child vaccination,Due,Reminder scheduled
+F0997,P0997,2026-12-30,Routine consultation,Scheduled,Reminder scheduled
+F0998,P0998,2026-12-27,Routine consultation,Completed,None
+F0999,P0999,2027-01-21,Pregnancy check-up,Due,Reminder scheduled
+F1000,P1000,2026-12-31,Pregnancy check-up,Scheduled,Reminder scheduled

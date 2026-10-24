@@ -1,0 +1,51 @@
+hospital_id,hospital_name,facility_type,district,state,latitude,longitude,languages,services,operating_hours
+H001,Lucknow Public Health Facility 001,PHC,Lucknow,Uttar Pradesh,27.67312,73.37516,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H002,Patna Public Health Facility 002,CHC,Patna,Bihar,23.30035,76.34816,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H003,Jaipur Public Health Facility 003,District Hospital,Jaipur,Rajasthan,28.83765,83.15049,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H004,Bhopal Public Health Facility 004,Community Hospital,Bhopal,Madhya Pradesh,30.70615,74.30408,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H005,Nagpur Public Health Facility 005,Telemedicine Centre,Nagpur,Maharashtra,25.06306,73.44696,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7
+H006,Kolkata Public Health Facility 006,PHC,Kolkata,West Bengal,22.62366,80.58033,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H007,Bhubaneswar Public Health Facility 007,CHC,Bhubaneswar,Odisha,20.31843,75.98256,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H008,Ranchi Public Health Facility 008,District Hospital,Ranchi,Jharkhand,27.79861,81.17412,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H009,Ahmedabad Public Health Facility 009,Community Hospital,Ahmedabad,Gujarat,22.64529,81.83899,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H010,Raipur Public Health Facility 010,Telemedicine Centre,Raipur,Chhattisgarh,29.71317,73.09748,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7
+H011,Lucknow Public Health Facility 011,PHC,Lucknow,Uttar Pradesh,29.66983,83.47209,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H012,Patna Public Health Facility 012,CHC,Patna,Bihar,24.08301,75.33219,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H013,Jaipur Public Health Facility 013,District Hospital,Jaipur,Rajasthan,31.48656,78.04892,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H014,Bhopal Public Health Facility 014,Community Hospital,Bhopal,Madhya Pradesh,21.11295,74.45075,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H015,Nagpur Public Health Facility 015,Telemedicine Centre,Nagpur,Maharashtra,30.16993,82.05589,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7
+H016,Kolkata Public Health Facility 016,PHC,Kolkata,West Bengal,29.68554,83.94598,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H017,Bhubaneswar Public Health Facility 017,CHC,Bhubaneswar,Odisha,26.43474,87.59674,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H018,Ranchi Public Health Facility 018,District Hospital,Ranchi,Jharkhand,24.54241,81.28061,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H019,Ahmedabad Public Health Facility 019,Community Hospital,Ahmedabad,Gujarat,29.95286,82.2778,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H020,Raipur Public Health Facility 020,Telemedicine Centre,Raipur,Chhattisgarh,30.34048,81.66028,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7
+H021,Lucknow Public Health Facility 021,PHC,Lucknow,Uttar Pradesh,28.45486,73.68737,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H022,Patna Public Health Facility 022,CHC,Patna,Bihar,22.73478,77.34082,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H023,Jaipur Public Health Facility 023,District Hospital,Jaipur,Rajasthan,20.9575,76.49186,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H024,Bhopal Public Health Facility 024,Community Hospital,Bhopal,Madhya Pradesh,21.21202,77.1696,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H025,Nagpur Public Health Facility 025,Telemedicine Centre,Nagpur,Maharashtra,27.62821,78.47248,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7
+H026,Kolkata Public Health Facility 026,PHC,Kolkata,West Bengal,24.44217,76.14261,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H027,Bhubaneswar Public Health Facility 027,CHC,Bhubaneswar,Odisha,23.20373,87.04982,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H028,Ranchi Public Health Facility 028,District Hospital,Ranchi,Jharkhand,27.77642,82.13697,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H029,Ahmedabad Public Health Facility 029,Community Hospital,Ahmedabad,Gujarat,22.05366,83.9369,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H030,Raipur Public Health Facility 030,Telemedicine Centre,Raipur,Chhattisgarh,21.96083,78.69183,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7
+H031,Lucknow Public Health Facility 031,PHC,Lucknow,Uttar Pradesh,31.87428,82.6,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H032,Patna Public Health Facility 032,CHC,Patna,Bihar,26.6834,83.26921,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H033,Jaipur Public Health Facility 033,District Hospital,Jaipur,Rajasthan,30.11422,84.64,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H034,Bhopal Public Health Facility 034,Community Hospital,Bhopal,Madhya Pradesh,22.74858,73.4815,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H035,Nagpur Public Health Facility 035,Telemedicine Centre,Nagpur,Maharashtra,23.78544,77.01611,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7
+H036,Kolkata Public Health Facility 036,PHC,Kolkata,West Bengal,22.53179,87.14365,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H037,Bhubaneswar Public Health Facility 037,CHC,Bhubaneswar,Odisha,30.51641,77.72017,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H038,Ranchi Public Health Facility 038,District Hospital,Ranchi,Jharkhand,27.86526,78.93448,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H039,Ahmedabad Public Health Facility 039,Community Hospital,Ahmedabad,Gujarat,30.97457,79.88278,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H040,Raipur Public Health Facility 040,Telemedicine Centre,Raipur,Chhattisgarh,23.17856,76.69941,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7
+H041,Lucknow Public Health Facility 041,PHC,Lucknow,Uttar Pradesh,26.73642,76.94112,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H042,Patna Public Health Facility 042,CHC,Patna,Bihar,27.01503,86.46734,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H043,Jaipur Public Health Facility 043,District Hospital,Jaipur,Rajasthan,24.79281,76.28981,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H044,Bhopal Public Health Facility 044,Community Hospital,Bhopal,Madhya Pradesh,31.97045,80.64289,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H045,Nagpur Public Health Facility 045,Telemedicine Centre,Nagpur,Maharashtra,21.09091,73.70675,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7
+H046,Kolkata Public Health Facility 046,PHC,Kolkata,West Bengal,21.31579,82.41169,"Hindi,English",General OPD;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H047,Bhubaneswar Public Health Facility 047,CHC,Bhubaneswar,Odisha,29.50495,79.3324,"Hindi,English",General OPD;X-Ray;CBC;Blood Sugar;Pharmacy,08:00-16:00
+H048,Ranchi Public Health Facility 048,District Hospital,Ranchi,Jharkhand,20.76233,78.72429,"Hindi,English",Specialists;Emergency;X-Ray;CBC;Pharmacy,08:00-16:00
+H049,Ahmedabad Public Health Facility 049,Community Hospital,Ahmedabad,Gujarat,31.95346,80.93672,"Hindi,English",Telemedicine;Specialist Consultation,08:00-16:00
+H050,Raipur Public Health Facility 050,Telemedicine Centre,Raipur,Chhattisgarh,31.65294,85.9117,"Hindi,English",General OPD;Maternal Care;Child Care;Pharmacy,24x7

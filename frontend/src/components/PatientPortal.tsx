@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Patient, FacilityReadiness, SymptomIntakeResponse, Appointment, CareTimelineEvent } from '../types';
 import { api } from '../services/api';
+import { PatientMasterProfileModal } from './PatientMasterProfileModal';
 import { 
   AlertTriangle, PhoneCall, CheckCircle2, Clock, MapPin, 
   Stethoscope, Pill, FileText, Calendar, Shield, Users, Mic, Send,
@@ -25,6 +26,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language }) => {
   const [activeTab, setActiveTab] = useState<'ASSISTANT' | 'TIMELINE' | 'FACILITIES' | 'FAMILY'>('ASSISTANT');
   const [bookingSuccess, setBookingSuccess] = useState<Appointment | null>(null);
   const [isListening, setIsListening] = useState<boolean>(false);
+  const [showMasterModal, setShowMasterModal] = useState<boolean>(false);
 
   // Load patient #1 (Ramesh Kumar)
   const loadData = async () => {
@@ -138,6 +140,15 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language }) => {
               <span className="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-semibold border border-emerald-200">
                 ABHA Active
               </span>
+              <button
+                type="button"
+                onClick={() => setShowMasterModal(true)}
+                className="bg-teal-50 hover:bg-teal-100 text-teal-800 text-xs px-2.5 py-0.5 rounded-full font-semibold border border-teal-200 flex items-center gap-1 transition"
+                title="View your longitudinal digital health record, all reports & AI explanations"
+              >
+                <FileText size={12} />
+                <span>{language === 'hi' ? 'मेरी रिपोर्ट्स व समरी' : 'My Records & Reports'}</span>
+              </button>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
               ABHA ID: <span className="font-mono text-slate-700 font-medium">{patient?.abha_id || '91-4829-1029-3849'}</span> • 
@@ -649,6 +660,14 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language }) => {
             </div>
           </div>
         </div>
+      )}
+
+      {showMasterModal && (
+        <PatientMasterProfileModal
+          patientId={patient?.id || 1}
+          onClose={() => setShowMasterModal(false)}
+          language={language}
+        />
       )}
     </div>
   );

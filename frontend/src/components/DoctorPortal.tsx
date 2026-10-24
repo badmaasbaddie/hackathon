@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Appointment, Patient, CareTimelineEvent } from '../types';
 import { api } from '../services/api';
+import { PatientMasterProfileModal } from './PatientMasterProfileModal';
 import { 
   Stethoscope, Users, FileText, CheckCircle2, Clock, 
   AlertTriangle, Pill, Activity, Calendar, ShieldCheck, ArrowRight
@@ -15,6 +16,7 @@ export const DoctorPortal: React.FC<DoctorPortalProps> = ({ language }) => {
   const [selectedApt, setSelectedApt] = useState<Appointment | null>(null);
   const [patient, setPatient] = useState<Patient | null>(null);
   const [timeline, setTimeline] = useState<CareTimelineEvent[]>([]);
+  const [masterProfilePatientId, setMasterProfilePatientId] = useState<number | null>(null);
 
   // Encounter Form State
   const [chiefComplaints, setChiefComplaints] = useState<string>('Chest discomfort on exertion, mild shortness of breath');
@@ -210,6 +212,16 @@ export const DoctorPortal: React.FC<DoctorPortalProps> = ({ language }) => {
               <span className="text-xs bg-emerald-50 text-emerald-800 font-semibold px-2.5 py-1 rounded border border-emerald-200">
                 ✓ Consent Authorized
               </span>
+              {patient && (
+                <button
+                  type="button"
+                  onClick={() => setMasterProfilePatientId(patient.id)}
+                  className="flex items-center gap-1.5 px-3 py-1 bg-teal-700 hover:bg-teal-800 text-white rounded-lg text-xs font-semibold shadow-sm transition"
+                >
+                  <FileText size={13} />
+                  <span>{language === 'hi' ? 'संपूर्ण मास्टर प्रोफाइल एवं लैब्स' : 'Master Profile & Lab Reports'}</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -410,6 +422,14 @@ export const DoctorPortal: React.FC<DoctorPortalProps> = ({ language }) => {
           </form>
         </div>
       </div>
+
+      {masterProfilePatientId && (
+        <PatientMasterProfileModal
+          patientId={masterProfilePatientId}
+          onClose={() => setMasterProfilePatientId(null)}
+          language={language}
+        />
+      )}
     </div>
   );
 };

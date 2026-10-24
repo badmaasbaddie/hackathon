@@ -1,0 +1,1001 @@
+patient_id,patient_name,age,gender,village,blood_group,condition,current_medication,allergies
+P0001,Asha Jha,2,Male,Village-097,O+,Routine child care,None,Dust allergy
+P0002,Pankaj Patel,44,Male,Village-021,AB+,Diabetes,Metformin,No known allergy
+P0003,Anita Jha,34,Female,Village-014,O+,Asthma,Salbutamol,Dust allergy
+P0004,Sunita Verma,65,Male,Village-048,B+,Asthma,Salbutamol,Dust allergy
+P0005,Pooja Yadav,68,Male,Village-063,A+,Diabetes,Metformin,No known allergy
+P0006,Pankaj Singh,47,Female,Village-008,B+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0007,Kavita Sharma,11,Male,Village-098,O-,Routine child care,None,No known allergy
+P0008,Kavita Jha,17,Male,Village-022,O+,No chronic condition,None,Dust allergy
+P0009,Sunita Jha,78,Female,Village-097,B+,Routine child care,None,Dust allergy
+P0010,Kiran Das,40,Male,Village-067,AB+,Routine child care,None,No known allergy
+P0011,Mohan Yadav,32,Male,Village-003,O-,Hypertension,Amlodipine,Dust allergy
+P0012,Rajesh Kumar,30,Female,Village-010,A+,Asthma,Salbutamol,No known allergy
+P0013,Neha Sharma,9,Male,Village-066,B+,Routine child care,None,Penicillin allergy
+P0014,Geeta Verma,63,Male,Village-093,O-,Hypertension,Amlodipine,Dust allergy
+P0015,Kavita Patel,61,Female,Village-025,A+,Hypertension,Amlodipine,No known allergy
+P0016,Kiran Patel,85,Male,Village-053,AB+,Routine child care,None,Dust allergy
+P0017,Asha Kumar,7,Male,Village-052,O+,Routine child care,None,No known allergy
+P0018,Sunita Jha,32,Female,Village-058,B+,Hypertension,Amlodipine,Penicillin allergy
+P0019,Arjun Singh,24,Male,Village-010,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0020,Geeta Kumar,13,Male,Village-012,B+,Diabetes,Metformin,No known allergy
+P0021,Kavita Singh,53,Female,Village-052,A+,Routine child care,None,No known allergy
+P0022,Deepak Gupta,49,Male,Village-059,O+,Diabetes,Metformin,Penicillin allergy
+P0023,Kavita Verma,72,Male,Village-025,O+,No chronic condition,None,No known allergy
+P0024,Geeta Kumar,8,Female,Village-096,O+,Routine child care,None,No known allergy
+P0025,Kavita Jha,7,Male,Village-068,B+,Routine child care,None,No known allergy
+P0026,Anita Sharma,66,Male,Village-077,A+,Diabetes,Metformin,Dust allergy
+P0027,Asha Mishra,31,Female,Village-032,O-,Routine child care,None,Dust allergy
+P0028,Mohan Patel,6,Male,Village-085,O-,Routine child care,None,Dust allergy
+P0029,Vijay Singh,67,Male,Village-086,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0030,Sita Gupta,34,Female,Village-059,O+,Routine child care,None,No known allergy
+P0031,Pooja Mishra,2,Male,Village-013,A+,Routine child care,None,Dust allergy
+P0032,Vijay Verma,28,Male,Village-045,A+,Asthma,Salbutamol,No known allergy
+P0033,Anita Das,48,Female,Village-070,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0034,Ramesh Jha,84,Male,Village-039,A+,Asthma,Salbutamol,No known allergy
+P0035,Asha Jha,34,Male,Village-020,O+,Diabetes,Metformin,Penicillin allergy
+P0036,Neha Singh,78,Female,Village-088,O+,Hypertension,Amlodipine,Dust allergy
+P0037,Suresh Sharma,63,Male,Village-082,AB+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0038,Neha Verma,6,Male,Village-082,O+,Routine child care,None,No known allergy
+P0039,Meena Jha,57,Female,Village-002,A+,Asthma,Salbutamol,No known allergy
+P0040,Suresh Yadav,20,Male,Village-075,O-,Asthma,Salbutamol,No known allergy
+P0041,Suresh Gupta,56,Male,Village-047,A+,Hypertension,Amlodipine,Penicillin allergy
+P0042,Rajesh Sharma,27,Female,Village-046,O-,No chronic condition,None,Penicillin allergy
+P0043,Sita Singh,80,Male,Village-021,B+,No chronic condition,None,Penicillin allergy
+P0044,Neha Patel,4,Male,Village-086,B+,Routine child care,None,Penicillin allergy
+P0045,Asha Patel,21,Female,Village-005,AB+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0046,Arjun Yadav,26,Male,Village-040,B+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0047,Sunita Patel,4,Male,Village-043,O+,Routine child care,None,No known allergy
+P0048,Ravi Patel,36,Female,Village-087,O-,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0049,Vijay Verma,4,Male,Village-075,O+,Routine child care,None,No known allergy
+P0050,Meena Yadav,14,Male,Village-094,O+,Asthma,Salbutamol,Penicillin allergy
+P0051,Asha Patel,78,Female,Village-074,B+,Asthma,Salbutamol,Penicillin allergy
+P0052,Meena Kumar,6,Male,Village-067,O-,Routine child care,None,Dust allergy
+P0053,Meena Sharma,26,Male,Village-086,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0054,Asha Gupta,41,Female,Village-065,O+,No chronic condition,None,Dust allergy
+P0055,Deepak Gupta,53,Male,Village-071,B+,Pregnancy,Iron + Folic Acid,No known allergy
+P0056,Deepak Verma,54,Male,Village-079,O-,No chronic condition,None,Penicillin allergy
+P0057,Ramesh Gupta,52,Female,Village-037,B+,Asthma,Salbutamol,Penicillin allergy
+P0058,Neha Das,75,Male,Village-057,AB+,Asthma,Salbutamol,Dust allergy
+P0059,Kavita Verma,28,Male,Village-085,A+,Asthma,Salbutamol,Penicillin allergy
+P0060,Pooja Yadav,66,Female,Village-012,B+,No chronic condition,None,Dust allergy
+P0061,Sunita Verma,40,Male,Village-004,A+,Hypertension,Amlodipine,No known allergy
+P0062,Mohan Das,61,Male,Village-054,O-,Asthma,Salbutamol,No known allergy
+P0063,Deepak Singh,50,Female,Village-019,A+,Routine child care,None,No known allergy
+P0064,Anita Jha,55,Male,Village-060,A+,Hypertension,Amlodipine,Dust allergy
+P0065,Asha Das,32,Male,Village-018,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0066,Pooja Yadav,68,Female,Village-097,AB+,Asthma,Salbutamol,Dust allergy
+P0067,Geeta Das,65,Male,Village-021,AB+,Routine child care,None,Penicillin allergy
+P0068,Rajesh Gupta,34,Male,Village-099,O-,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0069,Vijay Das,81,Female,Village-010,O+,Hypertension,Amlodipine,No known allergy
+P0070,Neha Jha,35,Male,Village-011,B+,Pregnancy,Iron + Folic Acid,No known allergy
+P0071,Sita Singh,30,Male,Village-009,AB+,Routine child care,None,Penicillin allergy
+P0072,Arjun Patel,43,Female,Village-008,B+,Asthma,Salbutamol,Penicillin allergy
+P0073,Manoj Kumar,50,Male,Village-098,O-,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0074,Kiran Gupta,62,Male,Village-097,AB+,Diabetes,Metformin,Penicillin allergy
+P0075,Geeta Mishra,69,Female,Village-029,AB+,No chronic condition,None,No known allergy
+P0076,Kavita Kumar,35,Male,Village-050,O+,Routine child care,None,Dust allergy
+P0077,Anita Das,52,Male,Village-017,O-,No chronic condition,None,Dust allergy
+P0078,Manoj Mishra,4,Female,Village-085,A+,Routine child care,None,No known allergy
+P0079,Sita Das,83,Male,Village-024,A+,Routine child care,None,Penicillin allergy
+P0080,Sunita Das,49,Male,Village-042,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0081,Meena Gupta,36,Female,Village-011,AB+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0082,Kiran Singh,70,Male,Village-084,A+,Diabetes,Metformin,Dust allergy
+P0083,Ramesh Singh,6,Male,Village-026,A+,Routine child care,None,Dust allergy
+P0084,Sita Das,20,Female,Village-086,A+,Hypertension,Amlodipine,Dust allergy
+P0085,Vijay Yadav,28,Male,Village-022,O-,Routine child care,None,Dust allergy
+P0086,Anita Gupta,15,Male,Village-014,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0087,Deepak Patel,40,Female,Village-092,B+,Asthma,Salbutamol,No known allergy
+P0088,Rajesh Sharma,76,Male,Village-090,O+,No chronic condition,None,Dust allergy
+P0089,Asha Mishra,77,Male,Village-006,O+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0090,Kiran Sharma,55,Female,Village-065,O+,No chronic condition,None,No known allergy
+P0091,Kavita Sharma,54,Male,Village-056,O+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0092,Sita Patel,59,Male,Village-023,O-,No chronic condition,None,Dust allergy
+P0093,Geeta Das,35,Female,Village-060,AB+,Asthma,Salbutamol,Dust allergy
+P0094,Neha Singh,76,Male,Village-012,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0095,Arjun Mishra,32,Male,Village-079,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0096,Neha Verma,4,Female,Village-063,B+,Routine child care,None,Penicillin allergy
+P0097,Vijay Mishra,34,Male,Village-090,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0098,Sunita Sharma,2,Male,Village-031,AB+,Routine child care,None,Penicillin allergy
+P0099,Rajesh Das,72,Female,Village-083,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0100,Pankaj Singh,3,Male,Village-052,B+,Routine child care,None,Penicillin allergy
+P0101,Kiran Das,85,Male,Village-071,O-,Asthma,Salbutamol,Penicillin allergy
+P0102,Geeta Yadav,55,Female,Village-046,AB+,No chronic condition,None,Penicillin allergy
+P0103,Rajesh Sharma,40,Male,Village-093,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0104,Geeta Verma,16,Male,Village-025,B+,No chronic condition,None,Dust allergy
+P0105,Manoj Jha,62,Female,Village-077,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0106,Rajesh Yadav,25,Male,Village-023,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0107,Vijay Kumar,69,Male,Village-007,O-,Hypertension,Amlodipine,Penicillin allergy
+P0108,Kavita Sharma,17,Female,Village-002,O-,No chronic condition,None,Penicillin allergy
+P0109,Arjun Yadav,61,Male,Village-024,A+,Routine child care,None,Penicillin allergy
+P0110,Mohan Patel,62,Male,Village-063,A+,Diabetes,Metformin,Dust allergy
+P0111,Suresh Verma,81,Female,Village-020,O-,No chronic condition,None,Penicillin allergy
+P0112,Asha Jha,11,Male,Village-098,AB+,Routine child care,None,Dust allergy
+P0113,Pooja Singh,77,Male,Village-100,O-,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0114,Pankaj Mishra,58,Female,Village-055,O+,Routine child care,None,Dust allergy
+P0115,Pooja Sharma,80,Male,Village-098,B+,Diabetes,Metformin,Dust allergy
+P0116,Mohan Verma,28,Male,Village-031,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0117,Ramesh Patel,10,Female,Village-058,O-,Routine child care,None,Penicillin allergy
+P0118,Rajesh Gupta,38,Male,Village-091,O+,Diabetes,Metformin,Dust allergy
+P0119,Rajesh Gupta,59,Male,Village-081,O-,Diabetes,Metformin,Dust allergy
+P0120,Asha Jha,26,Female,Village-029,B+,Routine child care,None,Penicillin allergy
+P0121,Suresh Verma,19,Male,Village-040,O-,Diabetes,Metformin,Dust allergy
+P0122,Arjun Sharma,73,Male,Village-060,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0123,Ravi Jha,52,Female,Village-064,AB+,Pregnancy,Iron + Folic Acid,No known allergy
+P0124,Meena Yadav,77,Male,Village-078,O+,Diabetes,Metformin,No known allergy
+P0125,Manoj Mishra,12,Male,Village-003,O+,Hypertension,Amlodipine,Dust allergy
+P0126,Anita Das,6,Female,Village-067,AB+,Routine child care,None,Penicillin allergy
+P0127,Meena Das,24,Male,Village-012,AB+,Asthma,Salbutamol,Penicillin allergy
+P0128,Neha Sharma,53,Male,Village-021,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0129,Deepak Jha,64,Female,Village-005,AB+,Pregnancy,Iron + Folic Acid,No known allergy
+P0130,Neha Sharma,41,Male,Village-099,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0131,Geeta Das,1,Male,Village-053,A+,Routine child care,None,No known allergy
+P0132,Pooja Das,67,Female,Village-081,AB+,Pregnancy,Iron + Folic Acid,No known allergy
+P0133,Geeta Verma,27,Male,Village-037,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0134,Ramesh Mishra,63,Male,Village-031,B+,Diabetes,Metformin,Penicillin allergy
+P0135,Geeta Patel,71,Female,Village-012,B+,Diabetes,Metformin,No known allergy
+P0136,Sita Das,60,Male,Village-092,O+,Diabetes,Metformin,Dust allergy
+P0137,Kavita Das,35,Male,Village-032,AB+,Routine child care,None,Dust allergy
+P0138,Sunita Mishra,19,Female,Village-066,B+,Routine child care,None,No known allergy
+P0139,Meena Yadav,36,Male,Village-065,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0140,Pankaj Mishra,37,Male,Village-075,AB+,No chronic condition,None,No known allergy
+P0141,Kavita Yadav,58,Female,Village-043,O-,Asthma,Salbutamol,Dust allergy
+P0142,Neha Singh,49,Male,Village-090,B+,Routine child care,None,Dust allergy
+P0143,Meena Kumar,50,Male,Village-041,AB+,Hypertension,Amlodipine,Dust allergy
+P0144,Sita Das,49,Female,Village-005,B+,Routine child care,None,Dust allergy
+P0145,Asha Das,76,Male,Village-013,O-,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0146,Sita Patel,2,Male,Village-084,B+,Routine child care,None,No known allergy
+P0147,Vijay Yadav,61,Female,Village-080,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0148,Neha Jha,11,Male,Village-049,O+,Routine child care,None,Dust allergy
+P0149,Geeta Kumar,63,Male,Village-080,A+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0150,Pankaj Singh,81,Female,Village-096,A+,No chronic condition,None,Penicillin allergy
+P0151,Asha Das,13,Male,Village-022,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0152,Suresh Gupta,6,Male,Village-046,O+,Routine child care,None,Penicillin allergy
+P0153,Ravi Patel,19,Female,Village-073,B+,Hypertension,Amlodipine,No known allergy
+P0154,Pooja Patel,23,Male,Village-080,B+,Diabetes,Metformin,Penicillin allergy
+P0155,Rajesh Das,75,Male,Village-082,O+,Hypertension,Amlodipine,Penicillin allergy
+P0156,Ramesh Das,33,Female,Village-037,O-,No chronic condition,None,No known allergy
+P0157,Kiran Mishra,10,Male,Village-039,AB+,Routine child care,None,Dust allergy
+P0158,Pankaj Singh,33,Male,Village-050,AB+,Routine child care,None,No known allergy
+P0159,Manoj Yadav,31,Female,Village-074,O+,Routine child care,None,Dust allergy
+P0160,Deepak Gupta,38,Male,Village-002,O-,Diabetes,Metformin,Dust allergy
+P0161,Kavita Gupta,7,Male,Village-100,B+,Routine child care,None,Dust allergy
+P0162,Sunita Mishra,46,Female,Village-033,B+,Hypertension,Amlodipine,Dust allergy
+P0163,Suresh Gupta,13,Male,Village-057,A+,No chronic condition,None,Dust allergy
+P0164,Sita Sharma,47,Male,Village-038,O+,No chronic condition,None,Dust allergy
+P0165,Sunita Verma,54,Female,Village-070,O+,Hypertension,Amlodipine,Dust allergy
+P0166,Anita Gupta,65,Male,Village-062,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0167,Asha Das,44,Male,Village-010,B+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0168,Geeta Yadav,51,Female,Village-012,AB+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0169,Asha Das,34,Male,Village-048,O+,Asthma,Salbutamol,Dust allergy
+P0170,Kiran Sharma,49,Male,Village-087,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0171,Geeta Yadav,4,Female,Village-079,B+,Routine child care,None,Dust allergy
+P0172,Arjun Gupta,9,Male,Village-084,AB+,Routine child care,None,No known allergy
+P0173,Suresh Gupta,18,Male,Village-064,A+,Diabetes,Metformin,No known allergy
+P0174,Sita Patel,31,Female,Village-059,O+,Asthma,Salbutamol,Dust allergy
+P0175,Manoj Verma,70,Male,Village-054,A+,Routine child care,None,Penicillin allergy
+P0176,Vijay Kumar,79,Male,Village-089,O+,Routine child care,None,No known allergy
+P0177,Rajesh Yadav,57,Female,Village-013,O+,Routine child care,None,Dust allergy
+P0178,Suresh Patel,83,Male,Village-036,B+,Pregnancy,Iron + Folic Acid,No known allergy
+P0179,Sunita Mishra,59,Male,Village-003,A+,Diabetes,Metformin,Penicillin allergy
+P0180,Manoj Singh,32,Female,Village-009,O-,Hypertension,Amlodipine,No known allergy
+P0181,Rajesh Yadav,76,Male,Village-100,B+,Hypertension,Amlodipine,Dust allergy
+P0182,Sita Verma,1,Male,Village-070,O+,Routine child care,None,No known allergy
+P0183,Ramesh Verma,15,Female,Village-002,O+,No chronic condition,None,No known allergy
+P0184,Ramesh Verma,76,Male,Village-034,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0185,Asha Sharma,54,Male,Village-061,AB+,Asthma,Salbutamol,Penicillin allergy
+P0186,Asha Das,66,Female,Village-065,B+,Asthma,Salbutamol,Dust allergy
+P0187,Ravi Gupta,6,Male,Village-059,A+,Routine child care,None,No known allergy
+P0188,Deepak Patel,62,Male,Village-088,A+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0189,Mohan Yadav,57,Female,Village-078,B+,Diabetes,Metformin,No known allergy
+P0190,Pooja Mishra,17,Male,Village-071,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0191,Pankaj Das,77,Male,Village-065,O-,Asthma,Salbutamol,Penicillin allergy
+P0192,Asha Jha,13,Female,Village-093,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0193,Meena Yadav,58,Male,Village-059,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0194,Meena Yadav,13,Male,Village-086,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0195,Kavita Sharma,20,Female,Village-012,A+,No chronic condition,None,No known allergy
+P0196,Kiran Verma,56,Male,Village-072,A+,Diabetes,Metformin,Dust allergy
+P0197,Neha Sharma,72,Male,Village-053,O+,Asthma,Salbutamol,Dust allergy
+P0198,Suresh Gupta,55,Female,Village-077,O+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0199,Ravi Singh,14,Male,Village-020,AB+,Asthma,Salbutamol,No known allergy
+P0200,Geeta Yadav,14,Male,Village-015,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0201,Meena Jha,29,Female,Village-099,O-,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0202,Ramesh Mishra,83,Male,Village-085,O+,Asthma,Salbutamol,No known allergy
+P0203,Pankaj Yadav,24,Male,Village-045,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0204,Deepak Sharma,19,Female,Village-019,A+,Asthma,Salbutamol,No known allergy
+P0205,Deepak Patel,68,Male,Village-059,O+,Hypertension,Amlodipine,No known allergy
+P0206,Neha Mishra,48,Male,Village-077,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0207,Pooja Kumar,20,Female,Village-087,A+,Hypertension,Amlodipine,Penicillin allergy
+P0208,Meena Das,57,Male,Village-078,AB+,No chronic condition,None,Penicillin allergy
+P0209,Ravi Sharma,35,Male,Village-045,AB+,Hypertension,Amlodipine,No known allergy
+P0210,Manoj Das,37,Female,Village-068,O+,No chronic condition,None,No known allergy
+P0211,Pooja Kumar,29,Male,Village-001,B+,Routine child care,None,Penicillin allergy
+P0212,Sita Gupta,28,Male,Village-038,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0213,Meena Verma,1,Female,Village-017,AB+,Routine child care,None,Dust allergy
+P0214,Geeta Yadav,30,Male,Village-010,AB+,Asthma,Salbutamol,Dust allergy
+P0215,Ramesh Das,6,Male,Village-010,O+,Routine child care,None,Dust allergy
+P0216,Deepak Patel,55,Female,Village-038,A+,Asthma,Salbutamol,Penicillin allergy
+P0217,Anita Mishra,3,Male,Village-059,O+,Routine child care,None,No known allergy
+P0218,Asha Singh,56,Male,Village-056,O-,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0219,Deepak Gupta,68,Female,Village-096,O+,Diabetes,Metformin,No known allergy
+P0220,Anita Sharma,43,Male,Village-066,A+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0221,Kiran Yadav,66,Male,Village-094,B+,Hypertension,Amlodipine,No known allergy
+P0222,Vijay Singh,14,Female,Village-023,O-,Hypertension,Amlodipine,No known allergy
+P0223,Anita Das,84,Male,Village-060,O-,Diabetes,Metformin,Dust allergy
+P0224,Manoj Mishra,58,Male,Village-042,O+,No chronic condition,None,No known allergy
+P0225,Kavita Das,57,Female,Village-081,O+,Diabetes,Metformin,Penicillin allergy
+P0226,Kiran Jha,76,Male,Village-010,O+,Diabetes,Metformin,Penicillin allergy
+P0227,Suresh Yadav,58,Male,Village-037,A+,Diabetes,Metformin,Dust allergy
+P0228,Pooja Jha,12,Female,Village-050,AB+,Asthma,Salbutamol,Dust allergy
+P0229,Suresh Das,71,Male,Village-074,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0230,Ravi Verma,78,Male,Village-008,AB+,Routine child care,None,No known allergy
+P0231,Mohan Jha,44,Female,Village-083,B+,No chronic condition,None,No known allergy
+P0232,Arjun Das,32,Male,Village-068,O-,No chronic condition,None,Dust allergy
+P0233,Kiran Gupta,21,Male,Village-050,AB+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0234,Neha Sharma,77,Female,Village-043,A+,Diabetes,Metformin,Dust allergy
+P0235,Vijay Mishra,50,Male,Village-020,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0236,Sita Yadav,75,Male,Village-040,AB+,No chronic condition,None,No known allergy
+P0237,Mohan Gupta,77,Female,Village-072,AB+,No chronic condition,None,Dust allergy
+P0238,Sita Jha,43,Male,Village-012,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0239,Kiran Gupta,47,Male,Village-024,B+,Diabetes,Metformin,Penicillin allergy
+P0240,Rajesh Verma,63,Female,Village-020,A+,Hypertension,Amlodipine,Penicillin allergy
+P0241,Geeta Jha,13,Male,Village-005,O+,Asthma,Salbutamol,Dust allergy
+P0242,Deepak Verma,17,Male,Village-021,B+,Asthma,Salbutamol,Dust allergy
+P0243,Anita Das,80,Female,Village-006,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0244,Pooja Gupta,31,Male,Village-097,AB+,Routine child care,None,No known allergy
+P0245,Pankaj Das,69,Male,Village-025,O+,Hypertension,Amlodipine,Dust allergy
+P0246,Arjun Gupta,74,Female,Village-100,AB+,Routine child care,None,Dust allergy
+P0247,Anita Singh,68,Male,Village-078,B+,Routine child care,None,Penicillin allergy
+P0248,Kavita Yadav,7,Male,Village-071,A+,Routine child care,None,Dust allergy
+P0249,Asha Gupta,67,Female,Village-011,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0250,Sita Patel,58,Male,Village-012,B+,Asthma,Salbutamol,Penicillin allergy
+P0251,Meena Kumar,45,Male,Village-051,O-,Diabetes,Metformin,Penicillin allergy
+P0252,Mohan Yadav,31,Female,Village-029,A+,Routine child care,None,Penicillin allergy
+P0253,Neha Verma,13,Male,Village-018,A+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0254,Sita Das,61,Male,Village-058,O-,No chronic condition,None,No known allergy
+P0255,Vijay Singh,11,Female,Village-020,O-,Routine child care,None,Dust allergy
+P0256,Meena Sharma,78,Male,Village-100,O+,Asthma,Salbutamol,No known allergy
+P0257,Suresh Singh,39,Male,Village-054,O-,Diabetes,Metformin,Penicillin allergy
+P0258,Kavita Mishra,9,Female,Village-069,A+,Routine child care,None,Dust allergy
+P0259,Rajesh Verma,66,Male,Village-038,AB+,Asthma,Salbutamol,No known allergy
+P0260,Rajesh Mishra,79,Male,Village-054,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0261,Kiran Sharma,11,Female,Village-068,O-,Routine child care,None,Dust allergy
+P0262,Ramesh Patel,65,Male,Village-061,A+,Asthma,Salbutamol,Dust allergy
+P0263,Vijay Kumar,50,Male,Village-046,A+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0264,Asha Mishra,31,Female,Village-095,O+,No chronic condition,None,No known allergy
+P0265,Geeta Yadav,6,Male,Village-083,B+,Routine child care,None,Dust allergy
+P0266,Kavita Verma,60,Male,Village-018,A+,No chronic condition,None,Dust allergy
+P0267,Pankaj Singh,59,Female,Village-006,B+,Diabetes,Metformin,No known allergy
+P0268,Ravi Patel,41,Male,Village-070,AB+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0269,Sunita Gupta,5,Male,Village-046,A+,Routine child care,None,Dust allergy
+P0270,Asha Yadav,43,Female,Village-056,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0271,Neha Verma,57,Male,Village-064,AB+,Routine child care,None,Penicillin allergy
+P0272,Mohan Patel,67,Male,Village-011,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0273,Pankaj Yadav,24,Female,Village-014,A+,Asthma,Salbutamol,Penicillin allergy
+P0274,Pankaj Das,85,Male,Village-078,AB+,Pregnancy,Iron + Folic Acid,No known allergy
+P0275,Arjun Kumar,57,Male,Village-094,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0276,Suresh Sharma,56,Female,Village-086,AB+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0277,Anita Kumar,66,Male,Village-019,O-,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0278,Sita Sharma,57,Male,Village-031,O+,Diabetes,Metformin,Penicillin allergy
+P0279,Suresh Mishra,50,Female,Village-020,AB+,Asthma,Salbutamol,Penicillin allergy
+P0280,Mohan Mishra,48,Male,Village-018,O-,Routine child care,None,Penicillin allergy
+P0281,Vijay Singh,51,Male,Village-015,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0282,Ravi Patel,24,Female,Village-072,A+,Routine child care,None,Penicillin allergy
+P0283,Arjun Singh,34,Male,Village-079,O+,No chronic condition,None,Dust allergy
+P0284,Asha Verma,63,Male,Village-010,AB+,Hypertension,Amlodipine,No known allergy
+P0285,Neha Yadav,57,Female,Village-091,A+,Diabetes,Metformin,Dust allergy
+P0286,Pankaj Verma,70,Male,Village-092,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0287,Asha Singh,66,Male,Village-018,B+,Hypertension,Amlodipine,Penicillin allergy
+P0288,Geeta Mishra,4,Female,Village-048,AB+,Routine child care,None,Dust allergy
+P0289,Mohan Sharma,17,Male,Village-040,AB+,Asthma,Salbutamol,Dust allergy
+P0290,Meena Patel,62,Male,Village-074,A+,Asthma,Salbutamol,No known allergy
+P0291,Mohan Das,41,Female,Village-060,O-,No chronic condition,None,Penicillin allergy
+P0292,Geeta Mishra,17,Male,Village-024,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0293,Suresh Sharma,65,Male,Village-067,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0294,Neha Singh,22,Female,Village-045,O-,Hypertension,Amlodipine,Penicillin allergy
+P0295,Sunita Jha,11,Male,Village-036,B+,Routine child care,None,Dust allergy
+P0296,Geeta Sharma,39,Male,Village-065,B+,Asthma,Salbutamol,Dust allergy
+P0297,Anita Mishra,75,Female,Village-093,O-,Hypertension,Amlodipine,Penicillin allergy
+P0298,Ramesh Sharma,73,Male,Village-006,O-,Diabetes,Metformin,Penicillin allergy
+P0299,Manoj Patel,84,Male,Village-080,A+,Hypertension,Amlodipine,Penicillin allergy
+P0300,Pankaj Gupta,81,Female,Village-062,B+,Asthma,Salbutamol,Dust allergy
+P0301,Arjun Sharma,52,Male,Village-089,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0302,Kavita Das,57,Male,Village-027,O+,Routine child care,None,Dust allergy
+P0303,Neha Yadav,19,Female,Village-052,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0304,Asha Yadav,66,Male,Village-031,AB+,Asthma,Salbutamol,No known allergy
+P0305,Rajesh Verma,35,Male,Village-013,A+,Routine child care,None,Penicillin allergy
+P0306,Pooja Patel,50,Female,Village-032,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0307,Neha Singh,74,Male,Village-098,B+,No chronic condition,None,Penicillin allergy
+P0308,Kavita Gupta,66,Male,Village-064,A+,Routine child care,None,No known allergy
+P0309,Arjun Singh,51,Female,Village-028,O-,Asthma,Salbutamol,Penicillin allergy
+P0310,Pankaj Das,7,Male,Village-077,AB+,Routine child care,None,Penicillin allergy
+P0311,Asha Patel,69,Male,Village-018,O+,Diabetes,Metformin,Dust allergy
+P0312,Deepak Yadav,47,Female,Village-006,AB+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0313,Sunita Yadav,73,Male,Village-071,O+,Asthma,Salbutamol,No known allergy
+P0314,Arjun Jha,50,Male,Village-036,O-,Asthma,Salbutamol,Dust allergy
+P0315,Sita Sharma,79,Female,Village-051,O+,Diabetes,Metformin,Penicillin allergy
+P0316,Sita Singh,72,Male,Village-078,O-,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0317,Suresh Kumar,65,Male,Village-018,O+,Diabetes,Metformin,Penicillin allergy
+P0318,Sita Mishra,67,Female,Village-066,B+,Routine child care,None,Penicillin allergy
+P0319,Anita Patel,79,Male,Village-079,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0320,Ravi Jha,44,Male,Village-063,O-,Asthma,Salbutamol,Penicillin allergy
+P0321,Ramesh Yadav,61,Female,Village-043,A+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0322,Ramesh Mishra,75,Male,Village-061,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0323,Rajesh Kumar,75,Male,Village-075,AB+,Asthma,Salbutamol,No known allergy
+P0324,Pooja Patel,68,Female,Village-019,B+,No chronic condition,None,No known allergy
+P0325,Asha Singh,74,Male,Village-003,AB+,No chronic condition,None,Penicillin allergy
+P0326,Meena Singh,54,Male,Village-053,O-,Hypertension,Amlodipine,Dust allergy
+P0327,Suresh Verma,61,Female,Village-067,B+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0328,Kavita Jha,42,Male,Village-049,O+,No chronic condition,None,No known allergy
+P0329,Neha Jha,59,Male,Village-046,O+,Asthma,Salbutamol,Dust allergy
+P0330,Rajesh Gupta,62,Female,Village-072,O+,Hypertension,Amlodipine,No known allergy
+P0331,Pankaj Singh,39,Male,Village-089,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0332,Geeta Gupta,62,Male,Village-037,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0333,Deepak Yadav,70,Female,Village-099,B+,Routine child care,None,Penicillin allergy
+P0334,Mohan Yadav,6,Male,Village-057,O+,Routine child care,None,Dust allergy
+P0335,Sunita Jha,62,Male,Village-035,O-,Hypertension,Amlodipine,Dust allergy
+P0336,Asha Mishra,35,Female,Village-095,O-,Hypertension,Amlodipine,No known allergy
+P0337,Ravi Singh,32,Male,Village-082,B+,Diabetes,Metformin,No known allergy
+P0338,Neha Das,13,Male,Village-013,B+,Routine child care,None,No known allergy
+P0339,Meena Das,71,Female,Village-062,B+,Hypertension,Amlodipine,Penicillin allergy
+P0340,Suresh Sharma,42,Male,Village-084,O-,Pregnancy,Iron + Folic Acid,No known allergy
+P0341,Suresh Verma,69,Male,Village-054,B+,No chronic condition,None,No known allergy
+P0342,Kavita Verma,51,Female,Village-096,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0343,Manoj Mishra,2,Male,Village-014,O+,Routine child care,None,Penicillin allergy
+P0344,Geeta Jha,59,Male,Village-064,B+,No chronic condition,None,Dust allergy
+P0345,Sunita Sharma,60,Female,Village-043,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0346,Vijay Verma,59,Male,Village-002,O+,No chronic condition,None,Penicillin allergy
+P0347,Sunita Verma,73,Male,Village-079,AB+,No chronic condition,None,Penicillin allergy
+P0348,Mohan Patel,66,Female,Village-086,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0349,Neha Singh,18,Male,Village-001,O+,Routine child care,None,Penicillin allergy
+P0350,Vijay Yadav,31,Male,Village-039,O-,Routine child care,None,Dust allergy
+P0351,Vijay Yadav,74,Female,Village-089,B+,Diabetes,Metformin,No known allergy
+P0352,Pankaj Verma,16,Male,Village-052,O-,Routine child care,None,Dust allergy
+P0353,Asha Gupta,40,Male,Village-048,O-,No chronic condition,None,No known allergy
+P0354,Kavita Verma,29,Female,Village-059,O-,Hypertension,Amlodipine,Penicillin allergy
+P0355,Geeta Das,54,Male,Village-097,O-,No chronic condition,None,Dust allergy
+P0356,Rajesh Mishra,28,Male,Village-011,O-,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0357,Kiran Sharma,68,Female,Village-073,A+,No chronic condition,None,No known allergy
+P0358,Sunita Mishra,71,Male,Village-069,B+,Asthma,Salbutamol,No known allergy
+P0359,Ravi Das,42,Male,Village-015,B+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0360,Mohan Jha,75,Female,Village-058,A+,Routine child care,None,Penicillin allergy
+P0361,Meena Das,17,Male,Village-073,A+,Asthma,Salbutamol,Dust allergy
+P0362,Pankaj Kumar,60,Male,Village-051,O+,No chronic condition,None,No known allergy
+P0363,Mohan Kumar,28,Female,Village-055,O+,Asthma,Salbutamol,Dust allergy
+P0364,Suresh Sharma,9,Male,Village-061,A+,Routine child care,None,Penicillin allergy
+P0365,Sita Patel,53,Male,Village-048,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0366,Mohan Jha,49,Female,Village-018,O+,Routine child care,None,No known allergy
+P0367,Deepak Jha,23,Male,Village-017,B+,Asthma,Salbutamol,No known allergy
+P0368,Arjun Jha,3,Male,Village-055,O-,Routine child care,None,Penicillin allergy
+P0369,Arjun Yadav,30,Female,Village-020,O+,Hypertension,Amlodipine,No known allergy
+P0370,Meena Mishra,15,Male,Village-099,A+,Diabetes,Metformin,No known allergy
+P0371,Asha Mishra,27,Male,Village-005,AB+,Diabetes,Metformin,Dust allergy
+P0372,Suresh Patel,7,Female,Village-057,B+,Routine child care,None,Dust allergy
+P0373,Suresh Verma,28,Male,Village-065,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0374,Manoj Mishra,74,Male,Village-099,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0375,Ravi Singh,39,Female,Village-053,O+,Hypertension,Amlodipine,Penicillin allergy
+P0376,Manoj Verma,8,Male,Village-081,AB+,Routine child care,None,Dust allergy
+P0377,Kiran Patel,64,Male,Village-068,O+,Diabetes,Metformin,Dust allergy
+P0378,Sita Gupta,54,Female,Village-049,B+,Routine child care,None,Dust allergy
+P0379,Rajesh Gupta,61,Male,Village-091,B+,Hypertension,Amlodipine,Penicillin allergy
+P0380,Meena Patel,8,Male,Village-072,O-,Routine child care,None,No known allergy
+P0381,Vijay Singh,50,Female,Village-043,A+,Hypertension,Amlodipine,Penicillin allergy
+P0382,Geeta Singh,48,Male,Village-007,O+,Diabetes,Metformin,Penicillin allergy
+P0383,Suresh Sharma,78,Male,Village-025,O-,Asthma,Salbutamol,Dust allergy
+P0384,Kavita Singh,72,Female,Village-043,O+,Hypertension,Amlodipine,No known allergy
+P0385,Asha Das,28,Male,Village-032,O-,Hypertension,Amlodipine,Dust allergy
+P0386,Rajesh Jha,27,Male,Village-042,O+,Routine child care,None,Penicillin allergy
+P0387,Kiran Gupta,60,Female,Village-034,O+,Asthma,Salbutamol,Dust allergy
+P0388,Asha Das,64,Male,Village-098,O+,Routine child care,None,No known allergy
+P0389,Meena Kumar,48,Male,Village-073,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0390,Vijay Jha,19,Female,Village-075,O-,Diabetes,Metformin,Dust allergy
+P0391,Sita Singh,54,Male,Village-043,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0392,Rajesh Das,73,Male,Village-071,O+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0393,Kavita Das,63,Female,Village-022,O+,No chronic condition,None,No known allergy
+P0394,Geeta Das,18,Male,Village-024,O-,No chronic condition,None,Dust allergy
+P0395,Suresh Sharma,8,Male,Village-086,A+,Routine child care,None,No known allergy
+P0396,Rajesh Sharma,53,Female,Village-091,B+,Hypertension,Amlodipine,No known allergy
+P0397,Arjun Yadav,28,Male,Village-008,O-,Asthma,Salbutamol,Dust allergy
+P0398,Kavita Kumar,79,Male,Village-001,O-,Routine child care,None,Dust allergy
+P0399,Ramesh Jha,53,Female,Village-093,O+,Diabetes,Metformin,Dust allergy
+P0400,Ravi Patel,37,Male,Village-023,A+,Diabetes,Metformin,No known allergy
+P0401,Rajesh Singh,68,Male,Village-080,O-,Hypertension,Amlodipine,Penicillin allergy
+P0402,Deepak Sharma,46,Female,Village-048,AB+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0403,Rajesh Gupta,73,Male,Village-088,A+,Hypertension,Amlodipine,Dust allergy
+P0404,Suresh Sharma,84,Male,Village-052,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0405,Suresh Kumar,71,Female,Village-090,B+,Routine child care,None,No known allergy
+P0406,Meena Yadav,64,Male,Village-073,A+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0407,Sunita Mishra,6,Male,Village-061,O+,Routine child care,None,No known allergy
+P0408,Vijay Jha,10,Female,Village-073,A+,Routine child care,None,No known allergy
+P0409,Sunita Mishra,41,Male,Village-019,AB+,Diabetes,Metformin,No known allergy
+P0410,Manoj Singh,39,Male,Village-073,AB+,Hypertension,Amlodipine,Dust allergy
+P0411,Deepak Verma,70,Female,Village-089,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0412,Asha Patel,45,Male,Village-030,A+,Diabetes,Metformin,Penicillin allergy
+P0413,Pooja Mishra,78,Male,Village-051,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0414,Arjun Das,82,Female,Village-030,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0415,Anita Mishra,49,Male,Village-085,AB+,Routine child care,None,No known allergy
+P0416,Rajesh Sharma,80,Male,Village-011,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0417,Sita Patel,49,Female,Village-041,O+,No chronic condition,None,No known allergy
+P0418,Pankaj Das,12,Male,Village-047,O+,Diabetes,Metformin,No known allergy
+P0419,Anita Patel,17,Male,Village-058,O-,Diabetes,Metformin,Dust allergy
+P0420,Asha Kumar,66,Female,Village-012,O+,Routine child care,None,Dust allergy
+P0421,Pooja Yadav,12,Male,Village-050,A+,Asthma,Salbutamol,Penicillin allergy
+P0422,Mohan Jha,53,Male,Village-032,O-,Routine child care,None,Dust allergy
+P0423,Deepak Verma,22,Female,Village-018,O+,No chronic condition,None,Penicillin allergy
+P0424,Sita Sharma,35,Male,Village-022,AB+,Routine child care,None,Penicillin allergy
+P0425,Kavita Sharma,54,Male,Village-047,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0426,Pooja Mishra,81,Female,Village-026,AB+,Routine child care,None,No known allergy
+P0427,Ramesh Patel,18,Male,Village-043,O-,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0428,Neha Patel,43,Male,Village-084,O-,Routine child care,None,No known allergy
+P0429,Pooja Singh,39,Female,Village-062,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0430,Pankaj Das,51,Male,Village-074,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0431,Deepak Yadav,49,Male,Village-015,O-,Pregnancy,Iron + Folic Acid,No known allergy
+P0432,Anita Jha,76,Female,Village-004,AB+,Asthma,Salbutamol,Dust allergy
+P0433,Pankaj Sharma,27,Male,Village-053,AB+,Routine child care,None,No known allergy
+P0434,Rajesh Gupta,82,Male,Village-085,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0435,Deepak Sharma,55,Female,Village-058,O-,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0436,Geeta Jha,75,Male,Village-089,AB+,Routine child care,None,Dust allergy
+P0437,Kiran Jha,5,Male,Village-077,A+,Routine child care,None,No known allergy
+P0438,Kiran Verma,32,Female,Village-083,O-,No chronic condition,None,No known allergy
+P0439,Deepak Yadav,73,Male,Village-056,A+,No chronic condition,None,No known allergy
+P0440,Rajesh Jha,13,Male,Village-096,O-,Pregnancy,Iron + Folic Acid,Dust allergy
+P0441,Manoj Singh,75,Female,Village-058,O+,No chronic condition,None,Penicillin allergy
+P0442,Manoj Jha,60,Male,Village-020,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0443,Pankaj Patel,62,Male,Village-011,A+,Diabetes,Metformin,Dust allergy
+P0444,Pankaj Yadav,19,Female,Village-059,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0445,Kavita Sharma,62,Male,Village-057,AB+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0446,Suresh Sharma,9,Male,Village-003,O+,Routine child care,None,Dust allergy
+P0447,Anita Singh,14,Female,Village-067,B+,No chronic condition,None,Dust allergy
+P0448,Geeta Patel,21,Male,Village-060,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0449,Anita Patel,81,Male,Village-051,A+,Hypertension,Amlodipine,Dust allergy
+P0450,Arjun Mishra,79,Female,Village-055,AB+,Hypertension,Amlodipine,No known allergy
+P0451,Vijay Sharma,28,Male,Village-074,A+,Hypertension,Amlodipine,Dust allergy
+P0452,Neha Singh,24,Male,Village-059,A+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0453,Neha Mishra,63,Female,Village-050,O-,Asthma,Salbutamol,Penicillin allergy
+P0454,Kiran Yadav,76,Male,Village-059,O-,Diabetes,Metformin,No known allergy
+P0455,Manoj Sharma,39,Male,Village-087,B+,Asthma,Salbutamol,Penicillin allergy
+P0456,Pankaj Sharma,16,Female,Village-024,O+,Hypertension,Amlodipine,Dust allergy
+P0457,Deepak Patel,19,Male,Village-077,B+,Asthma,Salbutamol,Dust allergy
+P0458,Anita Das,50,Male,Village-082,O-,Routine child care,None,Dust allergy
+P0459,Geeta Verma,83,Female,Village-063,O+,Hypertension,Amlodipine,No known allergy
+P0460,Arjun Mishra,24,Male,Village-007,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0461,Sunita Patel,63,Male,Village-072,O-,Hypertension,Amlodipine,Dust allergy
+P0462,Kavita Patel,64,Female,Village-091,AB+,Routine child care,None,Penicillin allergy
+P0463,Manoj Kumar,22,Male,Village-098,B+,Diabetes,Metformin,Penicillin allergy
+P0464,Rajesh Jha,5,Male,Village-037,B+,Routine child care,None,Penicillin allergy
+P0465,Kavita Jha,73,Female,Village-066,A+,No chronic condition,None,Dust allergy
+P0466,Geeta Yadav,15,Male,Village-070,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0467,Sunita Patel,57,Male,Village-014,B+,Asthma,Salbutamol,Penicillin allergy
+P0468,Vijay Yadav,5,Female,Village-012,AB+,Routine child care,None,No known allergy
+P0469,Manoj Yadav,31,Male,Village-091,O-,Hypertension,Amlodipine,Dust allergy
+P0470,Pooja Verma,55,Male,Village-027,B+,Hypertension,Amlodipine,No known allergy
+P0471,Geeta Gupta,73,Female,Village-077,O-,Pregnancy,Iron + Folic Acid,No known allergy
+P0472,Pankaj Gupta,42,Male,Village-074,O+,No chronic condition,None,Dust allergy
+P0473,Meena Kumar,13,Male,Village-036,B+,Hypertension,Amlodipine,Dust allergy
+P0474,Sita Yadav,17,Female,Village-032,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0475,Vijay Patel,19,Male,Village-049,AB+,Asthma,Salbutamol,No known allergy
+P0476,Mohan Patel,82,Male,Village-066,O+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0477,Kavita Yadav,48,Female,Village-075,A+,Routine child care,None,Dust allergy
+P0478,Arjun Yadav,12,Male,Village-009,O-,No chronic condition,None,Penicillin allergy
+P0479,Sunita Das,28,Male,Village-035,O+,Routine child care,None,Penicillin allergy
+P0480,Manoj Verma,44,Female,Village-073,AB+,Asthma,Salbutamol,Penicillin allergy
+P0481,Asha Das,7,Male,Village-003,A+,Routine child care,None,No known allergy
+P0482,Ramesh Patel,57,Male,Village-026,B+,Routine child care,None,Dust allergy
+P0483,Vijay Sharma,39,Female,Village-084,O+,Hypertension,Amlodipine,Penicillin allergy
+P0484,Anita Kumar,11,Male,Village-051,O+,Routine child care,None,Dust allergy
+P0485,Mohan Sharma,30,Male,Village-001,B+,Routine child care,None,Penicillin allergy
+P0486,Manoj Singh,10,Female,Village-067,AB+,Routine child care,None,No known allergy
+P0487,Neha Sharma,2,Male,Village-055,B+,Routine child care,None,Penicillin allergy
+P0488,Deepak Sharma,10,Male,Village-094,A+,Routine child care,None,No known allergy
+P0489,Pankaj Verma,41,Female,Village-049,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0490,Ravi Mishra,19,Male,Village-002,O-,Diabetes,Metformin,Dust allergy
+P0491,Kiran Singh,22,Male,Village-081,B+,Routine child care,None,Penicillin allergy
+P0492,Arjun Singh,79,Female,Village-012,A+,No chronic condition,None,No known allergy
+P0493,Deepak Yadav,16,Male,Village-055,O+,Asthma,Salbutamol,No known allergy
+P0494,Mohan Singh,32,Male,Village-071,O-,Pregnancy,Iron + Folic Acid,Dust allergy
+P0495,Ramesh Gupta,78,Female,Village-027,O-,Pregnancy,Iron + Folic Acid,Dust allergy
+P0496,Deepak Gupta,66,Male,Village-083,A+,Hypertension,Amlodipine,No known allergy
+P0497,Asha Singh,64,Male,Village-064,O-,Routine child care,None,No known allergy
+P0498,Kiran Yadav,68,Female,Village-017,AB+,Diabetes,Metformin,Dust allergy
+P0499,Geeta Verma,54,Male,Village-098,AB+,Pregnancy,Iron + Folic Acid,No known allergy
+P0500,Mohan Kumar,3,Male,Village-034,B+,Routine child care,None,No known allergy
+P0501,Deepak Jha,8,Female,Village-037,O-,Routine child care,None,Penicillin allergy
+P0502,Deepak Sharma,55,Male,Village-082,O-,No chronic condition,None,Dust allergy
+P0503,Vijay Sharma,79,Male,Village-040,A+,Hypertension,Amlodipine,Dust allergy
+P0504,Sita Jha,27,Female,Village-042,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0505,Mohan Gupta,82,Male,Village-090,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0506,Rajesh Sharma,31,Male,Village-056,A+,Diabetes,Metformin,Penicillin allergy
+P0507,Suresh Gupta,79,Female,Village-086,B+,Asthma,Salbutamol,No known allergy
+P0508,Sita Kumar,2,Male,Village-021,AB+,Routine child care,None,Penicillin allergy
+P0509,Vijay Verma,67,Male,Village-048,B+,Asthma,Salbutamol,Dust allergy
+P0510,Asha Kumar,35,Female,Village-043,AB+,No chronic condition,None,Penicillin allergy
+P0511,Vijay Mishra,68,Male,Village-081,A+,Diabetes,Metformin,Penicillin allergy
+P0512,Kiran Kumar,59,Male,Village-064,O-,Asthma,Salbutamol,No known allergy
+P0513,Vijay Sharma,48,Female,Village-074,A+,Hypertension,Amlodipine,No known allergy
+P0514,Suresh Kumar,66,Male,Village-032,A+,Diabetes,Metformin,Penicillin allergy
+P0515,Sita Verma,47,Male,Village-005,O-,Routine child care,None,Dust allergy
+P0516,Rajesh Yadav,84,Female,Village-032,AB+,Routine child care,None,Dust allergy
+P0517,Mohan Mishra,41,Male,Village-048,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0518,Rajesh Jha,7,Male,Village-006,AB+,Routine child care,None,No known allergy
+P0519,Pankaj Gupta,60,Female,Village-042,A+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0520,Kiran Singh,59,Male,Village-038,O-,Diabetes,Metformin,Penicillin allergy
+P0521,Arjun Yadav,80,Male,Village-076,AB+,Hypertension,Amlodipine,No known allergy
+P0522,Rajesh Verma,70,Female,Village-001,AB+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0523,Kiran Kumar,30,Male,Village-043,A+,Asthma,Salbutamol,Dust allergy
+P0524,Pankaj Sharma,49,Male,Village-027,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0525,Suresh Verma,54,Female,Village-092,O+,Routine child care,None,No known allergy
+P0526,Ravi Patel,6,Male,Village-090,O+,Routine child care,None,Penicillin allergy
+P0527,Asha Jha,11,Male,Village-018,AB+,Routine child care,None,No known allergy
+P0528,Suresh Patel,76,Female,Village-085,B+,Asthma,Salbutamol,No known allergy
+P0529,Neha Patel,38,Male,Village-090,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0530,Rajesh Sharma,58,Male,Village-026,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0531,Asha Verma,14,Female,Village-058,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0532,Geeta Yadav,53,Male,Village-099,B+,Diabetes,Metformin,Penicillin allergy
+P0533,Vijay Sharma,40,Male,Village-012,B+,Routine child care,None,Dust allergy
+P0534,Pooja Kumar,39,Female,Village-028,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0535,Rajesh Yadav,12,Male,Village-051,O-,No chronic condition,None,No known allergy
+P0536,Anita Kumar,39,Male,Village-052,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0537,Asha Das,71,Female,Village-014,B+,Hypertension,Amlodipine,No known allergy
+P0538,Rajesh Verma,2,Male,Village-026,AB+,Routine child care,None,Penicillin allergy
+P0539,Mohan Mishra,81,Male,Village-076,O+,No chronic condition,None,No known allergy
+P0540,Sunita Das,3,Female,Village-017,A+,Routine child care,None,Penicillin allergy
+P0541,Arjun Kumar,16,Male,Village-022,O-,Diabetes,Metformin,Penicillin allergy
+P0542,Ramesh Patel,51,Male,Village-088,AB+,Routine child care,None,No known allergy
+P0543,Anita Gupta,46,Female,Village-036,AB+,Hypertension,Amlodipine,No known allergy
+P0544,Pooja Mishra,5,Male,Village-032,O+,Routine child care,None,Penicillin allergy
+P0545,Kavita Kumar,53,Male,Village-012,O+,Asthma,Salbutamol,Penicillin allergy
+P0546,Sunita Jha,18,Female,Village-032,O-,Routine child care,None,No known allergy
+P0547,Kiran Das,49,Male,Village-070,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0548,Neha Patel,73,Male,Village-035,B+,Asthma,Salbutamol,No known allergy
+P0549,Rajesh Kumar,41,Female,Village-100,O+,Asthma,Salbutamol,No known allergy
+P0550,Kiran Mishra,61,Male,Village-030,B+,Asthma,Salbutamol,No known allergy
+P0551,Rajesh Gupta,32,Male,Village-069,A+,No chronic condition,None,No known allergy
+P0552,Deepak Yadav,74,Female,Village-023,B+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0553,Kiran Mishra,76,Male,Village-004,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0554,Manoj Singh,73,Male,Village-064,O-,Hypertension,Amlodipine,Penicillin allergy
+P0555,Suresh Sharma,23,Female,Village-008,B+,Routine child care,None,Dust allergy
+P0556,Ravi Das,29,Male,Village-001,O+,Diabetes,Metformin,Dust allergy
+P0557,Sita Yadav,26,Male,Village-092,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0558,Sita Mishra,8,Female,Village-091,B+,Routine child care,None,No known allergy
+P0559,Kiran Sharma,68,Male,Village-048,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0560,Pankaj Yadav,13,Male,Village-018,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0561,Kavita Yadav,56,Female,Village-023,O-,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0562,Kiran Singh,79,Male,Village-086,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0563,Pankaj Verma,49,Male,Village-023,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0564,Manoj Kumar,74,Female,Village-024,O-,Routine child care,None,Penicillin allergy
+P0565,Manoj Sharma,79,Male,Village-064,B+,Hypertension,Amlodipine,Penicillin allergy
+P0566,Kiran Yadav,10,Male,Village-022,A+,Routine child care,None,Dust allergy
+P0567,Neha Das,82,Female,Village-002,O+,No chronic condition,None,No known allergy
+P0568,Mohan Yadav,32,Male,Village-033,A+,No chronic condition,None,Dust allergy
+P0569,Deepak Das,1,Male,Village-094,AB+,Routine child care,None,No known allergy
+P0570,Deepak Yadav,53,Female,Village-070,AB+,Routine child care,None,No known allergy
+P0571,Manoj Singh,62,Male,Village-021,AB+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0572,Ramesh Yadav,5,Male,Village-034,A+,Routine child care,None,No known allergy
+P0573,Deepak Verma,44,Female,Village-094,A+,Hypertension,Amlodipine,Dust allergy
+P0574,Pooja Mishra,12,Male,Village-062,A+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0575,Pooja Patel,84,Male,Village-021,A+,Hypertension,Amlodipine,No known allergy
+P0576,Sunita Patel,43,Female,Village-090,O-,Hypertension,Amlodipine,Dust allergy
+P0577,Pankaj Gupta,70,Male,Village-031,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0578,Geeta Das,51,Male,Village-020,A+,Asthma,Salbutamol,Penicillin allergy
+P0579,Mohan Gupta,1,Female,Village-085,O-,Routine child care,None,Penicillin allergy
+P0580,Ramesh Singh,26,Male,Village-022,O+,Diabetes,Metformin,No known allergy
+P0581,Asha Gupta,61,Male,Village-051,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0582,Mohan Jha,85,Female,Village-050,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0583,Anita Das,49,Male,Village-006,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0584,Rajesh Gupta,60,Male,Village-073,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0585,Kiran Jha,13,Female,Village-053,O-,Diabetes,Metformin,No known allergy
+P0586,Deepak Jha,71,Male,Village-054,O-,Diabetes,Metformin,Dust allergy
+P0587,Rajesh Das,61,Male,Village-039,A+,Asthma,Salbutamol,Penicillin allergy
+P0588,Manoj Jha,5,Female,Village-074,O-,Routine child care,None,No known allergy
+P0589,Arjun Verma,16,Male,Village-022,B+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0590,Meena Sharma,17,Male,Village-088,AB+,Diabetes,Metformin,No known allergy
+P0591,Pooja Gupta,81,Female,Village-041,A+,Hypertension,Amlodipine,No known allergy
+P0592,Deepak Jha,50,Male,Village-042,O+,Asthma,Salbutamol,Dust allergy
+P0593,Ramesh Mishra,59,Male,Village-076,O-,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0594,Sita Verma,15,Female,Village-073,O-,Routine child care,None,Dust allergy
+P0595,Manoj Sharma,13,Male,Village-037,O-,Diabetes,Metformin,Penicillin allergy
+P0596,Deepak Das,53,Male,Village-074,O-,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0597,Vijay Patel,5,Female,Village-019,O-,Routine child care,None,Dust allergy
+P0598,Deepak Yadav,52,Male,Village-089,B+,Diabetes,Metformin,No known allergy
+P0599,Kiran Kumar,61,Male,Village-044,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0600,Kavita Sharma,36,Female,Village-030,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0601,Neha Gupta,57,Male,Village-094,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0602,Sunita Das,83,Male,Village-028,AB+,Diabetes,Metformin,Dust allergy
+P0603,Ravi Yadav,63,Female,Village-008,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0604,Ravi Patel,9,Male,Village-018,O-,Routine child care,None,Dust allergy
+P0605,Sunita Singh,4,Male,Village-008,B+,Routine child care,None,No known allergy
+P0606,Kiran Singh,59,Female,Village-036,O+,Diabetes,Metformin,Penicillin allergy
+P0607,Asha Kumar,65,Male,Village-031,O+,Routine child care,None,Penicillin allergy
+P0608,Anita Das,77,Male,Village-076,O-,Routine child care,None,Penicillin allergy
+P0609,Vijay Sharma,45,Female,Village-037,A+,Hypertension,Amlodipine,Penicillin allergy
+P0610,Manoj Singh,7,Male,Village-029,B+,Routine child care,None,Dust allergy
+P0611,Meena Jha,27,Male,Village-003,A+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0612,Anita Mishra,17,Female,Village-002,B+,No chronic condition,None,Penicillin allergy
+P0613,Pankaj Gupta,78,Male,Village-055,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0614,Sunita Das,59,Male,Village-039,O-,Pregnancy,Iron + Folic Acid,Dust allergy
+P0615,Asha Kumar,51,Female,Village-066,O+,Asthma,Salbutamol,Dust allergy
+P0616,Pooja Gupta,83,Male,Village-039,A+,Asthma,Salbutamol,Penicillin allergy
+P0617,Vijay Yadav,9,Male,Village-036,O+,Routine child care,None,Dust allergy
+P0618,Sunita Verma,84,Female,Village-067,B+,Pregnancy,Iron + Folic Acid,No known allergy
+P0619,Neha Verma,77,Male,Village-093,A+,Routine child care,None,Dust allergy
+P0620,Vijay Patel,64,Male,Village-052,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0621,Manoj Singh,5,Female,Village-044,B+,Routine child care,None,Dust allergy
+P0622,Kavita Yadav,69,Male,Village-065,O+,No chronic condition,None,No known allergy
+P0623,Anita Gupta,85,Male,Village-013,AB+,Asthma,Salbutamol,No known allergy
+P0624,Geeta Verma,34,Female,Village-088,O+,No chronic condition,None,Dust allergy
+P0625,Kiran Singh,12,Male,Village-096,O+,Hypertension,Amlodipine,Penicillin allergy
+P0626,Vijay Mishra,43,Male,Village-038,AB+,Pregnancy,Iron + Folic Acid,No known allergy
+P0627,Manoj Mishra,61,Female,Village-080,A+,Diabetes,Metformin,Penicillin allergy
+P0628,Asha Patel,25,Male,Village-068,O+,Asthma,Salbutamol,Penicillin allergy
+P0629,Sita Verma,7,Male,Village-026,O+,Routine child care,None,Penicillin allergy
+P0630,Sita Yadav,73,Female,Village-092,B+,Routine child care,None,No known allergy
+P0631,Anita Yadav,63,Male,Village-082,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0632,Sunita Verma,58,Male,Village-074,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0633,Pooja Patel,12,Female,Village-082,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0634,Deepak Kumar,55,Male,Village-005,O-,Routine child care,None,No known allergy
+P0635,Neha Jha,48,Male,Village-025,A+,Diabetes,Metformin,Dust allergy
+P0636,Rajesh Singh,1,Female,Village-089,O+,Routine child care,None,Penicillin allergy
+P0637,Deepak Jha,17,Male,Village-076,O+,Diabetes,Metformin,No known allergy
+P0638,Suresh Gupta,9,Male,Village-038,AB+,Routine child care,None,Dust allergy
+P0639,Ravi Yadav,67,Female,Village-056,B+,Asthma,Salbutamol,Penicillin allergy
+P0640,Sunita Verma,63,Male,Village-052,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0641,Sita Singh,29,Male,Village-094,A+,No chronic condition,None,Dust allergy
+P0642,Asha Yadav,65,Female,Village-092,A+,Hypertension,Amlodipine,Penicillin allergy
+P0643,Geeta Mishra,82,Male,Village-007,O-,Pregnancy,Iron + Folic Acid,No known allergy
+P0644,Ramesh Kumar,85,Male,Village-089,A+,Diabetes,Metformin,Penicillin allergy
+P0645,Asha Jha,57,Female,Village-033,AB+,Routine child care,None,Dust allergy
+P0646,Ramesh Gupta,20,Male,Village-054,A+,Hypertension,Amlodipine,Dust allergy
+P0647,Pooja Mishra,67,Male,Village-090,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0648,Pooja Sharma,14,Female,Village-037,A+,Asthma,Salbutamol,No known allergy
+P0649,Pooja Singh,64,Male,Village-100,O+,Hypertension,Amlodipine,Dust allergy
+P0650,Meena Gupta,26,Male,Village-021,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0651,Kavita Yadav,64,Female,Village-031,A+,Hypertension,Amlodipine,No known allergy
+P0652,Manoj Das,12,Male,Village-020,A+,Diabetes,Metformin,Dust allergy
+P0653,Asha Gupta,10,Male,Village-083,B+,Routine child care,None,Penicillin allergy
+P0654,Arjun Kumar,38,Female,Village-013,B+,Pregnancy,Iron + Folic Acid,No known allergy
+P0655,Neha Patel,38,Male,Village-095,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0656,Sita Verma,6,Male,Village-043,O+,Routine child care,None,Penicillin allergy
+P0657,Mohan Yadav,80,Female,Village-044,B+,Pregnancy,Iron + Folic Acid,No known allergy
+P0658,Arjun Gupta,52,Male,Village-050,AB+,Routine child care,None,Penicillin allergy
+P0659,Anita Sharma,84,Male,Village-017,A+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0660,Manoj Das,14,Female,Village-073,AB+,Routine child care,None,No known allergy
+P0661,Kiran Mishra,79,Male,Village-004,B+,Routine child care,None,Penicillin allergy
+P0662,Meena Das,63,Male,Village-006,A+,Diabetes,Metformin,Penicillin allergy
+P0663,Ramesh Jha,84,Female,Village-099,O-,Pregnancy,Iron + Folic Acid,Dust allergy
+P0664,Neha Jha,73,Male,Village-067,O-,Hypertension,Amlodipine,No known allergy
+P0665,Rajesh Das,56,Male,Village-045,AB+,No chronic condition,None,No known allergy
+P0666,Suresh Kumar,72,Female,Village-083,B+,Asthma,Salbutamol,Dust allergy
+P0667,Kavita Verma,61,Male,Village-010,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0668,Vijay Kumar,31,Male,Village-065,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0669,Deepak Singh,83,Female,Village-011,AB+,Routine child care,None,Penicillin allergy
+P0670,Mohan Das,74,Male,Village-058,O+,Routine child care,None,No known allergy
+P0671,Ramesh Sharma,64,Male,Village-052,AB+,No chronic condition,None,No known allergy
+P0672,Ramesh Sharma,72,Female,Village-078,O-,Asthma,Salbutamol,Dust allergy
+P0673,Geeta Singh,39,Male,Village-084,AB+,Asthma,Salbutamol,Penicillin allergy
+P0674,Suresh Singh,47,Male,Village-059,O+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0675,Kavita Yadav,80,Female,Village-092,AB+,Asthma,Salbutamol,No known allergy
+P0676,Rajesh Kumar,13,Male,Village-044,O+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0677,Ravi Yadav,38,Male,Village-090,A+,Asthma,Salbutamol,No known allergy
+P0678,Sita Patel,22,Female,Village-014,O+,Routine child care,None,Dust allergy
+P0679,Asha Patel,26,Male,Village-028,AB+,Hypertension,Amlodipine,No known allergy
+P0680,Meena Kumar,44,Male,Village-082,O-,Diabetes,Metformin,No known allergy
+P0681,Manoj Jha,58,Female,Village-018,AB+,Routine child care,None,No known allergy
+P0682,Suresh Jha,68,Male,Village-056,O-,No chronic condition,None,Penicillin allergy
+P0683,Anita Mishra,66,Male,Village-023,B+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0684,Pooja Mishra,50,Female,Village-042,O-,No chronic condition,None,Penicillin allergy
+P0685,Rajesh Gupta,54,Male,Village-051,O+,Asthma,Salbutamol,Penicillin allergy
+P0686,Sita Verma,58,Male,Village-053,O-,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0687,Geeta Yadav,66,Female,Village-092,O-,Pregnancy,Iron + Folic Acid,Dust allergy
+P0688,Sunita Mishra,28,Male,Village-092,O+,Hypertension,Amlodipine,Dust allergy
+P0689,Sita Verma,45,Male,Village-065,O-,No chronic condition,None,Dust allergy
+P0690,Asha Yadav,82,Female,Village-072,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0691,Meena Jha,74,Male,Village-037,AB+,No chronic condition,None,No known allergy
+P0692,Ramesh Patel,67,Male,Village-019,A+,Diabetes,Metformin,Dust allergy
+P0693,Vijay Verma,8,Female,Village-037,O+,Routine child care,None,No known allergy
+P0694,Pankaj Singh,8,Male,Village-097,O-,Routine child care,None,No known allergy
+P0695,Arjun Sharma,46,Male,Village-079,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0696,Deepak Singh,83,Female,Village-066,O+,Asthma,Salbutamol,Dust allergy
+P0697,Deepak Patel,7,Male,Village-088,O+,Routine child care,None,Dust allergy
+P0698,Vijay Singh,7,Male,Village-080,AB+,Routine child care,None,No known allergy
+P0699,Kiran Mishra,82,Female,Village-070,O-,No chronic condition,None,No known allergy
+P0700,Arjun Verma,25,Male,Village-088,A+,Pregnancy,Iron + Folic Acid,No known allergy
+P0701,Ravi Sharma,23,Male,Village-049,A+,No chronic condition,None,Penicillin allergy
+P0702,Vijay Verma,36,Female,Village-021,O-,Asthma,Salbutamol,Penicillin allergy
+P0703,Arjun Verma,1,Male,Village-006,B+,Routine child care,None,Penicillin allergy
+P0704,Pooja Gupta,77,Male,Village-063,O-,Diabetes,Metformin,Dust allergy
+P0705,Neha Jha,46,Female,Village-029,B+,Diabetes,Metformin,Dust allergy
+P0706,Ravi Verma,9,Male,Village-054,O-,Routine child care,None,Dust allergy
+P0707,Kiran Singh,52,Male,Village-028,O+,Diabetes,Metformin,Penicillin allergy
+P0708,Sunita Mishra,47,Female,Village-068,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0709,Asha Yadav,84,Male,Village-058,B+,Diabetes,Metformin,Dust allergy
+P0710,Rajesh Kumar,79,Male,Village-088,O+,Asthma,Salbutamol,Penicillin allergy
+P0711,Vijay Jha,15,Female,Village-093,O+,Routine child care,None,No known allergy
+P0712,Kiran Jha,67,Male,Village-066,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0713,Sunita Yadav,6,Male,Village-066,A+,Routine child care,None,No known allergy
+P0714,Geeta Jha,22,Female,Village-001,A+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0715,Sunita Patel,81,Male,Village-014,B+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0716,Mohan Verma,56,Male,Village-004,AB+,No chronic condition,None,Dust allergy
+P0717,Mohan Sharma,43,Female,Village-007,B+,Diabetes,Metformin,Penicillin allergy
+P0718,Manoj Singh,72,Male,Village-034,AB+,Diabetes,Metformin,Penicillin allergy
+P0719,Deepak Patel,58,Male,Village-041,A+,No chronic condition,None,Penicillin allergy
+P0720,Ramesh Mishra,16,Female,Village-009,O-,Asthma,Salbutamol,No known allergy
+P0721,Ravi Sharma,10,Male,Village-038,O+,Routine child care,None,Dust allergy
+P0722,Arjun Patel,12,Male,Village-051,A+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0723,Rajesh Verma,21,Female,Village-096,AB+,Asthma,Salbutamol,Dust allergy
+P0724,Sita Gupta,38,Male,Village-087,O+,No chronic condition,None,No known allergy
+P0725,Geeta Verma,71,Male,Village-016,A+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0726,Deepak Jha,74,Female,Village-071,A+,Asthma,Salbutamol,Penicillin allergy
+P0727,Kiran Singh,27,Male,Village-053,O-,No chronic condition,None,No known allergy
+P0728,Rajesh Mishra,21,Male,Village-033,B+,Hypertension,Amlodipine,No known allergy
+P0729,Manoj Kumar,24,Female,Village-097,O-,No chronic condition,None,Penicillin allergy
+P0730,Mohan Gupta,83,Male,Village-086,A+,Asthma,Salbutamol,Penicillin allergy
+P0731,Manoj Das,13,Male,Village-043,O+,Hypertension,Amlodipine,No known allergy
+P0732,Asha Gupta,84,Female,Village-080,A+,Hypertension,Amlodipine,No known allergy
+P0733,Arjun Yadav,41,Male,Village-079,O+,Routine child care,None,Dust allergy
+P0734,Manoj Mishra,75,Male,Village-047,O+,Hypertension,Amlodipine,Penicillin allergy
+P0735,Neha Singh,22,Female,Village-029,AB+,Diabetes,Metformin,Penicillin allergy
+P0736,Neha Das,47,Male,Village-060,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0737,Geeta Sharma,40,Male,Village-023,O-,Routine child care,None,No known allergy
+P0738,Sita Jha,36,Female,Village-026,O+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0739,Mohan Kumar,81,Male,Village-065,A+,Diabetes,Metformin,Dust allergy
+P0740,Manoj Singh,75,Male,Village-005,O-,Routine child care,None,Penicillin allergy
+P0741,Kavita Verma,70,Female,Village-047,AB+,Asthma,Salbutamol,No known allergy
+P0742,Pankaj Verma,76,Male,Village-060,O-,No chronic condition,None,Dust allergy
+P0743,Kiran Jha,12,Male,Village-002,B+,Routine child care,None,Dust allergy
+P0744,Ravi Verma,22,Female,Village-058,B+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0745,Sita Das,73,Male,Village-046,A+,Asthma,Salbutamol,No known allergy
+P0746,Mohan Gupta,63,Male,Village-048,B+,Hypertension,Amlodipine,No known allergy
+P0747,Kiran Patel,27,Female,Village-061,AB+,Asthma,Salbutamol,No known allergy
+P0748,Neha Sharma,6,Male,Village-091,O-,Routine child care,None,Dust allergy
+P0749,Vijay Mishra,36,Male,Village-070,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0750,Deepak Yadav,49,Female,Village-076,A+,No chronic condition,None,Dust allergy
+P0751,Rajesh Jha,33,Male,Village-052,O+,Routine child care,None,Penicillin allergy
+P0752,Kavita Mishra,63,Male,Village-001,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0753,Rajesh Sharma,57,Female,Village-066,O+,Hypertension,Amlodipine,No known allergy
+P0754,Anita Yadav,20,Male,Village-078,A+,Hypertension,Amlodipine,Dust allergy
+P0755,Neha Sharma,30,Male,Village-062,AB+,Routine child care,None,Penicillin allergy
+P0756,Anita Patel,27,Female,Village-003,B+,Asthma,Salbutamol,No known allergy
+P0757,Manoj Verma,17,Male,Village-018,O-,Asthma,Salbutamol,No known allergy
+P0758,Suresh Verma,74,Male,Village-034,B+,Hypertension,Amlodipine,Dust allergy
+P0759,Manoj Kumar,52,Female,Village-093,O+,Asthma,Salbutamol,No known allergy
+P0760,Pooja Das,28,Male,Village-062,B+,Routine child care,None,No known allergy
+P0761,Sita Mishra,53,Male,Village-099,B+,Asthma,Salbutamol,Dust allergy
+P0762,Vijay Verma,85,Female,Village-093,O+,Asthma,Salbutamol,Penicillin allergy
+P0763,Mohan Singh,77,Male,Village-049,AB+,Asthma,Salbutamol,No known allergy
+P0764,Sunita Jha,14,Male,Village-065,AB+,Diabetes,Metformin,No known allergy
+P0765,Anita Das,78,Female,Village-079,O-,Diabetes,Metformin,No known allergy
+P0766,Asha Sharma,69,Male,Village-062,B+,Asthma,Salbutamol,Dust allergy
+P0767,Ramesh Patel,70,Male,Village-067,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0768,Ravi Patel,6,Female,Village-030,AB+,Routine child care,None,Penicillin allergy
+P0769,Manoj Sharma,45,Male,Village-055,B+,Asthma,Salbutamol,Penicillin allergy
+P0770,Rajesh Sharma,62,Male,Village-037,O-,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0771,Sunita Kumar,53,Female,Village-091,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0772,Ravi Kumar,67,Male,Village-049,B+,Diabetes,Metformin,Dust allergy
+P0773,Kiran Sharma,41,Male,Village-020,AB+,Routine child care,None,Dust allergy
+P0774,Vijay Jha,75,Female,Village-055,O-,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0775,Deepak Singh,79,Male,Village-053,O-,Pregnancy,Iron + Folic Acid,Dust allergy
+P0776,Kiran Jha,62,Male,Village-072,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0777,Kiran Patel,40,Female,Village-095,B+,Asthma,Salbutamol,Dust allergy
+P0778,Rajesh Das,16,Male,Village-090,B+,No chronic condition,None,No known allergy
+P0779,Deepak Yadav,28,Male,Village-071,O-,Asthma,Salbutamol,Dust allergy
+P0780,Deepak Kumar,7,Female,Village-012,B+,Routine child care,None,Penicillin allergy
+P0781,Mohan Sharma,77,Male,Village-034,B+,Routine child care,None,Penicillin allergy
+P0782,Suresh Patel,11,Male,Village-052,O-,Routine child care,None,Dust allergy
+P0783,Pooja Kumar,67,Female,Village-100,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0784,Ramesh Singh,64,Male,Village-085,O-,Routine child care,None,Penicillin allergy
+P0785,Pooja Jha,25,Male,Village-067,B+,Diabetes,Metformin,Dust allergy
+P0786,Suresh Yadav,22,Female,Village-031,A+,No chronic condition,None,No known allergy
+P0787,Deepak Yadav,12,Male,Village-086,AB+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0788,Ravi Kumar,76,Male,Village-095,A+,Hypertension,Amlodipine,No known allergy
+P0789,Geeta Mishra,71,Female,Village-045,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0790,Sunita Das,29,Male,Village-052,O-,Asthma,Salbutamol,No known allergy
+P0791,Meena Jha,34,Male,Village-014,O-,Hypertension,Amlodipine,No known allergy
+P0792,Neha Sharma,65,Female,Village-066,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0793,Arjun Patel,74,Male,Village-073,AB+,Pregnancy,Iron + Folic Acid,No known allergy
+P0794,Arjun Das,44,Male,Village-076,A+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0795,Mohan Patel,15,Female,Village-082,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0796,Neha Patel,30,Male,Village-046,O-,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0797,Vijay Singh,2,Male,Village-037,A+,Routine child care,None,Penicillin allergy
+P0798,Geeta Verma,44,Female,Village-061,O+,Diabetes,Metformin,Penicillin allergy
+P0799,Vijay Verma,28,Male,Village-096,B+,Asthma,Salbutamol,Penicillin allergy
+P0800,Rajesh Gupta,26,Male,Village-027,B+,Hypertension,Amlodipine,No known allergy
+P0801,Pooja Yadav,32,Female,Village-020,A+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0802,Kavita Mishra,11,Male,Village-001,O-,Routine child care,None,No known allergy
+P0803,Pooja Yadav,62,Male,Village-064,O-,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0804,Ravi Gupta,63,Female,Village-051,B+,Hypertension,Amlodipine,Dust allergy
+P0805,Ravi Patel,17,Male,Village-062,O-,Diabetes,Metformin,No known allergy
+P0806,Deepak Verma,65,Male,Village-059,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0807,Neha Kumar,67,Female,Village-002,B+,Routine child care,None,Penicillin allergy
+P0808,Neha Yadav,75,Male,Village-079,O+,Diabetes,Metformin,No known allergy
+P0809,Rajesh Gupta,71,Male,Village-061,O-,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0810,Kavita Patel,47,Female,Village-027,AB+,Hypertension,Amlodipine,Dust allergy
+P0811,Deepak Gupta,48,Male,Village-058,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0812,Rajesh Sharma,17,Male,Village-093,O+,Asthma,Salbutamol,No known allergy
+P0813,Deepak Singh,72,Female,Village-019,B+,Routine child care,None,Penicillin allergy
+P0814,Meena Das,2,Male,Village-018,O-,Routine child care,None,Dust allergy
+P0815,Kavita Gupta,41,Male,Village-033,O-,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0816,Asha Verma,7,Female,Village-008,B+,Routine child care,None,Penicillin allergy
+P0817,Asha Das,61,Male,Village-096,O+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0818,Geeta Jha,47,Male,Village-033,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0819,Kiran Mishra,53,Female,Village-026,O-,Diabetes,Metformin,Dust allergy
+P0820,Geeta Verma,84,Male,Village-100,O+,No chronic condition,None,Penicillin allergy
+P0821,Ravi Das,42,Male,Village-100,AB+,No chronic condition,None,No known allergy
+P0822,Pankaj Das,49,Female,Village-081,B+,Asthma,Salbutamol,No known allergy
+P0823,Neha Patel,82,Male,Village-081,O-,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0824,Mohan Sharma,52,Male,Village-021,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0825,Pankaj Gupta,41,Female,Village-078,AB+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0826,Kiran Mishra,57,Male,Village-067,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0827,Ramesh Verma,22,Male,Village-094,B+,Hypertension,Amlodipine,Dust allergy
+P0828,Mohan Singh,33,Female,Village-022,AB+,No chronic condition,None,No known allergy
+P0829,Kavita Jha,13,Male,Village-007,A+,Diabetes,Metformin,Penicillin allergy
+P0830,Mohan Sharma,68,Male,Village-034,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0831,Deepak Gupta,11,Female,Village-030,B+,Routine child care,None,Dust allergy
+P0832,Sita Verma,37,Male,Village-068,B+,Routine child care,None,No known allergy
+P0833,Kiran Yadav,5,Male,Village-061,AB+,Routine child care,None,Dust allergy
+P0834,Arjun Verma,35,Female,Village-090,O-,Asthma,Salbutamol,No known allergy
+P0835,Arjun Mishra,76,Male,Village-056,O-,Asthma,Salbutamol,Dust allergy
+P0836,Pankaj Yadav,82,Male,Village-062,O-,Asthma,Salbutamol,No known allergy
+P0837,Pankaj Yadav,12,Female,Village-053,O+,Routine child care,None,No known allergy
+P0838,Ramesh Jha,39,Male,Village-098,B+,Diabetes,Metformin,Penicillin allergy
+P0839,Geeta Kumar,37,Male,Village-089,AB+,Routine child care,None,Penicillin allergy
+P0840,Meena Gupta,39,Female,Village-077,B+,Diabetes,Metformin,No known allergy
+P0841,Sunita Patel,71,Male,Village-072,AB+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0842,Deepak Patel,32,Male,Village-029,O+,Hypertension,Amlodipine,No known allergy
+P0843,Rajesh Jha,55,Female,Village-098,O-,No chronic condition,None,Dust allergy
+P0844,Geeta Gupta,35,Male,Village-053,B+,Pregnancy,Iron + Folic Acid,No known allergy
+P0845,Pankaj Sharma,24,Male,Village-082,AB+,Hypertension,Amlodipine,Dust allergy
+P0846,Pooja Das,58,Female,Village-025,O+,Pregnancy,Iron + Folic Acid,No known allergy
+P0847,Geeta Kumar,20,Male,Village-024,A+,Diabetes,Metformin,Penicillin allergy
+P0848,Arjun Kumar,35,Male,Village-030,A+,Hypertension,Amlodipine,No known allergy
+P0849,Sunita Yadav,2,Female,Village-054,O+,Routine child care,None,Penicillin allergy
+P0850,Suresh Yadav,48,Male,Village-011,B+,Routine child care,None,No known allergy
+P0851,Deepak Sharma,35,Male,Village-070,AB+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0852,Vijay Patel,25,Female,Village-002,A+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0853,Arjun Singh,32,Male,Village-095,A+,Routine child care,None,No known allergy
+P0854,Asha Jha,59,Male,Village-086,B+,No chronic condition,None,Penicillin allergy
+P0855,Pankaj Yadav,50,Female,Village-021,A+,No chronic condition,None,Dust allergy
+P0856,Asha Gupta,71,Male,Village-062,O+,Asthma,Salbutamol,No known allergy
+P0857,Sunita Sharma,47,Male,Village-031,AB+,Diabetes,Metformin,Penicillin allergy
+P0858,Vijay Mishra,2,Female,Village-016,AB+,Routine child care,None,No known allergy
+P0859,Manoj Das,2,Male,Village-089,O-,Routine child care,None,No known allergy
+P0860,Mohan Singh,48,Male,Village-021,AB+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0861,Suresh Kumar,80,Female,Village-046,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0862,Asha Verma,69,Male,Village-063,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0863,Kiran Das,72,Male,Village-094,B+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0864,Sita Gupta,49,Female,Village-006,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0865,Pankaj Jha,57,Male,Village-090,AB+,Asthma,Salbutamol,No known allergy
+P0866,Geeta Yadav,73,Male,Village-042,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0867,Geeta Verma,77,Female,Village-009,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0868,Vijay Jha,58,Male,Village-047,AB+,Pregnancy,Iron + Folic Acid,No known allergy
+P0869,Deepak Verma,82,Male,Village-003,O-,Asthma,Salbutamol,Penicillin allergy
+P0870,Neha Sharma,80,Female,Village-085,O-,Hypertension,Amlodipine,Penicillin allergy
+P0871,Kavita Jha,25,Male,Village-020,O-,Asthma,Salbutamol,Penicillin allergy
+P0872,Neha Sharma,42,Male,Village-013,O-,Routine child care,None,Dust allergy
+P0873,Sita Verma,9,Female,Village-005,B+,Routine child care,None,No known allergy
+P0874,Asha Kumar,63,Male,Village-074,AB+,Hypertension,Amlodipine,Dust allergy
+P0875,Pooja Mishra,63,Male,Village-033,A+,Asthma,Salbutamol,Penicillin allergy
+P0876,Mohan Kumar,29,Female,Village-027,AB+,Asthma,Salbutamol,No known allergy
+P0877,Suresh Yadav,60,Male,Village-072,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0878,Pooja Gupta,8,Male,Village-068,A+,Routine child care,None,Dust allergy
+P0879,Pankaj Sharma,10,Female,Village-028,O-,Routine child care,None,No known allergy
+P0880,Rajesh Jha,13,Male,Village-050,B+,No chronic condition,None,No known allergy
+P0881,Rajesh Mishra,68,Male,Village-081,B+,No chronic condition,None,Dust allergy
+P0882,Asha Mishra,72,Female,Village-046,AB+,Routine child care,None,Dust allergy
+P0883,Anita Verma,55,Male,Village-071,AB+,Diabetes,Metformin,Dust allergy
+P0884,Anita Jha,44,Male,Village-077,AB+,No chronic condition,None,Penicillin allergy
+P0885,Neha Yadav,41,Female,Village-053,AB+,Asthma,Salbutamol,Dust allergy
+P0886,Rajesh Mishra,42,Male,Village-070,B+,Asthma,Salbutamol,Penicillin allergy
+P0887,Vijay Yadav,71,Male,Village-058,AB+,No chronic condition,None,Penicillin allergy
+P0888,Suresh Gupta,1,Female,Village-077,A+,Routine child care,None,Dust allergy
+P0889,Ramesh Gupta,18,Male,Village-029,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0890,Vijay Jha,3,Male,Village-066,O-,Routine child care,None,Dust allergy
+P0891,Asha Kumar,74,Female,Village-059,O+,Hypertension,Amlodipine,No known allergy
+P0892,Kiran Mishra,18,Male,Village-032,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0893,Manoj Patel,39,Male,Village-073,B+,Diabetes,Metformin,Dust allergy
+P0894,Neha Das,10,Female,Village-023,AB+,Routine child care,None,Dust allergy
+P0895,Asha Mishra,74,Male,Village-083,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0896,Mohan Kumar,74,Male,Village-099,O+,Routine child care,None,Penicillin allergy
+P0897,Asha Singh,56,Female,Village-096,O-,Routine child care,None,No known allergy
+P0898,Deepak Kumar,82,Male,Village-040,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0899,Manoj Verma,41,Male,Village-042,O-,Asthma,Salbutamol,Dust allergy
+P0900,Suresh Patel,29,Female,Village-058,O-,Hypertension,Amlodipine,Dust allergy
+P0901,Rajesh Patel,65,Male,Village-038,AB+,Diabetes,Metformin,No known allergy
+P0902,Mohan Das,17,Male,Village-074,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0903,Mohan Patel,52,Female,Village-065,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0904,Sita Das,17,Male,Village-072,B+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0905,Manoj Singh,51,Male,Village-072,O-,No chronic condition,None,Dust allergy
+P0906,Rajesh Sharma,68,Female,Village-035,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0907,Asha Patel,74,Male,Village-055,O+,Diabetes,Metformin,Penicillin allergy
+P0908,Kiran Mishra,25,Male,Village-084,A+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0909,Pooja Das,22,Female,Village-080,B+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0910,Rajesh Singh,6,Male,Village-088,O+,Routine child care,None,No known allergy
+P0911,Suresh Singh,11,Male,Village-080,B+,Routine child care,None,Penicillin allergy
+P0912,Asha Gupta,2,Female,Village-058,AB+,Routine child care,None,No known allergy
+P0913,Geeta Singh,43,Male,Village-027,O-,Hypertension,Amlodipine,Dust allergy
+P0914,Kavita Mishra,34,Male,Village-094,B+,Asthma,Salbutamol,Dust allergy
+P0915,Manoj Jha,3,Female,Village-006,O+,Routine child care,None,No known allergy
+P0916,Sunita Mishra,8,Male,Village-035,A+,Routine child care,None,Penicillin allergy
+P0917,Mohan Patel,84,Male,Village-085,O+,Diabetes,Metformin,Dust allergy
+P0918,Asha Kumar,85,Female,Village-038,AB+,Pregnancy,Iron + Folic Acid,No known allergy
+P0919,Asha Yadav,49,Male,Village-063,O-,Asthma,Salbutamol,Dust allergy
+P0920,Sunita Jha,12,Male,Village-059,O-,Hypertension,Amlodipine,Dust allergy
+P0921,Rajesh Jha,3,Female,Village-040,O+,Routine child care,None,Penicillin allergy
+P0922,Anita Kumar,51,Male,Village-045,O+,No chronic condition,None,Penicillin allergy
+P0923,Rajesh Jha,81,Male,Village-036,A+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0924,Ramesh Jha,33,Female,Village-036,B+,Routine child care,None,No known allergy
+P0925,Sita Sharma,44,Male,Village-094,AB+,Routine child care,None,Dust allergy
+P0926,Rajesh Patel,79,Male,Village-031,O-,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0927,Pooja Yadav,55,Female,Village-058,O-,Pregnancy,Iron + Folic Acid,No known allergy
+P0928,Sita Mishra,27,Male,Village-070,B+,No chronic condition,None,No known allergy
+P0929,Ravi Verma,40,Male,Village-056,B+,No chronic condition,None,Dust allergy
+P0930,Neha Sharma,73,Female,Village-072,O-,Hypertension,Amlodipine,Dust allergy
+P0931,Neha Verma,16,Male,Village-094,A+,Hypertension,Amlodipine,Penicillin allergy
+P0932,Pankaj Das,53,Male,Village-096,O+,Routine child care,None,No known allergy
+P0933,Sita Verma,25,Female,Village-004,O-,Diabetes,Metformin,Dust allergy
+P0934,Manoj Mishra,35,Male,Village-030,O-,Asthma,Salbutamol,No known allergy
+P0935,Ramesh Yadav,30,Male,Village-011,AB+,No chronic condition,None,No known allergy
+P0936,Pooja Das,65,Female,Village-092,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0937,Kavita Verma,50,Male,Village-021,B+,Routine child care,None,No known allergy
+P0938,Ramesh Gupta,5,Male,Village-053,B+,Routine child care,None,Dust allergy
+P0939,Sunita Sharma,26,Female,Village-023,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0940,Neha Das,63,Male,Village-032,AB+,No chronic condition,None,Penicillin allergy
+P0941,Deepak Yadav,6,Male,Village-051,O-,Routine child care,None,Dust allergy
+P0942,Geeta Jha,74,Female,Village-083,A+,Asthma,Salbutamol,Dust allergy
+P0943,Arjun Kumar,14,Male,Village-032,O-,Routine child care,None,Dust allergy
+P0944,Suresh Jha,51,Male,Village-050,O-,No chronic condition,None,Dust allergy
+P0945,Pankaj Das,7,Female,Village-051,O+,Routine child care,None,Penicillin allergy
+P0946,Meena Gupta,60,Male,Village-079,A+,Hypertension,Amlodipine,Dust allergy
+P0947,Arjun Das,67,Male,Village-012,O-,Hypertension,Amlodipine,No known allergy
+P0948,Manoj Jha,24,Female,Village-018,AB+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0949,Ramesh Verma,42,Male,Village-059,O-,Routine child care,None,Dust allergy
+P0950,Mohan Gupta,26,Male,Village-042,B+,Routine child care,None,Dust allergy
+P0951,Asha Das,16,Female,Village-082,O+,Diabetes,Metformin,No known allergy
+P0952,Deepak Jha,68,Male,Village-079,B+,No chronic condition,None,Penicillin allergy
+P0953,Suresh Verma,71,Male,Village-043,O-,Routine child care,None,Dust allergy
+P0954,Sita Verma,20,Female,Village-099,A+,Hypertension,Amlodipine,Penicillin allergy
+P0955,Arjun Gupta,40,Male,Village-081,B+,Pregnancy,Iron + Folic Acid,No known allergy
+P0956,Ramesh Mishra,17,Male,Village-098,O+,Hypertension,Amlodipine,No known allergy
+P0957,Kavita Jha,59,Female,Village-001,O-,Routine child care,None,Penicillin allergy
+P0958,Manoj Das,31,Male,Village-059,AB+,Hypertension,Amlodipine,Penicillin allergy
+P0959,Pooja Kumar,11,Male,Village-032,O-,Routine child care,None,Penicillin allergy
+P0960,Geeta Singh,80,Female,Village-007,B+,No chronic condition,None,No known allergy
+P0961,Kiran Kumar,8,Male,Village-019,A+,Routine child care,None,Dust allergy
+P0962,Pooja Gupta,74,Male,Village-043,A+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0963,Anita Verma,14,Female,Village-087,O+,Routine child care,None,Dust allergy
+P0964,Pooja Mishra,85,Male,Village-072,B+,No chronic condition,None,Penicillin allergy
+P0965,Suresh Sharma,75,Male,Village-099,O+,Pregnancy,Iron + Folic Acid,Penicillin allergy
+P0966,Mohan Patel,48,Female,Village-071,A+,Routine child care,None,Penicillin allergy
+P0967,Asha Gupta,61,Male,Village-043,O-,Hypertension,Amlodipine,Penicillin allergy
+P0968,Sunita Mishra,68,Male,Village-008,A+,Hypertension,Amlodipine,Dust allergy
+P0969,Mohan Das,81,Female,Village-093,O-,Asthma,Salbutamol,Dust allergy
+P0970,Pooja Yadav,37,Male,Village-034,O-,Routine child care,None,Dust allergy
+P0971,Sita Mishra,80,Male,Village-073,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0972,Kavita Verma,81,Female,Village-079,B+,Routine child care,None,Dust allergy
+P0973,Ramesh Sharma,38,Male,Village-004,AB+,Hypertension,Amlodipine,Dust allergy
+P0974,Sunita Mishra,16,Male,Village-054,AB+,No chronic condition,None,No known allergy
+P0975,Geeta Singh,43,Female,Village-002,B+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0976,Mohan Gupta,37,Male,Village-039,O-,Pregnancy,Iron + Folic Acid,Dust allergy
+P0977,Ramesh Sharma,42,Male,Village-088,O+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0978,Manoj Mishra,51,Female,Village-004,B+,No chronic condition,None,No known allergy
+P0979,Neha Das,43,Male,Village-061,A+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0980,Sita Das,18,Male,Village-069,O+,Routine child care,None,Penicillin allergy
+P0981,Suresh Jha,53,Female,Village-039,O-,No chronic condition,None,Dust allergy
+P0982,Geeta Kumar,41,Male,Village-027,O-,Asthma,Salbutamol,Dust allergy
+P0983,Kiran Sharma,43,Male,Village-020,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0984,Geeta Verma,44,Female,Village-074,O-,Routine child care,None,Penicillin allergy
+P0985,Asha Gupta,24,Male,Village-091,O+,Asthma,Salbutamol,Dust allergy
+P0986,Meena Sharma,5,Male,Village-064,B+,Routine child care,None,Penicillin allergy
+P0987,Pankaj Singh,58,Female,Village-068,O+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0988,Suresh Singh,15,Male,Village-012,AB+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0989,Kavita Jha,4,Male,Village-020,B+,Routine child care,None,Penicillin allergy
+P0990,Ravi Gupta,62,Female,Village-100,O+,No chronic condition,None,No known allergy
+P0991,Ravi Verma,13,Male,Village-027,A+,Diabetes + Hypertension,Metformin + Amlodipine,Penicillin allergy
+P0992,Ravi Sharma,50,Male,Village-001,O+,No chronic condition,None,No known allergy
+P0993,Mohan Yadav,77,Female,Village-060,A+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0994,Pankaj Kumar,67,Male,Village-074,O+,Diabetes + Hypertension,Metformin + Amlodipine,Dust allergy
+P0995,Sunita Singh,27,Male,Village-037,O+,Pregnancy,Iron + Folic Acid,Dust allergy
+P0996,Arjun Sharma,41,Female,Village-035,B+,Diabetes + Hypertension,Metformin + Amlodipine,No known allergy
+P0997,Ramesh Mishra,36,Male,Village-072,O-,Diabetes,Metformin,No known allergy
+P0998,Kiran Jha,27,Male,Village-041,O+,Asthma,Salbutamol,No known allergy
+P0999,Rajesh Verma,37,Female,Village-010,O+,Asthma,Salbutamol,Dust allergy
+P1000,Arjun Kumar,44,Male,Village-017,A+,Asthma,Salbutamol,Penicillin allergy

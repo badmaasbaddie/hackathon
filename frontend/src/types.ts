@@ -199,3 +199,85 @@ export interface OfflineAction {
   created_at: string;
   status: 'QUEUED' | 'SYNCED' | 'FAILED';
 }
+
+export interface MonitoringAlert {
+  id: number;
+  alert_code: string;
+  patient_id?: number;
+  category: string;
+  triggering_rule: string;
+  title: string;
+  description: string;
+  priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  status: 'NEW' | 'ACKNOWLEDGED' | 'ASSIGNED' | 'IN_PROGRESS' | 'RESOLVED' | 'DISMISSED';
+  assigned_role: string;
+  due_date?: string;
+  resolution_notes?: string;
+  resolution_timestamp?: string;
+  dismissed_reason?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PatientReport {
+  id: number;
+  external_id: string;
+  patient_id: number;
+  report_type: string;
+  report_date: string;
+  findings: string;
+  ai_action_note?: string;
+  is_abnormal: boolean;
+  doctor_reviewed: boolean;
+  review_notes?: string;
+  reviewed_at?: string;
+  created_at: string;
+}
+
+export interface PatientMasterProfile {
+  patient: Patient;
+  external_id?: string;
+  conditions: string;
+  current_medication: string;
+  allergies: string;
+  blood_group: string;
+  assigned_facility?: any;
+  appointments: Appointment[];
+  clinical_encounters: any[];
+  prescriptions: any[];
+  diagnostic_orders: DiagnosticOrder[];
+  reports: PatientReport[];
+  follow_up_plans: FollowUpPlan[];
+  tasks: HealthWorkerTask[];
+  alerts: MonitoringAlert[];
+  timeline_events: CareTimelineEvent[];
+  consents: any[];
+  ai_summaries: any[];
+  provenance_counts: {
+    imported_records: number;
+    clinician_entered: number;
+    ai_summaries: number;
+    active_alerts: number;
+  };
+}
+
+export interface DatabaseHealth {
+  status: string;
+  database_connected: boolean;
+  db_file_size_mb: number;
+  total_patients: number;
+  total_doctors: number;
+  total_facilities: number;
+  total_appointments: number;
+  total_followups: number;
+  total_tasks: number;
+  total_reports: number;
+  total_alerts: number;
+  active_alerts: number;
+  resolved_alerts: number;
+  inventory_items: number;
+  diagnostic_availability_records: number;
+  last_monitoring_run_at?: string;
+  last_ingestion_job?: any;
+  data_quality_issues_count: number;
+}

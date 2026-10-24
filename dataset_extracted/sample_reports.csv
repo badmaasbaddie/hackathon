@@ -1,0 +1,501 @@
+report_id,patient_id,report_type,report_date,findings,ai_action_note
+R0001,P0002,Lipid Profile,2026-10-08,Total Cholesterol 256 mg/dL,Doctor review recommended
+R0002,P0004,Lipid Profile,2026-10-08,Total Cholesterol 218 mg/dL,Doctor review recommended
+R0003,P0006,Blood Pressure,2026-10-29,BP 141/100 mmHg,Doctor review recommended
+R0004,P0008,CBC,2026-10-13,Hemoglobin 10.4 g/dL; WBC 5783/uL,Doctor review recommended
+R0005,P0010,Blood Pressure,2026-10-03,BP 149/90 mmHg,Doctor review recommended
+R0006,P0012,Lipid Profile,2026-10-15,Total Cholesterol 202 mg/dL,Doctor review recommended
+R0007,P0014,Lipid Profile,2026-10-29,Total Cholesterol 255 mg/dL,Doctor review recommended
+R0008,P0016,Blood Sugar,2026-10-15,Random Blood Sugar 97 mg/dL,Doctor review recommended
+R0009,P0018,HbA1c,2026-10-26,HbA1c 9.3 %,Doctor review recommended
+R0010,P0020,Blood Sugar,2026-10-12,Random Blood Sugar 116 mg/dL,Doctor review recommended
+R0011,P0022,CBC,2026-10-21,Hemoglobin 11.3 g/dL; WBC 6829/uL,Doctor review recommended
+R0012,P0024,CBC,2026-10-16,Hemoglobin 10.5 g/dL; WBC 10084/uL,Doctor review recommended
+R0013,P0026,Lipid Profile,2026-10-26,Total Cholesterol 158 mg/dL,Doctor review recommended
+R0014,P0028,Blood Sugar,2026-10-16,Random Blood Sugar 161 mg/dL,Doctor review recommended
+R0015,P0030,Blood Sugar,2026-10-29,Random Blood Sugar 234 mg/dL,Doctor review recommended
+R0016,P0032,Lipid Profile,2026-10-27,Total Cholesterol 165 mg/dL,Doctor review recommended
+R0017,P0034,Blood Pressure,2026-10-10,BP 169/77 mmHg,Doctor review recommended
+R0018,P0036,CBC,2026-10-17,Hemoglobin 12.9 g/dL; WBC 6596/uL,Doctor review recommended
+R0019,P0038,Lipid Profile,2026-10-08,Total Cholesterol 176 mg/dL,Doctor review recommended
+R0020,P0040,HbA1c,2026-10-27,HbA1c 7.4 %,Doctor review recommended
+R0021,P0042,CBC,2026-10-05,Hemoglobin 10.3 g/dL; WBC 6673/uL,Doctor review recommended
+R0022,P0044,Blood Sugar,2026-10-01,Random Blood Sugar 86 mg/dL,Doctor review recommended
+R0023,P0046,HbA1c,2026-10-15,HbA1c 5.6 %,Doctor review recommended
+R0024,P0048,Blood Pressure,2026-10-18,BP 138/94 mmHg,Doctor review recommended
+R0025,P0050,Blood Pressure,2026-10-25,BP 148/98 mmHg,Doctor review recommended
+R0026,P0052,Blood Sugar,2026-10-30,Random Blood Sugar 107 mg/dL,Doctor review recommended
+R0027,P0054,Blood Sugar,2026-10-09,Random Blood Sugar 196 mg/dL,Doctor review recommended
+R0028,P0056,Blood Pressure,2026-10-10,BP 155/99 mmHg,Doctor review recommended
+R0029,P0058,Blood Pressure,2026-10-11,BP 147/78 mmHg,Doctor review recommended
+R0030,P0060,CBC,2026-10-18,Hemoglobin 9.2 g/dL; WBC 7674/uL,Doctor review recommended
+R0031,P0062,HbA1c,2026-10-11,HbA1c 7.2 %,Doctor review recommended
+R0032,P0064,HbA1c,2026-10-21,HbA1c 8.1 %,Doctor review recommended
+R0033,P0066,HbA1c,2026-10-13,HbA1c 8.6 %,Doctor review recommended
+R0034,P0068,Blood Pressure,2026-10-21,BP 130/72 mmHg,Doctor review recommended
+R0035,P0070,Blood Sugar,2026-10-19,Random Blood Sugar 162 mg/dL,Doctor review recommended
+R0036,P0072,Lipid Profile,2026-10-29,Total Cholesterol 145 mg/dL,Doctor review recommended
+R0037,P0074,Lipid Profile,2026-10-24,Total Cholesterol 147 mg/dL,Doctor review recommended
+R0038,P0076,Blood Pressure,2026-10-30,BP 141/74 mmHg,Doctor review recommended
+R0039,P0078,CBC,2026-10-17,Hemoglobin 9.3 g/dL; WBC 5837/uL,Doctor review recommended
+R0040,P0080,Blood Pressure,2026-10-03,BP 170/85 mmHg,Doctor review recommended
+R0041,P0082,Blood Sugar,2026-10-11,Random Blood Sugar 171 mg/dL,Doctor review recommended
+R0042,P0084,CBC,2026-10-16,Hemoglobin 11.0 g/dL; WBC 5569/uL,Doctor review recommended
+R0043,P0086,HbA1c,2026-10-17,HbA1c 8.1 %,Doctor review recommended
+R0044,P0088,HbA1c,2026-10-13,HbA1c 8.6 %,Doctor review recommended
+R0045,P0090,Blood Pressure,2026-10-27,BP 145/75 mmHg,Doctor review recommended
+R0046,P0092,Blood Pressure,2026-10-04,BP 138/80 mmHg,Doctor review recommended
+R0047,P0094,Blood Sugar,2026-10-08,Random Blood Sugar 138 mg/dL,Doctor review recommended
+R0048,P0096,CBC,2026-10-01,Hemoglobin 12.4 g/dL; WBC 9568/uL,Doctor review recommended
+R0049,P0098,CBC,2026-10-08,Hemoglobin 12.4 g/dL; WBC 10712/uL,Doctor review recommended
+R0050,P0100,HbA1c,2026-10-08,HbA1c 5.4 %,Doctor review recommended
+R0051,P0102,Blood Pressure,2026-10-31,BP 170/79 mmHg,Doctor review recommended
+R0052,P0104,Blood Pressure,2026-10-11,BP 142/90 mmHg,Doctor review recommended
+R0053,P0106,HbA1c,2026-10-22,HbA1c 9.2 %,Doctor review recommended
+R0054,P0108,HbA1c,2026-10-25,HbA1c 5.3 %,Doctor review recommended
+R0055,P0110,Blood Sugar,2026-10-01,Random Blood Sugar 206 mg/dL,Doctor review recommended
+R0056,P0112,HbA1c,2026-10-02,HbA1c 8.1 %,Doctor review recommended
+R0057,P0114,Blood Pressure,2026-10-07,BP 147/72 mmHg,Doctor review recommended
+R0058,P0116,Blood Pressure,2026-10-01,BP 147/101 mmHg,Doctor review recommended
+R0059,P0118,Blood Sugar,2026-10-19,Random Blood Sugar 100 mg/dL,Doctor review recommended
+R0060,P0120,Blood Sugar,2026-10-29,Random Blood Sugar 210 mg/dL,Doctor review recommended
+R0061,P0122,Blood Pressure,2026-10-05,BP 135/83 mmHg,Doctor review recommended
+R0062,P0124,Lipid Profile,2026-10-30,Total Cholesterol 140 mg/dL,Doctor review recommended
+R0063,P0126,Lipid Profile,2026-10-09,Total Cholesterol 176 mg/dL,Doctor review recommended
+R0064,P0128,Lipid Profile,2026-10-17,Total Cholesterol 187 mg/dL,Doctor review recommended
+R0065,P0130,HbA1c,2026-10-07,HbA1c 6.0 %,Doctor review recommended
+R0066,P0132,Lipid Profile,2026-10-11,Total Cholesterol 172 mg/dL,Doctor review recommended
+R0067,P0134,Blood Pressure,2026-10-13,BP 130/86 mmHg,Doctor review recommended
+R0068,P0136,CBC,2026-10-01,Hemoglobin 12.4 g/dL; WBC 8699/uL,Doctor review recommended
+R0069,P0138,HbA1c,2026-10-21,HbA1c 8.4 %,Doctor review recommended
+R0070,P0140,Lipid Profile,2026-10-13,Total Cholesterol 238 mg/dL,Doctor review recommended
+R0071,P0142,Blood Pressure,2026-10-02,BP 121/77 mmHg,Doctor review recommended
+R0072,P0144,HbA1c,2026-10-24,HbA1c 9.5 %,Doctor review recommended
+R0073,P0146,Blood Pressure,2026-10-27,BP 122/89 mmHg,Doctor review recommended
+R0074,P0148,Blood Pressure,2026-10-12,BP 166/89 mmHg,Doctor review recommended
+R0075,P0150,HbA1c,2026-10-21,HbA1c 5.5 %,Doctor review recommended
+R0076,P0152,Blood Pressure,2026-10-07,BP 146/86 mmHg,Doctor review recommended
+R0077,P0154,Lipid Profile,2026-10-10,Total Cholesterol 143 mg/dL,Doctor review recommended
+R0078,P0156,CBC,2026-10-28,Hemoglobin 9.8 g/dL; WBC 6482/uL,Doctor review recommended
+R0079,P0158,Blood Sugar,2026-10-16,Random Blood Sugar 132 mg/dL,Doctor review recommended
+R0080,P0160,HbA1c,2026-10-15,HbA1c 9.0 %,Doctor review recommended
+R0081,P0162,HbA1c,2026-10-06,HbA1c 8.4 %,Doctor review recommended
+R0082,P0164,HbA1c,2026-10-20,HbA1c 7.7 %,Doctor review recommended
+R0083,P0166,Blood Sugar,2026-10-03,Random Blood Sugar 143 mg/dL,Doctor review recommended
+R0084,P0168,Lipid Profile,2026-10-29,Total Cholesterol 153 mg/dL,Doctor review recommended
+R0085,P0170,CBC,2026-10-02,Hemoglobin 13.6 g/dL; WBC 10073/uL,Doctor review recommended
+R0086,P0172,CBC,2026-10-10,Hemoglobin 14.2 g/dL; WBC 5000/uL,Doctor review recommended
+R0087,P0174,HbA1c,2026-10-19,HbA1c 7.2 %,Doctor review recommended
+R0088,P0176,Blood Pressure,2026-10-12,BP 116/73 mmHg,Doctor review recommended
+R0089,P0178,Blood Pressure,2026-10-14,BP 151/82 mmHg,Doctor review recommended
+R0090,P0180,Blood Sugar,2026-10-09,Random Blood Sugar 99 mg/dL,Doctor review recommended
+R0091,P0182,HbA1c,2026-10-10,HbA1c 8.7 %,Doctor review recommended
+R0092,P0184,CBC,2026-10-05,Hemoglobin 13.9 g/dL; WBC 7474/uL,Doctor review recommended
+R0093,P0186,Blood Sugar,2026-10-30,Random Blood Sugar 196 mg/dL,Doctor review recommended
+R0094,P0188,Blood Pressure,2026-10-29,BP 117/71 mmHg,Doctor review recommended
+R0095,P0190,HbA1c,2026-10-04,HbA1c 6.1 %,Doctor review recommended
+R0096,P0192,CBC,2026-10-28,Hemoglobin 12.8 g/dL; WBC 8729/uL,Doctor review recommended
+R0097,P0194,Lipid Profile,2026-10-18,Total Cholesterol 228 mg/dL,Doctor review recommended
+R0098,P0196,Blood Sugar,2026-10-01,Random Blood Sugar 149 mg/dL,Doctor review recommended
+R0099,P0198,Lipid Profile,2026-10-03,Total Cholesterol 201 mg/dL,Doctor review recommended
+R0100,P0200,Blood Pressure,2026-10-13,BP 123/74 mmHg,Doctor review recommended
+R0101,P0202,HbA1c,2026-10-16,HbA1c 5.4 %,Doctor review recommended
+R0102,P0204,HbA1c,2026-10-14,HbA1c 9.6 %,Doctor review recommended
+R0103,P0206,Blood Pressure,2026-10-22,BP 110/72 mmHg,Doctor review recommended
+R0104,P0208,CBC,2026-10-23,Hemoglobin 14.3 g/dL; WBC 7300/uL,Doctor review recommended
+R0105,P0210,Blood Sugar,2026-10-07,Random Blood Sugar 202 mg/dL,Doctor review recommended
+R0106,P0212,Blood Sugar,2026-10-22,Random Blood Sugar 86 mg/dL,Doctor review recommended
+R0107,P0214,Blood Sugar,2026-10-08,Random Blood Sugar 128 mg/dL,Doctor review recommended
+R0108,P0216,HbA1c,2026-10-21,HbA1c 9.5 %,Doctor review recommended
+R0109,P0218,CBC,2026-10-18,Hemoglobin 13.7 g/dL; WBC 8566/uL,Doctor review recommended
+R0110,P0220,HbA1c,2026-10-23,HbA1c 9.4 %,Doctor review recommended
+R0111,P0222,CBC,2026-10-20,Hemoglobin 10.2 g/dL; WBC 5724/uL,Doctor review recommended
+R0112,P0224,Blood Sugar,2026-10-27,Random Blood Sugar 196 mg/dL,Doctor review recommended
+R0113,P0226,HbA1c,2026-10-12,HbA1c 8.1 %,Doctor review recommended
+R0114,P0228,Blood Sugar,2026-10-18,Random Blood Sugar 221 mg/dL,Doctor review recommended
+R0115,P0230,Blood Pressure,2026-10-14,BP 130/92 mmHg,Doctor review recommended
+R0116,P0232,Blood Pressure,2026-10-12,BP 147/95 mmHg,Doctor review recommended
+R0117,P0234,HbA1c,2026-10-25,HbA1c 10.4 %,Doctor review recommended
+R0118,P0236,Blood Sugar,2026-10-27,Random Blood Sugar 117 mg/dL,Doctor review recommended
+R0119,P0238,HbA1c,2026-10-14,HbA1c 8.8 %,Doctor review recommended
+R0120,P0240,Blood Sugar,2026-10-03,Random Blood Sugar 190 mg/dL,Doctor review recommended
+R0121,P0242,Lipid Profile,2026-10-29,Total Cholesterol 172 mg/dL,Doctor review recommended
+R0122,P0244,Blood Pressure,2026-10-21,BP 131/92 mmHg,Doctor review recommended
+R0123,P0246,HbA1c,2026-10-18,HbA1c 7.6 %,Doctor review recommended
+R0124,P0248,Blood Pressure,2026-10-11,BP 166/72 mmHg,Doctor review recommended
+R0125,P0250,Lipid Profile,2026-10-28,Total Cholesterol 257 mg/dL,Doctor review recommended
+R0126,P0252,Blood Pressure,2026-10-18,BP 148/91 mmHg,Doctor review recommended
+R0127,P0254,Blood Pressure,2026-10-27,BP 164/78 mmHg,Doctor review recommended
+R0128,P0256,Blood Pressure,2026-10-03,BP 162/95 mmHg,Doctor review recommended
+R0129,P0258,HbA1c,2026-10-17,HbA1c 9.9 %,Doctor review recommended
+R0130,P0260,Lipid Profile,2026-10-17,Total Cholesterol 145 mg/dL,Doctor review recommended
+R0131,P0262,CBC,2026-10-30,Hemoglobin 12.0 g/dL; WBC 7086/uL,Doctor review recommended
+R0132,P0264,Lipid Profile,2026-10-31,Total Cholesterol 225 mg/dL,Doctor review recommended
+R0133,P0266,Blood Pressure,2026-10-22,BP 157/84 mmHg,Doctor review recommended
+R0134,P0268,Blood Sugar,2026-10-04,Random Blood Sugar 205 mg/dL,Doctor review recommended
+R0135,P0270,Blood Sugar,2026-10-18,Random Blood Sugar 175 mg/dL,Doctor review recommended
+R0136,P0272,HbA1c,2026-10-27,HbA1c 8.0 %,Doctor review recommended
+R0137,P0274,HbA1c,2026-10-12,HbA1c 6.4 %,Doctor review recommended
+R0138,P0276,HbA1c,2026-10-04,HbA1c 8.8 %,Doctor review recommended
+R0139,P0278,Blood Pressure,2026-10-05,BP 150/99 mmHg,Doctor review recommended
+R0140,P0280,Blood Pressure,2026-10-29,BP 155/70 mmHg,Doctor review recommended
+R0141,P0282,Lipid Profile,2026-10-04,Total Cholesterol 242 mg/dL,Doctor review recommended
+R0142,P0284,HbA1c,2026-10-03,HbA1c 6.0 %,Doctor review recommended
+R0143,P0286,Blood Sugar,2026-10-25,Random Blood Sugar 141 mg/dL,Doctor review recommended
+R0144,P0288,HbA1c,2026-10-07,HbA1c 6.8 %,Doctor review recommended
+R0145,P0290,Lipid Profile,2026-10-04,Total Cholesterol 221 mg/dL,Doctor review recommended
+R0146,P0292,Blood Pressure,2026-10-01,BP 111/71 mmHg,Doctor review recommended
+R0147,P0294,Blood Sugar,2026-10-07,Random Blood Sugar 110 mg/dL,Doctor review recommended
+R0148,P0296,Blood Pressure,2026-10-03,BP 162/74 mmHg,Doctor review recommended
+R0149,P0298,Blood Sugar,2026-10-31,Random Blood Sugar 195 mg/dL,Doctor review recommended
+R0150,P0300,CBC,2026-10-22,Hemoglobin 11.0 g/dL; WBC 7928/uL,Doctor review recommended
+R0151,P0302,HbA1c,2026-10-20,HbA1c 5.3 %,Doctor review recommended
+R0152,P0304,Blood Sugar,2026-10-13,Random Blood Sugar 167 mg/dL,Doctor review recommended
+R0153,P0306,Blood Sugar,2026-10-10,Random Blood Sugar 133 mg/dL,Doctor review recommended
+R0154,P0308,HbA1c,2026-10-30,HbA1c 8.5 %,Doctor review recommended
+R0155,P0310,HbA1c,2026-10-19,HbA1c 8.6 %,Doctor review recommended
+R0156,P0312,CBC,2026-10-16,Hemoglobin 12.6 g/dL; WBC 5258/uL,Doctor review recommended
+R0157,P0314,Blood Sugar,2026-10-01,Random Blood Sugar 169 mg/dL,Doctor review recommended
+R0158,P0316,Blood Sugar,2026-10-28,Random Blood Sugar 201 mg/dL,Doctor review recommended
+R0159,P0318,HbA1c,2026-10-25,HbA1c 9.2 %,Doctor review recommended
+R0160,P0320,CBC,2026-10-20,Hemoglobin 11.0 g/dL; WBC 9809/uL,Doctor review recommended
+R0161,P0322,Blood Sugar,2026-10-01,Random Blood Sugar 205 mg/dL,Doctor review recommended
+R0162,P0324,HbA1c,2026-10-16,HbA1c 5.4 %,Doctor review recommended
+R0163,P0326,CBC,2026-10-03,Hemoglobin 11.3 g/dL; WBC 9454/uL,Doctor review recommended
+R0164,P0328,CBC,2026-10-21,Hemoglobin 10.0 g/dL; WBC 10862/uL,Doctor review recommended
+R0165,P0330,CBC,2026-10-08,Hemoglobin 11.2 g/dL; WBC 7763/uL,Doctor review recommended
+R0166,P0332,Lipid Profile,2026-10-02,Total Cholesterol 200 mg/dL,Doctor review recommended
+R0167,P0334,Blood Sugar,2026-10-18,Random Blood Sugar 159 mg/dL,Doctor review recommended
+R0168,P0336,HbA1c,2026-10-14,HbA1c 6.3 %,Doctor review recommended
+R0169,P0338,CBC,2026-10-19,Hemoglobin 8.6 g/dL; WBC 6051/uL,Doctor review recommended
+R0170,P0340,CBC,2026-10-03,Hemoglobin 14.1 g/dL; WBC 8640/uL,Doctor review recommended
+R0171,P0342,Lipid Profile,2026-10-15,Total Cholesterol 163 mg/dL,Doctor review recommended
+R0172,P0344,Blood Sugar,2026-10-13,Random Blood Sugar 224 mg/dL,Doctor review recommended
+R0173,P0346,Lipid Profile,2026-10-24,Total Cholesterol 223 mg/dL,Doctor review recommended
+R0174,P0348,CBC,2026-10-23,Hemoglobin 10.0 g/dL; WBC 5963/uL,Doctor review recommended
+R0175,P0350,Lipid Profile,2026-10-06,Total Cholesterol 202 mg/dL,Doctor review recommended
+R0176,P0352,HbA1c,2026-10-06,HbA1c 6.8 %,Doctor review recommended
+R0177,P0354,CBC,2026-10-14,Hemoglobin 10.2 g/dL; WBC 7714/uL,Doctor review recommended
+R0178,P0356,CBC,2026-10-07,Hemoglobin 12.6 g/dL; WBC 5629/uL,Doctor review recommended
+R0179,P0358,HbA1c,2026-10-01,HbA1c 7.8 %,Doctor review recommended
+R0180,P0360,HbA1c,2026-10-26,HbA1c 9.3 %,Doctor review recommended
+R0181,P0362,Blood Pressure,2026-10-02,BP 159/94 mmHg,Doctor review recommended
+R0182,P0364,Blood Sugar,2026-10-08,Random Blood Sugar 126 mg/dL,Doctor review recommended
+R0183,P0366,Blood Sugar,2026-10-28,Random Blood Sugar 229 mg/dL,Doctor review recommended
+R0184,P0368,HbA1c,2026-10-15,HbA1c 6.4 %,Doctor review recommended
+R0185,P0370,CBC,2026-10-05,Hemoglobin 9.1 g/dL; WBC 6140/uL,Doctor review recommended
+R0186,P0372,Lipid Profile,2026-10-01,Total Cholesterol 212 mg/dL,Doctor review recommended
+R0187,P0374,HbA1c,2026-10-26,HbA1c 7.8 %,Doctor review recommended
+R0188,P0376,HbA1c,2026-10-17,HbA1c 5.3 %,Doctor review recommended
+R0189,P0378,Blood Sugar,2026-10-04,Random Blood Sugar 219 mg/dL,Doctor review recommended
+R0190,P0380,HbA1c,2026-10-09,HbA1c 7.7 %,Doctor review recommended
+R0191,P0382,HbA1c,2026-10-14,HbA1c 8.2 %,Doctor review recommended
+R0192,P0384,CBC,2026-10-29,Hemoglobin 8.9 g/dL; WBC 7152/uL,Doctor review recommended
+R0193,P0386,Blood Sugar,2026-10-13,Random Blood Sugar 201 mg/dL,Doctor review recommended
+R0194,P0388,Lipid Profile,2026-10-08,Total Cholesterol 257 mg/dL,Doctor review recommended
+R0195,P0390,Blood Pressure,2026-10-06,BP 117/71 mmHg,Doctor review recommended
+R0196,P0392,CBC,2026-10-07,Hemoglobin 11.9 g/dL; WBC 10444/uL,Doctor review recommended
+R0197,P0394,HbA1c,2026-10-18,HbA1c 8.7 %,Doctor review recommended
+R0198,P0396,Blood Sugar,2026-10-09,Random Blood Sugar 222 mg/dL,Doctor review recommended
+R0199,P0398,HbA1c,2026-10-26,HbA1c 5.6 %,Doctor review recommended
+R0200,P0400,Blood Pressure,2026-10-04,BP 147/96 mmHg,Doctor review recommended
+R0201,P0402,Lipid Profile,2026-10-08,Total Cholesterol 145 mg/dL,Doctor review recommended
+R0202,P0404,Blood Pressure,2026-10-05,BP 119/89 mmHg,Doctor review recommended
+R0203,P0406,HbA1c,2026-10-02,HbA1c 5.3 %,Doctor review recommended
+R0204,P0408,Lipid Profile,2026-10-01,Total Cholesterol 240 mg/dL,Doctor review recommended
+R0205,P0410,CBC,2026-10-19,Hemoglobin 11.6 g/dL; WBC 7178/uL,Doctor review recommended
+R0206,P0412,Lipid Profile,2026-10-10,Total Cholesterol 141 mg/dL,Doctor review recommended
+R0207,P0414,Blood Pressure,2026-10-28,BP 130/85 mmHg,Doctor review recommended
+R0208,P0416,HbA1c,2026-10-07,HbA1c 9.4 %,Doctor review recommended
+R0209,P0418,HbA1c,2026-10-07,HbA1c 7.7 %,Doctor review recommended
+R0210,P0420,CBC,2026-10-21,Hemoglobin 9.5 g/dL; WBC 9530/uL,Doctor review recommended
+R0211,P0422,Lipid Profile,2026-10-26,Total Cholesterol 249 mg/dL,Doctor review recommended
+R0212,P0424,CBC,2026-10-28,Hemoglobin 9.4 g/dL; WBC 6040/uL,Doctor review recommended
+R0213,P0426,Lipid Profile,2026-10-28,Total Cholesterol 158 mg/dL,Doctor review recommended
+R0214,P0428,CBC,2026-10-19,Hemoglobin 11.4 g/dL; WBC 5594/uL,Doctor review recommended
+R0215,P0430,Blood Pressure,2026-10-27,BP 125/96 mmHg,Doctor review recommended
+R0216,P0432,Blood Sugar,2026-10-27,Random Blood Sugar 137 mg/dL,Doctor review recommended
+R0217,P0434,Blood Sugar,2026-10-02,Random Blood Sugar 184 mg/dL,Doctor review recommended
+R0218,P0436,HbA1c,2026-10-11,HbA1c 5.4 %,Doctor review recommended
+R0219,P0438,HbA1c,2026-10-22,HbA1c 5.3 %,Doctor review recommended
+R0220,P0440,Blood Sugar,2026-10-15,Random Blood Sugar 180 mg/dL,Doctor review recommended
+R0221,P0442,Lipid Profile,2026-10-28,Total Cholesterol 247 mg/dL,Doctor review recommended
+R0222,P0444,Blood Pressure,2026-10-16,BP 157/78 mmHg,Doctor review recommended
+R0223,P0446,Lipid Profile,2026-10-17,Total Cholesterol 241 mg/dL,Doctor review recommended
+R0224,P0448,HbA1c,2026-10-25,HbA1c 8.6 %,Doctor review recommended
+R0225,P0450,Blood Pressure,2026-10-10,BP 125/103 mmHg,Doctor review recommended
+R0226,P0452,HbA1c,2026-10-14,HbA1c 9.3 %,Doctor review recommended
+R0227,P0454,Lipid Profile,2026-10-14,Total Cholesterol 143 mg/dL,Doctor review recommended
+R0228,P0456,CBC,2026-10-29,Hemoglobin 11.9 g/dL; WBC 10771/uL,Doctor review recommended
+R0229,P0458,Blood Pressure,2026-10-12,BP 159/72 mmHg,Doctor review recommended
+R0230,P0460,Blood Sugar,2026-10-09,Random Blood Sugar 180 mg/dL,Doctor review recommended
+R0231,P0462,HbA1c,2026-10-30,HbA1c 8.6 %,Doctor review recommended
+R0232,P0464,Blood Sugar,2026-10-27,Random Blood Sugar 157 mg/dL,Doctor review recommended
+R0233,P0466,Lipid Profile,2026-10-11,Total Cholesterol 217 mg/dL,Doctor review recommended
+R0234,P0468,Blood Sugar,2026-10-17,Random Blood Sugar 200 mg/dL,Doctor review recommended
+R0235,P0470,HbA1c,2026-10-28,HbA1c 7.2 %,Doctor review recommended
+R0236,P0472,Lipid Profile,2026-10-18,Total Cholesterol 228 mg/dL,Doctor review recommended
+R0237,P0474,Lipid Profile,2026-10-22,Total Cholesterol 216 mg/dL,Doctor review recommended
+R0238,P0476,Lipid Profile,2026-10-16,Total Cholesterol 157 mg/dL,Doctor review recommended
+R0239,P0478,Blood Sugar,2026-10-23,Random Blood Sugar 103 mg/dL,Doctor review recommended
+R0240,P0480,HbA1c,2026-10-18,HbA1c 10.4 %,Doctor review recommended
+R0241,P0482,Lipid Profile,2026-10-21,Total Cholesterol 218 mg/dL,Doctor review recommended
+R0242,P0484,CBC,2026-10-30,Hemoglobin 10.0 g/dL; WBC 7197/uL,Doctor review recommended
+R0243,P0486,Blood Sugar,2026-10-20,Random Blood Sugar 153 mg/dL,Doctor review recommended
+R0244,P0488,Lipid Profile,2026-10-11,Total Cholesterol 169 mg/dL,Doctor review recommended
+R0245,P0490,Blood Sugar,2026-10-19,Random Blood Sugar 141 mg/dL,Doctor review recommended
+R0246,P0492,Blood Pressure,2026-10-07,BP 132/89 mmHg,Doctor review recommended
+R0247,P0494,Blood Sugar,2026-10-22,Random Blood Sugar 212 mg/dL,Doctor review recommended
+R0248,P0496,HbA1c,2026-10-20,HbA1c 6.7 %,Doctor review recommended
+R0249,P0498,HbA1c,2026-10-07,HbA1c 8.7 %,Doctor review recommended
+R0250,P0500,Lipid Profile,2026-10-26,Total Cholesterol 253 mg/dL,Doctor review recommended
+R0251,P0502,Blood Pressure,2026-10-07,BP 161/88 mmHg,Doctor review recommended
+R0252,P0504,Blood Sugar,2026-10-18,Random Blood Sugar 218 mg/dL,Doctor review recommended
+R0253,P0506,Blood Sugar,2026-10-26,Random Blood Sugar 132 mg/dL,Doctor review recommended
+R0254,P0508,HbA1c,2026-10-06,HbA1c 8.3 %,Doctor review recommended
+R0255,P0510,CBC,2026-10-21,Hemoglobin 12.8 g/dL; WBC 7387/uL,Doctor review recommended
+R0256,P0512,Blood Pressure,2026-10-06,BP 123/91 mmHg,Doctor review recommended
+R0257,P0514,HbA1c,2026-10-13,HbA1c 7.2 %,Doctor review recommended
+R0258,P0516,HbA1c,2026-10-30,HbA1c 9.0 %,Doctor review recommended
+R0259,P0518,Lipid Profile,2026-10-18,Total Cholesterol 198 mg/dL,Doctor review recommended
+R0260,P0520,Blood Sugar,2026-10-09,Random Blood Sugar 117 mg/dL,Doctor review recommended
+R0261,P0522,Lipid Profile,2026-10-09,Total Cholesterol 149 mg/dL,Doctor review recommended
+R0262,P0524,CBC,2026-10-13,Hemoglobin 14.3 g/dL; WBC 9511/uL,Doctor review recommended
+R0263,P0526,CBC,2026-10-30,Hemoglobin 8.9 g/dL; WBC 7087/uL,Doctor review recommended
+R0264,P0528,HbA1c,2026-10-18,HbA1c 7.6 %,Doctor review recommended
+R0265,P0530,Lipid Profile,2026-10-09,Total Cholesterol 245 mg/dL,Doctor review recommended
+R0266,P0532,Lipid Profile,2026-10-14,Total Cholesterol 212 mg/dL,Doctor review recommended
+R0267,P0534,Blood Pressure,2026-10-14,BP 127/73 mmHg,Doctor review recommended
+R0268,P0536,HbA1c,2026-10-16,HbA1c 8.4 %,Doctor review recommended
+R0269,P0538,HbA1c,2026-10-04,HbA1c 7.3 %,Doctor review recommended
+R0270,P0540,Blood Pressure,2026-10-12,BP 121/77 mmHg,Doctor review recommended
+R0271,P0542,CBC,2026-10-09,Hemoglobin 8.7 g/dL; WBC 5575/uL,Doctor review recommended
+R0272,P0544,CBC,2026-10-05,Hemoglobin 11.8 g/dL; WBC 7198/uL,Doctor review recommended
+R0273,P0546,CBC,2026-10-14,Hemoglobin 14.1 g/dL; WBC 10625/uL,Doctor review recommended
+R0274,P0548,Blood Pressure,2026-10-01,BP 112/73 mmHg,Doctor review recommended
+R0275,P0550,CBC,2026-10-24,Hemoglobin 10.5 g/dL; WBC 10114/uL,Doctor review recommended
+R0276,P0552,Blood Sugar,2026-10-14,Random Blood Sugar 152 mg/dL,Doctor review recommended
+R0277,P0554,Blood Pressure,2026-10-20,BP 124/84 mmHg,Doctor review recommended
+R0278,P0556,Lipid Profile,2026-10-25,Total Cholesterol 213 mg/dL,Doctor review recommended
+R0279,P0558,Blood Sugar,2026-10-12,Random Blood Sugar 221 mg/dL,Doctor review recommended
+R0280,P0560,Blood Pressure,2026-10-18,BP 119/71 mmHg,Doctor review recommended
+R0281,P0562,Lipid Profile,2026-10-25,Total Cholesterol 180 mg/dL,Doctor review recommended
+R0282,P0564,Blood Pressure,2026-10-07,BP 120/94 mmHg,Doctor review recommended
+R0283,P0566,Lipid Profile,2026-10-01,Total Cholesterol 218 mg/dL,Doctor review recommended
+R0284,P0568,Blood Pressure,2026-10-26,BP 115/87 mmHg,Doctor review recommended
+R0285,P0570,HbA1c,2026-10-08,HbA1c 5.9 %,Doctor review recommended
+R0286,P0572,HbA1c,2026-10-15,HbA1c 6.4 %,Doctor review recommended
+R0287,P0574,Lipid Profile,2026-10-29,Total Cholesterol 161 mg/dL,Doctor review recommended
+R0288,P0576,Blood Pressure,2026-10-09,BP 168/84 mmHg,Doctor review recommended
+R0289,P0578,CBC,2026-10-10,Hemoglobin 8.5 g/dL; WBC 10498/uL,Doctor review recommended
+R0290,P0580,HbA1c,2026-10-20,HbA1c 8.3 %,Doctor review recommended
+R0291,P0582,HbA1c,2026-10-08,HbA1c 7.6 %,Doctor review recommended
+R0292,P0584,CBC,2026-10-23,Hemoglobin 13.6 g/dL; WBC 8346/uL,Doctor review recommended
+R0293,P0586,HbA1c,2026-10-24,HbA1c 7.5 %,Doctor review recommended
+R0294,P0588,HbA1c,2026-10-25,HbA1c 9.7 %,Doctor review recommended
+R0295,P0590,HbA1c,2026-10-25,HbA1c 5.3 %,Doctor review recommended
+R0296,P0592,Blood Sugar,2026-10-29,Random Blood Sugar 132 mg/dL,Doctor review recommended
+R0297,P0594,HbA1c,2026-10-29,HbA1c 7.5 %,Doctor review recommended
+R0298,P0596,Lipid Profile,2026-10-11,Total Cholesterol 183 mg/dL,Doctor review recommended
+R0299,P0598,CBC,2026-10-13,Hemoglobin 11.5 g/dL; WBC 10043/uL,Doctor review recommended
+R0300,P0600,HbA1c,2026-10-12,HbA1c 8.4 %,Doctor review recommended
+R0301,P0602,Blood Pressure,2026-10-20,BP 155/74 mmHg,Doctor review recommended
+R0302,P0604,HbA1c,2026-10-13,HbA1c 6.1 %,Doctor review recommended
+R0303,P0606,Blood Pressure,2026-10-12,BP 123/90 mmHg,Doctor review recommended
+R0304,P0608,HbA1c,2026-10-23,HbA1c 6.7 %,Doctor review recommended
+R0305,P0610,Blood Sugar,2026-10-13,Random Blood Sugar 139 mg/dL,Doctor review recommended
+R0306,P0612,Lipid Profile,2026-10-16,Total Cholesterol 252 mg/dL,Doctor review recommended
+R0307,P0614,CBC,2026-10-08,Hemoglobin 12.6 g/dL; WBC 9614/uL,Doctor review recommended
+R0308,P0616,CBC,2026-10-13,Hemoglobin 11.2 g/dL; WBC 5179/uL,Doctor review recommended
+R0309,P0618,Lipid Profile,2026-10-12,Total Cholesterol 184 mg/dL,Doctor review recommended
+R0310,P0620,HbA1c,2026-10-14,HbA1c 5.3 %,Doctor review recommended
+R0311,P0622,HbA1c,2026-10-03,HbA1c 10.0 %,Doctor review recommended
+R0312,P0624,HbA1c,2026-10-08,HbA1c 6.6 %,Doctor review recommended
+R0313,P0626,Blood Sugar,2026-10-30,Random Blood Sugar 173 mg/dL,Doctor review recommended
+R0314,P0628,Blood Sugar,2026-10-06,Random Blood Sugar 202 mg/dL,Doctor review recommended
+R0315,P0630,Blood Pressure,2026-10-20,BP 124/103 mmHg,Doctor review recommended
+R0316,P0632,Lipid Profile,2026-10-07,Total Cholesterol 243 mg/dL,Doctor review recommended
+R0317,P0634,CBC,2026-10-02,Hemoglobin 14.4 g/dL; WBC 7986/uL,Doctor review recommended
+R0318,P0636,Blood Pressure,2026-10-03,BP 115/80 mmHg,Doctor review recommended
+R0319,P0638,Lipid Profile,2026-10-18,Total Cholesterol 229 mg/dL,Doctor review recommended
+R0320,P0640,CBC,2026-10-30,Hemoglobin 10.0 g/dL; WBC 9302/uL,Doctor review recommended
+R0321,P0642,Blood Sugar,2026-10-05,Random Blood Sugar 195 mg/dL,Doctor review recommended
+R0322,P0644,Blood Sugar,2026-10-28,Random Blood Sugar 116 mg/dL,Doctor review recommended
+R0323,P0646,HbA1c,2026-10-30,HbA1c 6.7 %,Doctor review recommended
+R0324,P0648,Blood Pressure,2026-10-10,BP 124/96 mmHg,Doctor review recommended
+R0325,P0650,Blood Pressure,2026-10-08,BP 143/74 mmHg,Doctor review recommended
+R0326,P0652,CBC,2026-10-21,Hemoglobin 12.2 g/dL; WBC 9690/uL,Doctor review recommended
+R0327,P0654,Blood Pressure,2026-10-16,BP 128/105 mmHg,Doctor review recommended
+R0328,P0656,HbA1c,2026-10-08,HbA1c 9.9 %,Doctor review recommended
+R0329,P0658,CBC,2026-10-20,Hemoglobin 13.3 g/dL; WBC 6600/uL,Doctor review recommended
+R0330,P0660,CBC,2026-10-09,Hemoglobin 8.9 g/dL; WBC 5831/uL,Doctor review recommended
+R0331,P0662,Blood Pressure,2026-10-25,BP 144/77 mmHg,Doctor review recommended
+R0332,P0664,HbA1c,2026-10-12,HbA1c 8.1 %,Doctor review recommended
+R0333,P0666,Blood Pressure,2026-10-30,BP 119/104 mmHg,Doctor review recommended
+R0334,P0668,Blood Pressure,2026-10-11,BP 125/70 mmHg,Doctor review recommended
+R0335,P0670,Blood Pressure,2026-10-17,BP 159/87 mmHg,Doctor review recommended
+R0336,P0672,CBC,2026-10-13,Hemoglobin 11.5 g/dL; WBC 5465/uL,Doctor review recommended
+R0337,P0674,Blood Pressure,2026-10-16,BP 120/73 mmHg,Doctor review recommended
+R0338,P0676,Blood Pressure,2026-10-08,BP 164/78 mmHg,Doctor review recommended
+R0339,P0678,Lipid Profile,2026-10-12,Total Cholesterol 246 mg/dL,Doctor review recommended
+R0340,P0680,Lipid Profile,2026-10-09,Total Cholesterol 240 mg/dL,Doctor review recommended
+R0341,P0682,HbA1c,2026-10-06,HbA1c 6.5 %,Doctor review recommended
+R0342,P0684,CBC,2026-10-21,Hemoglobin 12.8 g/dL; WBC 6327/uL,Doctor review recommended
+R0343,P0686,Lipid Profile,2026-10-02,Total Cholesterol 236 mg/dL,Doctor review recommended
+R0344,P0688,CBC,2026-10-01,Hemoglobin 14.4 g/dL; WBC 6113/uL,Doctor review recommended
+R0345,P0690,Blood Sugar,2026-10-17,Random Blood Sugar 197 mg/dL,Doctor review recommended
+R0346,P0692,HbA1c,2026-10-13,HbA1c 8.8 %,Doctor review recommended
+R0347,P0694,Lipid Profile,2026-10-24,Total Cholesterol 209 mg/dL,Doctor review recommended
+R0348,P0696,HbA1c,2026-10-15,HbA1c 9.9 %,Doctor review recommended
+R0349,P0698,Lipid Profile,2026-10-26,Total Cholesterol 185 mg/dL,Doctor review recommended
+R0350,P0700,Lipid Profile,2026-10-23,Total Cholesterol 213 mg/dL,Doctor review recommended
+R0351,P0702,HbA1c,2026-10-17,HbA1c 9.2 %,Doctor review recommended
+R0352,P0704,HbA1c,2026-10-28,HbA1c 6.1 %,Doctor review recommended
+R0353,P0706,HbA1c,2026-10-02,HbA1c 5.9 %,Doctor review recommended
+R0354,P0708,Blood Pressure,2026-10-27,BP 114/93 mmHg,Doctor review recommended
+R0355,P0710,Blood Sugar,2026-10-20,Random Blood Sugar 109 mg/dL,Doctor review recommended
+R0356,P0712,HbA1c,2026-10-10,HbA1c 7.2 %,Doctor review recommended
+R0357,P0714,Blood Sugar,2026-10-11,Random Blood Sugar 86 mg/dL,Doctor review recommended
+R0358,P0716,HbA1c,2026-10-01,HbA1c 6.3 %,Doctor review recommended
+R0359,P0718,Blood Pressure,2026-10-15,BP 137/79 mmHg,Doctor review recommended
+R0360,P0720,Lipid Profile,2026-10-25,Total Cholesterol 241 mg/dL,Doctor review recommended
+R0361,P0722,Blood Pressure,2026-10-13,BP 151/89 mmHg,Doctor review recommended
+R0362,P0724,Blood Pressure,2026-10-29,BP 119/71 mmHg,Doctor review recommended
+R0363,P0726,Blood Pressure,2026-10-09,BP 167/98 mmHg,Doctor review recommended
+R0364,P0728,HbA1c,2026-10-23,HbA1c 7.3 %,Doctor review recommended
+R0365,P0730,HbA1c,2026-10-07,HbA1c 7.2 %,Doctor review recommended
+R0366,P0732,HbA1c,2026-10-31,HbA1c 5.9 %,Doctor review recommended
+R0367,P0734,CBC,2026-10-29,Hemoglobin 10.0 g/dL; WBC 6192/uL,Doctor review recommended
+R0368,P0736,CBC,2026-10-12,Hemoglobin 10.3 g/dL; WBC 5435/uL,Doctor review recommended
+R0369,P0738,HbA1c,2026-10-29,HbA1c 10.0 %,Doctor review recommended
+R0370,P0740,HbA1c,2026-10-10,HbA1c 5.6 %,Doctor review recommended
+R0371,P0742,Blood Sugar,2026-10-18,Random Blood Sugar 211 mg/dL,Doctor review recommended
+R0372,P0744,HbA1c,2026-10-28,HbA1c 5.4 %,Doctor review recommended
+R0373,P0746,HbA1c,2026-10-11,HbA1c 5.6 %,Doctor review recommended
+R0374,P0748,Blood Pressure,2026-10-06,BP 129/102 mmHg,Doctor review recommended
+R0375,P0750,CBC,2026-10-24,Hemoglobin 14.5 g/dL; WBC 6195/uL,Doctor review recommended
+R0376,P0752,Lipid Profile,2026-10-02,Total Cholesterol 174 mg/dL,Doctor review recommended
+R0377,P0754,CBC,2026-10-17,Hemoglobin 11.6 g/dL; WBC 10166/uL,Doctor review recommended
+R0378,P0756,Blood Sugar,2026-10-15,Random Blood Sugar 86 mg/dL,Doctor review recommended
+R0379,P0758,HbA1c,2026-10-20,HbA1c 7.0 %,Doctor review recommended
+R0380,P0760,HbA1c,2026-10-11,HbA1c 7.0 %,Doctor review recommended
+R0381,P0762,Blood Sugar,2026-10-02,Random Blood Sugar 174 mg/dL,Doctor review recommended
+R0382,P0764,Lipid Profile,2026-10-04,Total Cholesterol 214 mg/dL,Doctor review recommended
+R0383,P0766,HbA1c,2026-10-14,HbA1c 9.2 %,Doctor review recommended
+R0384,P0768,Lipid Profile,2026-10-22,Total Cholesterol 144 mg/dL,Doctor review recommended
+R0385,P0770,Lipid Profile,2026-10-24,Total Cholesterol 233 mg/dL,Doctor review recommended
+R0386,P0772,Lipid Profile,2026-10-03,Total Cholesterol 204 mg/dL,Doctor review recommended
+R0387,P0774,Blood Pressure,2026-10-11,BP 169/94 mmHg,Doctor review recommended
+R0388,P0776,HbA1c,2026-10-21,HbA1c 9.1 %,Doctor review recommended
+R0389,P0778,Blood Sugar,2026-10-05,Random Blood Sugar 116 mg/dL,Doctor review recommended
+R0390,P0780,Blood Pressure,2026-10-09,BP 115/94 mmHg,Doctor review recommended
+R0391,P0782,HbA1c,2026-10-02,HbA1c 6.4 %,Doctor review recommended
+R0392,P0784,Blood Sugar,2026-10-31,Random Blood Sugar 83 mg/dL,Doctor review recommended
+R0393,P0786,Blood Pressure,2026-10-19,BP 122/96 mmHg,Doctor review recommended
+R0394,P0788,Blood Pressure,2026-10-14,BP 136/79 mmHg,Doctor review recommended
+R0395,P0790,Lipid Profile,2026-10-09,Total Cholesterol 212 mg/dL,Doctor review recommended
+R0396,P0792,Blood Pressure,2026-10-06,BP 110/74 mmHg,Doctor review recommended
+R0397,P0794,CBC,2026-10-26,Hemoglobin 10.1 g/dL; WBC 8953/uL,Doctor review recommended
+R0398,P0796,CBC,2026-10-30,Hemoglobin 9.8 g/dL; WBC 6356/uL,Doctor review recommended
+R0399,P0798,HbA1c,2026-10-22,HbA1c 5.8 %,Doctor review recommended
+R0400,P0800,HbA1c,2026-10-11,HbA1c 9.5 %,Doctor review recommended
+R0401,P0802,Lipid Profile,2026-10-12,Total Cholesterol 233 mg/dL,Doctor review recommended
+R0402,P0804,HbA1c,2026-10-09,HbA1c 10.3 %,Doctor review recommended
+R0403,P0806,Lipid Profile,2026-10-18,Total Cholesterol 211 mg/dL,Doctor review recommended
+R0404,P0808,Blood Sugar,2026-10-17,Random Blood Sugar 163 mg/dL,Doctor review recommended
+R0405,P0810,Blood Pressure,2026-10-22,BP 152/103 mmHg,Doctor review recommended
+R0406,P0812,Blood Sugar,2026-10-25,Random Blood Sugar 232 mg/dL,Doctor review recommended
+R0407,P0814,Blood Pressure,2026-10-14,BP 124/71 mmHg,Doctor review recommended
+R0408,P0816,HbA1c,2026-10-31,HbA1c 6.6 %,Doctor review recommended
+R0409,P0818,Lipid Profile,2026-10-16,Total Cholesterol 178 mg/dL,Doctor review recommended
+R0410,P0820,HbA1c,2026-10-19,HbA1c 5.5 %,Doctor review recommended
+R0411,P0822,Blood Sugar,2026-10-04,Random Blood Sugar 145 mg/dL,Doctor review recommended
+R0412,P0824,Blood Pressure,2026-10-28,BP 145/84 mmHg,Doctor review recommended
+R0413,P0826,Blood Pressure,2026-10-15,BP 166/85 mmHg,Doctor review recommended
+R0414,P0828,Blood Pressure,2026-10-23,BP 169/76 mmHg,Doctor review recommended
+R0415,P0830,Lipid Profile,2026-10-12,Total Cholesterol 204 mg/dL,Doctor review recommended
+R0416,P0832,HbA1c,2026-10-14,HbA1c 9.1 %,Doctor review recommended
+R0417,P0834,Lipid Profile,2026-10-10,Total Cholesterol 182 mg/dL,Doctor review recommended
+R0418,P0836,CBC,2026-10-16,Hemoglobin 10.0 g/dL; WBC 10104/uL,Doctor review recommended
+R0419,P0838,CBC,2026-10-14,Hemoglobin 13.1 g/dL; WBC 5466/uL,Doctor review recommended
+R0420,P0840,HbA1c,2026-10-05,HbA1c 9.5 %,Doctor review recommended
+R0421,P0842,HbA1c,2026-10-01,HbA1c 7.7 %,Doctor review recommended
+R0422,P0844,Blood Sugar,2026-10-04,Random Blood Sugar 174 mg/dL,Doctor review recommended
+R0423,P0846,Blood Sugar,2026-10-16,Random Blood Sugar 140 mg/dL,Doctor review recommended
+R0424,P0848,HbA1c,2026-10-13,HbA1c 10.1 %,Doctor review recommended
+R0425,P0850,Lipid Profile,2026-10-13,Total Cholesterol 167 mg/dL,Doctor review recommended
+R0426,P0852,HbA1c,2026-10-10,HbA1c 9.7 %,Doctor review recommended
+R0427,P0854,Blood Pressure,2026-10-11,BP 149/80 mmHg,Doctor review recommended
+R0428,P0856,Blood Pressure,2026-10-19,BP 148/90 mmHg,Doctor review recommended
+R0429,P0858,HbA1c,2026-10-04,HbA1c 9.7 %,Doctor review recommended
+R0430,P0860,CBC,2026-10-05,Hemoglobin 9.0 g/dL; WBC 5069/uL,Doctor review recommended
+R0431,P0862,Lipid Profile,2026-10-16,Total Cholesterol 194 mg/dL,Doctor review recommended
+R0432,P0864,CBC,2026-10-21,Hemoglobin 14.1 g/dL; WBC 10712/uL,Doctor review recommended
+R0433,P0866,Blood Pressure,2026-10-16,BP 113/70 mmHg,Doctor review recommended
+R0434,P0868,Blood Pressure,2026-10-10,BP 112/78 mmHg,Doctor review recommended
+R0435,P0870,Blood Sugar,2026-10-22,Random Blood Sugar 171 mg/dL,Doctor review recommended
+R0436,P0872,Lipid Profile,2026-10-02,Total Cholesterol 151 mg/dL,Doctor review recommended
+R0437,P0874,Blood Pressure,2026-10-11,BP 167/89 mmHg,Doctor review recommended
+R0438,P0876,CBC,2026-10-03,Hemoglobin 8.7 g/dL; WBC 9774/uL,Doctor review recommended
+R0439,P0878,CBC,2026-10-26,Hemoglobin 12.2 g/dL; WBC 6574/uL,Doctor review recommended
+R0440,P0880,Blood Pressure,2026-10-27,BP 167/95 mmHg,Doctor review recommended
+R0441,P0882,HbA1c,2026-10-19,HbA1c 5.8 %,Doctor review recommended
+R0442,P0884,Blood Sugar,2026-10-27,Random Blood Sugar 237 mg/dL,Doctor review recommended
+R0443,P0886,Lipid Profile,2026-10-27,Total Cholesterol 149 mg/dL,Doctor review recommended
+R0444,P0888,Lipid Profile,2026-10-05,Total Cholesterol 176 mg/dL,Doctor review recommended
+R0445,P0890,CBC,2026-10-06,Hemoglobin 11.3 g/dL; WBC 7129/uL,Doctor review recommended
+R0446,P0892,Lipid Profile,2026-10-16,Total Cholesterol 152 mg/dL,Doctor review recommended
+R0447,P0894,Lipid Profile,2026-10-23,Total Cholesterol 168 mg/dL,Doctor review recommended
+R0448,P0896,Blood Sugar,2026-10-13,Random Blood Sugar 88 mg/dL,Doctor review recommended
+R0449,P0898,Blood Sugar,2026-10-23,Random Blood Sugar 121 mg/dL,Doctor review recommended
+R0450,P0900,HbA1c,2026-10-12,HbA1c 9.5 %,Doctor review recommended
+R0451,P0902,Lipid Profile,2026-10-10,Total Cholesterol 179 mg/dL,Doctor review recommended
+R0452,P0904,HbA1c,2026-10-30,HbA1c 7.4 %,Doctor review recommended
+R0453,P0906,Blood Pressure,2026-10-22,BP 160/89 mmHg,Doctor review recommended
+R0454,P0908,Blood Sugar,2026-10-08,Random Blood Sugar 133 mg/dL,Doctor review recommended
+R0455,P0910,HbA1c,2026-10-05,HbA1c 6.0 %,Doctor review recommended
+R0456,P0912,CBC,2026-10-29,Hemoglobin 9.0 g/dL; WBC 9814/uL,Doctor review recommended
+R0457,P0914,CBC,2026-10-05,Hemoglobin 9.4 g/dL; WBC 8677/uL,Doctor review recommended
+R0458,P0916,Blood Pressure,2026-10-10,BP 156/74 mmHg,Doctor review recommended
+R0459,P0918,Blood Sugar,2026-10-19,Random Blood Sugar 161 mg/dL,Doctor review recommended
+R0460,P0920,Blood Pressure,2026-10-14,BP 155/100 mmHg,Doctor review recommended
+R0461,P0922,HbA1c,2026-10-21,HbA1c 5.8 %,Doctor review recommended
+R0462,P0924,Lipid Profile,2026-10-19,Total Cholesterol 233 mg/dL,Doctor review recommended
+R0463,P0926,Blood Sugar,2026-10-29,Random Blood Sugar 133 mg/dL,Doctor review recommended
+R0464,P0928,HbA1c,2026-10-12,HbA1c 8.7 %,Doctor review recommended
+R0465,P0930,Blood Pressure,2026-10-12,BP 135/82 mmHg,Doctor review recommended
+R0466,P0932,CBC,2026-10-13,Hemoglobin 8.8 g/dL; WBC 7065/uL,Doctor review recommended
+R0467,P0934,Blood Pressure,2026-10-15,BP 162/101 mmHg,Doctor review recommended
+R0468,P0936,HbA1c,2026-10-28,HbA1c 9.4 %,Doctor review recommended
+R0469,P0938,Blood Sugar,2026-10-05,Random Blood Sugar 195 mg/dL,Doctor review recommended
+R0470,P0940,Blood Sugar,2026-10-22,Random Blood Sugar 188 mg/dL,Doctor review recommended
+R0471,P0942,Blood Sugar,2026-10-28,Random Blood Sugar 225 mg/dL,Doctor review recommended
+R0472,P0944,Blood Pressure,2026-10-31,BP 110/80 mmHg,Doctor review recommended
+R0473,P0946,Blood Sugar,2026-10-03,Random Blood Sugar 186 mg/dL,Doctor review recommended
+R0474,P0948,HbA1c,2026-10-11,HbA1c 9.8 %,Doctor review recommended
+R0475,P0950,Blood Pressure,2026-10-08,BP 112/78 mmHg,Doctor review recommended
+R0476,P0952,Lipid Profile,2026-10-16,Total Cholesterol 217 mg/dL,Doctor review recommended
+R0477,P0954,Blood Sugar,2026-10-24,Random Blood Sugar 131 mg/dL,Doctor review recommended
+R0478,P0956,Blood Pressure,2026-10-25,BP 136/72 mmHg,Doctor review recommended
+R0479,P0958,CBC,2026-10-11,Hemoglobin 12.3 g/dL; WBC 10827/uL,Doctor review recommended
+R0480,P0960,Lipid Profile,2026-10-11,Total Cholesterol 187 mg/dL,Doctor review recommended
+R0481,P0962,CBC,2026-10-07,Hemoglobin 9.1 g/dL; WBC 9104/uL,Doctor review recommended
+R0482,P0964,Blood Pressure,2026-10-22,BP 119/91 mmHg,Doctor review recommended
+R0483,P0966,Lipid Profile,2026-10-17,Total Cholesterol 175 mg/dL,Doctor review recommended
+R0484,P0968,HbA1c,2026-10-19,HbA1c 9.9 %,Doctor review recommended
+R0485,P0970,Lipid Profile,2026-10-20,Total Cholesterol 258 mg/dL,Doctor review recommended
+R0486,P0972,Blood Pressure,2026-10-15,BP 137/72 mmHg,Doctor review recommended
+R0487,P0974,Lipid Profile,2026-10-10,Total Cholesterol 210 mg/dL,Doctor review recommended
+R0488,P0976,Lipid Profile,2026-10-15,Total Cholesterol 236 mg/dL,Doctor review recommended
+R0489,P0978,CBC,2026-10-14,Hemoglobin 10.2 g/dL; WBC 5146/uL,Doctor review recommended
+R0490,P0980,Lipid Profile,2026-10-31,Total Cholesterol 220 mg/dL,Doctor review recommended
+R0491,P0982,CBC,2026-10-30,Hemoglobin 11.3 g/dL; WBC 8418/uL,Doctor review recommended
+R0492,P0984,HbA1c,2026-10-20,HbA1c 10.0 %,Doctor review recommended
+R0493,P0986,Lipid Profile,2026-10-30,Total Cholesterol 169 mg/dL,Doctor review recommended
+R0494,P0988,Blood Sugar,2026-10-08,Random Blood Sugar 231 mg/dL,Doctor review recommended
+R0495,P0990,HbA1c,2026-10-29,HbA1c 6.6 %,Doctor review recommended
+R0496,P0992,CBC,2026-10-29,Hemoglobin 13.4 g/dL; WBC 10475/uL,Doctor review recommended
+R0497,P0994,Lipid Profile,2026-10-13,Total Cholesterol 172 mg/dL,Doctor review recommended
+R0498,P0996,Blood Sugar,2026-10-17,Random Blood Sugar 81 mg/dL,Doctor review recommended
+R0499,P0998,Blood Pressure,2026-10-31,BP 112/84 mmHg,Doctor review recommended
+R0500,P1000,HbA1c,2026-10-01,HbA1c 6.5 %,Doctor review recommended

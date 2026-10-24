@@ -1,7 +1,6 @@
 # SwasthyaSetu AI (स्वास्थ्यसेतु)
 ### AI-Powered Rural Healthcare Navigation, Coordination & Continuity Platform
 
-> **Government of Maharashtra — Hacktoberfest**  
 > **Theme**: Healthcare AI + Digital Health (Rural-First)  
 > **Challenge**: *"Accessibility and quality of public healthcare services, particularly in rural and underserved areas."*  
 > **Team AI Avengers**: Rishabh, Sanay Prabhat, Ambuj Kumar  
@@ -62,9 +61,9 @@ npm run dev
 
 ---
 
-## 4. Feature Checklist Mapped to Hacktoberfest PPT
+## 4. Feature Checklist Mapped to Platform Architecture
 
-| PPT Requirement | Implementation in SwasthyaSetu AI | Status |
+| Requirement Specification | Implementation in SwasthyaSetu AI | Status |
 |---|---|---|
 | **Pillar 1: Understand** (Slide 3) | Multilingual voice/text input (Hindi/English), structured intake summary, deterministic emergency rules | **Completed** |
 | **Pillar 2: Navigate** (Slide 3) | Facility discovery, travel time, verified doctor roster, diagnostic availability, dispensary inventory | **Completed** |

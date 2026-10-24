@@ -212,5 +212,101 @@ export const api = {
     const res = await fetch(`${API_BASE}/admin/metrics`);
     if (!res.ok) throw new Error('Failed to fetch metrics');
     return res.json();
+  },
+
+  async getPatientMasterProfile(patientId: number): Promise<any> {
+    const res = await fetch(`${API_BASE}/patients/${patientId}/master-profile`);
+    if (!res.ok) throw new Error('Failed to fetch patient master profile');
+    return res.json();
+  },
+
+  async getAlerts(params?: { category?: string; status?: string; priority?: string; patient_id?: number; assigned_role?: string }): Promise<any[]> {
+    let url = `${API_BASE}/alerts?limit=100`;
+    if (params?.category) url += `&category=${encodeURIComponent(params.category)}`;
+    if (params?.status) url += `&status=${encodeURIComponent(params.status)}`;
+    if (params?.priority) url += `&priority=${encodeURIComponent(params.priority)}`;
+    if (params?.patient_id) url += `&patient_id=${params.patient_id}`;
+    if (params?.assigned_role) url += `&assigned_role=${encodeURIComponent(params.assigned_role)}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Failed to fetch alerts');
+    return res.json();
+  },
+
+  async takeAlertAction(alertId: number, action: string, notes?: string, dismissedReason?: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/alerts/${alertId}/action`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, notes, dismissed_reason: dismissedReason })
+    });
+    if (!res.ok) throw new Error('Failed to update alert action');
+    return res.json();
+  },
+
+  async runMonitoring(refDate?: string): Promise<any> {
+    const url = refDate ? `${API_BASE}/monitoring/run?ref_date=${encodeURIComponent(refDate)}` : `${API_BASE}/monitoring/run`;
+    const res = await fetch(url, { method: 'POST' });
+    if (!res.ok) throw new Error('Failed to run monitoring');
+    return res.json();
+  },
+
+  async getDatabaseHealth(): Promise<any> {
+    const res = await fetch(`${API_BASE}/database/health`);
+    if (!res.ok) throw new Error('Failed to fetch database health');
+    return res.json();
+  },
+
+  async getReports(patientId?: number, unreviewedOnly: boolean = false): Promise<any[]> {
+    let url = `${API_BASE}/reports?limit=100`;
+    if (patientId) url += `&patient_id=${patientId}`;
+    if (unreviewedOnly) url += `&unreviewed_only=true`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Failed to fetch reports');
+    return res.json();
+  },
+
+  async reviewReport(reportId: number, reviewNotes: string, doctorId: number = 1): Promise<any> {
+    const res = await fetch(`${API_BASE}/reports/${reportId}/review`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ doctor_reviewed: true, review_notes: reviewNotes, doctor_id: doctorId })
+    });
+    if (!res.ok) throw new Error('Failed to review report');
+    return res.json();
+  },
+
+  async getAIPatientSummary(patientId: number): Promise<any> {
+    const res = await fetch(`${API_BASE}/ai/patient-summary/${patientId}`, { method: 'POST' });
+    if (!res.ok) throw new Error('Failed to generate AI patient brief');
+    return res.json();
+  },
+
+  async explainReport(reportId: number, targetAudience: string = 'PATIENT'): Promise<any> {
+    const res = await fetch(`${API_BASE}/ai/explain-report`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ report_id: reportId, target_audience: targetAudience })
+    });
+    if (!res.ok) throw new Error('Failed to explain report');
+    return res.json();
+  },
+
+  async queryAIAssistant(query: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/ai/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query })
+    });
+    if (!res.ok) throw new Error('Failed to query AI assistant');
+    return res.json();
+  },
+
+  async triggerIngestion(resetDb: boolean = false): Promise<any> {
+    const res = await fetch(`${API_BASE}/ingestion/run?reset_db=${resetDb}`, { method: 'POST' });
+    if (!res.ok) throw new Error('Failed to trigger ingestion');
+    return res.json();
+  },
+
+  getReportExportUrl(reportType: string): string {
+    return `${API_BASE}/reports/export/${reportType}`;
   }
 };

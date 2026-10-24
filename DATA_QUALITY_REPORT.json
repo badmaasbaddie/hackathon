@@ -1,0 +1,303 @@
+{
+  "analyzed_at": "2026-10-24T01:57:05.212241",
+  "summary": {
+    "hospitals": {
+      "row_count": 50,
+      "col_count": 10,
+      "columns": [
+        "hospital_id",
+        "hospital_name",
+        "facility_type",
+        "district",
+        "state",
+        "latitude",
+        "longitude",
+        "languages",
+        "services",
+        "operating_hours"
+      ],
+      "dtypes": {
+        "hospital_id": "str",
+        "hospital_name": "str",
+        "facility_type": "str",
+        "district": "str",
+        "state": "str",
+        "latitude": "float64",
+        "longitude": "float64",
+        "languages": "str",
+        "services": "str",
+        "operating_hours": "str"
+      }
+    },
+    "doctors": {
+      "row_count": 150,
+      "col_count": 8,
+      "columns": [
+        "doctor_id",
+        "doctor_name",
+        "specialization",
+        "hospital_id",
+        "languages",
+        "available_days",
+        "available_time",
+        "telemedicine"
+      ],
+      "dtypes": {
+        "doctor_id": "str",
+        "doctor_name": "str",
+        "specialization": "str",
+        "hospital_id": "str",
+        "languages": "str",
+        "available_days": "str",
+        "available_time": "str",
+        "telemedicine": "bool"
+      }
+    },
+    "patients": {
+      "row_count": 1000,
+      "col_count": 9,
+      "columns": [
+        "patient_id",
+        "patient_name",
+        "age",
+        "gender",
+        "village",
+        "blood_group",
+        "condition",
+        "current_medication",
+        "allergies"
+      ],
+      "dtypes": {
+        "patient_id": "str",
+        "patient_name": "str",
+        "age": "int64",
+        "gender": "str",
+        "village": "str",
+        "blood_group": "str",
+        "condition": "str",
+        "current_medication": "str",
+        "allergies": "str"
+      }
+    },
+    "medicines": {
+      "row_count": 10,
+      "col_count": 5,
+      "columns": [
+        "medicine_id",
+        "generic_name",
+        "strength",
+        "form",
+        "use_category"
+      ],
+      "dtypes": {
+        "medicine_id": "str",
+        "generic_name": "str",
+        "strength": "str",
+        "form": "str",
+        "use_category": "str"
+      }
+    },
+    "medicine_inventory": {
+      "row_count": 500,
+      "col_count": 4,
+      "columns": [
+        "hospital_id",
+        "medicine_id",
+        "quantity",
+        "stock_status"
+      ],
+      "dtypes": {
+        "hospital_id": "str",
+        "medicine_id": "str",
+        "quantity": "int64",
+        "stock_status": "str"
+      }
+    },
+    "diagnostic_tests": {
+      "row_count": 400,
+      "col_count": 5,
+      "columns": [
+        "test_id",
+        "test_name",
+        "hospital_id",
+        "available",
+        "availability_note"
+      ],
+      "dtypes": {
+        "test_id": "str",
+        "test_name": "str",
+        "hospital_id": "str",
+        "available": "bool",
+        "availability_note": "str"
+      }
+    },
+    "appointments": {
+      "row_count": 1000,
+      "col_count": 8,
+      "columns": [
+        "appointment_id",
+        "patient_id",
+        "doctor_id",
+        "hospital_id",
+        "date",
+        "time",
+        "status",
+        "reason"
+      ],
+      "dtypes": {
+        "appointment_id": "str",
+        "patient_id": "str",
+        "doctor_id": "str",
+        "hospital_id": "str",
+        "date": "str",
+        "time": "str",
+        "status": "str",
+        "reason": "str"
+      }
+    },
+    "followups": {
+      "row_count": 1000,
+      "col_count": 6,
+      "columns": [
+        "followup_id",
+        "patient_id",
+        "due_date",
+        "care_type",
+        "status",
+        "next_action"
+      ],
+      "dtypes": {
+        "followup_id": "str",
+        "patient_id": "str",
+        "due_date": "str",
+        "care_type": "str",
+        "status": "str",
+        "next_action": "str"
+      }
+    },
+    "health_worker_tasks": {
+      "row_count": 500,
+      "col_count": 6,
+      "columns": [
+        "task_id",
+        "patient_id",
+        "task_type",
+        "description",
+        "priority",
+        "status"
+      ],
+      "dtypes": {
+        "task_id": "str",
+        "patient_id": "str",
+        "task_type": "str",
+        "description": "str",
+        "priority": "str",
+        "status": "str"
+      }
+    },
+    "sample_reports": {
+      "row_count": 500,
+      "col_count": 6,
+      "columns": [
+        "report_id",
+        "patient_id",
+        "report_type",
+        "report_date",
+        "findings",
+        "ai_action_note"
+      ],
+      "dtypes": {
+        "report_id": "str",
+        "patient_id": "str",
+        "report_type": "str",
+        "report_date": "str",
+        "findings": "str",
+        "ai_action_note": "str"
+      }
+    }
+  },
+  "integrity_checks": {
+    "missing_duplicate_pks": {
+      "hospitals": {
+        "missing_pk": 0,
+        "duplicate_pk": 0
+      },
+      "doctors": {
+        "missing_pk": 0,
+        "duplicate_pk": 0
+      },
+      "patients": {
+        "missing_pk": 0,
+        "duplicate_pk": 0
+      },
+      "medicines": {
+        "missing_pk": 0,
+        "duplicate_pk": 0
+      },
+      "diagnostic_tests": {
+        "missing_pk": 0,
+        "duplicate_pk": 392
+      },
+      "appointments": {
+        "missing_pk": 0,
+        "duplicate_pk": 0
+      },
+      "followups": {
+        "missing_pk": 0,
+        "duplicate_pk": 0
+      },
+      "health_worker_tasks": {
+        "missing_pk": 0,
+        "duplicate_pk": 0
+      },
+      "sample_reports": {
+        "missing_pk": 0,
+        "duplicate_pk": 0
+      }
+    },
+    "orphaned_foreign_keys": {
+      "doctors_to_hospital": 0,
+      "inventory_to_hospital": 0,
+      "inventory_to_medicine": 0,
+      "diag_tests_to_hospital": 0,
+      "appointments_to_patient": 0,
+      "appointments_to_doctor": 0,
+      "appointments_to_hospital": 0,
+      "appointment_doctor_hospital_mismatches": 0,
+      "followups_to_patient": 0,
+      "hw_tasks_to_patient": 0,
+      "reports_to_patient": 0
+    },
+    "inventory_anomalies": [],
+    "date_anomalies": [
+      {
+        "type": "PAST_PENDING_APPOINTMENTS",
+        "count": 0,
+        "note": "Appointments with date < 2026-10-24 still marked Pending (potential missed care)"
+      },
+      {
+        "type": "PAST_DUE_FOLLOWUPS",
+        "count": 0,
+        "note": "Followups with due_date < 2026-10-24 still marked Due (overdue care events)"
+      },
+      {
+        "type": "FUTURE_COMPLETED_FOLLOWUPS",
+        "count": 216,
+        "note": "Followups marked Completed before scheduled due date"
+      }
+    ],
+    "status_anomalies": [],
+    "duplicate_records": [
+      {
+        "type": "DUPLICATE_APPOINTMENT_SLOTS",
+        "count": 0
+      },
+      {
+        "type": "DUPLICATE_FOLLOWUP_DUE_DATES",
+        "count": 0
+      }
+    ]
+  },
+  "rejected_rows": [],
+  "valid_rows_summary": {}
+}

@@ -1,0 +1,151 @@
+doctor_id,doctor_name,specialization,hospital_id,languages,available_days,available_time,telemedicine
+D001,Dr. Neha Verma,General Physician,H001,"Hindi,English",Mon-Fri,10:00-14:00,True
+D002,Dr. Rahul Singh,Cardiologist,H002,"Hindi,English",Mon-Sat,11:00-15:00,True
+D003,Dr. Priya Gupta,Diabetologist,H003,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D004,Dr. Anil Patel,Gynecologist,H004,"Hindi,English",Mon-Sat,10:00-13:00,False
+D005,Dr. Kavita Kumar,Pediatrician,H005,"Hindi,English",Mon-Fri,11:00-14:00,True
+D006,Dr. Rajiv Sharma,Dermatologist,H006,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D007,Dr. Pooja Verma,Orthopedic,H007,"Hindi,English",Mon-Fri,10:00-16:00,True
+D008,Dr. Sanjay Singh,ENT Specialist,H008,"Hindi,English",Mon-Sat,11:00-13:00,False
+D009,Dr. Meena Gupta,Neurologist,H009,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D010,Dr. Amit Patel,Pulmonologist,H010,"Hindi,English",Mon-Sat,10:00-15:00,True
+D011,Dr. Neha Kumar,General Physician,H011,"Hindi,English",Mon-Fri,11:00-16:00,True
+D012,Dr. Rahul Sharma,Cardiologist,H012,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D013,Dr. Priya Verma,Diabetologist,H013,"Hindi,English",Mon-Fri,10:00-14:00,True
+D014,Dr. Anil Singh,Gynecologist,H014,"Hindi,English",Mon-Sat,11:00-15:00,True
+D015,Dr. Kavita Gupta,Pediatrician,H015,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D016,Dr. Rajiv Patel,Dermatologist,H016,"Hindi,English",Mon-Sat,10:00-13:00,False
+D017,Dr. Pooja Kumar,Orthopedic,H017,"Hindi,English",Mon-Fri,11:00-14:00,True
+D018,Dr. Sanjay Sharma,ENT Specialist,H018,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D019,Dr. Meena Verma,Neurologist,H019,"Hindi,English",Mon-Fri,10:00-16:00,True
+D020,Dr. Amit Singh,Pulmonologist,H020,"Hindi,English",Mon-Sat,11:00-13:00,False
+D021,Dr. Neha Gupta,General Physician,H021,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D022,Dr. Rahul Patel,Cardiologist,H022,"Hindi,English",Mon-Sat,10:00-15:00,True
+D023,Dr. Priya Kumar,Diabetologist,H023,"Hindi,English",Mon-Fri,11:00-16:00,True
+D024,Dr. Anil Sharma,Gynecologist,H024,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D025,Dr. Kavita Verma,Pediatrician,H025,"Hindi,English",Mon-Fri,10:00-14:00,True
+D026,Dr. Rajiv Singh,Dermatologist,H026,"Hindi,English",Mon-Sat,11:00-15:00,True
+D027,Dr. Pooja Gupta,Orthopedic,H027,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D028,Dr. Sanjay Patel,ENT Specialist,H028,"Hindi,English",Mon-Sat,10:00-13:00,False
+D029,Dr. Meena Kumar,Neurologist,H029,"Hindi,English",Mon-Fri,11:00-14:00,True
+D030,Dr. Amit Sharma,Pulmonologist,H030,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D031,Dr. Neha Verma,General Physician,H031,"Hindi,English",Mon-Fri,10:00-16:00,True
+D032,Dr. Rahul Singh,Cardiologist,H032,"Hindi,English",Mon-Sat,11:00-13:00,False
+D033,Dr. Priya Gupta,Diabetologist,H033,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D034,Dr. Anil Patel,Gynecologist,H034,"Hindi,English",Mon-Sat,10:00-15:00,True
+D035,Dr. Kavita Kumar,Pediatrician,H035,"Hindi,English",Mon-Fri,11:00-16:00,True
+D036,Dr. Rajiv Sharma,Dermatologist,H036,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D037,Dr. Pooja Verma,Orthopedic,H037,"Hindi,English",Mon-Fri,10:00-14:00,True
+D038,Dr. Sanjay Singh,ENT Specialist,H038,"Hindi,English",Mon-Sat,11:00-15:00,True
+D039,Dr. Meena Gupta,Neurologist,H039,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D040,Dr. Amit Patel,Pulmonologist,H040,"Hindi,English",Mon-Sat,10:00-13:00,False
+D041,Dr. Neha Kumar,General Physician,H041,"Hindi,English",Mon-Fri,11:00-14:00,True
+D042,Dr. Rahul Sharma,Cardiologist,H042,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D043,Dr. Priya Verma,Diabetologist,H043,"Hindi,English",Mon-Fri,10:00-16:00,True
+D044,Dr. Anil Singh,Gynecologist,H044,"Hindi,English",Mon-Sat,11:00-13:00,False
+D045,Dr. Kavita Gupta,Pediatrician,H045,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D046,Dr. Rajiv Patel,Dermatologist,H046,"Hindi,English",Mon-Sat,10:00-15:00,True
+D047,Dr. Pooja Kumar,Orthopedic,H047,"Hindi,English",Mon-Fri,11:00-16:00,True
+D048,Dr. Sanjay Sharma,ENT Specialist,H048,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D049,Dr. Meena Verma,Neurologist,H049,"Hindi,English",Mon-Fri,10:00-14:00,True
+D050,Dr. Amit Singh,Pulmonologist,H050,"Hindi,English",Mon-Sat,11:00-15:00,True
+D051,Dr. Neha Gupta,General Physician,H001,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D052,Dr. Rahul Patel,Cardiologist,H002,"Hindi,English",Mon-Sat,10:00-13:00,False
+D053,Dr. Priya Kumar,Diabetologist,H003,"Hindi,English",Mon-Fri,11:00-14:00,True
+D054,Dr. Anil Sharma,Gynecologist,H004,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D055,Dr. Kavita Verma,Pediatrician,H005,"Hindi,English",Mon-Fri,10:00-16:00,True
+D056,Dr. Rajiv Singh,Dermatologist,H006,"Hindi,English",Mon-Sat,11:00-13:00,False
+D057,Dr. Pooja Gupta,Orthopedic,H007,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D058,Dr. Sanjay Patel,ENT Specialist,H008,"Hindi,English",Mon-Sat,10:00-15:00,True
+D059,Dr. Meena Kumar,Neurologist,H009,"Hindi,English",Mon-Fri,11:00-16:00,True
+D060,Dr. Amit Sharma,Pulmonologist,H010,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D061,Dr. Neha Verma,General Physician,H011,"Hindi,English",Mon-Fri,10:00-14:00,True
+D062,Dr. Rahul Singh,Cardiologist,H012,"Hindi,English",Mon-Sat,11:00-15:00,True
+D063,Dr. Priya Gupta,Diabetologist,H013,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D064,Dr. Anil Patel,Gynecologist,H014,"Hindi,English",Mon-Sat,10:00-13:00,False
+D065,Dr. Kavita Kumar,Pediatrician,H015,"Hindi,English",Mon-Fri,11:00-14:00,True
+D066,Dr. Rajiv Sharma,Dermatologist,H016,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D067,Dr. Pooja Verma,Orthopedic,H017,"Hindi,English",Mon-Fri,10:00-16:00,True
+D068,Dr. Sanjay Singh,ENT Specialist,H018,"Hindi,English",Mon-Sat,11:00-13:00,False
+D069,Dr. Meena Gupta,Neurologist,H019,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D070,Dr. Amit Patel,Pulmonologist,H020,"Hindi,English",Mon-Sat,10:00-15:00,True
+D071,Dr. Neha Kumar,General Physician,H021,"Hindi,English",Mon-Fri,11:00-16:00,True
+D072,Dr. Rahul Sharma,Cardiologist,H022,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D073,Dr. Priya Verma,Diabetologist,H023,"Hindi,English",Mon-Fri,10:00-14:00,True
+D074,Dr. Anil Singh,Gynecologist,H024,"Hindi,English",Mon-Sat,11:00-15:00,True
+D075,Dr. Kavita Gupta,Pediatrician,H025,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D076,Dr. Rajiv Patel,Dermatologist,H026,"Hindi,English",Mon-Sat,10:00-13:00,False
+D077,Dr. Pooja Kumar,Orthopedic,H027,"Hindi,English",Mon-Fri,11:00-14:00,True
+D078,Dr. Sanjay Sharma,ENT Specialist,H028,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D079,Dr. Meena Verma,Neurologist,H029,"Hindi,English",Mon-Fri,10:00-16:00,True
+D080,Dr. Amit Singh,Pulmonologist,H030,"Hindi,English",Mon-Sat,11:00-13:00,False
+D081,Dr. Neha Gupta,General Physician,H031,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D082,Dr. Rahul Patel,Cardiologist,H032,"Hindi,English",Mon-Sat,10:00-15:00,True
+D083,Dr. Priya Kumar,Diabetologist,H033,"Hindi,English",Mon-Fri,11:00-16:00,True
+D084,Dr. Anil Sharma,Gynecologist,H034,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D085,Dr. Kavita Verma,Pediatrician,H035,"Hindi,English",Mon-Fri,10:00-14:00,True
+D086,Dr. Rajiv Singh,Dermatologist,H036,"Hindi,English",Mon-Sat,11:00-15:00,True
+D087,Dr. Pooja Gupta,Orthopedic,H037,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D088,Dr. Sanjay Patel,ENT Specialist,H038,"Hindi,English",Mon-Sat,10:00-13:00,False
+D089,Dr. Meena Kumar,Neurologist,H039,"Hindi,English",Mon-Fri,11:00-14:00,True
+D090,Dr. Amit Sharma,Pulmonologist,H040,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D091,Dr. Neha Verma,General Physician,H041,"Hindi,English",Mon-Fri,10:00-16:00,True
+D092,Dr. Rahul Singh,Cardiologist,H042,"Hindi,English",Mon-Sat,11:00-13:00,False
+D093,Dr. Priya Gupta,Diabetologist,H043,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D094,Dr. Anil Patel,Gynecologist,H044,"Hindi,English",Mon-Sat,10:00-15:00,True
+D095,Dr. Kavita Kumar,Pediatrician,H045,"Hindi,English",Mon-Fri,11:00-16:00,True
+D096,Dr. Rajiv Sharma,Dermatologist,H046,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D097,Dr. Pooja Verma,Orthopedic,H047,"Hindi,English",Mon-Fri,10:00-14:00,True
+D098,Dr. Sanjay Singh,ENT Specialist,H048,"Hindi,English",Mon-Sat,11:00-15:00,True
+D099,Dr. Meena Gupta,Neurologist,H049,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D100,Dr. Amit Patel,Pulmonologist,H050,"Hindi,English",Mon-Sat,10:00-13:00,False
+D101,Dr. Neha Kumar,General Physician,H001,"Hindi,English",Mon-Fri,11:00-14:00,True
+D102,Dr. Rahul Sharma,Cardiologist,H002,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D103,Dr. Priya Verma,Diabetologist,H003,"Hindi,English",Mon-Fri,10:00-16:00,True
+D104,Dr. Anil Singh,Gynecologist,H004,"Hindi,English",Mon-Sat,11:00-13:00,False
+D105,Dr. Kavita Gupta,Pediatrician,H005,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D106,Dr. Rajiv Patel,Dermatologist,H006,"Hindi,English",Mon-Sat,10:00-15:00,True
+D107,Dr. Pooja Kumar,Orthopedic,H007,"Hindi,English",Mon-Fri,11:00-16:00,True
+D108,Dr. Sanjay Sharma,ENT Specialist,H008,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D109,Dr. Meena Verma,Neurologist,H009,"Hindi,English",Mon-Fri,10:00-14:00,True
+D110,Dr. Amit Singh,Pulmonologist,H010,"Hindi,English",Mon-Sat,11:00-15:00,True
+D111,Dr. Neha Gupta,General Physician,H011,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D112,Dr. Rahul Patel,Cardiologist,H012,"Hindi,English",Mon-Sat,10:00-13:00,False
+D113,Dr. Priya Kumar,Diabetologist,H013,"Hindi,English",Mon-Fri,11:00-14:00,True
+D114,Dr. Anil Sharma,Gynecologist,H014,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D115,Dr. Kavita Verma,Pediatrician,H015,"Hindi,English",Mon-Fri,10:00-16:00,True
+D116,Dr. Rajiv Singh,Dermatologist,H016,"Hindi,English",Mon-Sat,11:00-13:00,False
+D117,Dr. Pooja Gupta,Orthopedic,H017,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D118,Dr. Sanjay Patel,ENT Specialist,H018,"Hindi,English",Mon-Sat,10:00-15:00,True
+D119,Dr. Meena Kumar,Neurologist,H019,"Hindi,English",Mon-Fri,11:00-16:00,True
+D120,Dr. Amit Sharma,Pulmonologist,H020,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D121,Dr. Neha Verma,General Physician,H021,"Hindi,English",Mon-Fri,10:00-14:00,True
+D122,Dr. Rahul Singh,Cardiologist,H022,"Hindi,English",Mon-Sat,11:00-15:00,True
+D123,Dr. Priya Gupta,Diabetologist,H023,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D124,Dr. Anil Patel,Gynecologist,H024,"Hindi,English",Mon-Sat,10:00-13:00,False
+D125,Dr. Kavita Kumar,Pediatrician,H025,"Hindi,English",Mon-Fri,11:00-14:00,True
+D126,Dr. Rajiv Sharma,Dermatologist,H026,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D127,Dr. Pooja Verma,Orthopedic,H027,"Hindi,English",Mon-Fri,10:00-16:00,True
+D128,Dr. Sanjay Singh,ENT Specialist,H028,"Hindi,English",Mon-Sat,11:00-13:00,False
+D129,Dr. Meena Gupta,Neurologist,H029,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D130,Dr. Amit Patel,Pulmonologist,H030,"Hindi,English",Mon-Sat,10:00-15:00,True
+D131,Dr. Neha Kumar,General Physician,H031,"Hindi,English",Mon-Fri,11:00-16:00,True
+D132,Dr. Rahul Sharma,Cardiologist,H032,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D133,Dr. Priya Verma,Diabetologist,H033,"Hindi,English",Mon-Fri,10:00-14:00,True
+D134,Dr. Anil Singh,Gynecologist,H034,"Hindi,English",Mon-Sat,11:00-15:00,True
+D135,Dr. Kavita Gupta,Pediatrician,H035,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D136,Dr. Rajiv Patel,Dermatologist,H036,"Hindi,English",Mon-Sat,10:00-13:00,False
+D137,Dr. Pooja Kumar,Orthopedic,H037,"Hindi,English",Mon-Fri,11:00-14:00,True
+D138,Dr. Sanjay Sharma,ENT Specialist,H038,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True
+D139,Dr. Meena Verma,Neurologist,H039,"Hindi,English",Mon-Fri,10:00-16:00,True
+D140,Dr. Amit Singh,Pulmonologist,H040,"Hindi,English",Mon-Sat,11:00-13:00,False
+D141,Dr. Neha Gupta,General Physician,H041,"Hindi,English,Bengali",Mon-Fri,9:00-14:00,True
+D142,Dr. Rahul Patel,Cardiologist,H042,"Hindi,English",Mon-Sat,10:00-15:00,True
+D143,Dr. Priya Kumar,Diabetologist,H043,"Hindi,English",Mon-Fri,11:00-16:00,True
+D144,Dr. Anil Sharma,Gynecologist,H044,"Hindi,English,Bengali",Mon-Sat,9:00-13:00,False
+D145,Dr. Kavita Verma,Pediatrician,H045,"Hindi,English",Mon-Fri,10:00-14:00,True
+D146,Dr. Rajiv Singh,Dermatologist,H046,"Hindi,English",Mon-Sat,11:00-15:00,True
+D147,Dr. Pooja Gupta,Orthopedic,H047,"Hindi,English,Bengali",Mon-Fri,9:00-16:00,True
+D148,Dr. Sanjay Patel,ENT Specialist,H048,"Hindi,English",Mon-Sat,10:00-13:00,False
+D149,Dr. Meena Kumar,Neurologist,H049,"Hindi,English",Mon-Fri,11:00-14:00,True
+D150,Dr. Amit Sharma,Pulmonologist,H050,"Hindi,English,Bengali",Mon-Sat,9:00-15:00,True

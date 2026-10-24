@@ -1,0 +1,11 @@
+medicine_id,generic_name,strength,form,use_category
+M001,Metformin,500 mg,Tablet,Diabetes
+M002,Amlodipine,5 mg,Tablet,Hypertension
+M003,Paracetamol,500 mg,Tablet,Fever/Pain
+M004,Iron + Folic Acid,100 mg + 0.5 mg,Tablet,Pregnancy/Anemia
+M005,ORS,21 g,Sachet,Dehydration
+M006,Salbutamol,4 mg,Tablet,Asthma
+M007,Azithromycin,500 mg,Tablet,Bacterial infection
+M008,Cetirizine,10 mg,Tablet,Allergy
+M009,Omeprazole,20 mg,Capsule,Acidity
+M010,Losartan,50 mg,Tablet,Hypertension
