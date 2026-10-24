@@ -39,6 +39,8 @@ import ai_assistant
 import tts
 import stt_local
 import care_pathways
+import report_analysis
+import report_model
 from database import get_db, engine, Base, SessionLocal
 from triage_engine import analyze_symptoms
 from seed_data import seed_database
@@ -566,6 +568,7 @@ def get_patient_health_record(patient_id: int, current_user: models.User = Depen
     ]
     latest_intake = db.query(models.SymptomIntake).filter(models.SymptomIntake.patient_id == patient_id).order_by(desc(models.SymptomIntake.created_at)).first()
 
+    reports = db.query(models.ReportAnalysis).filter(models.ReportAnalysis.patient_id == patient_id).order_by(desc(models.ReportAnalysis.id)).limit(20).all()
     record_audit(db, current_user, "VIEW_HEALTH_RECORD", "PATIENT_RECORD", patient_id)
     return schemas.PatientRecordOut(
         patient=schemas.PatientOut.model_validate(patient),
@@ -575,6 +578,7 @@ def get_patient_health_record(patient_id: int, current_user: models.User = Depen
         reminders=[schemas.ReminderOut.model_validate(r) for r in reminders],
         appointments=appointments,
         latest_intake=schemas.IntakeOut.model_validate(latest_intake) if latest_intake else None,
+        reports=[schemas.ReportSummaryOut.model_validate(r) for r in reports],
     )
 
 
@@ -745,6 +749,65 @@ async def speech_to_text(request: Request, language: str = "hi", current_user: m
         logger.warning("Offline transcription failed: %s", e)
         raise HTTPException(status_code=502, detail="Could not transcribe the recording")
     return {"text": text, "provider": "local"}
+
+
+# ----------------- REPORT UPLOAD & ANALYSIS -----------------
+def _report_patient(db: Session, user: models.User, patient_id: Optional[int]) -> models.Patient:
+    if user.role == "PATIENT":
+        patient = patient_for_user(db, user)
+        if not patient:
+            raise HTTPException(status_code=404, detail="No health record linked to this account")
+        return patient
+    if not patient_id:
+        raise HTTPException(status_code=422, detail="patient_id is required")
+    return ensure_patient_access(db, user, patient_id, "REPORT_ANALYSIS")
+
+
+@app.get("/api/reports/status")
+def report_status(current_user: models.User = Depends(get_current_user)):
+    return {"vision_available": report_analysis.vision_available(), "model": report_model.model_info(),
+            "max_upload_mb": report_analysis.MAX_UPLOAD_BYTES // (1024 * 1024)}
+
+
+@app.post("/api/reports/analyze")
+async def analyze_report(request: Request, patient_id: Optional[int] = None, filename: str = "", symptoms: str = "",
+                         language: str = "en", current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """Upload a lab report, scan/ECG report or prescription (raw file body) and get decision support."""
+    patient = _report_patient(db, current_user, patient_id)
+    data = await request.body()
+    try:
+        result = await run_in_threadpool(report_analysis.analyze, db, patient, data, request.headers.get("content-type", ""), symptoms, language)
+    except report_analysis.ReportError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+    top = result["patterns"][0]["pattern"] if result["patterns"] else None
+    kind = {"lab_report": "Lab report", "imaging_report": "Scan/ECG report", "prescription": "Prescription"}.get(result["report_type"], "Report")
+    summary = (f"{kind}: " + (f"{len(result['medicines'])} medicine(s)" if result["report_type"] == "prescription"
+               else f"{sum(1 for f in result['findings'] if f['status'] not in ('normal', 'negative', 'info'))} abnormal value(s)" + (f", {top}" if top else ""))
+               + f" - consult {result['specialist']['title'] if result['specialist'] else 'a doctor'}")[:250]
+    saved = models.ReportAnalysis(patient_id=patient.id, uploaded_by_user_id=current_user.id, filename=filename[:255] or None,
+                                  report_type=result["report_type"], read_method=result["read_method"], urgency=result["urgency"],
+                                  summary=summary, result_json=json.dumps(result, ensure_ascii=False, default=str))
+    db.add(saved)
+    db.add(models.CareTimelineEvent(
+        patient_id=patient.id, event_type="REPORT", title=f"{kind} analysed ({result['urgency'].title()})", description=summary,
+        actor_name=current_user.full_name, actor_role=current_user.role,
+        metadata_json=json.dumps({"report_type": result["report_type"], "urgency": result["urgency"]})))
+    db.commit()
+    db.refresh(saved)
+    record_audit(db, current_user, "REPORT_ANALYSED", "PATIENT_RECORD", patient.id, "SUCCESS",
+                 {"report_type": result["report_type"], "read_method": result["read_method"], "urgency": result["urgency"]})
+    return {"id": saved.id, "created_at": saved.created_at.replace(tzinfo=datetime.timezone.utc).isoformat(), "filename": saved.filename, **result}
+
+
+@app.get("/api/reports/{report_id}")
+def get_report(report_id: int, current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    rep = db.query(models.ReportAnalysis).filter(models.ReportAnalysis.id == report_id).first()
+    if not rep:
+        raise HTTPException(status_code=404, detail="Report not found")
+    ensure_patient_access(db, current_user, rep.patient_id, "VIEW_REPORT")
+    return {"id": rep.id, "created_at": rep.created_at.replace(tzinfo=datetime.timezone.utc).isoformat(), "filename": rep.filename,
+            **json.loads(rep.result_json)}
 
 
 # ----------------- FACILITIES, DOCTORS & READINESS -----------------

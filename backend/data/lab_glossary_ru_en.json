@@ -1,0 +1,1390 @@
+[
+[
+"% макропролактина",
+"% macroprolactin"
+],
+[
+"% макропролактина (проводится при выявлении повышенного уровня пролактина)",
+"% macroprolactin (carried out if increased prolactin levels are detected)"
+],
+[
+"IgA (иммуноглобилин A)",
+"IgA (immunoglobulin A)"
+],
+[
+"IgЕ (иммуноглобулин IgE)",
+"IgE (immunoglobulin IgE)"
+],
+[
+"N-терминальный пропептид натрийуретического гормона (NT-proBNP)",
+"N-terminal propeptide of natriuretic hormone (NT-proBNP)"
+],
+[
+"SCCA",
+"SCCA"
+],
+[
+"Авидность антител IgG к цитомегаловирусу",
+"IgG antibody avidity to cytomegalovirus"
+],
+[
+"Альфа-1-глобулины",
+"Alpha-1 globulin"
+],
+[
+"Антиген СА 15-3",
+"CA 15-3 antigen"
+],
+[
+"Антиген СА 15-3 ИХЛ",
+"CA 15-3 antigen IHL"
+],
+[
+"Анти-ТГ (антитела к тиреоглобулину)",
+"Anti-TG (anti-thyroglobulin antibodies)"
+],
+[
+"Антитела IgM к HBcore (Аnti-HBcAg IgM) КП",
+"HBcore IgM antibodies (Anti-HBcAg IgM) CP"
+],
+[
+"Антитела IgM к HBcore (Аnti-HBcAg IgM)(крит)",
+"HBcore IgM antibodies (Apti-HBcAg IgM) (critical)"
+],
+[
+"Антитела к циклическому цитрулиновому пептиду (Анти-ЦЦП)",
+"Antibodies to cyclic citrulline peptide (Anti-CCP)"
+],
+[
+"Антитела класса IgG к тканевой трансглютаминазе",
+"IgG antibodies to tissue transglutaminase"
+],
+[
+"Аполипопротеин В",
+"Apolipoprotein B"
+],
+[
+"Базофилы (абс,количество)",
+"Basophils (abs,amount)"
+],
+[
+"Бета-2-глобулины",
+"Beta-2-globulins"
+],
+[
+"Билирубин общий",
+"Total bilirubin"
+],
+[
+"Вальпроевая кислота",
+"Valproic acid"
+],
+[
+"Время свёртывания крови (по Сухареву)-конец",
+"Clotting time (according to Sukharev)-end"
+],
+[
+"Время свёртывания крови по Сухареву (начало)",
+"Sukharev clotting time (beginning)"
+],
+[
+"Гамма-глобулины",
+"Gamma Globulins"
+],
+[
+"Гепатит В - HBsAg (ОПпробы)",
+"Hepatitis B - HBsAg (OP assay)"
+],
+[
+"Гепатит В - HBsAg КП",
+"Hepatitis B- HBsAg CP"
+],
+[
+"Гепатит С- IgG Anti-HCV (ОПпробы)",
+"Hepatitis C-IgG Anti-HCV (Routine tests)"
+],
+[
+"Гепатит-В общий (Anti-HBc total)",
+"Hepatitis B total (Anti-HBc total)"
+],
+[
+"Гликозилированный гемоглобин",
+"Glycosylated hemoglobin"
+],
+[
+"Гранулоциты (относит, количество)",
+"Granulocytes (relative number)"
+],
+[
+"Диурез за сутки",
+"Diuresis per day"
+],
+[
+"Длительность кровотечения",
+"Bleeding duration"
+],
+[
+"Длительность кровотечения по по Дьюку",
+"Bleeding duration based on Duke"
+],
+[
+"Ионы калия",
+"Potassium ions"
+],
+[
+"Ионы хлора",
+"Chlorine ions"
+],
+[
+"Кальций ионизированный (Са++)",
+"Ionized calcium (Ca++)"
+],
+[
+"Кандида albicans IgG (крит)",
+"Candida albicans IgG (Crit)"
+],
+[
+"Кандида albicans IgG (ОПпробы)",
+"Candida albicans IgG (Routine test)"
+],
+[
+"Кандида albicans IgG КП",
+"Candida albicans IgG CP"
+],
+[
+"Клетки средних размеров (относит, количество)",
+"Medium sized cells (relative amount)"
+],
+[
+"Концентрация специфического IgE к стоматологическим препаратам",
+"Concentration of specific IgE to dental products"
+],
+[
+"Кортизол ИФА",
+"Cortisol ELISA"
+],
+[
+"Коэффициент позитивности (ИФА-IgG-SARS-CoV-2)",
+"Positivity Ratio (ELISA-IgG-SARS-CoV-2)"
+],
+[
+"Креатинин в моче",
+"Urinary Creatinine"
+],
+[
+"Креатинкиназа (КФК)",
+"Creatine kinase (CKF)"
+],
+[
+"Латентная (ненасыщенная) железосвязываюшая способность сыворотки",
+"Latent (unsaturated) serum iron-binding capacity"
+],
+[
+"Липаза",
+"Lipase"
+],
+[
+"Магний (Мg)",
+"Magnesium (Mg)"
+],
+[
+"Магний в моче",
+"Urinary Magnesium"
+],
+[
+"Мегалобласты",
+"Megaloblasts"
+],
+[
+"Миоглобин",
+"Myoglobin"
+],
+[
+"Мочевина  в моче",
+"Urinary urea"
+],
+[
+"Натрий (Na+)",
+"Sodium (Na+)"
+],
+[
+"Нейтрофилы (абс, количество)",
+"Neutrophils (abs, number)"
+],
+[
+"Нейтрофилы (относит. количество)",
+"Neutrophils (relative amount)"
+],
+[
+"Нормоциты",
+"Normocytes"
+],
+[
+"Паратгормон",
+"Parathormone"
+],
+[
+"Плазматические клетки",
+"Plasma cells"
+],
+[
+"Распределение тромбоцитов по объёму (стандарт, отклонение)",
+"Distribution of platelets by volume (standard, deviation)"
+],
+[
+"Расчетная ширина распределения эритроцитов по объёму (коэф,вариации)",
+"Calculated red blood cell volume distribution (coefficient of variation)"
+],
+[
+"Ретикулоциты",
+"Reticulocytes"
+],
+[
+"Сегментоядерные",
+"Segmentonuclear"
+],
+[
+"Скорость оседания эритроцитов (СОЭ) на анализаторе",
+"Rates of sedimentation of erythrocytes (sedimentation rate) on the analyzer"
+],
+[
+"Соотношение ПСА своб,/ ПСА общий",
+"Total PSA/PSA ratio"
+],
+[
+"С-пептид",
+"C-peptide"
+],
+[
+"С-реактивный белок (СРБ) кардио",
+"C-reactive protein (CRP) cardiac"
+],
+[
+"Т3 (трийодтиронин) общий",
+"T3 (triiodothyronine) total"
+],
+[
+"Т4 (тироксин) общий",
+"T4 (thyroxine) total"
+],
+[
+"Токсоплазма IgG (ОПпробы)",
+"Toxoplasma IgG (OP assay)"
+],
+[
+"Ферритин",
+"Ferritin"
+],
+[
+"Фолиевая кислота (витамин В9)",
+"Folic acid (vitamin B9)"
+],
+[
+"Фосфор неорганический",
+"Inorganic phosphorus"
+],
+[
+"Фракция дезоксигемоглобина в общем гемоглобине",
+"Deoxyhemoglobin fraction in total hemoglobin"
+],
+[
+"ФСГ (фолликулостимулирующий гормон)",
+"FSH (follicle stimulating hormone)"
+],
+[
+"Хеликобактер пилори IgG",
+"Helicobacter pylori IgG"
+],
+[
+"Холестерин (экспресс)",
+"Cholesterol (rapid)"
+],
+[
+"Цитомегаловирус IgM ЭХЛ",
+"Cytomegalovirus IgM EHL"
+],
+[
+"ЦМВ IgG (крит)",
+"CMV IgG (critical)"
+],
+[
+"ЦМВ IgG (ОПпробы)",
+"CMV IgG (OP assay)"
+],
+[
+"ЦМВ IgG КП",
+"CMV IgG CP"
+],
+[
+"Эозинофилы (абс,количество)",
+"Eosinophils (abs,amount)"
+],
+[
+"Эозинофилы (относит.  количество)",
+"Eosinophils (relative number)"
+],
+[
+"Эстрадиол",
+"Estradiol"
+],
+[
+"Юные гранулоциты (абс, количество)",
+"Juvenile granulocytes (abs,amount)"
+],
+[
+"Юные гранулоциты (относит, количество)",
+"Juvenile granulocytes (relative amount)"
+],
+[
+"Beta-Cross laps",
+"Beta-Cross laps"
+],
+[
+"IgM (иммуноглобулин М)",
+"IgM (immunoglobulin M)"
+],
+[
+"Na+",
+"Na+"
+],
+[
+"NSE",
+"NSE"
+],
+[
+"S 100",
+"S 100"
+],
+[
+"Аланинаминотрансфераза (АЛТ)",
+"Alanine aminotransferase (ALT)"
+],
+[
+"Альфа-амилаза",
+"Alpha-amylase"
+],
+[
+"Амилаза (диастаза) в моче",
+"Urinary amylase (diastase)"
+],
+[
+"Аналииз кальпротектина в кале",
+"Calprotectin in feces"
+],
+[
+"Антитела IgM к HBcore (Аnti-HBcAg IgM)(ОПпробы)",
+"HBcore IgM antibodies (Antibody-HBcAg IgM)"
+],
+[
+"Антитела IgМ цитомегаловируус  (Anti-CMV-IgM)",
+"Cytomegalovirus IgM antibodies (Anti-CMV-IgM)"
+],
+[
+"Антитела к короновирусу SARS COV-2 (COVID-19) IgM (крит)",
+"Antibodies to SARS coronovirus COV-2 (COVID-19) IgM (krit)"
+],
+[
+"Антитела класса IgM к Toxoplasma gondii",
+"IgM antibodies to Toxoplasma gondii"
+],
+[
+"Анти-ТПО (антитела к микросомальной тиреопероксидазе)",
+"Anti-TPO (antibodies to microsomal thyroperoxidase)"
+],
+[
+"Аспартатаминотрасфераза (АСТ)",
+"Aspartate aminotransferase (AST)"
+],
+[
+"Базофилы (абс.количество)",
+"Basophils (abs.quantity)"
+],
+[
+"Базофилы (относит, количество)",
+"Basophils (relative amount)"
+],
+[
+"Базофилы (относит. количество)",
+"Basophils (relative amount)"
+],
+[
+"Бета-1-глобулины",
+"Beta-1-globulins"
+],
+[
+"Билирубин прямой",
+"Direct bilirubin"
+],
+[
+"Вирус Эпштейна-Барра IgG ядерный (крит)",
+"Epstein-Barr virus IgG nuclear (cret)"
+],
+[
+"Вирус Эпштейна-Барра IgG ядерный (ОПпробы)",
+"Epstein-Barr virus IgG nuclear (OP assay)"
+],
+[
+"Водородный показатель",
+"Hydrogen Index"
+],
+[
+"Время свёртывания крови  (по Сухареву)",
+"Blood clotting time (Sukharev)"
+],
+[
+"Время свёртывания крови (по Сухареву)-начало",
+"Clotting time (according to Sukharev)-beginning"
+],
+[
+"Гаммаглютамилтрансфераза (ГГТП)",
+"Gammaglutamyltransferase (GGTP)"
+],
+[
+"Гемоглобин",
+"Hemoglobin"
+],
+[
+"Гепатит С- IgG Anti-HCV КП",
+"Hepatitis C- IgG Anti-HCV CP"
+],
+[
+"Глюкоза (сахар крови)",
+"Glucose (blood sugar)"
+],
+[
+"Глюкоза (экспресс)",
+"Glucose (rapid)"
+],
+[
+"Глюкоза в моче",
+"Urine glucose"
+],
+[
+"Глюкоза через 2 часа после нагрузки",
+"Glucose 2 hours after exercise"
+],
+[
+"Гранулоциты (абс, количество)",
+"Granulocytes (abs count)"
+],
+[
+"Грибы рода кандида (Candida)",
+"Candida fungi"
+],
+[
+"ДГЭА-сульфат (дегидроэпиандостеронсульфат)",
+"DHEA-sulfate (dehydroepiandosterone sulfate)"
+],
+[
+"Д-димер",
+"D-dimer"
+],
+[
+"Индекс инсулинорезистентности (HOMA-IR)",
+"Insulin resistance index (HOMA-IR)"
+],
+[
+"Индекс простат-специфического антигена (ПСА)",
+"Prostate Specific Antigen (PSA) Index"
+],
+[
+"Ионы натрия",
+"Sodium ions"
+],
+[
+"Кальций общий",
+"Total calcium"
+],
+[
+"Кальцитонин",
+"Calcitonin"
+],
+[
+"Канальцевая реасорбция",
+"Channel reabsorption"
+],
+[
+"Количество крупных тромбоцитов (12-30 фл,)",
+"Large platelet count (12-30 fl,)"
+],
+[
+"Кортизол",
+"Cortisol"
+],
+[
+"Коэффициент позитивности (ИФА-IgM-SARS-CoV-2)",
+"Positivity coefficient (ELISA-IgM-SARS-CoV-2)"
+],
+[
+"Креатинин в крови",
+"Creatinine in blood"
+],
+[
+"Креатинфосфокиназа (КФК)",
+"Creatine phosphokinase (CPK)"
+],
+[
+"ЛГ (лютеинизирующий гормон)",
+"LH (luteinizing hormone)"
+],
+[
+"Лимфоциты (абс.количество)",
+"Lymphocytes (absolute count)"
+],
+[
+"Лимфоциты (относит, количество)",
+"Lymphocytes (relative number)"
+],
+[
+"Лимфоциты (относит. количество)",
+"Lymphocytes (relative number)"
+],
+[
+"Лямблиоз (крит)",
+"Lambliasis (crt)"
+],
+[
+"Лямблиоз КП",
+"Lambliasis CP"
+],
+[
+"МакроПролактин",
+"MacroProlactin"
+],
+[
+"Метамиелоциты",
+"Metamyelocytes"
+],
+[
+"Микроальбумин в моче",
+"Urinary microalbumin"
+],
+[
+"Моноциты (относит, количество)",
+"Monocytes (relative number)"
+],
+[
+"Мочевина",
+"Urea"
+],
+[
+"Нейтрофилы (абс. количество)",
+"Neutrophils (abs. number)"
+],
+[
+"Нормобласты (на 100 лейкоцитов)",
+"Normoblasts (per 100 white blood cells)"
+],
+[
+"Относительное распределение тромбоцитов по объёму",
+"Relative volume distribution of platelets"
+],
+[
+"Палочкаядерные",
+"Bacillary"
+],
+[
+"Панкреатическая амилаза",
+"Pancreatic amylase"
+],
+[
+"Парциальное давление кислорода",
+"Oxygen partial pressure"
+],
+[
+"Пиридоксамин (витамин В6)",
+"Pyridoxamine (vitamin B6)"
+],
+[
+"Прокальцитонин",
+"Procalcitonin"
+],
+[
+"Пролактин",
+"Prolactin"
+],
+[
+"РЭА (раково-эмбриональный антиген)",
+"CEA (carcinoembryonic antigen)"
+],
+[
+"С4 компонент комплемента",
+"Complement component C4"
+],
+[
+"Са++",
+"Ca++"
+],
+[
+"Скорость оседания эритроцитов (СОЭ)",
+"Erythrocyte sedimentation rate (ESR)"
+],
+[
+"Соматотропный гормон",
+"Somatotropic hormone"
+],
+[
+"Средний объем эритроцитов",
+"Average volume of erythrocytes"
+],
+[
+"Стандартный бикарбонат",
+"Standard bicarbonate"
+],
+[
+"Сумарные антитела к COVID 19  класса IgG",
+"Total antibodies to COVID 19 class IgG"
+],
+[
+"Т3 (трийодтиронин) свободный",
+"Free T3 (Triiodothyronine)"
+],
+[
+"Такролимус",
+"Tacrolimus"
+],
+[
+"Трансферрин",
+"Transferrin"
+],
+[
+"Тромбокрит",
+"Thrombocrit"
+],
+[
+"Тромбоциты",
+"Platelets"
+],
+[
+"Тромбоциты (микроскопия)",
+"Platelets (microscopy)"
+],
+[
+"Ферритин ИХЛ",
+"Ferritin IHL"
+],
+[
+"Фракция карбоксигемоглобина в общем гемоглобине",
+"Fraction of carboxyhemoglobin in total hemoglobin"
+],
+[
+"ХГЧ (хорионический гонадотропин)",
+"hCG (chorionic gonadotropin)"
+],
+[
+"ХГЧ (хорионический гонадотропин) в моче",
+"hCG (chorionic gonadotropin) in urine"
+],
+[
+"Хлор (Cl-)",
+"Chlorine (Cl-)"
+],
+[
+"Циклоспорин",
+"Cyclosporine"
+],
+[
+"ЦМВ IgM (ОПпробы)",
+"CMV IgM (PCR test)"
+],
+[
+"Эозинофилы (относит. количество)",
+"Eosinophils (relative amount)"
+],
+[
+"Эритропоэтин",
+"Erythropoietin"
+],
+[
+"17-ОН-Прогестерон",
+"17-OH-Progesterone"
+],
+[
+"25-ОН Витамин D",
+"25-OH Vitamin D"
+],
+[
+"CA72-4-1",
+"CA72-4-1"
+],
+[
+"HE-4",
+"HE-4"
+],
+[
+"IgG (иммуноглобулин G)",
+"IgG (immunoglobulin G)"
+],
+[
+"Азот мочевины",
+"Urea nitrogen"
+],
+[
+"АКТГ (адренокортикотропный гормон)",
+"ACTH (adrenocorticotropic hormone)"
+],
+[
+"Альбумин",
+"Albumin"
+],
+[
+"Альбумин/креатинин-соотношение (ACR)",
+"Albumin/creatinine ratio (ACR)"
+],
+[
+"Альдостерон",
+"Aldosterone"
+],
+[
+"Анизохромия",
+"Anisochromia"
+],
+[
+"Антиген СА 19-9",
+"CA 19-9 antigen"
+],
+[
+"Антиген СА 72-4",
+"CA antigen 72-4"
+],
+[
+"Антистрептолизин О (АСЛО)",
+"Antistreptolysin O (ASLO)"
+],
+[
+"Антитела IgG к вирусу простого герпеса 1,2 тип (Anti-HSV 1,2 IgG)",
+"Herpes simplex virus type 1,2 IgG antibodies (Anti-HSV 1,2 IgG)"
+],
+[
+"Антитела к короновирусу SARS COV-2 (COVID-19) IgG (КП)",
+"Antibodies to SARS COV-2 (COVID-19) IgG (kp)"
+],
+[
+"Антитела к короновирусу SARS COV-2 (COVID-19) IgG (крит)",
+"Coronovirus SARS COV-2 (COVID-19) IgG (Cryt) antibodies"
+],
+[
+"Антитела к короновирусу SARS COV-2 (COVID-19) IgG (ОПпробы)",
+"SARS COV-2 (COVID-19) Coronovirus IgG (OP assay) antibodies"
+],
+[
+"Антитела к рецептору ТТГ",
+"Antibodies to TSH receptor"
+],
+[
+"Антитела класса IgA к тканевой трансглютаминазе",
+"IgA class antibodies to tissue transglutaminase"
+],
+[
+"Антитела класса IgG к Toxoplasma gondii",
+"IgG antibodies to Toxoplasma gondii"
+],
+[
+"Антитела класса IgG к ядерному антигену вируса Эпштеин-Барра (ВПГ-IV)",
+"IgG antibodies to Epstein-Barr virus (IV) nuclear antigen"
+],
+[
+"Время свёртывания крови по Сухареву (конец)",
+"Sukharev clotting time (end)"
+],
+[
+"Гепатит В - HBsAg",
+"Hepatitis B - HBsAg"
+],
+[
+"Гепатит В - HBsAg (крит)",
+"Hepatitis B - HBsAg (crt)"
+],
+[
+"Глюкоза (сахар крови) экспресс методом",
+"Glucose (blood sugar) rapid method"
+],
+[
+"Гомоцистеин",
+"Homocysteine"
+],
+[
+"Гомоцистеин ИХЛ",
+"Homocysteine IGL"
+],
+[
+"Железо (Fe)",
+"Iron (Fe)"
+],
+[
+"Иммуноглобулин IgA общий",
+"IgA total immunoglobulin"
+],
+[
+"Иммуноглобулин IgE общий",
+"IgE immunoglobulin total"
+],
+[
+"Иммуноглобулин IgМ общий",
+"Immunoglobulin IgM total"
+],
+[
+"Инсулин",
+"Insulin"
+],
+[
+"Инсулиноподобный фактор роста 1",
+"Insulin-like growth factor 1"
+],
+[
+"Интерлейкин 6 (IR-6R)",
+"Interleukin 6 (IR-6R)"
+],
+[
+"Кальций общий (Ca)",
+"Total Calcium (Ca)"
+],
+[
+"Кислая фосфатаза (КФ)",
+"Acid phosphatase (CP)"
+],
+[
+"Клубочковая фильтрация",
+"Cluberculous filtration"
+],
+[
+"Количество крупных тромбоцитов (12-30 фл.)",
+"Number of large platelets (12-30 fl.)"
+],
+[
+"Концентрация общего билирубина",
+"Total bilirubin concentration"
+],
+[
+"Концентрация общего гемоглобина",
+"Concentration of total hemoglobin"
+],
+[
+"Кортизол ИХЛ",
+"Cortisol IHL"
+],
+[
+"Коэффициент крупных тромбоцитов",
+"Coarse platelet count"
+],
+[
+"Креатинкиназа MB",
+"Creatine kinase MB"
+],
+[
+"Лептин (Leptin)",
+"Leptin"
+],
+[
+"ЛЖСС (НЖСС)",
+"LHSS (LHSS)"
+],
+[
+"Медь (Cu)",
+"Copper (Cu)"
+],
+[
+"Миелоциты",
+"Myelocytes"
+],
+[
+"Минутный диурез",
+"Minute diuresis"
+],
+[
+"Моноциты (абс,количество)",
+"Monocytes (abs,amount)"
+],
+[
+"Моноциты (абс.количество)",
+"Monocytes (abs.quantity)"
+],
+[
+"Моноциты (относит. количество)",
+"Monocytes (relative number)"
+],
+[
+"Мочевая кислота",
+"Uric acid"
+],
+[
+"Насыщение кислородом",
+"Oxygen saturation"
+],
+[
+"Нормоциты базофильные",
+"Normocytes basophilic"
+],
+[
+"Нормоциты полихроматофильные",
+"Normocytes polychromatophilic"
+],
+[
+"Остеокальцин",
+"Osteocalcin"
+],
+[
+"Палочкоядерные",
+"Bacillary"
+],
+[
+"Парциальное давление кислорода крови 50%",
+"Blood oxygen partial pressure 50%"
+],
+[
+"Прогестерон",
+"Progesterone"
+],
+[
+"Пролимфоциты",
+"Prolymphocytes"
+],
+[
+"Промиелоциты",
+"Promyelocytes"
+],
+[
+"Распределение тромбоцитов по объёму (стандарт. отклонение)",
+"Platelet volume distribution (standard deviation)"
+],
+[
+"РЭА (раково-эмбриональный антиген) ИХЛ",
+"CEA (Cancer Embryonic Antigen) IHL"
+],
+[
+"Сyfra 21-1",
+"Cyfra 21-1"
+],
+[
+"Соотношение ПСА своб./ ПСА общий",
+"Total PSA/PSA ratio"
+],
+[
+"Среднее cодержание Hb в одном эритроците",
+"Mean Hb per erythrocyte"
+],
+[
+"Средний объем тромбоцитов",
+"Mean platelet volume"
+],
+[
+"Средняя концентрация Hb в эритроцитах",
+"Mean Hb concentration of red blood cells"
+],
+[
+"Стандартный избыток оснований",
+"Standard Bases Excess"
+],
+[
+"Т4 (тироксин) свободный",
+"Free T4 (thyroxine)"
+],
+[
+"Тимоловая проба",
+"Thymol test"
+],
+[
+"Тиреоглобулин (ТГ)",
+"Thyroglobulin (TG)"
+],
+[
+"Триглицериды",
+"Triglycerides"
+],
+[
+"Тропонин 1",
+"Troponin 1"
+],
+[
+"ТТГ (тиреотропный гормон)",
+"TSH (thyroid hormone)"
+],
+[
+"Фракция альбумина",
+"Albumin fraction"
+],
+[
+"Холестерин общий",
+"Total cholesterol"
+],
+[
+"Холестерин-ЛПВП",
+"HDL cholesterol"
+],
+[
+"Холестерин-ЛПНП",
+"HDL cholesterol"
+],
+[
+"Цитомегаловирус IgG ЭХЛ",
+"Cytomegalovirus IgG EHL"
+],
+[
+"ЦМВ IgM (крит)",
+"CMV IgM (critical)"
+],
+[
+"Щелочная фосфатаза (ЩФ)",
+"Alkaline phosphatase (ALP)"
+],
+[
+"Эритробласты (на 100 лейкоцитов)",
+"Erythroblasts (per 100 leukocytes)"
+],
+[
+"CA 242",
+"CA 242"
+],
+[
+"HBeAg",
+"HBeAg"
+],
+[
+"Авидность антител IgG к Toxoplasma gondii",
+"IgG antibody avidity to Toxoplasma gondii"
+],
+[
+"Альбумин в моче",
+"Urinary albumin"
+],
+[
+"Альфа-2- глобулины",
+"Alpha-2- globulin"
+],
+[
+"АМГ (Антимюллеров гормон)",
+"AMH (Antimueller hormone)"
+],
+[
+"Антиген СА 125",
+"CA antigen 125"
+],
+[
+"Антиген СА 15-3 ИФА",
+"CA 15-3 antigen ELISA"
+],
+[
+"Антитела IgG к вирусу краснухи (Anti-Rubella IgG)",
+"IgG antibodies to rubella virus (Anti-Rubella IgG)"
+],
+[
+"Антитела IgG к цитомегаловирусу (Anti-CMV-IgG )",
+"Cytomegalovirus IgG antibodies (Anti-CMV-IgG)"
+],
+[
+"Антитела IgМ к вирусу краснухи (Anti-Rubella IgМ)",
+"IgM antibodies to rubella virus (Anti-Rubella IgM)"
+],
+[
+"Антитела к глиадину IgA",
+"Anti-Gliadin IgA antibodies"
+],
+[
+"Антитела к глиадину IgG",
+"Anti-Gliadin IgG antibodies"
+],
+[
+"Антитела к короновирусу SARS COV-2 (COVID-19) IgM (КП)",
+"Anti-Coronovirus SARS COV-2 (COVID-19) IgM (KP) antibodies"
+],
+[
+"Антитела к короновирусу SARS COV-2 (COVID-19) IgM (ОПпробы)",
+"SARS COV-2 coronovirus (COVID-19) IgM antibodies (OP assay)"
+],
+[
+"Антитела класса IgG к капсидному антигену вируса Эпштейна-Барр",
+"IgG class antibodies to Epstein-Barr virus capsid antigen"
+],
+[
+"Аполипопротеин А1",
+"Apolipoprotein A1"
+],
+[
+"АФП (альфафетопротеин)",
+"AFP (alpha-fetoprotein)"
+],
+[
+"Белок в моче",
+"Urinary protein"
+],
+[
+"Билирубин непрямой",
+"Indirect bilirubin"
+],
+[
+"Бласты",
+"Blasts"
+],
+[
+"Вирус Эпштейна-Барра IgG ядерный КП",
+"Epstein-Barr virus IgG nuclear KP"
+],
+[
+"Витамин D",
+"Vitamin D"
+],
+[
+"Витамин D (25-ОН)",
+"Vitamin D (25-OH)"
+],
+[
+"Витамин D3 (25-ОН)",
+"Vitamin D3 (25-OH)"
+],
+[
+"Витамин В12",
+"Vitamin B12"
+],
+[
+"Время сбора мочи",
+"Urine collection time"
+],
+[
+"Гематокрит",
+"Hematocrit"
+],
+[
+"Гепатит В - (HBsAg)",
+"Hepatitis B- (HBsAg)"
+],
+[
+"Гепатит С- IgG Anti-HCV (крит)",
+"Hepatitis C- IgG Anti-HCV (crt)"
+],
+[
+"Гепатит С- IgM Anti-HCV (крит)",
+"Hepatitis C- Anti-HCV IgM (critical)"
+],
+[
+"Гепатит С- IgM Anti-HCV (ОПпробы)",
+"Hepatitis C- Anti-HCV IgM (Routine test)"
+],
+[
+"Гепатит С- IgM Anti-HCV КП",
+"Hepatitis C- Anti-HCV IgM CP"
+],
+[
+"Гепатит-С (Anti-HCV)",
+"Hepatitis C (Anti-HCV)"
+],
+[
+"Глобулин, связывающий половые гормоны (ГСПГ)",
+"Sex hormone binding globulin (hGHB)"
+],
+[
+"Железо",
+"Iron"
+],
+[
+"Иммуноглобулин IgG общий",
+"Immunoglobulin IgG total"
+],
+[
+"Ионы кальция",
+"Calcium ions"
+],
+[
+"К+",
+"К+"
+],
+[
+"Калий (К+)",
+"Potassium (K+)"
+],
+[
+"Кальций общий в моче",
+"Urinary calcium total"
+],
+[
+"Карбамазепин",
+"Carbamazepine"
+],
+[
+"Клетки средних размеров (абс, количество)",
+"Medium sized cells (abs, number)"
+],
+[
+"Концентрация D-глюкозы",
+"D-glucose concentration"
+],
+[
+"Концентрация L-лактата",
+"L-lactate concentration"
+],
+[
+"Коэффициент альбумин/глобулин",
+"Albumin/globulin ratio"
+],
+[
+"Коэффициент атерогенности",
+"Atherogen ratio"
+],
+[
+"Креатинин",
+"Creatinine"
+],
+[
+"Лактат",
+"Lactate"
+],
+[
+"Лактатдегидрогеназа (ЛДГ)",
+"Lactate dehydrogenase (LDH)"
+],
+[
+"Лейкоциты",
+"Leukocytes"
+],
+[
+"Лимфоциты (абс,количество)",
+"Lymphocytes (abs,amount)"
+],
+[
+"Лямблиоз (ОПпробы)",
+"Lambliasis (OP assay)"
+],
+[
+"Нейтрофилы (относит, количество)",
+"Neutrophils (relative amount)"
+],
+[
+"Нормоциты оксифильные",
+"Normocytes oxyphilic"
+],
+[
+"Общая железосвязывающая способность сыворотки (ОЖСС)",
+"Total serum iron-binding capacity (TAB)"
+],
+[
+"Общая концентрация кислорода",
+"Total oxygen concentration"
+],
+[
+"Общий белок",
+"Total protein"
+],
+[
+"Относительный объем крупных тромбоцитов",
+"Relative volume of large platelets"
+],
+[
+"Панкреатическая эластаза в кале",
+"Fecal pancreatic elastase"
+],
+[
+"Паратгормон (Паратиреоидный гормон)",
+"Parathormone (Parathyroid hormone)"
+],
+[
+"Парциальное давление углекислого газа",
+"Partial pressure of carbon dioxide"
+],
+[
+"ПСА (простато-специфический антиген) общий",
+"PSA (Prostate Specific Antigen) total"
+],
+[
+"ПСА (простато-специфический антиген) свободный",
+"PSA (prostate specific antigen) free"
+],
+[
+"Распределение тромбоцитов по объёму (коэфф. вариации)",
+"Platelet volume distribution (coefficient of variation)"
+],
+[
+"Расчетная ширина распределения эритроцитов по объёму (станд.отклонение)",
+"Calculated red blood cell volume distribution width (standard deviation)"
+],
+[
+"Ревматоидный фактор (РФ)",
+"Rheumatoid factor (RF)"
+],
+[
+"С3 компонент комплемента",
+"Complement component C3"
+],
+[
+"СОЭ",
+"CRP"
+],
+[
+"С-реактивный белок (СРБ)",
+"C-reactive protein (CRP)"
+],
+[
+"Суммарные антитела к Anti-HDV",
+"Total antibodies to Anti-HDV"
+],
+[
+"Суммарные антитела к HBcAg",
+"Total antibodies to HBcAg"
+],
+[
+"Т3 (трийодтиронин) свободный ИФА",
+"T3 (Triiodothyronine) free ELISA"
+],
+[
+"Т3 (трийодтиронин) свободный ИХЛ",
+"Free T3 (Triiodothyronine) IHL"
+],
+[
+"Тестостерон",
+"Testosterone"
+],
+[
+"Токсоплазма IgG (крит)",
+"Toxoplasma IgG (Crete)"
+],
+[
+"Токсоплазма IgG КП",
+"Toxoplasma IgG CP"
+],
+[
+"Тропонин",
+"Troponin"
+],
+[
+"Фракция метгемоглобина в общем гемоглобине",
+"Methemoglobin fraction in total hemoglobin"
+],
+[
+"Фракция оксигемоглобина в общем гемоглобине",
+"Oxyhemoglobin fraction in total hemoglobin"
+],
+[
+"Фракция фетального гемоглобина в общем гемоглобине",
+"Fraction of fetal hemoglobin in total hemoglobin"
+],
+[
+"Холестерин - ЛПНП",
+"Cholesterol - LDL"
+],
+[
+"Цветной показатель",
+"Color index"
+],
+[
+"Церулоплазмин (обмен меди)",
+"Ceruloplasmin (copper metabolism)"
+],
+[
+"ЦМВ IgM КП",
+"CMV IgM CP"
+],
+[
+"Эозинофилы (абс.количество)",
+"Eosinophils (abs.quantity)"
+],
+[
+"Эозинофилы (относит,  количество)",
+"Eosinophils (relative amount)"
+],
+[
+"Эозинофилы (относит, количество)",
+"Eosinophils (relative number)"
+],
+[
+"Эритроциты",
+"Erythrocytes"
+]
+]

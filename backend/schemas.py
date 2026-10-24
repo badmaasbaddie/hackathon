@@ -421,6 +421,16 @@ class IntakeOut(BaseModel):
     created_at: UTCDateTime
     model_config = {"from_attributes": True}
 
+class ReportSummaryOut(BaseModel):
+    id: int
+    filename: Optional[str] = None
+    report_type: str
+    read_method: str
+    urgency: str
+    summary: str
+    created_at: UTCDateTime
+    model_config = {"from_attributes": True}
+
 class PatientRecordOut(BaseModel):
     patient: PatientOut
     encounters: List[EncounterDetailOut]
@@ -429,6 +439,7 @@ class PatientRecordOut(BaseModel):
     reminders: List[ReminderOut]
     appointments: List[AppointmentOut]
     latest_intake: Optional[IntakeOut] = None
+    reports: List[ReportSummaryOut] = []
 
 class CareTeamMember(BaseModel):
     user_id: int

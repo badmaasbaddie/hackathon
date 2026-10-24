@@ -327,6 +327,7 @@ export interface PatientRecord {
   reminders: Reminder[];
   appointments: Appointment[];
   latest_intake?: Intake;
+  reports?: ReportSummary[];
 }
 
 export interface RegisterPayload {
@@ -406,4 +407,21 @@ export interface CaseReviewSummary {
     facilities_ready: number; facilities_total: number; ready_facility_names: string[];
   }[];
   barriers: { barrier: string; cases: number; how_swasthyasetu_helps: string | null }[];
+}
+
+export interface ReportSummary { id: number; filename?: string; report_type: string; read_method: string; urgency: string; summary: string; created_at: string; }
+
+export interface ReportAnalysisResult {
+  id: number; filename?: string; created_at: string;
+  report_type: string; read_method: string; extracted_text: string;
+  findings: { test: string; value: number | string; unit: string; range: string; status: string }[];
+  medicines: { form: string; name: string; recognised: boolean; schedule: string | null; duration_days: number | null }[];
+  imaging: { study: string; impression: string } | null;
+  patterns: { pattern: string; confidence: number; category: string }[];
+  urgency: string; urgency_reasons: string[]; next_steps: string[];
+  specialist: { title: string; why: string } | null;
+  recommended_facility: { facility_id: number; facility_name: string; distance_km: number; travel_time_mins: number; doctor_name: string; specialty: string; specialist_match: boolean } | null;
+  estimates: { recovery: string; cost_private?: string; cost_government: string; notice: string } | null;
+  symptom_triage: { level: string; advice: string } | null;
+  disclaimer: string;
 }

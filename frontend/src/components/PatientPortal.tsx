@@ -12,6 +12,7 @@ import {
 import { FacilityMap } from './FacilityMap';
 import { PrivacyPanel } from './PrivacyPanel';
 import { CarePathwayCard } from './CarePathwayCard';
+import { ReportsPanel } from './ReportsPanel';
 import { speak, stopSpeaking, canSpeak } from '../utils/speech';
 import { startVoiceInput, VoiceSession, VoiceState, VoiceError } from '../utils/voiceInput';
 
@@ -21,7 +22,7 @@ interface PatientPortalProps {
   onRegister: () => void;
 }
 
-export type PatientTab = 'ASSISTANT' | 'FACILITIES' | 'RECORDS' | 'TIMELINE' | 'FAMILY' | 'PRIVACY';
+export type PatientTab = 'ASSISTANT' | 'REPORTS' | 'FACILITIES' | 'RECORDS' | 'TIMELINE' | 'FAMILY' | 'PRIVACY';
 type Tab = PatientTab;
 
 interface AssistantMessage extends ChatTurn {
@@ -313,6 +314,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
     { id: 'TIMELINE', label: t('४. टाइमलाइन', '4. Timeline') },
     { id: 'FAMILY', label: t('५. परिवार', '5. Family') },
     { id: 'PRIVACY', label: t('६. गोपनीयता', '6. Privacy') },
+    { id: 'REPORTS', label: t('७. रिपोर्ट जांच', '7. Report check') },
   ];
 
   return (
@@ -846,6 +848,9 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language, user, on
         </div>
       )}
       {activeTab === 'PRIVACY' && <PrivacyPanel language={language} />}
+      {activeTab === 'REPORTS' && (
+        <ReportsPanel language={language} history={record?.reports || []} onBook={startBookingAt} onAnalysed={() => patient && loadRecords(patient)} />
+      )}
     </div>
   );
 };

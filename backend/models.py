@@ -414,3 +414,19 @@ class AuditEvent(Base):
     ip_address = Column(String(50), default="127.0.0.1")
     details_json = Column(Text, default="{}")
     created_at = Column(DateTime, default=utcnow)
+
+
+class ReportAnalysis(Base):
+    """A report a patient (or their care team) uploaded, with the decision-support analysis.
+    The uploaded file itself is not stored - only the extracted text and the result."""
+    __tablename__ = "report_analyses"
+    id = Column(Integer, primary_key=True, index=True)
+    patient_id = Column(Integer, ForeignKey("patients.id"), nullable=False, index=True)
+    uploaded_by_user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    filename = Column(String(255), nullable=True)
+    report_type = Column(String(30), nullable=False)  # lab_report, imaging_report, prescription, other
+    read_method = Column(String(30), nullable=False)  # typed, pdf_text, ai_vision
+    urgency = Column(String(20), nullable=False)
+    summary = Column(String(255), nullable=False)
+    result_json = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=utcnow)

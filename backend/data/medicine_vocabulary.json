@@ -1,0 +1,5434 @@
+{
+"source": "Prescriptions_Dataset.csv (1,000 handwritten prescriptions, Gazipur, Bangladesh; research/educational use; identifiers redacted)",
+"note": "Brand names as written on the prescriptions (mostly Bangladeshi brands). Used to recognise medicine names when reading prescriptions.",
+"medicines": [
+{
+"name": "Omeprazole",
+"count": 23
+},
+{
+"name": "Metro",
+"count": 18
+},
+{
+"name": "Algin",
+"count": 18
+},
+{
+"name": "Ceftriaxone",
+"count": 18
+},
+{
+"name": "Napa",
+"count": 16
+},
+{
+"name": "Zerotil Plus",
+"count": 14
+},
+{
+"name": "Esoprex",
+"count": 14
+},
+{
+"name": "Vergon",
+"count": 13
+},
+{
+"name": "Calcium",
+"count": 13
+},
+{
+"name": "Sergel",
+"count": 13
+},
+{
+"name": "Gentin",
+"count": 13
+},
+{
+"name": "Becobion",
+"count": 13
+},
+{
+"name": "Linda-S",
+"count": 12
+},
+{
+"name": "Renova",
+"count": 12
+},
+{
+"name": "Ovocal DX",
+"count": 12
+},
+{
+"name": "Fenadin",
+"count": 10
+},
+{
+"name": "Napa Extend",
+"count": 10
+},
+{
+"name": "Filmet",
+"count": 10
+},
+{
+"name": "Nexum",
+"count": 10
+},
+{
+"name": "Gavis",
+"count": 9
+},
+{
+"name": "Sedil",
+"count": 9
+},
+{
+"name": "Proceptin",
+"count": 9
+},
+{
+"name": "Monas",
+"count": 9
+},
+{
+"name": "Nexum MUPS",
+"count": 9
+},
+{
+"name": "Biltin",
+"count": 8
+},
+{
+"name": "Nelbun",
+"count": 8
+},
+{
+"name": "Torax",
+"count": 8
+},
+{
+"name": "Rolac",
+"count": 8
+},
+{
+"name": "Fenat",
+"count": 8
+},
+{
+"name": "Maxima MUPS",
+"count": 8
+},
+{
+"name": "Doxoven",
+"count": 8
+},
+{
+"name": "Montinex R",
+"count": 8
+},
+{
+"name": "Prindol",
+"count": 8
+},
+{
+"name": "Roxim",
+"count": 7
+},
+{
+"name": "Ace",
+"count": 7
+},
+{
+"name": "Rivotril",
+"count": 7
+},
+{
+"name": "Deflux",
+"count": 7
+},
+{
+"name": "Lactoride",
+"count": 7
+},
+{
+"name": "Exephine",
+"count": 7
+},
+{
+"name": "Megagel",
+"count": 7
+},
+{
+"name": "Montinex",
+"count": 7
+},
+{
+"name": "Avolac",
+"count": 7
+},
+{
+"name": "Seclo",
+"count": 7
+},
+{
+"name": "MUPS",
+"count": 7
+},
+{
+"name": "Neuro-B",
+"count": 6
+},
+{
+"name": "Solbion",
+"count": 6
+},
+{
+"name": "Ginory",
+"count": 6
+},
+{
+"name": "T-Cef",
+"count": 6
+},
+{
+"name": "Xidolac",
+"count": 6
+},
+{
+"name": "Opton",
+"count": 6
+},
+{
+"name": "Barbit",
+"count": 6
+},
+{
+"name": "Flexibac",
+"count": 6
+},
+{
+"name": "Maxpro",
+"count": 6
+},
+{
+"name": "Ovocal-D",
+"count": 6
+},
+{
+"name": "Xamic",
+"count": 6
+},
+{
+"name": "Dopadon",
+"count": 6
+},
+{
+"name": "Zeropain",
+"count": 6
+},
+{
+"name": "Amino Plus",
+"count": 6
+},
+{
+"name": "Xyflo",
+"count": 6
+},
+{
+"name": "Esonix",
+"count": 5
+},
+{
+"name": "Zeloroma",
+"count": 5
+},
+{
+"name": "Esita",
+"count": 5
+},
+{
+"name": "Pantonix",
+"count": 5
+},
+{
+"name": "Emistat",
+"count": 5
+},
+{
+"name": "Mirogab",
+"count": 5
+},
+{
+"name": "Flexi",
+"count": 5
+},
+{
+"name": "Lipofit",
+"count": 5
+},
+{
+"name": "Pesitop",
+"count": 5
+},
+{
+"name": "Linda DS",
+"count": 5
+},
+{
+"name": "Atova",
+"count": 5
+},
+{
+"name": "Calbo D",
+"count": 5
+},
+{
+"name": "Bizoran",
+"count": 5
+},
+{
+"name": "Xalcort",
+"count": 5
+},
+{
+"name": "Deflacort",
+"count": 5
+},
+{
+"name": "Vonomax",
+"count": 5
+},
+{
+"name": "Finix",
+"count": 4
+},
+{
+"name": "Omidon",
+"count": 4
+},
+{
+"name": "Imucort",
+"count": 4
+},
+{
+"name": "Dexlan",
+"count": 4
+},
+{
+"name": "Billi",
+"count": 4
+},
+{
+"name": "Esoral",
+"count": 4
+},
+{
+"name": "Xinc B",
+"count": 4
+},
+{
+"name": "Reelife",
+"count": 4
+},
+{
+"name": "Domin",
+"count": 4
+},
+{
+"name": "Nemocade",
+"count": 4
+},
+{
+"name": "AB Cough",
+"count": 4
+},
+{
+"name": "Doxiva",
+"count": 4
+},
+{
+"name": "Paloxi",
+"count": 4
+},
+{
+"name": "Tofen",
+"count": 4
+},
+{
+"name": "Exium",
+"count": 4
+},
+{
+"name": "Doxin",
+"count": 4
+},
+{
+"name": "Renova XR",
+"count": 4
+},
+{
+"name": "Peritop",
+"count": 4
+},
+{
+"name": "Miraba",
+"count": 4
+},
+{
+"name": "Esoprox",
+"count": 4
+},
+{
+"name": "Starcef",
+"count": 4
+},
+{
+"name": "Montene",
+"count": 4
+},
+{
+"name": "Etorix",
+"count": 4
+},
+{
+"name": "Ovocal-DX",
+"count": 4
+},
+{
+"name": "Pethidine",
+"count": 4
+},
+{
+"name": "Fusid",
+"count": 4
+},
+{
+"name": "Naprosyn",
+"count": 4
+},
+{
+"name": "Bactrocin",
+"count": 4
+},
+{
+"name": "Fexo",
+"count": 4
+},
+{
+"name": "Dexogut",
+"count": 4
+},
+{
+"name": "OVOCAL-DX",
+"count": 4
+},
+{
+"name": "Xiva",
+"count": 4
+},
+{
+"name": "Zenopain",
+"count": 4
+},
+{
+"name": "Renova Max",
+"count": 4
+},
+{
+"name": "Fexofast",
+"count": 3
+},
+{
+"name": "Fast XR",
+"count": 3
+},
+{
+"name": "Rabe",
+"count": 3
+},
+{
+"name": "Filwel Gold",
+"count": 3
+},
+{
+"name": "Vitabion",
+"count": 3
+},
+{
+"name": "Plus",
+"count": 3
+},
+{
+"name": "Ronim",
+"count": 3
+},
+{
+"name": "Remmo",
+"count": 3
+},
+{
+"name": "Domilux",
+"count": 3
+},
+{
+"name": "Montair",
+"count": 3
+},
+{
+"name": "Finix-20mg",
+"count": 3
+},
+{
+"name": "Histal",
+"count": 3
+},
+{
+"name": "B C",
+"count": 3
+},
+{
+"name": "Cortan",
+"count": 3
+},
+{
+"name": "Neucos-B",
+"count": 3
+},
+{
+"name": "Hemoclean",
+"count": 3
+},
+{
+"name": "Calboral D",
+"count": 3
+},
+{
+"name": "Bexilec",
+"count": 3
+},
+{
+"name": "Cefaclav",
+"count": 3
+},
+{
+"name": "Histacin",
+"count": 3
+},
+{
+"name": "Aeron",
+"count": 3
+},
+{
+"name": "Indever",
+"count": 3
+},
+{
+"name": "Disopan",
+"count": 3
+},
+{
+"name": "Azin",
+"count": 3
+},
+{
+"name": "Contin",
+"count": 3
+},
+{
+"name": "Moxilin CV",
+"count": 3
+},
+{
+"name": "Demoxiclav",
+"count": 3
+},
+{
+"name": "Zerotil",
+"count": 3
+},
+{
+"name": "Renovit",
+"count": 3
+},
+{
+"name": "Ovocal D",
+"count": 3
+},
+{
+"name": "Ketorolac",
+"count": 3
+},
+{
+"name": "Fixocard",
+"count": 3
+},
+{
+"name": "Cefixime",
+"count": 3
+},
+{
+"name": "Anadol",
+"count": 3
+},
+{
+"name": "Fluclox",
+"count": 3
+},
+{
+"name": "Pregaba",
+"count": 3
+},
+{
+"name": "Serta",
+"count": 3
+},
+{
+"name": "Kalcoral-DX",
+"count": 3
+},
+{
+"name": "Pase",
+"count": 3
+},
+{
+"name": "Deslor",
+"count": 3
+},
+{
+"name": "Skilox",
+"count": 3
+},
+{
+"name": "Esoben MUPS",
+"count": 3
+},
+{
+"name": "Acupain",
+"count": 3
+},
+{
+"name": "Exium Mups",
+"count": 3
+},
+{
+"name": "Nabu",
+"count": 3
+},
+{
+"name": "Maxpro-MUPS",
+"count": 3
+},
+{
+"name": "Nabumet",
+"count": 3
+},
+{
+"name": "Rupadin",
+"count": 3
+},
+{
+"name": "Nopain",
+"count": 3
+},
+{
+"name": "Rabeprex M-",
+"count": 3
+},
+{
+"name": "Ace XR",
+"count": 3
+},
+{
+"name": "Xalconf",
+"count": 3
+},
+{
+"name": "Gaviflux",
+"count": 3
+},
+{
+"name": "Esopnex",
+"count": 3
+},
+{
+"name": "Bukoff",
+"count": 3
+},
+{
+"name": "Flucloxin",
+"count": 3
+},
+{
+"name": "Sengel",
+"count": 3
+},
+{
+"name": "P+H",
+"count": 2
+},
+{
+"name": "Xgeva",
+"count": 2
+},
+{
+"name": "Dexa U",
+"count": 2
+},
+{
+"name": "Ondam U",
+"count": 2
+},
+{
+"name": "Ultracet",
+"count": 2
+},
+{
+"name": "Solas",
+"count": 2
+},
+{
+"name": "Ovel",
+"count": 2
+},
+{
+"name": "Xalcowe",
+"count": 2
+},
+{
+"name": "Deslan",
+"count": 2
+},
+{
+"name": "Daxoven Lovey",
+"count": 2
+},
+{
+"name": "Reversar Com",
+"count": 2
+},
+{
+"name": "Relentus",
+"count": 2
+},
+{
+"name": "Tusq",
+"count": 2
+},
+{
+"name": "Alben DS",
+"count": 2
+},
+{
+"name": "Traxyl",
+"count": 2
+},
+{
+"name": "Visceralgine",
+"count": 2
+},
+{
+"name": "Axodin",
+"count": 2
+},
+{
+"name": "Histou",
+"count": 2
+},
+{
+"name": "Montain",
+"count": 2
+},
+{
+"name": "Histon",
+"count": 2
+},
+{
+"name": "NAPA",
+"count": 2
+},
+{
+"name": "M-Lucus",
+"count": 2
+},
+{
+"name": "Inflcom",
+"count": 2
+},
+{
+"name": "Bilutin",
+"count": 2
+},
+{
+"name": "Depilad",
+"count": 2
+},
+{
+"name": "Xine",
+"count": 2
+},
+{
+"name": "Ginroy",
+"count": 2
+},
+{
+"name": "Xinc-B",
+"count": 2
+},
+{
+"name": "Ginoba",
+"count": 2
+},
+{
+"name": "Ferix-V",
+"count": 2
+},
+{
+"name": "Deleta",
+"count": 2
+},
+{
+"name": "Salbutamol",
+"count": 2
+},
+{
+"name": "Trego",
+"count": 2
+},
+{
+"name": "Dermomix",
+"count": 2
+},
+{
+"name": "Fosibon Du",
+"count": 2
+},
+{
+"name": "Skinoba",
+"count": 2
+},
+{
+"name": "Seacal D",
+"count": 2
+},
+{
+"name": "Revatol",
+"count": 2
+},
+{
+"name": "Melphin",
+"count": 2
+},
+{
+"name": "Sefa",
+"count": 2
+},
+{
+"name": "Alfane",
+"count": 2
+},
+{
+"name": "Cefuroxime",
+"count": 2
+},
+{
+"name": "Diclofen",
+"count": 2
+},
+{
+"name": "Pain",
+"count": 2
+},
+{
+"name": "Orthogen",
+"count": 2
+},
+{
+"name": "Bexile",
+"count": 2
+},
+{
+"name": "Instill",
+"count": 2
+},
+{
+"name": "Montin",
+"count": 2
+},
+{
+"name": "B126",
+"count": 2
+},
+{
+"name": "Norsol",
+"count": 2
+},
+{
+"name": "Cevit",
+"count": 2
+},
+{
+"name": "Predipred",
+"count": 2
+},
+{
+"name": "Mkast",
+"count": 2
+},
+{
+"name": "Bukof",
+"count": 2
+},
+{
+"name": "D-Balance",
+"count": 2
+},
+{
+"name": "Norium",
+"count": 2
+},
+{
+"name": "Zerolil Plus",
+"count": 2
+},
+{
+"name": "Cetrin",
+"count": 2
+},
+{
+"name": "Calgi DX",
+"count": 2
+},
+{
+"name": "DESEC MEPS",
+"count": 2
+},
+{
+"name": "Filamyd",
+"count": 2
+},
+{
+"name": "Proscan",
+"count": 2
+},
+{
+"name": "Bukut",
+"count": 2
+},
+{
+"name": "Pedipred",
+"count": 2
+},
+{
+"name": "Kof",
+"count": 2
+},
+{
+"name": "Coralex DX",
+"count": 2
+},
+{
+"name": "Dicaltrol",
+"count": 2
+},
+{
+"name": "Reelise",
+"count": 2
+},
+{
+"name": "Avil",
+"count": 2
+},
+{
+"name": "Brodil Levo",
+"count": 2
+},
+{
+"name": "Oxophyline",
+"count": 2
+},
+{
+"name": "Bufof",
+"count": 2
+},
+{
+"name": "Kalcoral DX",
+"count": 2
+},
+{
+"name": "Hazmolex",
+"count": 2
+},
+{
+"name": "Tamenterbo",
+"count": 2
+},
+{
+"name": "Pontel",
+"count": 2
+},
+{
+"name": "Remdesivir IV",
+"count": 2
+},
+{
+"name": "Fls",
+"count": 2
+},
+{
+"name": "Remdesivir",
+"count": 2
+},
+{
+"name": "Amphotericin B",
+"count": 2
+},
+{
+"name": "Nalepsin",
+"count": 2
+},
+{
+"name": "Retinol Forte",
+"count": 2
+},
+{
+"name": "Cabolin",
+"count": 2
+},
+{
+"name": "F S",
+"count": 2
+},
+{
+"name": "Dexa",
+"count": 2
+},
+{
+"name": "Ultracal D",
+"count": 2
+},
+{
+"name": "Losucon",
+"count": 2
+},
+{
+"name": "Clavusef",
+"count": 2
+},
+{
+"name": "Furoclav",
+"count": 2
+},
+{
+"name": "Nervex",
+"count": 2
+},
+{
+"name": "Regab",
+"count": 2
+},
+{
+"name": "Arceva",
+"count": 2
+},
+{
+"name": "Panadol",
+"count": 2
+},
+{
+"name": "Esonaaf",
+"count": 2
+},
+{
+"name": "Dominaaf",
+"count": 2
+},
+{
+"name": "Neobion",
+"count": 2
+},
+{
+"name": "Diutrol Plus",
+"count": 2
+},
+{
+"name": "Sabitor",
+"count": 2
+},
+{
+"name": "Bisopro",
+"count": 2
+},
+{
+"name": "Zepim Plus",
+"count": 2
+},
+{
+"name": "Nidipine SR",
+"count": 2
+},
+{
+"name": "Benzit",
+"count": 2
+},
+{
+"name": "Prazopress ER",
+"count": 2
+},
+{
+"name": "Clopid",
+"count": 2
+},
+{
+"name": "Sodium",
+"count": 2
+},
+{
+"name": "Ascaris",
+"count": 2
+},
+{
+"name": "Retino-A",
+"count": 2
+},
+{
+"name": "Panical",
+"count": 2
+},
+{
+"name": "Reversit",
+"count": 2
+},
+{
+"name": "Cloba",
+"count": 2
+},
+{
+"name": "Serevent",
+"count": 2
+},
+{
+"name": "Prebio",
+"count": 2
+},
+{
+"name": "Naproxen",
+"count": 2
+},
+{
+"name": "Tenoren",
+"count": 2
+},
+{
+"name": "Peridon",
+"count": 2
+},
+{
+"name": "Provit",
+"count": 2
+},
+{
+"name": "Tussca",
+"count": 2
+},
+{
+"name": "Ovocat DX",
+"count": 2
+},
+{
+"name": "Hemofix FZ",
+"count": 2
+},
+{
+"name": "Xelcort",
+"count": 2
+},
+{
+"name": "Ambolyt",
+"count": 2
+},
+{
+"name": "Alcet",
+"count": 2
+},
+{
+"name": "Ovocat-DX",
+"count": 2
+},
+{
+"name": "Sunburn",
+"count": 2
+},
+{
+"name": "Zoventa",
+"count": 2
+},
+{
+"name": "Ternilla",
+"count": 2
+},
+{
+"name": "Esotid",
+"count": 2
+},
+{
+"name": "Solupred",
+"count": 2
+},
+{
+"name": "Methoflex",
+"count": 2
+},
+{
+"name": "Coralcal D",
+"count": 2
+},
+{
+"name": "Pregnaboost",
+"count": 2
+},
+{
+"name": "Flexon",
+"count": 2
+},
+{
+"name": "Finyal",
+"count": 2
+},
+{
+"name": "Billan",
+"count": 2
+},
+{
+"name": "Perotin",
+"count": 2
+},
+{
+"name": "Ezylife",
+"count": 2
+},
+{
+"name": "Fexten",
+"count": 2
+},
+{
+"name": "Realife",
+"count": 2
+},
+{
+"name": "Neuroxen",
+"count": 2
+},
+{
+"name": "Terzilla",
+"count": 2
+},
+{
+"name": "Cefotil",
+"count": 2
+},
+{
+"name": "Cerox-CV",
+"count": 2
+},
+{
+"name": "Realif",
+"count": 2
+},
+{
+"name": "Itopid",
+"count": 2
+},
+{
+"name": "Fuclox",
+"count": 2
+},
+{
+"name": "Radep",
+"count": 2
+},
+{
+"name": "Delpoc",
+"count": 2
+},
+{
+"name": "Proitop",
+"count": 2
+},
+{
+"name": "Cardicor",
+"count": 2
+},
+{
+"name": "Premacap",
+"count": 2
+},
+{
+"name": "Acemox",
+"count": 2
+},
+{
+"name": "Cabergol",
+"count": 2
+},
+{
+"name": "Lurocum",
+"count": 2
+},
+{
+"name": "Desmomix",
+"count": 2
+},
+{
+"name": "Avenac",
+"count": 2
+},
+{
+"name": "Devas",
+"count": 2
+},
+{
+"name": "Delot",
+"count": 2
+},
+{
+"name": "Zemicef",
+"count": 2
+},
+{
+"name": "Dizmo",
+"count": 2
+},
+{
+"name": "Fluboxin",
+"count": 2
+},
+{
+"name": "Lubilax",
+"count": 2
+},
+{
+"name": "Coralcal-DX",
+"count": 2
+},
+{
+"name": "Toradolin",
+"count": 2
+},
+{
+"name": "Maxima",
+"count": 2
+},
+{
+"name": "Dermix",
+"count": 2
+},
+{
+"name": "Wikid",
+"count": 2
+},
+{
+"name": "Trexim",
+"count": 2
+},
+{
+"name": "Ental",
+"count": 2
+},
+{
+"name": "Nuprox",
+"count": 2
+},
+{
+"name": "Fuelav",
+"count": 2
+},
+{
+"name": "D Coral",
+"count": 2
+},
+{
+"name": "Flexi SR",
+"count": 2
+},
+{
+"name": "Fulac",
+"count": 2
+},
+{
+"name": "Doxflo",
+"count": 2
+},
+{
+"name": "Omep",
+"count": 2
+},
+{
+"name": "Solasi",
+"count": 2
+},
+{
+"name": "Pracass",
+"count": 2
+},
+{
+"name": "Anuva",
+"count": 1
+},
+{
+"name": "Panicel",
+"count": 1
+},
+{
+"name": "Dufluso",
+"count": 1
+},
+{
+"name": "Cal D",
+"count": 1
+},
+{
+"name": "Onium",
+"count": 1
+},
+{
+"name": "Metryour",
+"count": 1
+},
+{
+"name": "Liposomal Amphotericin",
+"count": 1
+},
+{
+"name": "Conventional Amphotericin",
+"count": 1
+},
+{
+"name": "Encesale",
+"count": 1
+},
+{
+"name": "Nexcital",
+"count": 1
+},
+{
+"name": "Rivetails",
+"count": 1
+},
+{
+"name": "Bentix",
+"count": 1
+},
+{
+"name": "Crown PR",
+"count": 1
+},
+{
+"name": "Azomac",
+"count": 1
+},
+{
+"name": "Plus Ison",
+"count": 1
+},
+{
+"name": "Bxor Lery",
+"count": 1
+},
+{
+"name": "Vaxigrip Tetra",
+"count": 1
+},
+{
+"name": "Coralcal Do",
+"count": 1
+},
+{
+"name": "Dicho",
+"count": 1
+},
+{
+"name": "Rantac",
+"count": 1
+},
+{
+"name": "Rivotail",
+"count": 1
+},
+{
+"name": "Bxor",
+"count": 1
+},
+{
+"name": "XPq",
+"count": 1
+},
+{
+"name": "Amphotericin",
+"count": 1
+},
+{
+"name": "Ultoneal-D",
+"count": 1
+},
+{
+"name": "Castilex",
+"count": 1
+},
+{
+"name": "Altracal-D",
+"count": 1
+},
+{
+"name": "Omeprozy",
+"count": 1
+},
+{
+"name": "Azee",
+"count": 1
+},
+{
+"name": "Megacoboote",
+"count": 1
+},
+{
+"name": "Obugein",
+"count": 1
+},
+{
+"name": "Deena",
+"count": 1
+},
+{
+"name": "Doro Condic",
+"count": 1
+},
+{
+"name": "Bel",
+"count": 1
+},
+{
+"name": "Ala",
+"count": 1
+},
+{
+"name": "Revol",
+"count": 1
+},
+{
+"name": "Pirinx",
+"count": 1
+},
+{
+"name": "Rianorial",
+"count": 1
+},
+{
+"name": "Sumol DS",
+"count": 1
+},
+{
+"name": "Muctite LS",
+"count": 1
+},
+{
+"name": "Meftal-F",
+"count": 1
+},
+{
+"name": "Zecodol PT",
+"count": 1
+},
+{
+"name": "Candifast SB",
+"count": 1
+},
+{
+"name": "Luvio",
+"count": 1
+},
+{
+"name": "Omdon",
+"count": 1
+},
+{
+"name": "Zepison Plan",
+"count": 1
+},
+{
+"name": "Rosen",
+"count": 1
+},
+{
+"name": "Eiprozyd DS",
+"count": 1
+},
+{
+"name": "Filmat",
+"count": 1
+},
+{
+"name": "Perodin",
+"count": 1
+},
+{
+"name": "Cinarton Plus",
+"count": 1
+},
+{
+"name": "XeroSoft",
+"count": 1
+},
+{
+"name": "Ovocal-Dx",
+"count": 1
+},
+{
+"name": "Postop",
+"count": 1
+},
+{
+"name": "Newso-B",
+"count": 1
+},
+{
+"name": "Lo Pag",
+"count": 1
+},
+{
+"name": "Conalcal DX",
+"count": 1
+},
+{
+"name": "Volinac",
+"count": 1
+},
+{
+"name": "Neundin",
+"count": 1
+},
+{
+"name": "Napadel",
+"count": 1
+},
+{
+"name": "Coralcal DX",
+"count": 1
+},
+{
+"name": "Lebue",
+"count": 1
+},
+{
+"name": "Neotionin",
+"count": 1
+},
+{
+"name": "Histan",
+"count": 1
+},
+{
+"name": "Long",
+"count": 1
+},
+{
+"name": "Dicesfemme",
+"count": 1
+},
+{
+"name": "Ccfactav",
+"count": 1
+},
+{
+"name": "Purifen",
+"count": 1
+},
+{
+"name": "Tofan",
+"count": 1
+},
+{
+"name": "Fungide",
+"count": 1
+},
+{
+"name": "Revlife",
+"count": 1
+},
+{
+"name": "Xinc-G",
+"count": 1
+},
+{
+"name": "Candoral",
+"count": 1
+},
+{
+"name": "Ne Cor-B",
+"count": 1
+},
+{
+"name": "Meas",
+"count": 1
+},
+{
+"name": "Allertin",
+"count": 1
+},
+{
+"name": "Augment",
+"count": 1
+},
+{
+"name": "Poxim",
+"count": 1
+},
+{
+"name": "Fencdin",
+"count": 1
+},
+{
+"name": "Napce",
+"count": 1
+},
+{
+"name": "Azicin",
+"count": 1
+},
+{
+"name": "Napa Chew",
+"count": 1
+},
+{
+"name": "Three",
+"count": 1
+},
+{
+"name": "Nape",
+"count": 1
+},
+{
+"name": "Faradin",
+"count": 1
+},
+{
+"name": "Eye",
+"count": 1
+},
+{
+"name": "Lebac",
+"count": 1
+},
+{
+"name": "Kefuclav",
+"count": 1
+},
+{
+"name": "Reset",
+"count": 1
+},
+{
+"name": "Arristovit-M",
+"count": 1
+},
+{
+"name": "Nupcetho",
+"count": 1
+},
+{
+"name": "Billl",
+"count": 1
+},
+{
+"name": "Pevisore",
+"count": 1
+},
+{
+"name": "Mucospel",
+"count": 1
+},
+{
+"name": "Xallort",
+"count": 1
+},
+{
+"name": "N-max",
+"count": 1
+},
+{
+"name": "Ginoroy",
+"count": 1
+},
+{
+"name": "T-PIC",
+"count": 1
+},
+{
+"name": "Rynex",
+"count": 1
+},
+{
+"name": "Neurocare",
+"count": 1
+},
+{
+"name": "Cof",
+"count": 1
+},
+{
+"name": "Gento HC",
+"count": 1
+},
+{
+"name": "Nasovap TM",
+"count": 1
+},
+{
+"name": "Losect   Losectil",
+"count": 1
+},
+{
+"name": "Ear",
+"count": 1
+},
+{
+"name": "Oradin",
+"count": 1
+},
+{
+"name": "Diensten",
+"count": 1
+},
+{
+"name": "Apistar",
+"count": 1
+},
+{
+"name": "Exiben",
+"count": 1
+},
+{
+"name": "Ashan",
+"count": 1
+},
+{
+"name": "Pie",
+"count": 1
+},
+{
+"name": "Pemicm",
+"count": 1
+},
+{
+"name": "Fenofex",
+"count": 1
+},
+{
+"name": "Inflom",
+"count": 1
+},
+{
+"name": "Feadn",
+"count": 1
+},
+{
+"name": "Uiset",
+"count": 1
+},
+{
+"name": "Prolacto",
+"count": 1
+},
+{
+"name": "Aicat",
+"count": 1
+},
+{
+"name": "Curafin",
+"count": 1
+},
+{
+"name": "Adapel",
+"count": 1
+},
+{
+"name": "Teen Derm",
+"count": 1
+},
+{
+"name": "Zonyra",
+"count": 1
+},
+{
+"name": "Itain",
+"count": 1
+},
+{
+"name": "Prosalin",
+"count": 1
+},
+{
+"name": "Folicrez",
+"count": 1
+},
+{
+"name": "Zepotide",
+"count": 1
+},
+{
+"name": "Cora-DX",
+"count": 1
+},
+{
+"name": "Eggcal-DX",
+"count": 1
+},
+{
+"name": "Pontal",
+"count": 1
+},
+{
+"name": "Folate-B",
+"count": 1
+},
+{
+"name": "R5-Cal-D",
+"count": 1
+},
+{
+"name": "Ganirad",
+"count": 1
+},
+{
+"name": "Preg Care",
+"count": 1
+},
+{
+"name": "Kalcoral D",
+"count": 1
+},
+{
+"name": "Limbix",
+"count": 1
+},
+{
+"name": "Organical-Dx",
+"count": 1
+},
+{
+"name": "Neurobet",
+"count": 1
+},
+{
+"name": "Nevobeat",
+"count": 1
+},
+{
+"name": "Augeuta",
+"count": 1
+},
+{
+"name": "Ipec Plus",
+"count": 1
+},
+{
+"name": "Xin",
+"count": 1
+},
+{
+"name": "Opaeso",
+"count": 1
+},
+{
+"name": "Magnesium Hestrin G",
+"count": 1
+},
+{
+"name": "B Complex",
+"count": 1
+},
+{
+"name": "Sinal",
+"count": 1
+},
+{
+"name": "Mopride",
+"count": 1
+},
+{
+"name": "P L",
+"count": 1
+},
+{
+"name": "Bundy Bone",
+"count": 1
+},
+{
+"name": "Locazol",
+"count": 1
+},
+{
+"name": "Toti",
+"count": 1
+},
+{
+"name": "Torlack",
+"count": 1
+},
+{
+"name": "Azimex",
+"count": 1
+},
+{
+"name": "Scabex",
+"count": 1
+},
+{
+"name": "Atrizin",
+"count": 1
+},
+{
+"name": "Xfin",
+"count": 1
+},
+{
+"name": "Salbu",
+"count": 1
+},
+{
+"name": "Suinoba",
+"count": 1
+},
+{
+"name": "JF Chicon",
+"count": 1
+},
+{
+"name": "Histacen",
+"count": 1
+},
+{
+"name": "Lipezid DX",
+"count": 1
+},
+{
+"name": "Zinelzy",
+"count": 1
+},
+{
+"name": "D Rise",
+"count": 1
+},
+{
+"name": "Al D",
+"count": 1
+},
+{
+"name": "Santonic",
+"count": 1
+},
+{
+"name": "Apthles",
+"count": 1
+},
+{
+"name": "N Max",
+"count": 1
+},
+{
+"name": "Naya PLC",
+"count": 1
+},
+{
+"name": "Rabe Prose",
+"count": 1
+},
+{
+"name": "Filix",
+"count": 1
+},
+{
+"name": "PLC Napa",
+"count": 1
+},
+{
+"name": "Cordel DX",
+"count": 1
+},
+{
+"name": "Loracef",
+"count": 1
+},
+{
+"name": "Bexiuc",
+"count": 1
+},
+{
+"name": "Emeset",
+"count": 1
+},
+{
+"name": "Predisol",
+"count": 1
+},
+{
+"name": "Binamin",
+"count": 1
+},
+{
+"name": "Phylagen",
+"count": 1
+},
+{
+"name": "Nurita",
+"count": 1
+},
+{
+"name": "Livolite",
+"count": 1
+},
+{
+"name": "Itchicon",
+"count": 1
+},
+{
+"name": "White Nil",
+"count": 1
+},
+{
+"name": "Luvena",
+"count": 1
+},
+{
+"name": "Duralax",
+"count": 1
+},
+{
+"name": "Anustat",
+"count": 1
+},
+{
+"name": "Progavi",
+"count": 1
+},
+{
+"name": "Famotac",
+"count": 1
+},
+{
+"name": "Pronex",
+"count": 1
+},
+{
+"name": "Afun",
+"count": 1
+},
+{
+"name": "Burly Bone",
+"count": 1
+},
+{
+"name": "Myclin",
+"count": 1
+},
+{
+"name": "Reservix",
+"count": 1
+},
+{
+"name": "Dsec",
+"count": 1
+},
+{
+"name": "Moxifix",
+"count": 1
+},
+{
+"name": "Mups",
+"count": 1
+},
+{
+"name": "Nemacode",
+"count": 1
+},
+{
+"name": "Nystal",
+"count": 1
+},
+{
+"name": "Difans",
+"count": 1
+},
+{
+"name": "Recto Moldare",
+"count": 1
+},
+{
+"name": "Cetriz",
+"count": 1
+},
+{
+"name": "Revocit",
+"count": 1
+},
+{
+"name": "Cordal D",
+"count": 1
+},
+{
+"name": "Neural",
+"count": 1
+},
+{
+"name": "Calboral DX",
+"count": 1
+},
+{
+"name": "Xinc",
+"count": 1
+},
+{
+"name": "Bilan",
+"count": 1
+},
+{
+"name": "Progavi R",
+"count": 1
+},
+{
+"name": "Bilfast",
+"count": 1
+},
+{
+"name": "Calboral-D",
+"count": 1
+},
+{
+"name": "Filmed",
+"count": 1
+},
+{
+"name": "Calboral",
+"count": 1
+},
+{
+"name": "Bierin",
+"count": 1
+},
+{
+"name": "Fungidal HC",
+"count": 1
+},
+{
+"name": "Fosibon-DH",
+"count": 1
+},
+{
+"name": "Netoner",
+"count": 1
+},
+{
+"name": "Sp Alanil",
+"count": 1
+},
+{
+"name": "Zofra",
+"count": 1
+},
+{
+"name": "Rabe-ZO",
+"count": 1
+},
+{
+"name": "Algh",
+"count": 1
+},
+{
+"name": "Hristaein",
+"count": 1
+},
+{
+"name": "Terbin",
+"count": 1
+},
+{
+"name": "Napa  Take",
+"count": 1
+},
+{
+"name": "Fenadin  Take",
+"count": 1
+},
+{
+"name": "Poxi  Take",
+"count": 1
+},
+{
+"name": "Xyral",
+"count": 1
+},
+{
+"name": "Bilantin",
+"count": 1
+},
+{
+"name": "D-Chitro",
+"count": 1
+},
+{
+"name": "Primavera",
+"count": 1
+},
+{
+"name": "Salbutamol  The",
+"count": 1
+},
+{
+"name": "Ketomar Should",
+"count": 1
+},
+{
+"name": "Rolae",
+"count": 1
+},
+{
+"name": "Demor JDX  Take",
+"count": 1
+},
+{
+"name": "Apply 2",
+"count": 1
+},
+{
+"name": "TPC  Take",
+"count": 1
+},
+{
+"name": "Nemocade Take",
+"count": 1
+},
+{
+"name": "Ketifen  Take",
+"count": 1
+},
+{
+"name": "Angenta",
+"count": 1
+},
+{
+"name": "Exium-Mups",
+"count": 1
+},
+{
+"name": "Okical DX  Take",
+"count": 1
+},
+{
+"name": "D3 40000 Take",
+"count": 1
+},
+{
+"name": "Dysmen",
+"count": 1
+},
+{
+"name": "Othera 20  Take",
+"count": 1
+},
+{
+"name": "Maxsulin",
+"count": 1
+},
+{
+"name": "Feglo-FZ Take",
+"count": 1
+},
+{
+"name": "Reef-DX  Take",
+"count": 1
+},
+{
+"name": "Candinil",
+"count": 1
+},
+{
+"name": "Biocal DX",
+"count": 1
+},
+{
+"name": "Cemet",
+"count": 1
+},
+{
+"name": "Furotil",
+"count": 1
+},
+{
+"name": "Deprex",
+"count": 1
+},
+{
+"name": "Cyclud",
+"count": 1
+},
+{
+"name": "Voxamin",
+"count": 1
+},
+{
+"name": "Mitadip",
+"count": 1
+},
+{
+"name": "Thiochek E",
+"count": 1
+},
+{
+"name": "Pantocid DSR",
+"count": 1
+},
+{
+"name": "Koral Plus",
+"count": 1
+},
+{
+"name": "Streptomycin",
+"count": 1
+},
+{
+"name": "Rifacin",
+"count": 1
+},
+{
+"name": "Pyrinamide",
+"count": 1
+},
+{
+"name": "Betanel",
+"count": 1
+},
+{
+"name": "Getspan",
+"count": 1
+},
+{
+"name": "Etham",
+"count": 1
+},
+{
+"name": "Trevox",
+"count": 1
+},
+{
+"name": "Scabo",
+"count": 1
+},
+{
+"name": "Cepalar",
+"count": 1
+},
+{
+"name": "Fexodin",
+"count": 1
+},
+{
+"name": "Camelia",
+"count": 1
+},
+{
+"name": "Zuthamax",
+"count": 1
+},
+{
+"name": "Pregat",
+"count": 1
+},
+{
+"name": "Folin",
+"count": 1
+},
+{
+"name": "Dicliz Plus",
+"count": 1
+},
+{
+"name": "Glycept",
+"count": 1
+},
+{
+"name": "Topirox",
+"count": 1
+},
+{
+"name": "Calintax",
+"count": 1
+},
+{
+"name": "Linax B Cap",
+"count": 1
+},
+{
+"name": "Fedil TH",
+"count": 1
+},
+{
+"name": "Atovastin",
+"count": 1
+},
+{
+"name": "Perindo",
+"count": 1
+},
+{
+"name": "Visceralgine Inj Nexum",
+"count": 1
+},
+{
+"name": "Ornopain",
+"count": 1
+},
+{
+"name": "Axim CV",
+"count": 1
+},
+{
+"name": "Nexum Mups",
+"count": 1
+},
+{
+"name": "Uroflo",
+"count": 1
+},
+{
+"name": "Gabapentin GRS",
+"count": 1
+},
+{
+"name": "Omela",
+"count": 1
+},
+{
+"name": "Flaminta",
+"count": 1
+},
+{
+"name": "Pinen 40 DSR",
+"count": 1
+},
+{
+"name": "Nextide PLM",
+"count": 1
+},
+{
+"name": "Arbitel AM",
+"count": 1
+},
+{
+"name": "Astrin",
+"count": 1
+},
+{
+"name": "Expa",
+"count": 1
+},
+{
+"name": "Ligazide MR",
+"count": 1
+},
+{
+"name": "Tofatop",
+"count": 1
+},
+{
+"name": "Betnisol",
+"count": 1
+},
+{
+"name": "Neuropath",
+"count": 1
+},
+{
+"name": "Fluticat G",
+"count": 1
+},
+{
+"name": "Pachrome",
+"count": 1
+},
+{
+"name": "Melanway",
+"count": 1
+},
+{
+"name": "Vesha",
+"count": 1
+},
+{
+"name": "Normal Saline",
+"count": 1
+},
+{
+"name": "Kharish",
+"count": 1
+},
+{
+"name": "Cytokit",
+"count": 1
+},
+{
+"name": "Norvis",
+"count": 1
+},
+{
+"name": "Freshly Eye",
+"count": 1
+},
+{
+"name": "Thanglate",
+"count": 1
+},
+{
+"name": "Fosibon DU",
+"count": 1
+},
+{
+"name": "Rabet",
+"count": 1
+},
+{
+"name": "Pogo",
+"count": 1
+},
+{
+"name": "X-Cold",
+"count": 1
+},
+{
+"name": "Ketomer",
+"count": 1
+},
+{
+"name": "Cefotil Plus",
+"count": 1
+},
+{
+"name": "Supra B",
+"count": 1
+},
+{
+"name": "Siramis",
+"count": 1
+},
+{
+"name": "Voltalin-D",
+"count": 1
+},
+{
+"name": "Econate Plus",
+"count": 1
+},
+{
+"name": "Flugal",
+"count": 1
+},
+{
+"name": "Levosalbabauf",
+"count": 1
+},
+{
+"name": "X-cold",
+"count": 1
+},
+{
+"name": "Zime",
+"count": 1
+},
+{
+"name": "Fexofort",
+"count": 1
+},
+{
+"name": "Fenol",
+"count": 1
+},
+{
+"name": "Anta",
+"count": 1
+},
+{
+"name": "Aland",
+"count": 1
+},
+{
+"name": "Vnxitel",
+"count": 1
+},
+{
+"name": "Famielar",
+"count": 1
+},
+{
+"name": "Toramax",
+"count": 1
+},
+{
+"name": "Nexeum MUPS",
+"count": 1
+},
+{
+"name": "Cefuraxime",
+"count": 1
+},
+{
+"name": "Pair",
+"count": 1
+},
+{
+"name": "Corce",
+"count": 1
+},
+{
+"name": "Cifuclav",
+"count": 1
+},
+{
+"name": "Flamay",
+"count": 1
+},
+{
+"name": "Famotcey",
+"count": 1
+},
+{
+"name": "Probal-SX",
+"count": 1
+},
+{
+"name": "KOP-Roo",
+"count": 1
+},
+{
+"name": "Maxiera RUPS",
+"count": 1
+},
+{
+"name": "Calcirol",
+"count": 1
+},
+{
+"name": "Disartan S",
+"count": 1
+},
+{
+"name": "Covalex SX",
+"count": 1
+},
+{
+"name": "Napxon",
+"count": 1
+},
+{
+"name": "Caberol",
+"count": 1
+},
+{
+"name": "Folix",
+"count": 1
+},
+{
+"name": "Gavifluxuon",
+"count": 1
+},
+{
+"name": "Xepo",
+"count": 1
+},
+{
+"name": "Indeven",
+"count": 1
+},
+{
+"name": "Primacap",
+"count": 1
+},
+{
+"name": "Reelite",
+"count": 1
+},
+{
+"name": "Vitanenv",
+"count": 1
+},
+{
+"name": "Gestavital",
+"count": 1
+},
+{
+"name": "Flexivon ER",
+"count": 1
+},
+{
+"name": "DIEC AWP",
+"count": 1
+},
+{
+"name": "Advs",
+"count": 1
+},
+{
+"name": "Anget",
+"count": 1
+},
+{
+"name": "Rabeper M-",
+"count": 1
+},
+{
+"name": "Kop",
+"count": 1
+},
+{
+"name": "Ovocal SX",
+"count": 1
+},
+{
+"name": "Mivaba",
+"count": 1
+},
+{
+"name": "Xelpro",
+"count": 1
+},
+{
+"name": "Hazmole X",
+"count": 1
+},
+{
+"name": "Ace S",
+"count": 1
+},
+{
+"name": "Momodo L-Ex",
+"count": 1
+},
+{
+"name": "Airup",
+"count": 1
+},
+{
+"name": "Floxalone",
+"count": 1
+},
+{
+"name": "Esopvex MUPS",
+"count": 1
+},
+{
+"name": "Itogut",
+"count": 1
+},
+{
+"name": "Fassical-D",
+"count": 1
+},
+{
+"name": "Nexum NUPS",
+"count": 1
+},
+{
+"name": "Floy",
+"count": 1
+},
+{
+"name": "V-Plex",
+"count": 1
+},
+{
+"name": "Dom-A",
+"count": 1
+},
+{
+"name": "Emixef",
+"count": 1
+},
+{
+"name": "Fener",
+"count": 1
+},
+{
+"name": "Anistocort Plus",
+"count": 1
+},
+{
+"name": "Zenopaln",
+"count": 1
+},
+{
+"name": "Nexcap",
+"count": 1
+},
+{
+"name": "Aristo D",
+"count": 1
+},
+{
+"name": "Voltelin",
+"count": 1
+},
+{
+"name": "Funoclav",
+"count": 1
+},
+{
+"name": "Calsome D",
+"count": 1
+},
+{
+"name": "Sintab",
+"count": 1
+},
+{
+"name": "Inclux",
+"count": 1
+},
+{
+"name": "Jumbum",
+"count": 1
+},
+{
+"name": "Pentex",
+"count": 1
+},
+{
+"name": "Conacul D",
+"count": 1
+},
+{
+"name": "Violine",
+"count": 1
+},
+{
+"name": "Cefacion",
+"count": 1
+},
+{
+"name": "Rocal-DVIA",
+"count": 1
+},
+{
+"name": "ZIF-CE",
+"count": 1
+},
+{
+"name": "Simpli-3",
+"count": 1
+},
+{
+"name": "Dinozil",
+"count": 1
+},
+{
+"name": "Ketoflam",
+"count": 1
+},
+{
+"name": "Conilex D",
+"count": 1
+},
+{
+"name": "Sypra-B",
+"count": 1
+},
+{
+"name": "Nivogal",
+"count": 1
+},
+{
+"name": "Seacal DX",
+"count": 1
+},
+{
+"name": "Oricox",
+"count": 1
+},
+{
+"name": "Pentoneix",
+"count": 1
+},
+{
+"name": "Cosee MUPS",
+"count": 1
+},
+{
+"name": "Esoprox MUPS",
+"count": 1
+},
+{
+"name": "Acebid",
+"count": 1
+},
+{
+"name": "Amiton IV",
+"count": 1
+},
+{
+"name": "Etolac",
+"count": 1
+},
+{
+"name": "Amiton DX",
+"count": 1
+},
+{
+"name": "Amlahery W",
+"count": 1
+},
+{
+"name": "Telnyvas-AM",
+"count": 1
+},
+{
+"name": "Rosuva",
+"count": 1
+},
+{
+"name": "Tydan",
+"count": 1
+},
+{
+"name": "Bukul",
+"count": 1
+},
+{
+"name": "Dexilan",
+"count": 1
+},
+{
+"name": "Prostajin-D",
+"count": 1
+},
+{
+"name": "Loperil",
+"count": 1
+},
+{
+"name": "GTW SR",
+"count": 1
+},
+{
+"name": "Cardmex",
+"count": 1
+},
+{
+"name": "Supra-B",
+"count": 1
+},
+{
+"name": "Fossical-DX",
+"count": 1
+},
+{
+"name": "Tecnila",
+"count": 1
+},
+{
+"name": "Ferozid",
+"count": 1
+},
+{
+"name": "Evo",
+"count": 1
+},
+{
+"name": "Plylopen Forte",
+"count": 1
+},
+{
+"name": "Bilanex",
+"count": 1
+},
+{
+"name": "Cefaclor",
+"count": 1
+},
+{
+"name": "Tradol-f IV",
+"count": 1
+},
+{
+"name": "Maxima 40 IV",
+"count": 1
+},
+{
+"name": "Sokas",
+"count": 1
+},
+{
+"name": "Frizon",
+"count": 1
+},
+{
+"name": "Patoxi IV",
+"count": 1
+},
+{
+"name": "Ciprocin",
+"count": 1
+},
+{
+"name": "Finix MUPS",
+"count": 1
+},
+{
+"name": "Furex",
+"count": 1
+},
+{
+"name": "Nutram Kids",
+"count": 1
+},
+{
+"name": "Clarin",
+"count": 1
+},
+{
+"name": "Fexobest",
+"count": 1
+},
+{
+"name": "Canalia",
+"count": 1
+},
+{
+"name": "Alared",
+"count": 1
+},
+{
+"name": "Afix",
+"count": 1
+},
+{
+"name": "Dextue",
+"count": 1
+},
+{
+"name": "Olmedip",
+"count": 1
+},
+{
+"name": "Tridosil",
+"count": 1
+},
+{
+"name": "Pedia-min",
+"count": 1
+},
+{
+"name": "Purital",
+"count": 1
+},
+{
+"name": "Xaicort",
+"count": 1
+},
+{
+"name": "Flamyd",
+"count": 1
+},
+{
+"name": "Fuocher",
+"count": 1
+},
+{
+"name": "Citofer",
+"count": 1
+},
+{
+"name": "Normons",
+"count": 1
+},
+{
+"name": "Bukoy",
+"count": 1
+},
+{
+"name": "Melixol",
+"count": 1
+},
+{
+"name": "Recodep",
+"count": 1
+},
+{
+"name": "Orocal D",
+"count": 1
+},
+{
+"name": "Fetisol",
+"count": 1
+},
+{
+"name": "Momodo LEX",
+"count": 1
+},
+{
+"name": "Moxacion",
+"count": 1
+},
+{
+"name": "Doxover",
+"count": 1
+},
+{
+"name": "Alarod",
+"count": 1
+},
+{
+"name": "Nubram Kids",
+"count": 1
+},
+{
+"name": "Armino Plus",
+"count": 1
+},
+{
+"name": "Orocal-DX",
+"count": 1
+},
+{
+"name": "Rebova Max",
+"count": 1
+},
+{
+"name": "Coralex",
+"count": 1
+},
+{
+"name": "Rcservix XR",
+"count": 1
+},
+{
+"name": "Ipel-Jupen",
+"count": 1
+},
+{
+"name": "Immuna Plus",
+"count": 1
+},
+{
+"name": "Bokof",
+"count": 1
+},
+{
+"name": "Clamdx",
+"count": 1
+},
+{
+"name": "Radex",
+"count": 1
+},
+{
+"name": "Reset ER",
+"count": 1
+},
+{
+"name": "Zovia Gold",
+"count": 1
+},
+{
+"name": "Clinpic",
+"count": 1
+},
+{
+"name": "Orthogeo",
+"count": 1
+},
+{
+"name": "Zevotil",
+"count": 1
+},
+{
+"name": "Revova",
+"count": 1
+},
+{
+"name": "Arigel Val",
+"count": 1
+},
+{
+"name": "Calovul-DX",
+"count": 1
+},
+{
+"name": "Coralmax-DX",
+"count": 1
+},
+{
+"name": "NX SSp",
+"count": 1
+},
+{
+"name": "Lytex",
+"count": 1
+},
+{
+"name": "Ficof",
+"count": 1
+},
+{
+"name": "Novovapd",
+"count": 1
+},
+{
+"name": "Blc",
+"count": 1
+},
+{
+"name": "Pethfire",
+"count": 1
+},
+{
+"name": "Vengon",
+"count": 1
+},
+{
+"name": "Novovard Pleppen",
+"count": 1
+},
+{
+"name": "Azort",
+"count": 1
+},
+{
+"name": "Comblgen",
+"count": 1
+},
+{
+"name": "Xaber",
+"count": 1
+},
+{
+"name": "No-Bf",
+"count": 1
+},
+{
+"name": "Lumcee",
+"count": 1
+},
+{
+"name": "Veloz-D",
+"count": 1
+},
+{
+"name": "Montair-LC",
+"count": 1
+},
+{
+"name": "Grilinerus-SM",
+"count": 1
+},
+{
+"name": "Zincout",
+"count": 1
+},
+{
+"name": "Cavnlosart",
+"count": 1
+},
+{
+"name": "Prislol Plus",
+"count": 1
+},
+{
+"name": "Trova",
+"count": 1
+},
+{
+"name": "Noriun",
+"count": 1
+},
+{
+"name": "Flexibae",
+"count": 1
+},
+{
+"name": "Pancee",
+"count": 1
+},
+{
+"name": "Frerxit",
+"count": 1
+},
+{
+"name": "Normayin-RT",
+"count": 1
+},
+{
+"name": "Snmol DS",
+"count": 1
+},
+{
+"name": "Mucolite LS",
+"count": 1
+},
+{
+"name": "Meftal",
+"count": 1
+},
+{
+"name": "Shyel",
+"count": 1
+},
+{
+"name": "Croxim",
+"count": 1
+},
+{
+"name": "Cleaf",
+"count": 1
+},
+{
+"name": "Polymal",
+"count": 1
+},
+{
+"name": "Croeal PR",
+"count": 1
+},
+{
+"name": "Salive Ruses",
+"count": 1
+},
+{
+"name": "Ketord DT",
+"count": 1
+},
+{
+"name": "Amphotericin IV-B",
+"count": 1
+},
+{
+"name": "Ferox",
+"count": 1
+},
+{
+"name": "Neurokival Plus",
+"count": 1
+},
+{
+"name": "Bplus Fout",
+"count": 1
+},
+{
+"name": "Relantus",
+"count": 1
+},
+{
+"name": "Whucal-D",
+"count": 1
+},
+{
+"name": "Castilux",
+"count": 1
+},
+{
+"name": "Whacal-D",
+"count": 1
+},
+{
+"name": "Omepxoy",
+"count": 1
+},
+{
+"name": "Oueset",
+"count": 1
+},
+{
+"name": "Relunt Plus",
+"count": 1
+},
+{
+"name": "Lanol-ER",
+"count": 1
+},
+{
+"name": "Dompan",
+"count": 1
+},
+{
+"name": "Megacuforte",
+"count": 1
+},
+{
+"name": "Sbugesis",
+"count": 1
+},
+{
+"name": "Seeria",
+"count": 1
+},
+{
+"name": "Cefelac",
+"count": 1
+},
+{
+"name": "Tone Kid",
+"count": 1
+},
+{
+"name": "Wikosye",
+"count": 1
+},
+{
+"name": "Arymetic",
+"count": 1
+},
+{
+"name": "Ambudil",
+"count": 1
+},
+{
+"name": "Phosome",
+"count": 1
+},
+{
+"name": "Epupdex",
+"count": 1
+},
+{
+"name": "Wein DS",
+"count": 1
+},
+{
+"name": "Meftal-P",
+"count": 1
+},
+{
+"name": "Epnedue",
+"count": 1
+},
+{
+"name": "Cefinaxone",
+"count": 1
+},
+{
+"name": "Pathedine",
+"count": 1
+},
+{
+"name": "Moxaclav",
+"count": 1
+},
+{
+"name": "Barobit",
+"count": 1
+},
+{
+"name": "Paracetamol",
+"count": 1
+},
+{
+"name": "Domperidone",
+"count": 1
+},
+{
+"name": "Actrapid",
+"count": 1
+},
+{
+"name": "Don-A",
+"count": 1
+},
+{
+"name": "Roxadex",
+"count": 1
+},
+{
+"name": "Linda D",
+"count": 1
+},
+{
+"name": "Fibrinil",
+"count": 1
+},
+{
+"name": "Maxulin R",
+"count": 1
+},
+{
+"name": "Labeta",
+"count": 1
+},
+{
+"name": "Nalbun-2",
+"count": 1
+},
+{
+"name": "Medical",
+"count": 1
+},
+{
+"name": "B50 Forte",
+"count": 1
+},
+{
+"name": "Lasix",
+"count": 1
+},
+{
+"name": "Amdocal",
+"count": 1
+},
+{
+"name": "Ketorac",
+"count": 1
+},
+{
+"name": "Flucloxacillin",
+"count": 1
+},
+{
+"name": "P C",
+"count": 1
+},
+{
+"name": "Duratocin",
+"count": 1
+},
+{
+"name": "Flamy",
+"count": 1
+},
+{
+"name": "Ultrafen Plus",
+"count": 1
+},
+{
+"name": "Cartilix",
+"count": 1
+},
+{
+"name": "Diclofenac",
+"count": 1
+},
+{
+"name": "Linatab E",
+"count": 1
+},
+{
+"name": "Lopo",
+"count": 1
+},
+{
+"name": "Danflex",
+"count": 1
+},
+{
+"name": "Myelin",
+"count": 1
+},
+{
+"name": "Numlo-TM",
+"count": 1
+},
+{
+"name": "Vylda-DM",
+"count": 1
+},
+{
+"name": "Melmet SR",
+"count": 1
+},
+{
+"name": "Ecaspirin-AV",
+"count": 1
+},
+{
+"name": "Rabiros-D",
+"count": 1
+},
+{
+"name": "Vibraute",
+"count": 1
+},
+{
+"name": "Zerodol-P",
+"count": 1
+},
+{
+"name": "Alkasol",
+"count": 1
+},
+{
+"name": "Lfx",
+"count": 1
+},
+{
+"name": "Candid-V",
+"count": 1
+},
+{
+"name": "Surbex Z",
+"count": 1
+},
+{
+"name": "Flagyl",
+"count": 1
+},
+{
+"name": "Risek",
+"count": 1
+},
+{
+"name": "Enfor",
+"count": 1
+},
+{
+"name": "Sizodon Plus",
+"count": 1
+},
+{
+"name": "Qutipin",
+"count": 1
+},
+{
+"name": "Ativan",
+"count": 1
+},
+{
+"name": "Augmentin",
+"count": 1
+},
+{
+"name": "Enzoflam",
+"count": 1
+},
+{
+"name": "Pan D",
+"count": 1
+},
+{
+"name": "Clave",
+"count": 1
+},
+{
+"name": "Rabiv",
+"count": 1
+},
+{
+"name": "Livis",
+"count": 1
+},
+{
+"name": "Dropywale",
+"count": 1
+},
+{
+"name": "Leniage",
+"count": 1
+},
+{
+"name": "Remidivivir",
+"count": 1
+},
+{
+"name": "Ferofex",
+"count": 1
+},
+{
+"name": "Itrafen",
+"count": 1
+},
+{
+"name": "Methipred",
+"count": 1
+},
+{
+"name": "Cosec",
+"count": 1
+},
+{
+"name": "Articul",
+"count": 1
+},
+{
+"name": "Alcat",
+"count": 1
+},
+{
+"name": "Revintin X",
+"count": 1
+},
+{
+"name": "Ceftizone",
+"count": 1
+},
+{
+"name": "Protenin X Ultra",
+"count": 1
+},
+{
+"name": "Soyel",
+"count": 1
+},
+{
+"name": "Napso D",
+"count": 1
+},
+{
+"name": "D-Balance 200000 IU",
+"count": 1
+},
+{
+"name": "V3N",
+"count": 1
+},
+{
+"name": "Losita",
+"count": 1
+},
+{
+"name": "Tenil",
+"count": 1
+},
+{
+"name": "Bush",
+"count": 1
+},
+{
+"name": "Amoxicillin",
+"count": 1
+},
+{
+"name": "Optikam Capsura",
+"count": 1
+},
+{
+"name": "Proxen",
+"count": 1
+},
+{
+"name": "D-CMV",
+"count": 1
+},
+{
+"name": "Dra",
+"count": 1
+},
+{
+"name": "Lysovit",
+"count": 1
+},
+{
+"name": "Trimetabule",
+"count": 1
+},
+{
+"name": "Cac 1000 Plus",
+"count": 1
+},
+{
+"name": "Aephin",
+"count": 1
+},
+{
+"name": "Naafcal D",
+"count": 1
+},
+{
+"name": "Gravinate",
+"count": 1
+},
+{
+"name": "Decadron",
+"count": 1
+},
+{
+"name": "Deriphyllin",
+"count": 1
+},
+{
+"name": "Thyrox",
+"count": 1
+},
+{
+"name": "Argenta",
+"count": 1
+},
+{
+"name": "Ostogen D",
+"count": 1
+},
+{
+"name": "Erdon TR",
+"count": 1
+},
+{
+"name": "Mydocalm",
+"count": 1
+},
+{
+"name": "Bost",
+"count": 1
+},
+{
+"name": "Napson",
+"count": 1
+},
+{
+"name": "V3 N",
+"count": 1
+},
+{
+"name": "D Balance",
+"count": 1
+},
+{
+"name": "Myolax",
+"count": 1
+},
+{
+"name": "Desilant",
+"count": 1
+},
+{
+"name": "Esoral MUPS",
+"count": 1
+},
+{
+"name": "Ebatin",
+"count": 1
+},
+{
+"name": "Trilock",
+"count": 1
+},
+{
+"name": "Rablet",
+"count": 1
+},
+{
+"name": "Monpro",
+"count": 1
+},
+{
+"name": "Drop",
+"count": 1
+},
+{
+"name": "Bust",
+"count": 1
+},
+{
+"name": "Vir",
+"count": 1
+},
+{
+"name": "Santox",
+"count": 1
+},
+{
+"name": "Stener",
+"count": 1
+},
+{
+"name": "Flux",
+"count": 1
+},
+{
+"name": "Amdocal Plus",
+"count": 1
+},
+{
+"name": "Eltroxin",
+"count": 1
+},
+{
+"name": "Vave",
+"count": 1
+},
+{
+"name": "Aeiphin",
+"count": 1
+},
+{
+"name": "Naafcal-D",
+"count": 1
+},
+{
+"name": "Dextrose",
+"count": 1
+},
+{
+"name": "Apifez",
+"count": 1
+},
+{
+"name": "Linagliptin",
+"count": 1
+},
+{
+"name": "Adryl",
+"count": 1
+},
+{
+"name": "Gliclazide",
+"count": 1
+},
+{
+"name": "Metformin",
+"count": 1
+},
+{
+"name": "Atorvastatin",
+"count": 1
+},
+{
+"name": "Losartan",
+"count": 1
+},
+{
+"name": "Hamolex",
+"count": 1
+},
+{
+"name": "Laxyl",
+"count": 1
+},
+{
+"name": "Adora",
+"count": 1
+},
+{
+"name": "Fbetor",
+"count": 1
+},
+{
+"name": "Fibet",
+"count": 1
+},
+{
+"name": "Grophen",
+"count": 1
+},
+{
+"name": "Superstra",
+"count": 1
+},
+{
+"name": "Telbex",
+"count": 1
+},
+{
+"name": "Nexe",
+"count": 1
+},
+{
+"name": "Combicid",
+"count": 1
+},
+{
+"name": "Welzin",
+"count": 1
+},
+{
+"name": "Bitfast",
+"count": 1
+},
+{
+"name": "Stancet",
+"count": 1
+},
+{
+"name": "Terenilla",
+"count": 1
+},
+{
+"name": "Esoreal MUPS",
+"count": 1
+},
+{
+"name": "Melpred",
+"count": 1
+},
+{
+"name": "Renavit",
+"count": 1
+},
+{
+"name": "Nevmig",
+"count": 1
+},
+{
+"name": "Encitex",
+"count": 1
+},
+{
+"name": "Reindical D",
+"count": 1
+},
+{
+"name": "Zit-A",
+"count": 1
+},
+{
+"name": "Moxaclav Forte",
+"count": 1
+},
+{
+"name": "Clavoxil",
+"count": 1
+},
+{
+"name": "Ceavit",
+"count": 1
+},
+{
+"name": "Starcet",
+"count": 1
+},
+{
+"name": "Aristofed",
+"count": 1
+},
+{
+"name": "Lum-D",
+"count": 1
+},
+{
+"name": "Fixef Plus",
+"count": 1
+},
+{
+"name": "Havincal-DX",
+"count": 1
+},
+{
+"name": "Defrol 200000 IU",
+"count": 1
+},
+{
+"name": "Phloxin",
+"count": 1
+},
+{
+"name": "E-Xim MUPS",
+"count": 1
+},
+{
+"name": "Tradin",
+"count": 1
+},
+{
+"name": "Lubilex",
+"count": 1
+},
+{
+"name": "Enlac",
+"count": 1
+},
+{
+"name": "B-126",
+"count": 1
+},
+{
+"name": "Orocal-D",
+"count": 1
+},
+{
+"name": "Mexolin",
+"count": 1
+},
+{
+"name": "Denven",
+"count": 1
+},
+{
+"name": "Kalcoral-D",
+"count": 1
+},
+{
+"name": "Avit",
+"count": 1
+},
+{
+"name": "Merivit",
+"count": 1
+},
+{
+"name": "Cefuclav",
+"count": 1
+},
+{
+"name": "Cranbiotic",
+"count": 1
+},
+{
+"name": "Nero-B",
+"count": 1
+},
+{
+"name": "Dekulin VT",
+"count": 1
+},
+{
+"name": "Cardi Care",
+"count": 1
+},
+{
+"name": "Ometax",
+"count": 1
+},
+{
+"name": "Dexilend",
+"count": 1
+},
+{
+"name": "Becobian",
+"count": 1
+},
+{
+"name": "REBONE",
+"count": 1
+},
+{
+"name": "Targaba",
+"count": 1
+},
+{
+"name": "Renovite",
+"count": 1
+},
+{
+"name": "Cloron",
+"count": 1
+},
+{
+"name": "Maclid",
+"count": 1
+},
+{
+"name": "Reset Plus",
+"count": 1
+},
+{
+"name": "N-bion",
+"count": 1
+},
+{
+"name": "Telmivas AM",
+"count": 1
+},
+{
+"name": "D-RISE 40000 IU",
+"count": 1
+},
+{
+"name": "Nexum-MUPS",
+"count": 1
+},
+{
+"name": "Bilastin",
+"count": 1
+},
+{
+"name": "Prethogen",
+"count": 1
+},
+{
+"name": "Folive",
+"count": 1
+},
+{
+"name": "Shelcal DX",
+"count": 1
+},
+{
+"name": "Fevadol",
+"count": 1
+},
+{
+"name": "Pericep",
+"count": 1
+},
+{
+"name": "Pesla",
+"count": 1
+},
+{
+"name": "Azonox Ultra",
+"count": 1
+},
+{
+"name": "Zerotel",
+"count": 1
+},
+{
+"name": "Elimate",
+"count": 1
+},
+{
+"name": "Mflox",
+"count": 1
+},
+{
+"name": "Beltas Kids",
+"count": 1
+},
+{
+"name": "Zerodil",
+"count": 1
+},
+{
+"name": "Ormoflex",
+"count": 1
+},
+{
+"name": "Gaspro",
+"count": 1
+},
+{
+"name": "Wells",
+"count": 1
+},
+{
+"name": "Nuprolgin",
+"count": 1
+},
+{
+"name": "Orcef",
+"count": 1
+},
+{
+"name": "Fomicef",
+"count": 1
+},
+{
+"name": "Vaxitet",
+"count": 1
+},
+{
+"name": "Olmepin",
+"count": 1
+},
+{
+"name": "Normens",
+"count": 1
+},
+{
+"name": "Maxima NP",
+"count": 1
+},
+{
+"name": "Kindical-DX",
+"count": 1
+},
+{
+"name": "Mirzagab",
+"count": 1
+},
+{
+"name": "MAX-MUPS",
+"count": 1
+},
+{
+"name": "Diproxen",
+"count": 1
+},
+{
+"name": "Esium-MUPS",
+"count": 1
+},
+{
+"name": "Napronex",
+"count": 1
+},
+{
+"name": "Bilokof",
+"count": 1
+},
+{
+"name": "Fexol",
+"count": 1
+},
+{
+"name": "Tridex",
+"count": 1
+},
+{
+"name": "REMHO",
+"count": 1
+},
+{
+"name": "Methizic",
+"count": 1
+},
+{
+"name": "Nervion",
+"count": 1
+},
+{
+"name": "Amitin Plus",
+"count": 1
+},
+{
+"name": "Telma",
+"count": 1
+},
+{
+"name": "Bisoreif",
+"count": 1
+},
+{
+"name": "Ofran",
+"count": 1
+},
+{
+"name": "Linaglip-M",
+"count": 1
+},
+{
+"name": "Duocard",
+"count": 1
+},
+{
+"name": "Arbitel",
+"count": 1
+},
+{
+"name": "Nintoin SR",
+"count": 1
+},
+{
+"name": "Lyric",
+"count": 1
+},
+{
+"name": "Amit",
+"count": 1
+},
+{
+"name": "Diamicron MR",
+"count": 1
+},
+{
+"name": "Lijenta-M",
+"count": 1
+},
+{
+"name": "Disys",
+"count": 1
+},
+{
+"name": "Lopirel",
+"count": 1
+},
+{
+"name": "Rovast",
+"count": 1
+},
+{
+"name": "Nidocard Retard",
+"count": 1
+},
+{
+"name": "Fluver",
+"count": 1
+},
+{
+"name": "Marincal-D",
+"count": 1
+},
+{
+"name": "Lindac",
+"count": 1
+},
+{
+"name": "Beklo",
+"count": 1
+},
+{
+"name": "Emep MUPS",
+"count": 1
+},
+{
+"name": "Afrizin",
+"count": 1
+},
+{
+"name": "Elect-K",
+"count": 1
+},
+{
+"name": "Losec",
+"count": 1
+},
+{
+"name": "Minium",
+"count": 1
+},
+{
+"name": "Mannitol",
+"count": 1
+},
+{
+"name": "Napo Rapid",
+"count": 1
+},
+{
+"name": "Bigmet",
+"count": 1
+},
+{
+"name": "Bopam",
+"count": 1
+},
+{
+"name": "Menorest",
+"count": 1
+},
+{
+"name": "Zif-CI",
+"count": 1
+},
+{
+"name": "Neurobest",
+"count": 1
+},
+{
+"name": "Joinix Plus",
+"count": 1
+},
+{
+"name": "Exor",
+"count": 1
+},
+{
+"name": "Pangesic",
+"count": 1
+},
+{
+"name": "Truso",
+"count": 1
+},
+{
+"name": "Oremin",
+"count": 1
+},
+{
+"name": "Secnid-DS",
+"count": 1
+},
+{
+"name": "Nispore",
+"count": 1
+},
+{
+"name": "Ucol",
+"count": 1
+},
+{
+"name": "Calcin O",
+"count": 1
+},
+{
+"name": "Erian",
+"count": 1
+},
+{
+"name": "Actilac",
+"count": 1
+},
+{
+"name": "Napa One",
+"count": 1
+},
+{
+"name": "Sanbar",
+"count": 1
+},
+{
+"name": "Adovas",
+"count": 1
+},
+{
+"name": "Bislol",
+"count": 1
+},
+{
+"name": "Othera",
+"count": 1
+},
+{
+"name": "Combomin",
+"count": 1
+},
+{
+"name": "K-M-M",
+"count": 1
+},
+{
+"name": "Qupet",
+"count": 1
+},
+{
+"name": "Xelpro MUPS",
+"count": 1
+},
+{
+"name": "D-Sefa",
+"count": 1
+},
+{
+"name": "Alcef",
+"count": 1
+},
+{
+"name": "Doxy-A",
+"count": 1
+},
+{
+"name": "Simpli",
+"count": 1
+},
+{
+"name": "Amodis",
+"count": 1
+},
+{
+"name": "Coral Cal-D",
+"count": 1
+},
+{
+"name": "Venita Plus",
+"count": 1
+},
+{
+"name": "Folinex",
+"count": 1
+},
+{
+"name": "Zinc B",
+"count": 1
+},
+{
+"name": "Ovocal Dx",
+"count": 1
+},
+{
+"name": "Nerbo",
+"count": 1
+},
+{
+"name": "Immunu",
+"count": 1
+},
+{
+"name": "E-soprex",
+"count": 1
+},
+{
+"name": "Dincal-D",
+"count": 1
+},
+{
+"name": "Etopride",
+"count": 1
+},
+{
+"name": "L-sol",
+"count": 1
+},
+{
+"name": "Fuxtil",
+"count": 1
+},
+{
+"name": "Prnisop",
+"count": 1
+},
+{
+"name": "Gavirad",
+"count": 1
+},
+{
+"name": "Doravid",
+"count": 1
+},
+{
+"name": "Abdolax",
+"count": 1
+},
+{
+"name": "Dicatrol",
+"count": 1
+},
+{
+"name": "Voltalin",
+"count": 1
+},
+{
+"name": "Moans",
+"count": 1
+},
+{
+"name": "Paloni",
+"count": 1
+},
+{
+"name": "Pasitop",
+"count": 1
+},
+{
+"name": "Alacid DX",
+"count": 1
+},
+{
+"name": "Plytex",
+"count": 1
+},
+{
+"name": "Xalcont-6",
+"count": 1
+},
+{
+"name": "Algecal-DX",
+"count": 1
+},
+{
+"name": "Nebita",
+"count": 1
+},
+{
+"name": "Sandopa",
+"count": 1
+},
+{
+"name": "Zif CI",
+"count": 1
+},
+{
+"name": "Denvar",
+"count": 1
+},
+{
+"name": "Exium MUPS",
+"count": 1
+},
+{
+"name": "Toledom",
+"count": 1
+},
+{
+"name": "Coral Cal D",
+"count": 1
+},
+{
+"name": "Amina Plus",
+"count": 1
+},
+{
+"name": "Fexonaf",
+"count": 1
+},
+{
+"name": "Welgut",
+"count": 1
+},
+{
+"name": "Fast",
+"count": 1
+},
+{
+"name": "Contan",
+"count": 1
+},
+{
+"name": "Bilista",
+"count": 1
+},
+{
+"name": "Elonex",
+"count": 1
+},
+{
+"name": "Etrazine SB",
+"count": 1
+},
+{
+"name": "Frugal",
+"count": 1
+},
+{
+"name": "Esonal",
+"count": 1
+},
+{
+"name": "Pentop",
+"count": 1
+},
+{
+"name": "Delphes",
+"count": 1
+},
+{
+"name": "Revotril",
+"count": 1
+},
+{
+"name": "Corarif DX",
+"count": 1
+},
+{
+"name": "Duracef",
+"count": 1
+},
+{
+"name": "Harnina",
+"count": 1
+},
+{
+"name": "Zibec",
+"count": 1
+},
+{
+"name": "Momodolex",
+"count": 1
+},
+{
+"name": "Cetriv",
+"count": 1
+},
+{
+"name": "Dexopres",
+"count": 1
+},
+{
+"name": "Fericit",
+"count": 1
+},
+{
+"name": "Progut MUPS",
+"count": 1
+},
+{
+"name": "Zolivox",
+"count": 1
+},
+{
+"name": "Tony",
+"count": 1
+},
+{
+"name": "Ezumax",
+"count": 1
+},
+{
+"name": "Clofenac",
+"count": 1
+},
+{
+"name": "Flocef",
+"count": 1
+},
+{
+"name": "Montilon",
+"count": 1
+},
+{
+"name": "Sanburn",
+"count": 1
+},
+{
+"name": "Zerofit",
+"count": 1
+},
+{
+"name": "Thuvy",
+"count": 1
+},
+{
+"name": "Fix-A",
+"count": 1
+},
+{
+"name": "Esoprex MUPS",
+"count": 1
+},
+{
+"name": "Doxoved",
+"count": 1
+},
+{
+"name": "CALCEBON",
+"count": 1
+},
+{
+"name": "Ipec-super",
+"count": 1
+},
+{
+"name": "Progut Mups",
+"count": 1
+},
+{
+"name": "Gel-3",
+"count": 1
+},
+{
+"name": "Penron",
+"count": 1
+},
+{
+"name": "Esium Mups",
+"count": 1
+},
+{
+"name": "Freedom",
+"count": 1
+},
+{
+"name": "Lubile",
+"count": 1
+},
+{
+"name": "Emfol-D",
+"count": 1
+},
+{
+"name": "Aminovit Plus",
+"count": 1
+},
+{
+"name": "Texit",
+"count": 1
+},
+{
+"name": "Vasonium",
+"count": 1
+},
+{
+"name": "Indover",
+"count": 1
+},
+{
+"name": "Nefrenac",
+"count": 1
+},
+{
+"name": "Vonomed",
+"count": 1
+},
+{
+"name": "Peloxi",
+"count": 1
+},
+{
+"name": "Ferix",
+"count": 1
+},
+{
+"name": "Progut",
+"count": 1
+},
+{
+"name": "Immun-plus",
+"count": 1
+},
+{
+"name": "Nap",
+"count": 1
+},
+{
+"name": "Lifecal DX",
+"count": 1
+},
+{
+"name": "MONTinex R",
+"count": 1
+},
+{
+"name": "Traxef",
+"count": 1
+},
+{
+"name": "Soles",
+"count": 1
+},
+{
+"name": "Acos",
+"count": 1
+},
+{
+"name": "Cetovir",
+"count": 1
+},
+{
+"name": "Momodol Ext",
+"count": 1
+},
+{
+"name": "Aminosteril N Hepa",
+"count": 1
+},
+{
+"name": "Rofuclav",
+"count": 1
+},
+{
+"name": "Lubila",
+"count": 1
+},
+{
+"name": "Frexon",
+"count": 1
+},
+{
+"name": "Coral-D",
+"count": 1
+},
+{
+"name": "Cortan Long",
+"count": 1
+},
+{
+"name": "Mentinix",
+"count": 1
+},
+{
+"name": "Dopema",
+"count": 1
+},
+{
+"name": "Mexitil",
+"count": 1
+},
+{
+"name": "E-reb",
+"count": 1
+},
+{
+"name": "Pandura",
+"count": 1
+},
+{
+"name": "Mecalo",
+"count": 1
+},
+{
+"name": "Rolon",
+"count": 1
+},
+{
+"name": "Neuros-B",
+"count": 1
+},
+{
+"name": "Mupro",
+"count": 1
+},
+{
+"name": "Zerofill Plus",
+"count": 1
+},
+{
+"name": "Monolast",
+"count": 1
+},
+{
+"name": "Zeroxtil",
+"count": 1
+},
+{
+"name": "Visoeral",
+"count": 1
+},
+{
+"name": "Zerox CV",
+"count": 1
+},
+{
+"name": "Visceral",
+"count": 1
+},
+{
+"name": "Ridone-ER",
+"count": 1
+},
+{
+"name": "Bacal-P",
+"count": 1
+},
+{
+"name": "Orbapin",
+"count": 1
+},
+{
+"name": "Ecosprin",
+"count": 1
+},
+{
+"name": "Miraclon",
+"count": 1
+},
+{
+"name": "Bionic",
+"count": 1
+},
+{
+"name": "Dsee MUPS",
+"count": 1
+},
+{
+"name": "Fixaf Plus",
+"count": 1
+},
+{
+"name": "Rabeprol",
+"count": 1
+},
+{
+"name": "A-Calm",
+"count": 1
+},
+{
+"name": "Zif-A",
+"count": 1
+},
+{
+"name": "Harmolox",
+"count": 1
+},
+{
+"name": "Zabec",
+"count": 1
+},
+{
+"name": "Cetazin",
+"count": 1
+},
+{
+"name": "Momodel Extra",
+"count": 1
+},
+{
+"name": "Dexopsex",
+"count": 1
+},
+{
+"name": "Rabepra M",
+"count": 1
+},
+{
+"name": "Napryn",
+"count": 1
+},
+{
+"name": "Radivit D",
+"count": 1
+},
+{
+"name": "Peptex",
+"count": 1
+},
+{
+"name": "Stancef",
+"count": 1
+},
+{
+"name": "Remem",
+"count": 1
+},
+{
+"name": "Clovarox",
+"count": 1
+},
+{
+"name": "Visonian",
+"count": 1
+},
+{
+"name": "Dexoprex",
+"count": 1
+},
+{
+"name": "Combogic",
+"count": 1
+},
+{
+"name": "Amlabery",
+"count": 1
+},
+{
+"name": "Esaben MUPS",
+"count": 1
+},
+{
+"name": "Prenat XL",
+"count": 1
+},
+{
+"name": "Mupiderm",
+"count": 1
+},
+{
+"name": "Famotack",
+"count": 1
+},
+{
+"name": "Vissal",
+"count": 1
+},
+{
+"name": "Renova V",
+"count": 1
+},
+{
+"name": "Palae",
+"count": 1
+},
+{
+"name": "Immune B",
+"count": 1
+},
+{
+"name": "Itracon",
+"count": 1
+},
+{
+"name": "Eslam",
+"count": 1
+},
+{
+"name": "Docopa",
+"count": 1
+},
+{
+"name": "Xonel",
+"count": 1
+},
+{
+"name": "Trizon",
+"count": 1
+},
+{
+"name": "Paloxi IV",
+"count": 1
+},
+{
+"name": "Tranal",
+"count": 1
+},
+{
+"name": "Argent",
+"count": 1
+},
+{
+"name": "Aurifer",
+"count": 1
+},
+{
+"name": "Seocal DX",
+"count": 1
+},
+{
+"name": "Bilon",
+"count": 1
+},
+{
+"name": "Coralcal-D",
+"count": 1
+},
+{
+"name": "Doxovile",
+"count": 1
+},
+{
+"name": "Jemiflox",
+"count": 1
+},
+{
+"name": "Panicef",
+"count": 1
+},
+{
+"name": "Fluloxin",
+"count": 1
+},
+{
+"name": "Frexam",
+"count": 1
+},
+{
+"name": "Calcal",
+"count": 1
+},
+{
+"name": "Aminopoly",
+"count": 1
+},
+{
+"name": "Xynel",
+"count": 1
+},
+{
+"name": "Algeal TF",
+"count": 1
+},
+{
+"name": "Fuxtil CV",
+"count": 1
+},
+{
+"name": "Rabepes",
+"count": 1
+},
+{
+"name": "Clacido",
+"count": 1
+},
+{
+"name": "Acepain",
+"count": 1
+},
+{
+"name": "Alarid",
+"count": 1
+},
+{
+"name": "Purisal",
+"count": 1
+},
+{
+"name": "Napa PD",
+"count": 1
+},
+{
+"name": "Exium MUPS-",
+"count": 1
+},
+{
+"name": "Supranit-G",
+"count": 1
+},
+{
+"name": "Resonium-100",
+"count": 1
+},
+{
+"name": "Hemorise",
+"count": 1
+},
+{
+"name": "Ovotal DX",
+"count": 1
+},
+{
+"name": "Uve-mups",
+"count": 1
+},
+{
+"name": "Combogli",
+"count": 1
+},
+{
+"name": "Sinbin",
+"count": 1
+},
+{
+"name": "Aroxol",
+"count": 1
+},
+{
+"name": "Doxophylin",
+"count": 1
+},
+{
+"name": "Tracef",
+"count": 1
+},
+{
+"name": "Loqura",
+"count": 1
+},
+{
+"name": "Angilock",
+"count": 1
+},
+{
+"name": "Infusol",
+"count": 1
+},
+{
+"name": "Esoprex 40",
+"count": 1
+},
+{
+"name": "Air",
+"count": 1
+},
+{
+"name": "Hazmola",
+"count": 1
+},
+{
+"name": "Acos-500mg",
+"count": 1
+},
+{
+"name": "Momodol EX",
+"count": 1
+},
+{
+"name": "Milen",
+"count": 1
+},
+{
+"name": "Calgen",
+"count": 1
+},
+{
+"name": "Naprosyn Plus",
+"count": 1
+},
+{
+"name": "D-Cap 40000 IU",
+"count": 1
+},
+{
+"name": "Beflo",
+"count": 1
+},
+{
+"name": "Arboten",
+"count": 1
+},
+{
+"name": "Bliss",
+"count": 1
+},
+{
+"name": "Nexpro",
+"count": 1
+},
+{
+"name": "Calci-D",
+"count": 1
+},
+{
+"name": "Viset",
+"count": 1
+},
+{
+"name": "Normans",
+"count": 1
+},
+{
+"name": "Monalita",
+"count": 1
+}
+]
+}

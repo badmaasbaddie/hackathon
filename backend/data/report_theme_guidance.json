@@ -1,0 +1,397 @@
+{
+ "Liver enzyme elevation / hepatitis pattern": {
+  "category": "Hepatology",
+  "next_steps": [
+   "Urgent clinician review, particularly with jaundice, coagulopathy, encephalopathy, or severe symptoms",
+   "Review alcohol, medications, herbal products, viral hepatitis risk, metabolic risk, and autoimmune markers",
+   "Consider viral hepatitis panel, ultrasound, and repeat LFTs as indicated",
+   "Avoid alcohol and unprescribed hepatotoxic medicines pending clinical assessment"
+  ],
+  "cases": 70,
+  "key_fields": [
+   "ALT (U/L)",
+   "AST (U/L)",
+   "Total bilirubin (mg/dL)"
+  ]
+ },
+ "Dyslipidemia / elevated cardiovascular risk": {
+  "category": "Cardiometabolic",
+  "next_steps": [
+   "Clinician-led cardiovascular risk assessment including blood pressure, smoking, diabetes, family history, and calculated risk score",
+   "Assess liver and kidney function, thyroid status, and secondary causes of dyslipidemia",
+   "Intensive lifestyle counseling: diet, exercise, tobacco cessation, weight management",
+   "Statin or other lipid-lowering therapy decisions require individualized clinician assessment"
+  ],
+  "cases": 84,
+  "key_fields": [
+   "HDL (mg/dL)",
+   "LDL (mg/dL)",
+   "Triglycerides (mg/dL)"
+  ]
+ },
+ "Urinary tract infection pattern": {
+  "category": "Infectious Disease",
+  "next_steps": [
+   "Clinician review; assess fever, flank pain, pregnancy, diabetes, immunosuppression, and recurrent infections",
+   "Send urine culture and susceptibility testing before or alongside treatment where feasible",
+   "Seek urgent care for fever, vomiting, flank pain, pregnancy, or systemic illness",
+   "Antimicrobial choice must be guided by a clinician and culture results"
+  ],
+  "cases": 58,
+  "key_fields": [
+   "Leukocyte esterase",
+   "Nitrite",
+   "WBC (/hpf)"
+  ]
+ },
+ "Iron-deficiency anemia pattern": {
+  "category": "Hematology",
+  "next_steps": [
+   "Identify and address the underlying cause, including menstrual blood loss, gastrointestinal blood loss, diet, or malabsorption",
+   "Clinician review; consider stool occult blood, gastrointestinal evaluation, celiac screening, or additional hematinics where indicated",
+   "Dietary counseling and iron-repletion strategy selected by a clinician",
+   "Recheck hemoglobin and iron studies after an appropriate treatment interval"
+  ],
+  "cases": 80,
+  "key_fields": [
+   "Ferritin (ng/mL)",
+   "Hemoglobin (g/dL)",
+   "MCV (fL)",
+   "Serum iron (mcg/dL)",
+   "TIBC (mcg/dL)"
+  ]
+ },
+ "Malaria": {
+  "category": "Infectious Disease",
+  "next_steps": [
+   "Urgent clinician assessment; determine species and severity",
+   "Check parasite density, CBC, renal and liver function, and glucose as indicated",
+   "Seek emergency care for altered consciousness, seizures, respiratory distress, jaundice, or very low urine output",
+   "Antimalarial therapy must be clinician-prescribed based on species, severity, pregnancy status, and local resistance patterns"
+  ],
+  "cases": 25,
+  "key_fields": [
+   "Hemoglobin (g/dL)",
+   "Malaria parasite test",
+   "Platelets (/uL)"
+  ]
+ },
+ "Vitamin B12 deficiency": {
+  "category": "Nutrition",
+  "next_steps": [
+   "Assess diet, gastrointestinal absorption, prior gastric surgery, metformin use, and vegan diet",
+   "Consider CBC, MCV, peripheral smear, homocysteine/methylmalonic acid, and autoimmune gastritis testing as indicated",
+   "Clinician-directed B12 repletion and monitoring",
+   "Urgent neurologic assessment if significant neurologic symptoms are present"
+  ],
+  "cases": 36,
+  "key_fields": [
+   "25-OH Vitamin D (ng/mL)",
+   "Vitamin B12 (pg/mL)"
+  ]
+ },
+ "Viral hepatitis": {
+  "category": "Infectious Disease",
+  "next_steps": [
+   "Prompt clinician assessment and viral hepatitis workup",
+   "Test HBV DNA, HBeAg/anti-HBe, liver function, coagulation profile, and ultrasound as indicated",
+   "Screen household and sexual contacts and discuss vaccination/prevention",
+   "Antiviral therapy decisions require specialist assessment"
+  ],
+  "cases": 16,
+  "key_fields": [
+   "ALT (U/L)",
+   "HBsAg",
+   "Total bilirubin (mg/dL)"
+  ]
+ },
+ "MRI brain": {
+  "category": "Radiology",
+  "next_steps": [
+   "Urgent neurology/emergency assessment for focal weakness, speech difficulty, seizure, or sudden severe headache",
+   "Review vascular risk factors and medication history",
+   "Further imaging or specialist referral based on the complete report"
+  ],
+  "cases": 15,
+  "key_fields": []
+ },
+ "Dengue": {
+  "category": "Infectious Disease",
+  "next_steps": [
+   "Urgent clinician assessment; monitor platelet count, hematocrit, hydration, urine output, and warning signs",
+   "Seek emergency care for persistent vomiting, abdominal pain, bleeding, lethargy, cold/clammy skin, or reduced urine output",
+   "Avoid NSAIDs/aspirin unless specifically advised by a clinician",
+   "Supportive care and fluid management must be clinician-supervised"
+  ],
+  "cases": 12,
+  "key_fields": [
+   "Dengue NS1 antigen",
+   "Hematocrit (%)",
+   "Platelets (/uL)"
+  ]
+ },
+ "Chest X-ray": {
+  "category": "Radiology",
+  "next_steps": [
+   "Clinician review and assessment of infection, cardiac status, or other cause as appropriate",
+   "Consider pulse oximetry, CBC, CRP, ECG, and further imaging when indicated",
+   "Seek urgent care for severe breathlessness, hypoxia, chest pain, or confusion"
+  ],
+  "cases": 23,
+  "key_fields": []
+ },
+ "Renal impairment": {
+  "category": "Nephrology",
+  "next_steps": [
+   "Prompt clinician review to distinguish acute kidney injury from chronic kidney disease",
+   "Review hydration, medications, nephrotoxic agents, obstruction, infection, diabetes, and hypertension",
+   "Check urine analysis, urine albumin-creatinine ratio, electrolytes, and renal ultrasound as indicated",
+   "Medication dose adjustment and nephrology referral should be clinician-directed"
+  ],
+  "cases": 70,
+  "key_fields": [
+   "Creatinine (mg/dL)",
+   "Urea (mg/dL)",
+   "eGFR (mL/min/1.73m2)"
+  ]
+ },
+ "Hyperglycemia": {
+  "category": "Endocrinology",
+  "next_steps": [
+   "Clinician review of full history, examination, and repeat/confirmatory testing as indicated",
+   "Assess blood pressure, BMI, lipid profile, kidney function, and urine albumin",
+   "Structured diet, physical activity, sleep, and glucose-monitoring counseling",
+   "Medication decisions, if required, must be individualized by a licensed clinician"
+  ],
+  "cases": 97,
+  "key_fields": [
+   "Fasting glucose (mg/dL)",
+   "HbA1c (%)",
+   "Random glucose (mg/dL)"
+  ]
+ },
+ "Elevated CA-125": {
+  "category": "Oncology",
+  "next_steps": [
+   "Gynecology/oncology review with pelvic examination and transvaginal ultrasound",
+   "Interpret with menopausal status, symptoms, imaging, and additional markers where indicated",
+   "Do not treat an elevated marker alone as cancer; further evaluation is required"
+  ],
+  "cases": 31,
+  "key_fields": [
+   "CA-125 (U/mL)",
+   "Hemoglobin (g/dL)"
+  ]
+ },
+ "Systemic inflammation with autoimmune markers": {
+  "category": "Rheumatology / Immunology",
+  "next_steps": [
+   "Rheumatology or relevant specialist review with full symptom and medication history",
+   "Consider disease-specific antibodies, CBC, complement, urine analysis, and organ-function tests",
+   "Assess infection, malignancy, and drug-induced causes before attributing findings to autoimmune disease",
+   "Immunosuppressive treatment must be specialist-directed"
+  ],
+  "cases": 55,
+  "key_fields": [
+   "ANA",
+   "CRP (mg/L)",
+   "ESR (mm/hr)"
+  ]
+ },
+ "Multi-system screening abnormalities": {
+  "category": "Preventive Health",
+  "next_steps": [
+   "Clinician review of the complete health-package report rather than treating isolated values",
+   "Prioritize clinically significant abnormalities and confirm borderline results",
+   "Address diet, activity, sleep, tobacco/alcohol use, and preventive screening",
+   "Medication or supplementation decisions require individualized clinical assessment"
+  ],
+  "cases": 31,
+  "key_fields": [
+   "ALT (U/L)",
+   "Creatinine (mg/dL)",
+   "HbA1c (%)",
+   "Hemoglobin (g/dL)",
+   "LDL (mg/dL)",
+   "TSH (mIU/L)",
+   "Vitamin D (ng/mL)"
+  ]
+ },
+ "2D Echo": {
+  "category": "Cardiology",
+  "next_steps": [
+   "Cardiology review; assess ischemia, hypertension, valve disease, arrhythmia, and fluid status",
+   "Optimize blood pressure, diabetes, lipid, and lifestyle risk factors",
+   "Heart-failure therapy, if indicated, must be clinician-directed"
+  ],
+  "cases": 26,
+  "key_fields": [
+   "Ejection fraction (%)"
+  ]
+ },
+ "Hypothyroid-pattern thyroid dysfunction": {
+  "category": "Endocrinology",
+  "next_steps": [
+   "Clinician review including neck examination, symptoms, medications, and pregnancy status where relevant",
+   "Consider thyroid antibodies, thyroid ultrasound, or repeat testing as clinically indicated",
+   "Symptom-directed supportive care and referral to endocrinology when appropriate",
+   "Thyroid hormone treatment, if indicated, must be prescribed and titrated by a clinician"
+  ],
+  "cases": 47,
+  "key_fields": [
+   "Free T4 (ng/dL)",
+   "TSH (mIU/L)"
+  ]
+ },
+ "ECG": {
+  "category": "Cardiology",
+  "next_steps": [
+   "Urgent emergency assessment for chest pain, syncope, hypotension, or suspected ischemic changes",
+   "Review electrolytes, thyroid status, medications, and cardiac risk factors",
+   "Further cardiac evaluation may include troponin, echo, Holter, or cardiology referral"
+  ],
+  "cases": 6,
+  "key_fields": []
+ },
+ "Hyperthyroid-pattern thyroid dysfunction": {
+  "category": "Endocrinology",
+  "next_steps": [
+   "Clinician review including neck examination, symptoms, medications, and pregnancy status where relevant",
+   "Consider thyroid antibodies, thyroid ultrasound, or repeat testing as clinically indicated",
+   "Symptom-directed supportive care and referral to endocrinology when appropriate",
+   "Thyroid hormone treatment, if indicated, must be prescribed and titrated by a clinician"
+  ],
+  "cases": 28,
+  "key_fields": [
+   "Free T4 (ng/dL)",
+   "TSH (mIU/L)"
+  ]
+ },
+ "Elevated PSA": {
+  "category": "Oncology",
+  "next_steps": [
+   "Urology review including urinary symptoms, prostate examination, infection, recent procedures, and medication review",
+   "Consider repeat PSA, free PSA, MRI, or biopsy only when clinically appropriate",
+   "An elevated PSA alone does not establish cancer"
+  ],
+  "cases": 22,
+  "key_fields": [
+   "PSA (ng/mL)"
+  ]
+ },
+ "Thyroid in pregnancy": {
+  "category": "Obstetrics / Gynecology",
+  "next_steps": [
+   "Obstetric and endocrinology review with pregnancy confirmation and gestational-age assessment",
+   "Consider thyroid antibodies and repeat thyroid function testing as indicated",
+   "Levothyroxine initiation or dose adjustment must be clinician-directed"
+  ],
+  "cases": 19,
+  "key_fields": [
+   "Free T4 (ng/dL)",
+   "TSH (mIU/L)"
+  ]
+ },
+ "Vitamin D deficiency": {
+  "category": "Nutrition",
+  "next_steps": [
+   "Clinician review of diet, sun exposure, kidney/liver function, medications, and fracture or fall risk",
+   "Consider calcium and phosphate assessment where clinically appropriate",
+   "Vitamin D repletion dose and duration should be clinician-directed",
+   "Repeat 25-OH Vitamin D after an appropriate interval"
+  ],
+  "cases": 41,
+  "key_fields": [
+   "25-OH Vitamin D (ng/mL)",
+   "Vitamin B12 (pg/mL)"
+  ]
+ },
+ "Ultrasound abdomen": {
+  "category": "Radiology",
+  "next_steps": [
+   "Clinician review of liver, kidney, biliary, or gastrointestinal symptoms as relevant",
+   "Consider LFT/KFT, urine tests, and follow-up imaging where indicated",
+   "Urgent assessment for severe pain, fever, jaundice, or vomiting"
+  ],
+  "cases": 24,
+  "key_fields": []
+ },
+ "PCOS-pattern": {
+  "category": "Obstetrics / Gynecology",
+  "next_steps": [
+   "Gynecology/endocrinology assessment using menstrual history, androgen features, ultrasound, and metabolic screening",
+   "Screen for insulin resistance, lipid abnormalities, blood pressure, sleep apnea, and mood concerns",
+   "Fertility or hormonal treatment must be individualized by a clinician"
+  ],
+  "cases": 16,
+  "key_fields": [
+   "AMH (ng/mL)",
+   "FSH (mIU/mL)",
+   "LH (mIU/mL)",
+   "Total testosterone (ng/dL)"
+  ]
+ },
+ "Typhoid": {
+  "category": "Infectious Disease",
+  "next_steps": [
+   "Clinician review and consideration of blood culture before antibiotics where feasible",
+   "Assess hydration, abdominal pain, neurologic status, and complications",
+   "Antibiotic selection requires clinician assessment and local resistance patterns",
+   "Seek urgent care for severe abdominal pain, persistent vomiting, confusion, or worsening fever"
+  ],
+  "cases": 18,
+  "key_fields": [
+   "CRP (mg/L)",
+   "Typhoid IgM",
+   "WBC (/uL)"
+  ]
+ },
+ "Pregnancy": {
+  "category": "Obstetrics / Gynecology",
+  "next_steps": [
+   "Confirm with clinician assessment and appropriate dating/ultrasound evaluation",
+   "Review medications, chronic conditions, folic-acid status, and prenatal care needs",
+   "Seek urgent care for severe one-sided pain, vaginal bleeding, dizziness, or shoulder-tip pain"
+  ],
+  "cases": 15,
+  "key_fields": [
+   "Beta hCG (mIU/mL)",
+   "Urine pregnancy test"
+  ]
+ },
+ "CT": {
+  "category": "Radiology",
+  "next_steps": [
+   "Specialist review of the complete radiology report",
+   "Compare with prior imaging and determine interval or urgent follow-up",
+   "Emergency review for unstable vitals, severe pain, or high-risk findings"
+  ],
+  "cases": 18,
+  "key_fields": []
+ },
+ "TMT": {
+  "category": "Cardiology",
+  "next_steps": [
+   "Cardiology review; consider coronary risk assessment and further non-invasive testing where appropriate",
+   "Emergency assessment for ongoing chest pain or unstable symptoms",
+   "Risk-factor modification and medication decisions require clinician assessment"
+  ],
+  "cases": 16,
+  "key_fields": []
+ },
+ "Impaired glucose regulation": {
+  "category": "Endocrinology",
+  "next_steps": [
+   "Clinician review of full history, examination, and repeat/confirmatory testing as indicated",
+   "Assess blood pressure, BMI, lipid profile, kidney function, and urine albumin",
+   "Structured diet, physical activity, sleep, and glucose-monitoring counseling",
+   "Medication decisions, if required, must be individualized by a licensed clinician"
+  ],
+  "cases": 1,
+  "key_fields": [
+   "Fasting glucose (mg/dL)",
+   "HbA1c (%)",
+   "Random glucose (mg/dL)"
+  ]
+ }
+}

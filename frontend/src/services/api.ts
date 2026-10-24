@@ -3,7 +3,7 @@ import {
   DiagnosticOrder, FollowUpPlan, HealthWorkerTask, CareTimelineEvent,
   AdminMetrics, User, ChatTurn, ChatResponse, PatientRecord, RegisterPayload,
   Doctor, FacilityManage, FacilityService, InventoryItem, ScheduleSlot,
-  AdminActivity, FamilyMember, AuditEvent, Lang, CareTeamMember, CaseReviewSummary
+  AdminActivity, FamilyMember, AuditEvent, Lang, CareTeamMember, CaseReviewSummary, ReportAnalysisResult
 } from '../types';
 import { getOfflineMode, enqueueOfflineAction } from './offlineQueue';
 
@@ -155,6 +155,20 @@ export const api = {
   getAuditEvents: (limit = 50) => get<AuditEvent[]>(`/audit-events${qs({ limit })}`),
   getAdminMetrics: () => get<AdminMetrics>('/admin/metrics'),
   getAdminActivity: () => get<AdminActivity>('/admin/activity'),
+  getReportStatus: () => get<{ vision_available: boolean; model: any }>('/reports/status'),
+  getReport: (id: number) => get<ReportAnalysisResult>(`/reports/${id}`),
+  async analyzeReport(file: Blob, filename: string, symptoms: string, language: Lang): Promise<ReportAnalysisResult> {
+    const res = await fetch(`${API_BASE}/reports/analyze${qs({ filename, symptoms, language })}`, {
+      method: 'POST', body: file,
+      headers: { 'Content-Type': file.type || 'application/octet-stream', Authorization: `Bearer ${authToken ?? ''}` },
+    });
+    if (!res.ok) {
+      let detail = `${res.status}`;
+      try { detail = (await res.json()).detail || detail; } catch { /* non-JSON */ }
+      throw new ApiError(res.status, detail);
+    }
+    return res.json();
+  },
   getCaseReviews: () => get<CaseReviewSummary>('/admin/case-reviews'),
   runContinuityEngine: () => send<{ newly_overdue: number; tasks_created: number; reminders_sent: number }>('POST', '/continuity/run'),
   getModelInfo: () => get<any>('/ai/model-info'),

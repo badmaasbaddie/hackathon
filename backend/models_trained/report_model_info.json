@@ -1,0 +1,13 @@
+{
+  "status": "TRAINED",
+  "dataset": "synthetic_lab_report_training_1000 (de-identified, synthetic)",
+  "dataset_size": 1000,
+  "patterns": 29,
+  "specialties": 13,
+  "cv_accuracy_with_symptoms": 98.9,
+  "cv_accuracy_lab_values_only": 98.5,
+  "cv_macro_f1_lab_values_only": 94.3,
+  "lab_fields": 44,
+  "notes": "Every training report is abnormal; the model is only consulted after reference ranges flag an abnormal value.",
+  "trained_at": "2026-10-24T08:54:27.619849+00:00"
+}
