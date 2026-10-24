@@ -5,7 +5,7 @@ import { PatientMasterProfileModal } from './PatientMasterProfileModal';
 import { 
   AlertTriangle, PhoneCall, CheckCircle2, Clock, MapPin, 
   Stethoscope, Pill, FileText, Calendar, Shield, Users, Mic, Send,
-  ArrowRight, Activity, Info, AlertCircle
+  ArrowRight, Activity, Info, AlertCircle, Sparkles, Utensils, Ban, Briefcase
 } from 'lucide-react';
 
 interface PatientPortalProps {
@@ -121,9 +121,11 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language }) => {
   };
 
   const samplePrompts = [
-    { label: language === 'hi' ? 'सीने में दर्द व सांस में तकलीफ (आपातकाल)' : 'Severe chest pain & breathlessness (Emergency)', text: 'Mujhe chest mein severe pain aur saans lene mein dikkat ho rahi hai pichle 2 ghante se.' },
-    { label: language === 'hi' ? 'बुखार और शरीर दर्द (सामान्य)' : 'Fever & body pain (Routine)', text: 'Halka bukhar aur badan dard hai kal raat se.' },
-    { label: language === 'hi' ? 'मधुमेह एवं ब्लड प्रेशर फॉलो-अप' : 'Diabetes & BP checkup', text: 'Mujhe BP aur sugar ki dawaiyan leni hain aur regular follow-up check karwana hai.' }
+    { label: language === 'hi' ? 'दस्त व पेट खराब (Loose Motion - 1 दिन)' : 'Loose motion & cramps (1 day)', text: 'Mujhe kal raat se pet me marod aur dast loose motion ho raha hai.' },
+    { label: language === 'hi' ? 'तेज सिरदर्द व भारीपन (Headache - 1 दिन)' : 'Headache & neck strain (Recent)', text: 'Dhoop me kaam karne ke baad se sir me tez dard aur bhari pan lag raha hai.' },
+    { label: language === 'hi' ? 'हल्का बुखार और शरीर दर्द (Fever - 2 दिन)' : 'Mild fever & body pain (2 days)', text: 'Halka bukhar aur badan dard hai pichle do din se.' },
+    { label: language === 'hi' ? 'सीने में दर्द व सांस में तकलीफ (आपातकाल)' : 'Severe chest pain (Emergency)', text: 'Mujhe chest mein severe pain aur saans lene mein dikkat ho rahi hai pichle 2 ghante se.' },
+    { label: language === 'hi' ? 'मधुमेह एवं ब्लड प्रेशर चेकअप' : 'Diabetes & BP follow-up', text: 'Mujhe BP aur sugar ki dawaiyan leni hain aur regular follow-up check karwana hai.' }
   ];
 
   return (
@@ -323,6 +325,133 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language }) => {
               </div>
             )}
 
+            {/* EARLY PRECAUTION, DIET & WORK GUIDANCE SECTION */}
+            {triageResponse && (triageResponse.what_to_do?.length || triageResponse.diet_to_eat?.length) && (
+              <div className="bg-white rounded-2xl border-2 border-teal-500/30 p-5 space-y-4 shadow-sm animate-fade-in">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center">
+                      <Sparkles size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-900">
+                        {language === 'hi' ? 'प्रारंभिक सावधानी, सुरक्षित आहार व कार्य निर्देश' : 'Early Precautions, Diet & Work Guidance'}
+                      </h4>
+                      <p className="text-[11px] text-slate-500">
+                        {language === 'hi' ? 'समस्या शुरू होने के 1-3 दिनों में सही आहार व सावधानी से त्वरित स्वास्थ्य लाभ' : 'Immediate home care, dietary dos & don\'ts, and work limits for recent symptoms (1-3 days)'}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[11px] bg-teal-50 text-teal-800 font-bold px-2.5 py-1 rounded-full border border-teal-200">
+                    {language === 'hi' ? '✓ तुरंत राहत व घरेलू देखभाल' : '✓ Immediate Relief & Care'}
+                  </span>
+                </div>
+
+                {/* 4 Quadrants: What to Do, What NOT to Do, What to Eat, What to Avoid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  {/* Quadrant 1: What to Do */}
+                  <div className="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-1.5 font-bold text-emerald-900">
+                      <CheckCircle2 size={15} className="text-emerald-700 shrink-0" />
+                      <span>{language === 'hi' ? 'क्या करें (What to Do)' : 'Immediate Home Care (What to Do)'}</span>
+                    </div>
+                    <ul className="space-y-1.5 text-slate-700 pl-1">
+                      {triageResponse.what_to_do?.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5 leading-relaxed">
+                          <span className="text-emerald-600 font-bold">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Quadrant 2: What NOT to Do */}
+                  <div className="bg-rose-50/60 border border-rose-200 rounded-xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-1.5 font-bold text-rose-900">
+                      <AlertCircle size={15} className="text-rose-700 shrink-0" />
+                      <span>{language === 'hi' ? 'क्या न करें (What to Avoid / Don\'ts)' : 'Harmful Practices (What NOT to Do)'}</span>
+                    </div>
+                    <ul className="space-y-1.5 text-slate-700 pl-1">
+                      {triageResponse.what_not_to_do?.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5 leading-relaxed">
+                          <span className="text-rose-600 font-bold">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Quadrant 3: Diet to Eat */}
+                  <div className="bg-amber-50/60 border border-amber-200 rounded-xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-1.5 font-bold text-amber-900">
+                      <Utensils size={15} className="text-amber-700 shrink-0" />
+                      <span>{language === 'hi' ? 'आहार: क्या खाएं व पिएं' : 'Diet: What to Eat & Drink'}</span>
+                    </div>
+                    <ul className="space-y-1.5 text-slate-700 pl-1">
+                      {triageResponse.diet_to_eat?.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5 leading-relaxed">
+                          <span className="text-amber-600 font-bold">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Quadrant 4: Diet to Avoid */}
+                  <div className="bg-orange-50/60 border border-orange-200 rounded-xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-1.5 font-bold text-orange-900">
+                      <Ban size={15} className="text-orange-700 shrink-0" />
+                      <span>{language === 'hi' ? 'परहेज: क्या न खाएं' : 'Dietary Restrictions (What to Avoid)'}</span>
+                    </div>
+                    <ul className="space-y-1.5 text-slate-700 pl-1">
+                      {triageResponse.diet_to_avoid?.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5 leading-relaxed">
+                          <span className="text-orange-600 font-bold">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Safe Daily Work & Physical Activity Limits */}
+                {triageResponse.activity_and_work_guidance && triageResponse.activity_and_work_guidance.length > 0 && (
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-1.5 text-xs">
+                    <div className="flex items-center gap-1.5 font-bold text-slate-800">
+                      <Briefcase size={14} className="text-teal-700" />
+                      <span>{language === 'hi' ? 'दैनिक कार्य व शारीरिक श्रम निर्देश (क्या काम करें और क्या टालें)' : 'Safe Daily Work & Physical Activity Guidance'}</span>
+                    </div>
+                    <ul className="space-y-1 text-slate-600 pl-1">
+                      {triageResponse.activity_and_work_guidance.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5">
+                          <span className="text-teal-600 font-bold">✓</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Red Flag Warning Signs */}
+                {triageResponse.red_flag_warnings && triageResponse.red_flag_warnings.length > 0 && (
+                  <div className="bg-rose-50/80 border border-rose-300 rounded-xl p-3 space-y-1 text-xs">
+                    <div className="flex items-center gap-1.5 font-bold text-rose-900">
+                      <AlertTriangle size={14} className="text-rose-600" />
+                      <span>{language === 'hi' ? 'खतरे के लक्षण (कब तुरंत नजदीकी अस्पताल या डॉक्टर के पास जाएं)' : 'Red Flag Warning Signs (Rush to Hospital If)'}</span>
+                    </div>
+                    <ul className="space-y-0.5 text-rose-800 pl-1">
+                      {triageResponse.red_flag_warnings.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5">
+                          <span className="text-rose-600 font-bold">!</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* ROUTINE / URGENT RECOMMENDATION RESULT */}
             {triageResponse && !triageResponse.is_emergency && (
               <div className="bg-teal-50 border border-teal-200 rounded-2xl p-5 space-y-4">
@@ -374,6 +503,133 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({ language }) => {
                     <ArrowRight size={14} />
                   </button>
                 </div>
+              </div>
+            )}
+
+            {/* EARLY PRECAUTION, DIET & WORK GUIDANCE SECTION */}
+            {triageResponse && (triageResponse.what_to_do?.length || triageResponse.diet_to_eat?.length) && (
+              <div className="bg-white rounded-2xl border-2 border-teal-500/30 p-5 space-y-4 shadow-sm animate-fade-in">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center">
+                      <Sparkles size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-900">
+                        {language === 'hi' ? 'प्रारंभिक सावधानी, सुरक्षित आहार व कार्य निर्देश' : 'Early Precautions, Diet & Work Guidance'}
+                      </h4>
+                      <p className="text-[11px] text-slate-500">
+                        {language === 'hi' ? 'समस्या शुरू होने के 1-3 दिनों में सही आहार व सावधानी से त्वरित स्वास्थ्य लाभ' : 'Immediate home care, dietary dos & don\'ts, and work limits for recent symptoms (1-3 days)'}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[11px] bg-teal-50 text-teal-800 font-bold px-2.5 py-1 rounded-full border border-teal-200">
+                    {language === 'hi' ? '✓ तुरंत राहत व घरेलू देखभाल' : '✓ Immediate Relief & Care'}
+                  </span>
+                </div>
+
+                {/* 4 Quadrants: What to Do, What NOT to Do, What to Eat, What to Avoid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  {/* Quadrant 1: What to Do */}
+                  <div className="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-1.5 font-bold text-emerald-900">
+                      <CheckCircle2 size={15} className="text-emerald-700 shrink-0" />
+                      <span>{language === 'hi' ? 'क्या करें (What to Do)' : 'Immediate Home Care (What to Do)'}</span>
+                    </div>
+                    <ul className="space-y-1.5 text-slate-700 pl-1">
+                      {triageResponse.what_to_do?.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5 leading-relaxed">
+                          <span className="text-emerald-600 font-bold">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Quadrant 2: What NOT to Do */}
+                  <div className="bg-rose-50/60 border border-rose-200 rounded-xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-1.5 font-bold text-rose-900">
+                      <AlertCircle size={15} className="text-rose-700 shrink-0" />
+                      <span>{language === 'hi' ? 'क्या न करें (What to Avoid / Don\'ts)' : 'Harmful Practices (What NOT to Do)'}</span>
+                    </div>
+                    <ul className="space-y-1.5 text-slate-700 pl-1">
+                      {triageResponse.what_not_to_do?.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5 leading-relaxed">
+                          <span className="text-rose-600 font-bold">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Quadrant 3: Diet to Eat */}
+                  <div className="bg-amber-50/60 border border-amber-200 rounded-xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-1.5 font-bold text-amber-900">
+                      <Utensils size={15} className="text-amber-700 shrink-0" />
+                      <span>{language === 'hi' ? 'आहार: क्या खाएं व पिएं' : 'Diet: What to Eat & Drink'}</span>
+                    </div>
+                    <ul className="space-y-1.5 text-slate-700 pl-1">
+                      {triageResponse.diet_to_eat?.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5 leading-relaxed">
+                          <span className="text-amber-600 font-bold">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Quadrant 4: Diet to Avoid */}
+                  <div className="bg-orange-50/60 border border-orange-200 rounded-xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-1.5 font-bold text-orange-900">
+                      <Ban size={15} className="text-orange-700 shrink-0" />
+                      <span>{language === 'hi' ? 'परहेज: क्या न खाएं' : 'Dietary Restrictions (What to Avoid)'}</span>
+                    </div>
+                    <ul className="space-y-1.5 text-slate-700 pl-1">
+                      {triageResponse.diet_to_avoid?.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5 leading-relaxed">
+                          <span className="text-orange-600 font-bold">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Safe Daily Work & Physical Activity Limits */}
+                {triageResponse.activity_and_work_guidance && triageResponse.activity_and_work_guidance.length > 0 && (
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-1.5 text-xs">
+                    <div className="flex items-center gap-1.5 font-bold text-slate-800">
+                      <Briefcase size={14} className="text-teal-700" />
+                      <span>{language === 'hi' ? 'दैनिक कार्य व शारीरिक श्रम निर्देश (क्या काम करें और क्या टालें)' : 'Safe Daily Work & Physical Activity Guidance'}</span>
+                    </div>
+                    <ul className="space-y-1 text-slate-600 pl-1">
+                      {triageResponse.activity_and_work_guidance.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5">
+                          <span className="text-teal-600 font-bold">✓</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Red Flag Warning Signs */}
+                {triageResponse.red_flag_warnings && triageResponse.red_flag_warnings.length > 0 && (
+                  <div className="bg-rose-50/80 border border-rose-300 rounded-xl p-3 space-y-1 text-xs">
+                    <div className="flex items-center gap-1.5 font-bold text-rose-900">
+                      <AlertTriangle size={14} className="text-rose-600" />
+                      <span>{language === 'hi' ? 'खतरे के लक्षण (कब तुरंत नजदीकी अस्पताल या डॉक्टर के पास जाएं)' : 'Red Flag Warning Signs (Rush to Hospital If)'}</span>
+                    </div>
+                    <ul className="space-y-0.5 text-rose-800 pl-1">
+                      {triageResponse.red_flag_warnings.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-1.5">
+                          <span className="text-rose-600 font-bold">!</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
 

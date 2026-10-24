@@ -169,3 +169,31 @@ def test_csv_report_exports():
         assert "text/csv" in res.headers["content-type"]
         assert f"swasthyasetu_{r_type}.csv" in res.headers["content-disposition"]
         assert len(res.text) > 0
+
+def test_early_precaution_guidance_minor_symptoms():
+    res = client.post("/api/symptom-intake", json={
+        "patient_id": 1,
+        "raw_input": "Mujhe pet me dard aur dast loose motion ho raha hai kal se",
+        "language": "hi",
+        "duration_days": 1
+    })
+    assert res.status_code == 200
+    data = res.json()
+    assert len(data["what_to_do"]) > 0
+    assert len(data["what_not_to_do"]) > 0
+    assert len(data["diet_to_eat"]) > 0
+    assert len(data["diet_to_avoid"]) > 0
+    assert len(data["activity_and_work_guidance"]) > 0
+    assert len(data["red_flag_warnings"]) > 0
+    assert "ORS" in " ".join(data["what_to_do"])
+
+def test_post_consultation_disease_lifestyle_guidance():
+    res = client.get("/api/patients/1/lifestyle-guidance?language=hi")
+    assert res.status_code == 200
+    guide = res.json()
+    assert "condition_title" in guide
+    assert len(guide["dietary_recommendations"]) > 0
+    assert len(guide["dietary_restrictions"]) > 0
+    assert len(guide["work_recommendations"]) > 0
+    assert len(guide["work_restrictions"]) > 0
+    assert len(guide["medicine_adherence_tips"]) > 0

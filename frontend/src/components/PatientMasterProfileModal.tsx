@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
 import { 
   X, User, ShieldCheck, HeartPulse, Activity, AlertCircle, FileText, 
-  Calendar, CheckCircle2, Clock, Sparkles, Stethoscope, Pill, MapPin
+  Calendar, CheckCircle2, Clock, Sparkles, Stethoscope, Pill, MapPin,
+  Utensils, Ban, Briefcase, AlertTriangle
 } from 'lucide-react';
 
 interface PatientMasterProfileModalProps {
@@ -17,7 +18,7 @@ export const PatientMasterProfileModal: React.FC<PatientMasterProfileModalProps>
   language
 }) => {
   const [profile, setProfile] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<'timeline' | 'appointments' | 'reports' | 'followups' | 'ai_summary'>('timeline');
+  const [activeTab, setActiveTab] = useState<'timeline' | 'appointments' | 'reports' | 'followups' | 'lifestyle' | 'ai_summary'>('timeline');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [aiSummary, setAiSummary] = useState<any>(null);
   const [isGeneratingAi, setIsGeneratingAi] = useState<boolean>(false);
@@ -187,6 +188,16 @@ export const PatientMasterProfileModal: React.FC<PatientMasterProfileModalProps>
             }`}
           >
             <Activity size={14} /> Follow-ups & Alerts ({profile?.follow_up_plans?.length || 0})
+          </button>
+          <button
+            onClick={() => setActiveTab('lifestyle')}
+            className={`py-3 border-b-2 transition flex items-center gap-1.5 ${
+              activeTab === 'lifestyle'
+                ? 'border-teal-700 text-teal-800'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            <Utensils size={14} /> {language === 'hi' ? 'आहार व कार्य निर्देश' : 'Diet & Work Protocol'}
           </button>
           {aiSummary && (
             <button
@@ -419,6 +430,140 @@ export const PatientMasterProfileModal: React.FC<PatientMasterProfileModalProps>
                 </div>
               )}
             </>
+          )}
+
+          {/* LIFESTYLE, DIET & WORK GUIDANCE TAB */}
+          {activeTab === 'lifestyle' && (
+            <div className="space-y-5 animate-fade-in">
+              <div className="bg-teal-50 border border-teal-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <span className="text-[10px] font-bold uppercase bg-teal-700 text-white px-2 py-0.5 rounded">
+                    Personalized Clinical Lifestyle & Nutrition Protocol
+                  </span>
+                  <h4 className="text-base font-bold text-slate-900 mt-1">
+                    {profile?.lifestyle_guidance?.condition_title || 'General Preventive Lifestyle & Nutrition Protocol'}
+                  </h4>
+                  <p className="text-xs text-slate-600 mt-0.5">
+                    Tailored to verified diagnoses ({profile?.conditions}), current medications, and diagnostic reports.
+                  </p>
+                </div>
+                <div className="bg-white px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-semibold text-teal-800 flex items-center gap-1.5 shadow-sm">
+                  <HeartPulse size={16} />
+                  <span>Evidence-Based Public Health</span>
+                </div>
+              </div>
+
+              {/* 2 Column Grid: Dietary Recommendations vs Restrictions */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Diet to Eat */}
+                <div className="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center gap-2 font-bold text-emerald-900 text-sm">
+                    <Utensils size={16} className="text-emerald-700" />
+                    <span>{language === 'hi' ? 'अनुशंसित आहार: क्या खाएं व पिएं' : 'Recommended Foods: What to Eat & Drink'}</span>
+                  </div>
+                  <ul className="space-y-2 text-xs text-slate-700 pl-1">
+                    {profile?.lifestyle_guidance?.dietary_recommendations?.map((item: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-emerald-600 font-bold">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Diet to Avoid */}
+                <div className="bg-rose-50/70 border border-rose-200 rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center gap-2 font-bold text-rose-900 text-sm">
+                    <Ban size={16} className="text-rose-700" />
+                    <span>{language === 'hi' ? 'परहेज: क्या बिल्कुल न खाएं' : 'Dietary Restrictions: Foods to Strictly Avoid'}</span>
+                  </div>
+                  <ul className="space-y-2 text-xs text-slate-700 pl-1">
+                    {profile?.lifestyle_guidance?.dietary_restrictions?.map((item: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-rose-600 font-bold">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Work Recommendations vs Heavy Exertion Restrictions */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Work Recommendations */}
+                <div className="bg-sky-50/70 border border-sky-200 rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center gap-2 font-bold text-sky-900 text-sm">
+                    <Briefcase size={16} className="text-sky-700" />
+                    <span>{language === 'hi' ? 'सुरक्षित दैनिक कार्य व शारीरिक श्रम' : 'Safe Daily Work to Accomplish'}</span>
+                  </div>
+                  <ul className="space-y-2 text-xs text-slate-700 pl-1">
+                    {profile?.lifestyle_guidance?.work_recommendations?.map((item: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-sky-600 font-bold">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Work Restrictions */}
+                <div className="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center gap-2 font-bold text-amber-900 text-sm">
+                    <AlertTriangle size={16} className="text-amber-700" />
+                    <span>{language === 'hi' ? 'वर्जित भारी श्रम व जोखिम भरे कार्य' : 'Physical Exertion & Labor to Avoid'}</span>
+                  </div>
+                  <ul className="space-y-2 text-xs text-slate-700 pl-1">
+                    {profile?.lifestyle_guidance?.work_restrictions?.map((item: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-amber-600 font-bold">✕</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Medication Adherence Tips */}
+              {profile?.lifestyle_guidance?.medicine_adherence_tips && profile.lifestyle_guidance.medicine_adherence_tips.length > 0 && (
+                <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-2 text-xs">
+                  <div className="flex items-center gap-2 font-bold text-slate-900">
+                    <Pill size={16} className="text-teal-700" />
+                    <span>{language === 'hi' ? 'दवा लेने का सही समय व नियम' : 'Medication Timing & Adherence Guidelines'}</span>
+                  </div>
+                  <ul className="space-y-1.5 text-slate-600 pl-1">
+                    {profile.lifestyle_guidance.medicine_adherence_tips.map((item: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-teal-600 font-bold">→</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Warning Signs */}
+              {profile?.lifestyle_guidance?.warning_signs && profile.lifestyle_guidance.warning_signs.length > 0 && (
+                <div className="bg-rose-50 border border-rose-300 rounded-2xl p-4 space-y-2 text-xs">
+                  <div className="flex items-center gap-2 font-bold text-rose-900">
+                    <AlertTriangle size={16} className="text-rose-600" />
+                    <span>{language === 'hi' ? 'खतरे के संकेत (तुरंत डॉक्टर या आशा कार्यकर्ता को सूचित करें)' : 'Warning Signs (Notify Doctor or ASHA Immediately)'}</span>
+                  </div>
+                  <ul className="space-y-1 text-rose-800 pl-1">
+                    {profile.lifestyle_guidance.warning_signs.map((item: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-rose-600 font-bold">!</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Clinical Disclaimer */}
+              <p className="text-[11px] text-slate-400 italic text-center">
+                {profile?.lifestyle_guidance?.disclaimer || 'Clinical dietary & lifestyle guidance is for decision-support and preventive care. Must be reviewed with the treating physician.'}
+              </p>
+            </div>
           )}
         </div>
 

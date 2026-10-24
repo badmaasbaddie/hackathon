@@ -1,3 +1,4 @@
+from lifestyle_engine import generate_chronic_care_lifestyle_plan
 import os
 import io
 import csv
@@ -109,6 +110,16 @@ def get_patient_master_profile(
         "active_alerts": len([a for a in alerts if a.status in ["NEW", "ACKNOWLEDGED", "ASSIGNED", "IN_PROGRESS"]])
     }
 
+    # Generate personalized post-consultation / chronic lifestyle plan
+    med_names = []
+    for pr in prescriptions:
+        if hasattr(pr, 'items'):
+            for it in pr.items:
+                med_names.append(it.medicine_name)
+    recent_diag = ", ".join([e.diagnosis for e in encounters if e.diagnosis]) if encounters else ""
+    combined_cond = f"{patient.chronic_conditions or ''} {recent_diag}".strip()
+    lifestyle_plan = generate_chronic_care_lifestyle_plan(combined_cond, med_names, language="hi")
+
     return schemas.PatientMasterProfileOut(
         patient=patient,
         external_id=patient.external_id,
@@ -128,8 +139,33 @@ def get_patient_master_profile(
         timeline_events=timeline,
         consents=consents,
         ai_summaries=ai_summaries,
-        provenance_counts=provenance_counts
+        provenance_counts=provenance_counts,
+        lifestyle_guidance=schemas.LifestyleGuidanceOut(**lifestyle_plan) if lifestyle_plan else None
     )
+
+@router.get("/patients/{patient_id}/lifestyle-guidance", response_model=schemas.LifestyleGuidanceOut)
+def get_patient_lifestyle_guidance(
+    patient_id: int,
+    language: str = "hi",
+    db: Session = Depends(get_db)
+):
+    patient = db.query(models.Patient).filter(models.Patient.id == patient_id).first()
+    if not patient:
+        raise HTTPException(status_code=404, detail="Patient not found")
+    
+    encounters = db.query(models.ClinicalEncounter).filter(models.ClinicalEncounter.patient_id == patient_id).all()
+    recent_diag = ", ".join([e.diagnosis for e in encounters if e.diagnosis]) if encounters else ""
+    combined_cond = f"{patient.chronic_conditions or ''} {recent_diag}".strip()
+
+    prescriptions = db.query(models.Prescription).filter(models.Prescription.patient_id == patient_id).all()
+    med_names = []
+    for pr in prescriptions:
+        if hasattr(pr, 'items'):
+            for it in pr.items:
+                med_names.append(it.medicine_name)
+
+    plan = generate_chronic_care_lifestyle_plan(combined_cond, med_names, language=language)
+    return schemas.LifestyleGuidanceOut(**plan)
 
 @router.get("/patients/{patient_id}/family", response_model=List[schemas.FamilyMemberOut])
 def get_patient_family_view(patient_id: int, db: Session = Depends(get_db)):

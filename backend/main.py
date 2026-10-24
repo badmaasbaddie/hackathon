@@ -286,7 +286,13 @@ def submit_symptom_intake(
         recommended_facility_type=triage_result["recommended_facility_type"],
         ai_doctor_summary=triage_result["ai_doctor_summary"],
         explanation_patient=triage_result["explanation_patient"],
-        is_simulated_ai=True
+        is_simulated_ai=True,
+        what_to_do=triage_result.get("what_to_do", []),
+        what_not_to_do=triage_result.get("what_not_to_do", []),
+        diet_to_eat=triage_result.get("diet_to_eat", []),
+        diet_to_avoid=triage_result.get("diet_to_avoid", []),
+        activity_and_work_guidance=triage_result.get("activity_and_work_guidance", []),
+        red_flag_warnings=triage_result.get("red_flag_warnings", [])
     )
 
 # ----------------- FACILITIES & READINESS -----------------

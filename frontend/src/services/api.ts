@@ -306,6 +306,12 @@ export const api = {
     return res.json();
   },
 
+  async getLifestyleGuidance(patientId: number, language: string = 'hi'): Promise<any> {
+    const res = await fetch(`${API_BASE}/patients/${patientId}/lifestyle-guidance?language=${language}`);
+    if (!res.ok) throw new Error('Failed to fetch lifestyle guidance');
+    return res.json();
+  },
+
   getReportExportUrl(reportType: string): string {
     return `${API_BASE}/reports/export/${reportType}`;
   }

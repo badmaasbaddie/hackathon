@@ -56,6 +56,23 @@ export interface SymptomIntakeResponse {
   ai_doctor_summary: string;
   explanation_patient: string;
   is_simulated_ai: boolean;
+  what_to_do?: string[];
+  what_not_to_do?: string[];
+  diet_to_eat?: string[];
+  diet_to_avoid?: string[];
+  activity_and_work_guidance?: string[];
+  red_flag_warnings?: string[];
+}
+
+export interface LifestyleGuidance {
+  condition_title: string;
+  dietary_recommendations: string[];
+  dietary_restrictions: string[];
+  work_recommendations: string[];
+  work_restrictions: string[];
+  medicine_adherence_tips: string[];
+  warning_signs: string[];
+  disclaimer?: string;
 }
 
 export interface FacilityReadiness {
@@ -259,6 +276,7 @@ export interface PatientMasterProfile {
     ai_summaries: number;
     active_alerts: number;
   };
+  lifestyle_guidance?: LifestyleGuidance;
 }
 
 export interface DatabaseHealth {

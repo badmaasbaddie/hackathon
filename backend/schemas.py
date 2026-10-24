@@ -88,6 +88,23 @@ class SymptomIntakeResponse(BaseModel):
     ai_doctor_summary: str
     explanation_patient: str
     is_simulated_ai: bool = True
+    what_to_do: List[str] = []
+    what_not_to_do: List[str] = []
+    diet_to_eat: List[str] = []
+    diet_to_avoid: List[str] = []
+    activity_and_work_guidance: List[str] = []
+    red_flag_warnings: List[str] = []
+
+class LifestyleGuidanceOut(BaseModel):
+    condition_title: str
+    dietary_recommendations: List[str] = []
+    dietary_restrictions: List[str] = []
+    work_recommendations: List[str] = []
+    work_restrictions: List[str] = []
+    medicine_adherence_tips: List[str] = []
+    warning_signs: List[str] = []
+    disclaimer: str = "Clinical dietary & lifestyle guidance is for decision-support and preventive care. Must be reviewed with the treating physician."
+
 
 class FacilityReadinessOut(BaseModel):
     id: int
@@ -483,6 +500,7 @@ class PatientMasterProfileOut(BaseModel):
     timeline_events: List[CareTimelineEventOut] = []
     consents: List[ConsentRecordOut] = []
     ai_summaries: List[AISummaryOut] = []
+    lifestyle_guidance: Optional[LifestyleGuidanceOut] = None
     provenance_counts: Dict[str, int] = {}
 
 class DatabaseHealthOut(BaseModel):

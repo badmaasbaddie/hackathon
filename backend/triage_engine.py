@@ -5,6 +5,7 @@ immediate 112 emergency advice, multi-language detection (Hindi + English).
 """
 
 from typing import Dict, Any, List
+from lifestyle_engine import generate_early_precautions_and_diet
 
 EMERGENCY_KEYWORDS = [
     # Cardiac / Chest pain
@@ -117,6 +118,8 @@ def analyze_symptoms(text: str, language: str = "hi", duration_days: int = 2) ->
             f"Chief concern: {text[:100]}. Recommended standard outpatient consultation."
         )
 
+    lifestyle_info = generate_early_precautions_and_diet(text, language, duration_days)
+
     return {
         "primary_complaint": primary_complaint,
         "severity": severity,
@@ -129,5 +132,11 @@ def analyze_symptoms(text: str, language: str = "hi", duration_days: int = 2) ->
         "recommended_facility_type": rec_facility,
         "ai_doctor_summary": doctor_summary,
         "explanation_patient": patient_exp,
-        "is_simulated_ai": True
+        "is_simulated_ai": True,
+        "what_to_do": lifestyle_info.get("what_to_do", []),
+        "what_not_to_do": lifestyle_info.get("what_not_to_do", []),
+        "diet_to_eat": lifestyle_info.get("diet_to_eat", []),
+        "diet_to_avoid": lifestyle_info.get("diet_to_avoid", []),
+        "activity_and_work_guidance": lifestyle_info.get("activity_and_work_guidance", []),
+        "red_flag_warnings": lifestyle_info.get("red_flag_warnings", [])
     }
